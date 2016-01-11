@@ -142,7 +142,7 @@ function updateTableFromCache(splicedTableCache){
 		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
 		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
 		output += '<td align="center" id="td_cost">$'+commaSeparateNumber(val.cost)+'</td>';
-		output += '<td align="center" id="td_cost">$'+commaSeparateNumber((val.cost / val.quality).toFixed(2))+'</td>';
+		output += '<td align="center" id="td_costperqua">$'+commaSeparateNumber((val.cost / val.quality).toFixed(2))+'</td>';
 		output += '<td align="center" id="td_profit">$'+commaSeparateNumber(val.profit)+'</td>';
 		output += '</tr>';
 	});
