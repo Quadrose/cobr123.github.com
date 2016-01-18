@@ -1,0 +1,23 @@
+@relation RetailSalePrediction
+
+@attribute WEALTH_INDEX numeric
+@attribute EDUCATION_INDEX numeric
+@attribute AVERAGE_SALARY numeric
+@attribute MARKET_INDEX {AAA,AA,A,B,C,D,E,''}
+@attribute MARKET_VOLUME numeric
+@attribute LOCAL_PERCENT numeric
+@attribute LOCAL_PRICE numeric
+@attribute LOCAL_QUALITY numeric
+@attribute PRICE numeric
+@attribute SHOP_SIZE {100,500,1000,10000,100000}
+@attribute TOWN_DISTRICT {'Р¤РµС€РµРЅРµР±РµР»СЊРЅС‹Р№ СЂР°Р№РѕРЅ','Р¦РµРЅС‚СЂ РіРѕСЂРѕРґР°','РЎРїР°Р»СЊРЅС‹Р№ СЂР°Р№РѕРЅ',РћРєСЂР°РёРЅР°,РџСЂРёРіРѕСЂРѕРґ}
+@attribute DEPARTMENT_COUNT numeric
+@attribute BRAND numeric
+@attribute QUALITY numeric
+@attribute SELL_VOLUME numeric
+@attribute NOTORIETY numeric
+@attribute VISITORS_COUNT numeric
+@attribute SERVICE_LEVEL {Р­Р»РёС‚РЅС‹Р№,Р’С‹СЃРѕРєРёР№,РЎСЂРµРґРЅРёР№,РќРёР·РєРёР№}
+@attribute SELLER_COUNT numeric
+
+@data
