@@ -144,15 +144,16 @@ function loadData() {
 				preditctionParams['local_quality'] = val.lq;
 				preditctionParams['shop_size'] = $('#shopSize').val();
 				preditctionParams['town_district'] = $('#townDistrict').val();
-				preditctionParams['department_count'] = $('#departmentCount').val();
-				preditctionParams['brand'] = $('#brandFrom').val();
-				preditctionParams['price'] = $('#priceFrom').val();
-				preditctionParams['quality'] = $('#qualityFrom').val();
-				preditctionParams['notoriety'] = $('#notoriety').val();
+				preditctionParams['department_count'] = parseFloat($('#departmentCount').val());
+				preditctionParams['brand'] = parseFloat($('#brandFrom').val());
+				preditctionParams['price'] = parseFloat($('#priceFrom').val());
+				preditctionParams['quality'] = parseFloat($('#qualityFrom').val());
+				preditctionParams['notoriety'] = parseFloat($('#notoriety').val());
 				preditctionParams['visitors_count'] = $('#visitorsСount').val();
 				preditctionParams['service_level'] = $('#serviceLevel').val();
 				preditctionParams['seller_count'] = val.sc;
 				
+			  console.log(preditctionParams);
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
 				output += '<td align="right" id="td_volume_set">'+predictCommonBySet(getParamForPredition())+'</td>';
