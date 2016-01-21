@@ -39,11 +39,36 @@
 <br>
 <select id="id_country" onchange="changeCountry();"></select>&nbsp;<select id="id_region" onchange="changeRegion();"></select>
 <br>
-<u><b>цена</b></u> от <input type="text" id="priceFrom" size="12" maxlength="12" value="0.00"> до <input type="text" id="priceTo" size="12" maxlength="12" value="1000000.00"> шаг <input type="text" id="priceStep" size="12" maxlength="12" value="0.01">
+<u><b>район города</b></u> <select id="townDistrict" name="townDistrict" onchange="loadData();">
+<option value="Фешенебельный район">Фешенебельный район</option>
+<option value="Центр города" selected="">Центр города</option>
+<option value="Спальный район">Спальный район</option>
+<option value="Пригород">Пригород</option>
+<option value="Окраина">Окраина</option>
+</select>, 
+<u><b>торговая площадь</b></u> <select id="shopSize" name="shopSize" onchange="loadData();">
+<option value="100000">100 000</option>
+<option value="10000" selected="">10 000</option>
+<option value="1000">1000</option>
+<option value="500">500</option>
+<option value="100">100</option>
+</select>, 
+<u><b>количество отделов</b></u> <input type="text" id="departmentCount" size="1" maxlength="10" value="1">, 
+<u><b>известность</b></u> <input type="text" id="notoriety" size="3" maxlength="7" value="400.00">, 
+<u><b>уровень сервиса</b></u> <select id="serviceLevel" name="serviceLevel" onchange="loadData();">
+<option value="Элитный">Элитный</option>
+<option value="Очень высокий" selected="">Очень высокий</option>
+<option value="Высокий">Высокий</option>
+<option value="Нормальный">Нормальный</option>
+<option value="Низкий">Низкий</option>
+<option value="Очень низкий">Очень низкий</option>
+</select>
 <br>
-<u><b>качество</b></u> от <input type="text" id="qualityFrom" size="7" maxlength="7" value="1.00"> до <input type="text" id="qualityTo" size="7" maxlength="7" value="1000.00"> шаг <input type="text" id="qualityStep" size="12" maxlength="12" value="0.01">
+<u><b>цена</b></u> от <input type="text" id="priceFrom" size="12" maxlength="12" value="100.00"> до <input type="text" id="priceTo" size="12" maxlength="12" value="0.00"> шаг <input type="text" id="priceStep" size="12" maxlength="12" value="0.01">
 <br>
-<u><b>бренд</b></u> от <input type="text" id="brandFrom" size="7" maxlength="7" value="0.00"> до <input type="text" id="brandTo" size="7" maxlength="7" value="100.00"> шаг <input type="text" id="brandStep" size="12" maxlength="12" value="0.01">
+<u><b>качество</b></u> от <input type="text" id="qualityFrom" size="7" maxlength="7" value="1.00"> до <input type="text" id="qualityTo" size="7" maxlength="7" value="1.00"> шаг <input type="text" id="qualityStep" size="12" maxlength="12" value="0.01">
+<br>
+<u><b>бренд</b></u> от <input type="text" id="brandFrom" size="7" maxlength="7" value="1.00"> до <input type="text" id="brandTo" size="7" maxlength="7" value="0.00"> шаг <input type="text" id="brandStep" size="12" maxlength="12" value="0.01">
 <br>
 <input type="submit" id="btnSubmit" value="Сформировать">
 </td></tr>
@@ -56,8 +81,10 @@
 <table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">
 <thead><tr class="theader">
 <th id="th_city">Город&nbsp;<b id="sort_by_city"></b></th>
-<th id="th_volume">Объём&nbsp;<b id="sort_by_volume"></b></th>
-<th id="th_volume">Доля рынка&nbsp;<b id="sort_by_volume_perc"></b></th>
+<th id="th_volume_set">Объём&nbsp;(set)&nbsp;<b id="sort_by_volume_set"></b></th>
+<th id="th_volume_cv">Объём&nbsp;(cv)&nbsp;<b id="sort_by_volume_cv"></b></th>
+<th id="th_volume_perc_set">Доля рынка&nbsp;(set)&nbsp;<b id="sort_by_volume_perc_set"></b></th>
+<th id="th_volume_perc_cv">Доля рынка&nbsp;(cv)&nbsp;<b id="sort_by_volume_perc_cv"></b></th>
 </tr>
 </thead>
 <tbody id="xtabletbody">

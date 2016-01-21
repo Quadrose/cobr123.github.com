@@ -1,57 +1,57 @@
-
+var preditctionParams = []
 function getWealthIndex(){
-	return $('#wealth_index').val();
+	return preditctionParams['wealth_index'];
 }
 function getEducationIndex(){
-	return $('#education_index').val();
+	return preditctionParams['education_index'];
 }
 function getAverageSalary(){
-	return $('#average_salary').val();
+	return preditctionParams['average_salary'];
 }
 function getMarketIndex(){
-	return $('#market_index').val();
+	return preditctionParams['market_index'];
 }
 function getMarketVolume(){
-	return $('#market_volume').val();
+	return preditctionParams['market_volume'];
 }
 function getLocalPercent(){
-	return $('#local_percent').val();
+	return preditctionParams['local_percent'];
 }
 function getLocalPrice(){
-	return $('#local_price').val();
+	return preditctionParams['local_price'];
 }
 function getLocalQuality(){
-	return $('#local_quality').val();
+	return preditctionParams['local_quality'];
 }
 function getPrice(){
-	return $('#price').val();
+	return preditctionParams['price'];
 }
 function getShopSize(){
-	return $('#shop_size').val();
+	return preditctionParams['shop_size'];
 }
 function getTownDistrict(){
-	return $('#town_district').val();
+	return preditctionParams['town_district'];
 }
 function getDepartmentCount(){
-	return $('#department_count').val();
+	return preditctionParams['department_count'];
 }
 function getBrand(){
-	return $('#brand').val();
+	return preditctionParams['brand'];
 }
 function getQuality(){
-	return $('#quality').val();
+	return preditctionParams['quality'];
 }
 function getNotoriety(){
-	return $('#notoriety').val();
+	return preditctionParams['notoriety'];
 }
 function getVisitorsCount(){
-	return $('#visitors_count').val();
+	return preditctionParams['visitors_count'];
 }
 function getServiceLevel(){
-	return $('#service_level').val();
+	return preditctionParams['service_level'];
 }
 function getSellerCount(){
-	return $('#seller_count').val();
+	return preditctionParams['seller_count'];
 }
 function getRealm(){
 	return $('#realm').val();
@@ -122,10 +122,10 @@ function loadData() {
 	if (realm == null || realm == '') return;
 	var productID = getProductId();
 	if (productID == null || productID == '') return;
-	/*
+		
+	
 	$.getJSON('/'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
-		var output = '';
-
+		  var output = '';
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
@@ -133,46 +133,33 @@ function loadData() {
 			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.wi >= $('#wealthIndexFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.wi <= $('#wealthIndexTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.v >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.v <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lpe >= $('#localPercentFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpe <= $('#localPercentTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lpr >= $('#localPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpr <= $('#localPriceTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lq >= $('#localQualityFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lq <= $('#localQualityTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.spr >= $('#shopPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.spr <= $('#shopPriceTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.sq >= $('#shopQualityFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.sq <= $('#shopQualityTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.sb >= $('#shopBrandFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.sb <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
-			
 			if(suitable){
+				preditctionParams['wealth_index'] = val.wi;
+				preditctionParams['education_index'] = val.ei;
+				preditctionParams['average_salary'] = val.as;
+				preditctionParams['market_index'] = val.mi;
+				preditctionParams['market_volume'] = val.v;
+				preditctionParams['local_percent'] = val.lpe;
+				preditctionParams['local_price'] = val.lpr;
+				preditctionParams['local_quality'] = val.lq;
+				preditctionParams['shop_size'] = $('#shopSize').val();
+				preditctionParams['town_district'] = $('#townDistrict').val();
+				preditctionParams['department_count'] = $('#departmentCount').val();
+				preditctionParams['brand'] = $('#brandFrom').val();
+				preditctionParams['price'] = $('#priceFrom').val();
+				preditctionParams['quality'] = $('#qualityFrom').val();
+				preditctionParams['notoriety'] = $('#notoriety').val();
+				preditctionParams['visitors_count'] = $('#visitorsСount').val();
+				preditctionParams['service_level'] = $('#serviceLevel').val();
+				preditctionParams['seller_count'] = val.sc;
+				
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
-				output += '<td align="center" id="td_w_idx">'+val.wi+'</td>';
-				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
-				output += '<td align="right" id="td_volume">'+val.v+'</td>';
-				output += '<td align="right" id="td_local_perc" style="color:black">'+val.lpe+'</td>';
-				output += '<td align="right" id="td_local_price">'+val.lpr+'</td>';
-				output += '<td align="right" id="td_local_quality">'+val.lq+'</td>';
-				output += '<td align="right" id="td_shop_price">'+val.spr+'</td>';
-				output += '<td align="right" id="td_shop_quality">'+val.sq+'</td>';
-				output += '<td align="right" id="td_shop_brand">'+val.sb+'</td>';
+				output += '<td align="right" id="td_volume_set">'+predictCommonBySet()+'</td>';
+				output += '<td align="right" id="td_volume_cv">'+predictCommonByCV()+'</td>';
 				output += '</tr>';
 			}
 		});
-		
 		$('#xtabletbody').html(output); 	// replace all existing content
 		
 		var svOrder = $('#sort_dir').val();
@@ -191,7 +178,7 @@ function loadData() {
 				}
 		);
 	});
-	*/
+		
 	return false;
 }
 
