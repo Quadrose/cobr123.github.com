@@ -1,4 +1,4 @@
-function getParamForPredition(){param=[19];
+function getParamForPredictCommonBySet(){param=[19];
 param[0]=getWealthIndex();
 param[1]=getEducationIndex();
 param[2]=getAverageSalary();
