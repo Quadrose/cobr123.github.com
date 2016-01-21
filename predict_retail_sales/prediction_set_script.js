@@ -87,7 +87,9 @@ values[63]="более 3 000 000 000";
 values[64]="около 5 000 000 000";
 values[65]="более 5 000 000 000";
 return values[a]
-}function predictCommonBySet(a){p=predictCommonBySetN1(a);
+}function predictCommonBySet(a){
+			  console.log(a);
+				p=predictCommonBySetN1(a);
 return getValueByPredictionIdx(p)
 }function predictCommonBySetclassify(a){p=NaN;
 p=predictCommonBySetN9324(a);

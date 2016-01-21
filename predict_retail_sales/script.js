@@ -153,7 +153,6 @@ function loadData() {
 				preditctionParams['service_level'] = $('#serviceLevel').val();
 				preditctionParams['seller_count'] = val.sc;
 				
-			  console.log(preditctionParams);
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
 				output += '<td align="right" id="td_volume_set">'+predictCommonBySet(getParamForPredition())+'</td>';
