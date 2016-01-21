@@ -199,7 +199,7 @@ function loadProductCategories(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
-	$.getJSON('/'+realm+'/product_categories.json', function (data) {
+	$.getJSON('/by_trade_at_cities/'+realm+'/product_categories.json', function (data) {
 		var output = '<option value="" selected=""></option>';
 
 		$.each(data, function (key, val) {
@@ -219,7 +219,7 @@ function loadProducts(callback) {
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
 	
-	$.getJSON('/'+realm+'/products.json', function (data) {
+	$.getJSON('/by_trade_at_cities/'+realm+'/products.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
@@ -242,7 +242,7 @@ function loadCountries(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
-	$.getJSON('/'+realm+'/countries.json', function (data) {
+	$.getJSON('/by_trade_at_cities/'+realm+'/countries.json', function (data) {
 		var output = '<option value="" selected=""></option>';
 
 		$.each(data, function (key, val) {
@@ -262,7 +262,7 @@ function loadRegions(callback) {
 	var svCountryId = $('#id_country').val();
 	if (svCountryId == null || svCountryId == '') return;
 	
-	$.getJSON('/'+realm+'/regions.json', function (data) {
+	$.getJSON('/by_trade_at_cities/'+realm+'/regions.json', function (data) {
 		var output = '<option value="" selected=""></option>';
 		
 		$.each(data, function (key, val) {
