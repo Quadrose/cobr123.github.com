@@ -124,7 +124,7 @@ function loadData() {
 	if (productID == null || productID == '') return;
 		
 	
-	$.getJSON('/'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
+	$.getJSON('/by_trade_at_cities/'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		  var output = '';
 		$.each(data, function (key, val) {
 			var suitable = true;
