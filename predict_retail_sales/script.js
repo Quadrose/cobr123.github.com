@@ -145,10 +145,10 @@ function tableSortFunc(spColId, a,b){
 			
 			if (numA > numB){
 				console.log('numA > numB');
-				return true;
+				return 1;
 			} else if (numA < numB) {
 				console.log('numA < numB');
-				return false;
+				return -1;
 			} else {
 				var kvalA = partsOfStrA[0];
 				var kvalB = partsOfStrB[0];
@@ -157,17 +157,17 @@ function tableSortFunc(spColId, a,b){
 				
 				if (kvalA == "более" && kvalB != "более"){
 					console.log('kvalA == "более" && kvalB != "более"');
-					return true;
+					return 1;
 				} else if (kvalA == "около" && kvalB != "около"){
 					console.log('kvalA == "около" && kvalB != "около"');
-					return true;
+					return 1;
 				} else {
 					console.log('else');
-					return false;
+					return -1;
 				}
 			}
 		} else {
-			return cellValA > cellValB;
+			return cellValA === cellValB ? 0 : (cellValA > cellValB ? 1 : -1);
 		}
 }
 //////////////////////////////////////////////////////
