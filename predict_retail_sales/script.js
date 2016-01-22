@@ -138,18 +138,25 @@ function tableSortFunc(a,b){
 		console.log('numB = '+numB);
 		
 		if (numA > numB){
+			console.log('numA > numB');
 			return true;
 		} else if (numA < numB) {
+			console.log('numA < numB');
 			return false;
 		} else {
 			var kvalA = parseFloat(partsOfStrA[0]);
 			var kvalB = parseFloat(partsOfStrB[0]);
+			console.log('kvalA = '+kvalA);
+			console.log('kvalB = '+kvalB);
 			
 			if (kvalA == "более" && kvalB != "более"){
+				console.log('kvalA == "более" && kvalB != "более"');
 				return true;
 			} else if (kvalA == "около" && kvalB != "около"){
+				console.log('kvalA == "около" && kvalB != "около"');
 				return true;
 			} else {
+				console.log('else');
 				return false;
 			}
 		}
