@@ -130,37 +130,44 @@ function loadSavedFlt(){
 }
 function tableSortFunc(spColId, a,b){
 		console.log('spColId = '+spColId);
-		console.log('a.elm = '+a.elm);
-		var partsOfStrA = a.elm.textContent.split(' ');
-		var partsOfStrB = b.elm.textContent.split(' ');
+		var cellValA = a.elm.getElementById('td_'+spColId);
+		var cellValB = b.elm.getElementById('td_'+spColId);
 		
-		var numA = parseFloat(partsOfStrA[1]);
-		var numB = parseFloat(partsOfStrB[1]);
-		console.log('numA = '+numA);
-		console.log('numB = '+numB);
-		
-		if (numA > numB){
-			console.log('numA > numB');
-			return true;
-		} else if (numA < numB) {
-			console.log('numA < numB');
-			return false;
-		} else {
-			var kvalA = partsOfStrA[0];
-			var kvalB = partsOfStrB[0];
-			console.log('kvalA = '+kvalA);
-			console.log('kvalB = '+kvalB);
+		if (spColId == "volume_set" || spColId == "volume_cv"){
+			console.log('a.elm = '+a.elm);
+			var partsOfStrA = cellValA.split(' ');
+			var partsOfStrB = cellValB.split(' ');
 			
-			if (kvalA == "более" && kvalB != "более"){
-				console.log('kvalA == "более" && kvalB != "более"');
+			var numA = parseFloat(partsOfStrA[1]);
+			var numB = parseFloat(partsOfStrB[1]);
+			console.log('numA = '+numA);
+			console.log('numB = '+numB);
+			
+			if (numA > numB){
+				console.log('numA > numB');
 				return true;
-			} else if (kvalA == "около" && kvalB != "около"){
-				console.log('kvalA == "около" && kvalB != "около"');
-				return true;
-			} else {
-				console.log('else');
+			} else if (numA < numB) {
+				console.log('numA < numB');
 				return false;
+			} else {
+				var kvalA = partsOfStrA[0];
+				var kvalB = partsOfStrB[0];
+				console.log('kvalA = '+kvalA);
+				console.log('kvalB = '+kvalB);
+				
+				if (kvalA == "более" && kvalB != "более"){
+					console.log('kvalA == "более" && kvalB != "более"');
+					return true;
+				} else if (kvalA == "около" && kvalB != "около"){
+					console.log('kvalA == "около" && kvalB != "около"');
+					return true;
+				} else {
+					console.log('else');
+					return false;
+				}
 			}
+		} else {
+			return cellValA > cellValB;
 		}
 }
 //////////////////////////////////////////////////////
