@@ -128,9 +128,9 @@ function loadSavedFlt(){
 		fillUpdateDate();
 	}
 }
-function tableSortFunc(strA,strB){
-		var partsOfStrA = strA.split(' ');
-		var partsOfStrB = strB.split(' ');
+function tableSortFunc(a,b){
+		var partsOfStrA = a.elm.textContent.split(' ');
+		var partsOfStrB = b.elm.textContent.split(' ');
 		
 		var numA = parseFloat(partsOfStrA[1]);
 		var numB = parseFloat(partsOfStrB[1]);
