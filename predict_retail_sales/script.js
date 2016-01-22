@@ -83,6 +83,16 @@ function loadSavedFlt(){
 	var id_category = getVal('id_category');
 	var id_product = getVal('id_product');
 	
+	$('#shopSize').val(getVal('shopSize'));
+	$('#townDistrict').val(getVal('townDistrict'));
+	$('#departmentCount').val(getVal('departmentCount'));
+	$('#brandFrom').val(getVal('brandFrom'));
+	$('#priceFrom').val(getVal('priceFrom'));
+	$('#qualityFrom').val(getVal('qualityFrom'));
+	$('#notoriety').val(getVal('notoriety'));
+	$('#visitorsСount').val(getVal('visitorsСount'));
+	$('#serviceLevel').val(getVal('serviceLevel'));
+	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
 		var loadProductsCallback = function() {
@@ -118,13 +128,44 @@ function loadSavedFlt(){
 		fillUpdateDate();
 	}
 }
-
+function tableSortFunc(strA,strB){
+		var partsOfStrA = strA.split(' ');
+		var partsOfStrB = strB.split(' ');
+		
+		var numA = parseFloat(partsOfStrA[1]);
+		var numB = parseFloat(partsOfStrB[1]);
+		
+		if (numA > numB){
+			return true;
+		} else if (numA < numB) {
+			return false;
+		} else {
+			var kvalA = parseFloat(partsOfStrA[0]);
+			var kvalB = parseFloat(partsOfStrB[0]);
+			
+			if (kvalA == "более"){
+				return true;
+			} else {
+				return false;
+			}
+		}
+}
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var productID = getProductId();
 	if (productID == null || productID == '') return;
+	
+	setVal('shopSize', $('#shopSize').val());
+	setVal('townDistrict', $('#townDistrict').val());
+	setVal('departmentCount', $('#departmentCount').val());
+	setVal('brandFrom', $('#brandFrom').val());
+	setVal('priceFrom', $('#priceFrom').val());
+	setVal('qualityFrom', $('#qualityFrom').val());
+	setVal('notoriety', $('#notoriety').val());
+	setVal('visitorsСount', $('#visitorsСount').val());
+	setVal('serviceLevel', $('#serviceLevel').val());
 		
 	
 	$.getJSON('/by_trade_at_cities/'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
@@ -180,6 +221,9 @@ function loadData() {
 				,{
 						selector:'td#td_'+svColId
 						,order: svOrder
+						,sortFunction:function(a,b){
+							return tableSortFunc(a,b);
+						}
 				}
 		);
 	});
@@ -355,6 +399,9 @@ $(document).ready(function () {
 					,{
 							selector:'td#td_'+tableHeaderId
 							,order: order
+							,sortFunction:function(a,b){
+								return tableSortFunc(a,b);
+							}
 					}
 			);
 		}
