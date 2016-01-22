@@ -130,6 +130,7 @@ function loadSavedFlt(){
 }
 function tableSortFunc(spColId, a,b){
 		console.log('spColId = '+spColId);
+		console.log('a.elm = '+a.elm);
 		var partsOfStrA = a.elm.textContent.split(' ');
 		var partsOfStrB = b.elm.textContent.split(' ');
 		
