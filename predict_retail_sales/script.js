@@ -134,6 +134,8 @@ function tableSortFunc(a,b){
 		
 		var numA = parseFloat(partsOfStrA[1]);
 		var numB = parseFloat(partsOfStrB[1]);
+		console.log('numA = '+numA);
+		console.log('numA = '+numB);
 		
 		if (numA > numB){
 			return true;
