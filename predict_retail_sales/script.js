@@ -144,8 +144,8 @@ function tableSortFunc(a,b){
 			console.log('numA < numB');
 			return false;
 		} else {
-			var kvalA = parseFloat(partsOfStrA[0]);
-			var kvalB = parseFloat(partsOfStrB[0]);
+			var kvalA = partsOfStrA[0];
+			var kvalB = partsOfStrB[0];
 			console.log('kvalA = '+kvalA);
 			console.log('kvalB = '+kvalB);
 			
