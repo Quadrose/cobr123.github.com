@@ -129,12 +129,12 @@ function loadSavedFlt(){
 	}
 }
 function tableSortFunc(spColId, a,b){
-		console.log('spColId = '+spColId);
+		//console.log('spColId = '+spColId);
 		var cellValA = a.elm.querySelector('#td_'+spColId).innerHTML;
 		var cellValB = b.elm.querySelector('#td_'+spColId).innerHTML;
 		
 		if (spColId == "volume_set" || spColId == "volume_cv"){
-			console.log('a.elm = '+a.elm);
+			//console.log('a.elm = '+a.elm);
 			var partsOfStrA = cellValA.split(' ');
 			var partsOfStrB = cellValB.split(' ');
 			
@@ -241,9 +241,9 @@ function loadData() {
 				,{
 						selector:'td#td_'+svColId
 						,order: svOrder
-						,sortFunction:function(a,b){
+						/*,sortFunction:function(a,b){
 							return tableSortFunc(svColId, a, b);
-						}
+						}*/
 				}
 		);
 	});
@@ -419,9 +419,9 @@ $(document).ready(function () {
 					,{
 							selector:'td#td_'+tableHeaderId
 							,order: order
-							,sortFunction:function(a,b){
+							/*,sortFunction:function(a,b){
 								return tableSortFunc(tableHeaderId, a, b);
-							}
+							}*/
 					}
 			);
 		}
