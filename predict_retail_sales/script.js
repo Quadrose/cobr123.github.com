@@ -128,7 +128,8 @@ function loadSavedFlt(){
 		fillUpdateDate();
 	}
 }
-function tableSortFunc(a,b){
+function tableSortFunc(spColId, a,b){
+		console.log('spColId = '+spColId);
 		var partsOfStrA = a.elm.textContent.split(' ');
 		var partsOfStrB = b.elm.textContent.split(' ');
 		
@@ -233,7 +234,7 @@ function loadData() {
 						selector:'td#td_'+svColId
 						,order: svOrder
 						,sortFunction:function(a,b){
-							return tableSortFunc(a,b);
+							return tableSortFunc(svColId, a, b);
 						}
 				}
 		);
@@ -411,7 +412,7 @@ $(document).ready(function () {
 							selector:'td#td_'+tableHeaderId
 							,order: order
 							,sortFunction:function(a,b){
-								return tableSortFunc(a,b);
+								return tableSortFunc(tableHeaderId, a, b);
 							}
 					}
 			);
