@@ -59,6 +59,9 @@ function getRealm(){
 function getProductId(){
 	return $('#id_product').val();
 }
+function getProductCategory(){
+	return $('#id_category ').val();
+}
 function nvl(val1, val2){
 	if (val1 == null || val1 == ''){
 		return val2;
