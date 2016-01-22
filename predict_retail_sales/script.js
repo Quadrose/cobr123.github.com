@@ -135,7 +135,7 @@ function tableSortFunc(a,b){
 		var numA = parseFloat(partsOfStrA[1]);
 		var numB = parseFloat(partsOfStrB[1]);
 		console.log('numA = '+numA);
-		console.log('numA = '+numB);
+		console.log('numB = '+numB);
 		
 		if (numA > numB){
 			return true;
@@ -145,7 +145,9 @@ function tableSortFunc(a,b){
 			var kvalA = parseFloat(partsOfStrA[0]);
 			var kvalB = parseFloat(partsOfStrB[0]);
 			
-			if (kvalA == "более"){
+			if (kvalA == "более" && kvalB != "более"){
+				return true;
+			} else if (kvalA == "около" && kvalB != "около"){
 				return true;
 			} else {
 				return false;
