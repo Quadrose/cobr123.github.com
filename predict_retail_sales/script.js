@@ -219,8 +219,8 @@ function loadData() {
 				
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
-				output += '<td align="right" id="td_volume_set">'+predictCommonBySet(getParamForPredictCommonBySet())+'</td>';
-				output += '<td align="right" id="td_volume_cv">'+predictCommonByCV(getParamForPredictCommonByCV())+'</td>';
+				output += '<td align="right" id="td_volume_set">'+predictCommonBySet()+'</td>';
+				output += '<td align="right" id="td_volume_cv">'+predictCommonByCV()+'</td>';
 				output += '<td align="right" id="td_volume_perc_set">'+''+'</td>';
 				output += '<td align="right" id="td_volume_perc_cv">'+''+'</td>';
 				output += '</tr>';

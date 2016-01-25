@@ -88,7 +88,7 @@ values[63]="более 3 000 000 000";
 values[64]="около 5 000 000 000";
 values[65]="более 5 000 000 000";
 return values[a]
-}function predictCommonByCV(a){p=predictCommonByCVN1(a);
+}function predictCommonByCV(){p=predictCommonByCVN1(getParamForPredictCommonByCV());
 return getValueByPredictionIdx(p)
 }function predictCommonByCVclassify(a){p=NaN;
 p=predictCommonByCVN9115(a);
