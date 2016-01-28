@@ -36,7 +36,7 @@ function loadSavedFlt(){
 	$('#techTo').val(getVal('techTo') || 10);
 	$('#workQuan').val(getVal('workQuan') || 10000);
 	$('#workSalary').val(getVal('workSalary') || 300);
-	$('#volumeFrom').val(getVal('volumeFrom') || 1);
+	$('#volumeFrom_'+id_product).val(getVal('volumeFrom_'+id_product) || getVal('volumeFrom') || 1);
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
@@ -391,7 +391,8 @@ function calcProduction(recipe) {
 	setVal('techTo', techTo);
 	setVal('workQuan', $('#workQuan').val());
 	setVal('workSalary', $('#workSalary').val());
-	setVal('volumeFrom', $('#volumeFrom').val());
+	//setVal('volumeFrom', $('#volumeFrom').val());
+	for (var key in savVolumeFromByMaterials ) setVal('volumeFrom_'+savVolumeFromByMaterials [key], $('#volumeFrom_'+savVolumeFromByMaterials [key]).val());
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
@@ -427,7 +428,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 			if(material_remains[productID] == null){
 				material_remains[productID] = [];
 			}
-			if (suitable && remain.r >= parseFloatFromFilter('#volumeFrom',remain.r)) {suitable = true;} else {suitable = false;}
+			if (suitable && remain.r >= parseFloatFromFilter('#volumeFrom_'+productID,remain.r)) {suitable = true;} else {suitable = false;}
 			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
 			if(suitable){
 				material_remains[productID].push({
@@ -454,7 +455,8 @@ function addVolumeFromForIngredient(productID) {
 	if(savVolumeFromByMaterials[productID] === 1) return;
 	
 	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
-	var field = '&nbsp;от&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="1">';
+	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
+	var field = '&nbsp;от&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
 	var svMaterialImg = '<img src="http://virtonomica.ru'+imgSrc+'">';
 	$('#volumeFromByMaterials').append(svMaterialImg + field); 
 	savVolumeFromByMaterials[productID] = 1;
