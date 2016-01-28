@@ -448,6 +448,17 @@ function loadRemains(recipe, productID, npMinQuality) {
 		calcProduction(recipe);
 	});
 }
+
+savVolumeFromByMaterials = []
+function addVolumeFromForIngredient(productID) {
+	if(savVolumeFromByMaterials[productID] === 1) return;
+	
+	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
+	var field = '&nbsp;от&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="1">';
+	var svMaterialImg = '<img src="http://virtonomica.ru'+imgSrc+'">';
+	$('#volumeFromByMaterials').append(svMaterialImg + field); 
+	savVolumeFromByMaterials[productID] = 1;
+}
 function loadRecipe() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
@@ -458,6 +469,7 @@ function loadRecipe() {
 	$.getJSON('./'+realm+'/recipe_'+productID+'.json', function (recipes) {
 		recipes.forEach(function(recipe) {
 			recipe.ip.forEach(function(ingredient) {
+			  	addVolumeFromForIngredient(ingredient.pi); 
 				loadRemains(recipe, ingredient.pi, ingredient.mq);
 			});
 		});
@@ -544,6 +556,8 @@ function changeProduct(productId) {
 	if(selected != null && selected != ''){
 		$('#img'+selected).attr('border','');
 	}
+	savVolumeFromByMaterials = []
+	$('#volumeFromByMaterials').html(''); 
 	$('#img'+productId).attr('border','1');
 	$('#id_product').val(productId);
 	loadData();
