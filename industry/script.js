@@ -392,7 +392,7 @@ function calcProduction(recipe) {
 	setVal('workQuan', $('#workQuan').val());
 	setVal('workSalary', $('#workSalary').val());
 	//setVal('volumeFrom', $('#volumeFrom').val());
-	for (var key in savVolumeFromByMaterials ) setVal('volumeFrom_'+savVolumeFromByMaterials [key], $('#volumeFrom_'+savVolumeFromByMaterials [key]).val());
+	for (var key in savVolumeFromByMaterials ) setVal('volumeFrom_'+key, $('#volumeFrom_'+key).val());
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
