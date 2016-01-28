@@ -449,7 +449,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 	});
 }
 
-savVolumeFromByMaterials = []
+var savVolumeFromByMaterials = []
 function addVolumeFromForIngredient(productID) {
 	if(savVolumeFromByMaterials[productID] === 1) return;
 	
