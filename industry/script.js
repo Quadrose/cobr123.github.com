@@ -453,6 +453,9 @@ function loadRemains(recipe, productID, npMinQuality) {
 var savVolumeFromByMaterials = []
 function addVolumeFromForIngredient(productID) {
 	if(savVolumeFromByMaterials[productID] === 1) return;
+	if (savVolumeFromByMaterials.length % 7 === 0){
+	  $('#volumeFromByMaterials').append('<br>'); 
+	}
 	
 	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
 	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
