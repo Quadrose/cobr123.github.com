@@ -463,11 +463,13 @@ function addVolumeFromForIngredient(productID) {
 	if (Object.size(savVolumeFromByMaterials) % 7 === 0){
 	  $('#volumeFromByMaterials').append('<br>'); 
 	}
+	var realm = getRealm();
 	
 	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
 	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
 	var field = '&nbsp;от&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
-	var svMaterialImg = '<img src="http://virtonomica.ru'+imgSrc+'">';
+	var href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
+	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+imgSrc+'"></a>';
 	$('#volumeFromByMaterials').append(svMaterialImg + field); 
 	savVolumeFromByMaterials[productID] = 1;
 }
