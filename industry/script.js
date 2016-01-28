@@ -450,10 +450,17 @@ function loadRemains(recipe, productID, npMinQuality) {
 	});
 }
 
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
 var savVolumeFromByMaterials = []
 function addVolumeFromForIngredient(productID) {
 	if(savVolumeFromByMaterials[productID] === 1) return;
-	if (savVolumeFromByMaterials.length % 7 === 0){
+	if (Object.size(savVolumeFromByMaterials) % 7 === 0){
 	  $('#volumeFromByMaterials').append('<br>'); 
 	}
 	
