@@ -460,7 +460,8 @@ Object.size = function(obj) {
 var savVolumeFromByMaterials = []
 function addVolumeFromForIngredient(productID) {
 	if(savVolumeFromByMaterials[productID] === 1) return;
-	if (Object.size(savVolumeFromByMaterials) % 7 === 0){
+	var size = Object.size(savVolumeFromByMaterials);
+	if (size > 0 && size % 7 === 0){
 	  $('#volumeFromByMaterials').append('<br>'); 
 	}
 	var realm = getRealm();
