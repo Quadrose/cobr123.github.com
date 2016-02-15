@@ -18,6 +18,13 @@ function getVal(spName){
 function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
+
+function changeLocale() {
+	setVal('locale', $('#locale').val());
+}
+function getLocale() {
+	return getVal('locale') || $('#locale').val() || 'ru';
+}
 //резделитель разрядов
 function commaSeparateNumber(val, sep){
 	var separator = sep || ',';
