@@ -52,26 +52,25 @@ function loadPrediction(predRow) {
 			}
 		});
 		if (output === '') {
-			output = '<tr><td>Недостаточно данных. Попробуйте в другой день.</td></tr>';
+			predRow.html('Недостаточно данных. Попробуйте в другой день.'); 	// replace all existing content
+		} else {
+			var headers = '<thead><tr class="theader">';
+			headers += '<th id="th_sellVolume">&nbsp;<b id="sort_by_sellVolume"></b></th>';
+			headers += '<th id="th_price">&nbsp;<b id="sort_by_price"></b></th>';
+			headers += '<th id="th_quality">&nbsp;<b id="sort_by_quality"></b></th>';
+			headers += '<th id="th_brand">&nbsp;<b id="sort_by_brand"></b></th>';
+			headers += '<th id="th_marketVolume">&nbsp;<b id="sort_by_marketVolume"></b></th>';
+			headers += '<th id="th_sellerCnt">&nbsp;<b id="sort_by_sellerCnt"></b></th>';
+			headers += '<th id="th_serviceLevel">&nbsp;<b id="sort_by_serviceLevel"></b></th>';
+			headers += '<th id="th_visitorsCount">&nbsp;<b id="sort_by_visitorsCount"></b></th>';
+			headers += '<th id="th_notoriety">&nbsp;<b id="sort_by_notoriety"></b></th>';
+			headers += '<th id="th_townDistrict">&nbsp;<b id="sort_by_townDistrict"></b></th>';
+			headers += '<th id="th_shopSize">&nbsp;<b id="sort_by_shopSize"></b></th>';
+			headers += '<th id="th_departmentCount">&nbsp;<b id="sort_by_departmentCount"></b></th>';
+			//headers += '<th id="th_">&nbsp;<b id="sort_by_"></b></th>';
+			headers += '</tr></thead>';
+			predRow.html('<table>' + headers + '<tbody>' + output + '</tbody></table>'); 	// replace all existing content
 		}
-		
-		var headers = '<thead><tr class="theader">';
-		headers += '<th id="th_sellVolume">&nbsp;<b id="sort_by_sellVolume"></b></th>';
-		headers += '<th id="th_price">&nbsp;<b id="sort_by_price"></b></th>';
-		headers += '<th id="th_quality">&nbsp;<b id="sort_by_quality"></b></th>';
-		headers += '<th id="th_brand">&nbsp;<b id="sort_by_brand"></b></th>';
-		headers += '<th id="th_marketVolume">&nbsp;<b id="sort_by_marketVolume"></b></th>';
-		headers += '<th id="th_sellerCnt">&nbsp;<b id="sort_by_sellerCnt"></b></th>';
-		headers += '<th id="th_serviceLevel">&nbsp;<b id="sort_by_serviceLevel"></b></th>';
-		headers += '<th id="th_visitorsCount">&nbsp;<b id="sort_by_visitorsCount"></b></th>';
-		headers += '<th id="th_notoriety">&nbsp;<b id="sort_by_notoriety"></b></th>';
-		headers += '<th id="th_townDistrict">&nbsp;<b id="sort_by_townDistrict"></b></th>';
-		headers += '<th id="th_shopSize">&nbsp;<b id="sort_by_shopSize"></b></th>';
-		headers += '<th id="th_departmentCount">&nbsp;<b id="sort_by_departmentCount"></b></th>';
-		//headers += '<th id="th_">&nbsp;<b id="sort_by_"></b></th>';
-		headers += '</tr></thead>';
-		
-		predRow.html('<table>' + headers + '<tbody>' + output + '</tbody></table>'); 	// replace all existing content
 	});
 	return false;
 }
