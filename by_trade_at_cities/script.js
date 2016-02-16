@@ -29,7 +29,7 @@ function loadPrediction(predRow) {
 		console.log("svMarketIdx = '"+ svMarketIdx+"'" );
 		var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
 		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
-		var nvWealthIndex = parseFloat(predRow.prev().find('>td#w_idx').text());
+		var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
 		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
 		
 		$.each(data, function (key, val) {
