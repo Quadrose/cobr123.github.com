@@ -33,7 +33,7 @@ function loadPrediction(predRow) {
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
-			if (suitable && val.mi === svMarketIdx) {suitable = true;} else {suitable = false;}			
+			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}			
 			if (suitable && val.mv >= (nvMarketVolume - 1000) && val.mv <= (nvMarketVolume + 1000)) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
