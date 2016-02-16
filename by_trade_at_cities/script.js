@@ -26,8 +26,9 @@ function loadPrediction(predRow) {
 	$.getJSON('/predict_retail_sales/retail_analytics_hist/'+productID+'.json', function (data) {
 		var output = '';
 		var svWealthIndex = $('>td#td_idx', predRow).val();
-		var nvMarketVolume = parseFloat($('>td#td_volume', predRow).val());
-
+		var nvMarketVolume = parseFloat($('>td#td_volume', predRow.prev()).val());
+		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
+		
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
