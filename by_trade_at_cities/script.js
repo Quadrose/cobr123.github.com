@@ -71,7 +71,7 @@ function loadPrediction(predRow) {
 			headers += '<th id="th_departmentCount">&nbsp;<b id="sort_by_departmentCount"></b></th>';
 			//headers += '<th id="th_">&nbsp;<b id="sort_by_"></b></th>';
 			headers += '</tr></thead>';
-			predRow.html('<table>' + headers + '<tbody>' + output + '</tbody></table>'); 	// replace all existing content
+			predRow.html('<td colspan=11><table>' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
 		}
 	});
 	return false;
