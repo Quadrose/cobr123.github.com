@@ -18,6 +18,75 @@ function getVal(spName){
 function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
+
+function loadPrediction(predRow) {
+	var productID = getProductID();
+	if (productID == null || productID == '') return;
+	
+	$.getJSON('/retail_analytics_hist/'+productID+'.json', function (data) {
+		var output = '';
+		var svWealthIndex = $('>td#td_idx', predRow).val();
+		var nvMarketVolume = parseFloat($('>td#td_volume', predRow).val());
+
+		$.each(data, function (key, val) {
+			var suitable = true;
+			
+			if (suitable && val.wi == svWealthIndex) {suitable = true;} else {suitable = false;}			
+			if (suitable && val.mv >= (nvMarketVolume - 1000) && val.mv <= (nvMarketVolume + 1000)) {suitable = true;} else {suitable = false;}
+			
+			if(suitable){
+				output += '<tr class="trec">';
+				output += '<td align="center" id="td_sellVolume">'+val.sv+'</td>';
+				output += '<td align="center" id="td_price">'+val.p+'</td>';
+				output += '<td align="center" id="td_quality">'+val.q+'</td>';
+				output += '<td align="center" id="td_brand">'+val.b+'</td>';
+				output += '<td align="center" id="td_marketVolume">'+val.mv+'</td>';
+				output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
+				output += '<td align="center" id="td_serviceLevel">'+val.sl+'</td>';
+				output += '<td align="center" id="td_visitorsCount">'+val.vc+'</td>';
+				output += '<td align="center" id="td_notoriety">'+val.n+'</td>';
+				output += '<td align="center" id="td_townDistrict">'+val.td+'</td>';
+				output += '<td align="center" id="td_shopSize">'+val.ss+'</td>';
+				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
+				output += '</tr>';
+			}
+		});
+		if (output === '') {
+			output = '<tr><td>Недостаточно данных. Попробуйте в другой день.</td></tr>';
+		}
+		
+		var headers = '<thead><tr class="theader">';
+		headers += '<th id="th_sellVolume">&nbsp;<b id="sort_by_sellVolume"></b></th>';
+		headers += '<th id="th_price">&nbsp;<b id="sort_by_price"></b></th>';
+		headers += '<th id="th_quality">&nbsp;<b id="sort_by_quality"></b></th>';
+		headers += '<th id="th_brand">&nbsp;<b id="sort_by_brand"></b></th>';
+		headers += '<th id="th_marketVolume">&nbsp;<b id="sort_by_marketVolume"></b></th>';
+		headers += '<th id="th_sellerCnt">&nbsp;<b id="sort_by_sellerCnt"></b></th>';
+		headers += '<th id="th_serviceLevel">&nbsp;<b id="sort_by_serviceLevel"></b></th>';
+		headers += '<th id="th_visitorsCount">&nbsp;<b id="sort_by_visitorsCount"></b></th>';
+		headers += '<th id="th_notoriety">&nbsp;<b id="sort_by_notoriety"></b></th>';
+		headers += '<th id="th_townDistrict">&nbsp;<b id="sort_by_townDistrict"></b></th>';
+		headers += '<th id="th_shopSize">&nbsp;<b id="sort_by_shopSize"></b></th>';
+		headers += '<th id="th_departmentCount">&nbsp;<b id="sort_by_departmentCount"></b></th>';
+		//headers += '<th id="th_">&nbsp;<b id="sort_by_"></b></th>';
+		headers += '</tr></thead>';
+		
+		predRow.html('<table>' + headers + '<tbody>' + output + '</tbody></table>'); 	// replace all existing content
+	});
+	return false;
+}
+function togglePrediction(npPredNum){
+	var cell = $('#toggle_prediction_' + npPredNum + ' > a');
+	var predRow = $('#prediction_' + npPredNum);
+	if(predRow.is(':visible')) {
+		predRow.hide();
+		cell.text('Показать');
+	} else {
+		loadPrediction(predRow);
+		predRow.show();
+		cell.text('Скрыть');
+	}
+}
 function loadSavedFlt(){
 	//var params = getSearchParameters();
 	var realm = getVal('realm');
@@ -71,7 +140,8 @@ function loadData() {
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		var output = '';
-
+		var nvPredIdx = 1;
+		
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
@@ -115,7 +185,11 @@ function loadData() {
 				output += '<td align="right" id="td_shop_price">'+val.spr+'</td>';
 				output += '<td align="right" id="td_shop_quality">'+val.sq+'</td>';
 				output += '<td align="right" id="td_shop_brand">'+val.sb+'</td>';
+				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">Показать</td>';
 				output += '</tr>';
+				output += '<tr class="trec" id="prediction_'+nvPredIdx+'" style="display:none;"><td colspan="11"></td></tr>';
+				
+				nvPredIdx = nvPredIdx + 1;
 			}
 		});
 		
