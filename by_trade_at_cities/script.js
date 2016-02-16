@@ -34,7 +34,7 @@ function loadPrediction(predRow) {
 			var suitable = true;
 			
 			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}			
-			if (suitable && val.mv >= (nvMarketVolume - 1000) && val.mv <= (nvMarketVolume + 1000)) {suitable = true;} else {suitable = false;}
+			//if (suitable && val.mv >= (nvMarketVolume - 10000) && val.mv <= (nvMarketVolume + 10000)) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
 				output += '<tr class="trec">';
