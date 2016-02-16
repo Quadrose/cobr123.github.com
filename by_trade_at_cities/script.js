@@ -175,6 +175,8 @@ function loadData() {
 			if (suitable && val.sb <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
+				output += '<tr class="trec" id="prediction_'+nvPredIdx+'" style="display:none;"><td colspan="11"></td></tr>';
+				
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
 				output += '<td align="center" id="td_w_idx">'+val.wi+'</td>';
@@ -188,7 +190,6 @@ function loadData() {
 				output += '<td align="right" id="td_shop_brand">'+val.sb+'</td>';
 				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">Показать</td>';
 				output += '</tr>';
-				output += '<tr class="trec" id="prediction_'+nvPredIdx+'" style="display:none;"><td colspan="11"></td></tr>';
 				
 				nvPredIdx = nvPredIdx + 1;
 			}
