@@ -53,6 +53,7 @@ function loadPrediction(predRow) {
 				output += '<td align="center" id="td_townDistrict">'+val.td+'</td>';
 				output += '<td align="center" id="td_shopSize">'+val.ss+'</td>';
 				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
+				output += '<td align="center" id="td_wealthIndex">'+val.wi+'</td>';
 				output += '</tr>';
 			}
 		});
@@ -60,18 +61,19 @@ function loadPrediction(predRow) {
 			predRow.html('Недостаточно данных. Попробуйте в другой день.'); 	// replace all existing content
 		} else {
 			var headers = '<thead><tr class="theader">';
-			headers += '<th id="th_sellVolume">&nbsp;<b id="sort_by_sellVolume"></b></th>';
-			headers += '<th id="th_price">&nbsp;<b id="sort_by_price"></b></th>';
-			headers += '<th id="th_quality">&nbsp;<b id="sort_by_quality"></b></th>';
-			headers += '<th id="th_brand">&nbsp;<b id="sort_by_brand"></b></th>';
-			headers += '<th id="th_marketVolume">&nbsp;<b id="sort_by_marketVolume"></b></th>';
-			headers += '<th id="th_sellerCnt">&nbsp;<b id="sort_by_sellerCnt"></b></th>';
-			headers += '<th id="th_serviceLevel">&nbsp;<b id="sort_by_serviceLevel"></b></th>';
-			headers += '<th id="th_visitorsCount">&nbsp;<b id="sort_by_visitorsCount"></b></th>';
-			headers += '<th id="th_notoriety">&nbsp;<b id="sort_by_notoriety"></b></th>';
-			headers += '<th id="th_townDistrict">&nbsp;<b id="sort_by_townDistrict"></b></th>';
-			headers += '<th id="th_shopSize">&nbsp;<b id="sort_by_shopSize"></b></th>';
-			headers += '<th id="th_departmentCount">&nbsp;<b id="sort_by_departmentCount"></b></th>';
+			headers += '<th id="th_sellVolume">Объем продаж&nbsp;<b id="sort_by_sellVolume"></b></th>';
+			headers += '<th id="th_price">Цена&nbsp;<b id="sort_by_price"></b></th>';
+			headers += '<th id="th_quality">Качество&nbsp;<b id="sort_by_quality"></b></th>';
+			headers += '<th id="th_brand">Бренд&nbsp;<b id="sort_by_brand"></b></th>';
+			headers += '<th id="th_marketVolume">Объем рынка&nbsp;<b id="sort_by_marketVolume"></b></th>';
+			headers += '<th id="th_sellerCnt">Количество продавцов&nbsp;<b id="sort_by_sellerCnt"></b></th>';
+			headers += '<th id="th_serviceLevel">Уровень сервиса&nbsp;<b id="sort_by_serviceLevel"></b></th>';
+			headers += '<th id="th_visitorsCount">Количество посетителей&nbsp;<b id="sort_by_visitorsCount"></b></th>';
+			headers += '<th id="th_notoriety">Известность&nbsp;<b id="sort_by_notoriety"></b></th>';
+			headers += '<th id="th_townDistrict">Район города&nbsp;<b id="sort_by_townDistrict"></b></th>';
+			headers += '<th id="th_shopSize">Торговая площадь&nbsp;<b id="sort_by_shopSize"></b></th>';
+			headers += '<th id="th_departmentCount">Количество отделов&nbsp;<b id="sort_by_departmentCount"></b></th>';
+			headers += '<th id="th_wealthIndex">Индекс богатства&nbsp;<b id="sort_by_wealthIndex"></b></th>';
 			//headers += '<th id="th_">&nbsp;<b id="sort_by_"></b></th>';
 			headers += '</tr></thead>';
 			predRow.html('<td colspan=11><table>' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
