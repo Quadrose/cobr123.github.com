@@ -75,17 +75,16 @@ function loadPrediction(predRow) {
 	return false;
 }
 function togglePrediction(npPredNum){
-	var cell = $('#toggle_prediction_' + npPredNum + ' > a');
-	var predRow = $('#prediction_' + npPredNum);
-	if(predRow.is(':visible')) {
-		predRow.html('');
-		predRow.hide();
-		cell.text('Показать');
+	var link = $('#toggle_prediction_' + npPredNum + ' > a');
+	if(link.text() === 'Скрыть') {
+		var predRow = $('#prediction_' + npPredNum);
+		predRow.remove();
+		link.text('Показать');
 	} else {
-		predRow.html('Загружаю...');
+		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=11>Загружаю...</td></tr>');
+		var predRow = $('#prediction_' + npPredNum);
 		loadPrediction(predRow);
-		predRow.show();
-		cell.text('Скрыть');
+		link.text('Скрыть');
 	}
 }
 function loadSavedFlt(){
@@ -175,8 +174,6 @@ function loadData() {
 			if (suitable && val.sb <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
-				output += '<tr class="trec" id="prediction_'+nvPredIdx+'" style="display:none;"><td colspan="11"></td></tr>';
-				
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
 				output += '<td align="center" id="td_w_idx">'+val.wi+'</td>';
