@@ -78,9 +78,11 @@ function togglePrediction(npPredNum){
 	var cell = $('#toggle_prediction_' + npPredNum + ' > a');
 	var predRow = $('#prediction_' + npPredNum);
 	if(predRow.is(':visible')) {
+		predRow.html('');
 		predRow.hide();
 		cell.text('Показать');
 	} else {
+		predRow.html('Загружаю...');
 		loadPrediction(predRow);
 		predRow.show();
 		cell.text('Скрыть');
