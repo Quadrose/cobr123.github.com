@@ -29,11 +29,14 @@ function loadPrediction(predRow) {
 		console.log("svMarketIdx = '"+ svMarketIdx+"'" );
 		var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
 		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
+		var nvWealthIndex = parseFloat(predRow.prev().find('>td#w_idx').text());
+		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
 		
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
-			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}			
+			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
+			if (suitable && val.wi >= (nvWealthIndex - 10) && val.wi <= (nvWealthIndex + 10)) {suitable = true;} else {suitable = false;}
 			//if (suitable && val.mv >= (nvMarketVolume - 10000) && val.mv <= (nvMarketVolume + 10000)) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
