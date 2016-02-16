@@ -25,15 +25,15 @@ function loadPrediction(predRow) {
 	
 	$.getJSON('/predict_retail_sales/retail_analytics_hist/'+productID+'.json', function (data) {
 		var output = '';
-		var svWealthIndex = predRow.prev().find('>td#td_idx').text();
-		console.log("svWealthIndex = '"+ svWealthIndex+"'" );
+		var svMarketIdx = predRow.prev().find('>td#td_idx').text();
+		console.log("svMarketIdx = '"+ svMarketIdx+"'" );
 		var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
 		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
 		
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
-			if (suitable && val.wi === svWealthIndex) {suitable = true;} else {suitable = false;}			
+			if (suitable && val.mi === svMarketIdx) {suitable = true;} else {suitable = false;}			
 			if (suitable && val.mv >= (nvMarketVolume - 1000) && val.mv <= (nvMarketVolume + 1000)) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
