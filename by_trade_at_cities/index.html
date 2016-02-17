@@ -33,7 +33,11 @@
 <select id="id_category" onchange="changeCategory();"></select>&nbsp;<div id="products"></div>
 <input type="hidden" id="id_product" name="id_product" value="">
 <br>
-<select id="id_country" onchange="changeCountry();"></select>&nbsp;<select id="id_region" onchange="changeRegion();"></select>
+<select id="id_country" onchange="changeCountry();">
+<option value="" selected="">Все страны</option>	
+</select>&nbsp;<select id="id_region" onchange="changeRegion();">
+<option value="" selected="">Все регионы</option>
+</select>
 <br>
 <u><b>Индекс богатства </b></u> от <input type="text" id="wealthIndexFrom" size="5" maxlength="6" value="1"> до <input type="text" id="wealthIndexTo" size="8" maxlength="8" value="100000000"><br>
 <u><b>Объём </b></u> от <input type="text" id="volumeFrom" size="5" maxlength="6" value="1"> до <input type="text" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
