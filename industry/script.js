@@ -526,6 +526,13 @@ function loadProductCategories(callback) {
 		
 		$('#id_category').html(output); 	// replace all existing content
 		$('#materials').html(''); 
+		
+		var svCategoryId = $('#id_category').val();
+		if (svCategoryId == null || svCategoryId == '') {
+			var first = $('#id_category > option').eq(0).val();
+			$('#id_category').val(first);	
+		}
+		
 		if(callback != null) callback();
 	});
 	return false;
