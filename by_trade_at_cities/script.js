@@ -117,7 +117,7 @@ function togglePrediction(npPredNum){
 }
 function loadSavedFlt(){
 	//var params = getSearchParameters();
-	var realm = getVal('realm');
+	var realm = getVal('realm') || 'olga';
 	var id_country = getVal('id_country');
 	var id_region = getVal('id_region');
 	var id_category = getVal('id_category');
@@ -127,11 +127,13 @@ function loadSavedFlt(){
 		$('#realm').val(realm);
 		var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
+			id_product = id_product || $('#materials > img').eq(0).attr('id').replace("img", "");
 			if (id_product == null || id_product == '') return;
 			changeProduct(id_product);
 		};
 		var productCategoriesCallback = function() {
 			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
+			id_category = id_category || $('#id_category > option').eq(0).val();
 			if (id_category == null || id_category == '') return;
 			$('#id_category').val(id_category);
 			loadProducts(loadProductsCallback);
