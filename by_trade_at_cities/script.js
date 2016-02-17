@@ -82,7 +82,7 @@ function loadPrediction(predRow) {
 			headers += '<th id="th_visitorsCount" title="Количество посетителей">Кол-во пос.&nbsp;<b id="sort_by_visitorsCount"></b></th>';
 			headers += '<th id="th_notoriety">Известность&nbsp;<b id="sort_by_notoriety"></b></th>';
 			headers += '<th id="th_townDistrict">Район города&nbsp;<b id="sort_by_townDistrict"></b></th>';
-			headers += '<th id="th_shopSize">Торговая площадь&nbsp;<b id="sort_by_shopSize"></b></th>';
+			headers += '<th id="th_shopSize" title="Торговая площадь">Торг. пл.&nbsp;<b id="sort_by_shopSize"></b></th>';
 			headers += '<th id="th_departmentCount" title="Количество отделов">К.о.&nbsp;<b id="sort_by_departmentCount"></b></th>';
 			headers += '<th id="th_wealthIndex" title="Индекс богатства">И.б.&nbsp;<b id="sort_by_wealthIndex"></b></th>';
 			headers += '<th id="th_marketIdx" title="Индекс">И.&nbsp;<b id="sort_by_marketIdx"></b></th>';
