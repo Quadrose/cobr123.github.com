@@ -35,7 +35,7 @@ function commaSeparateNumber(val, sep){
 }
 function loadSavedFlt(){
 	//var params = getSearchParameters();
-	var realm = getVal('realm');
+	var realm = getVal('realm') || 'olga';
 	var id_category = getVal('id_category');
 	var id_product = getVal('id_product');
 	
@@ -526,12 +526,6 @@ function loadProductCategories(callback) {
 		
 		$('#id_category').html(output); 	// replace all existing content
 		$('#materials').html(''); 
-		
-		var svCategoryId = $('#id_category').val();
-		if (svCategoryId == null || svCategoryId == '') {
-			var first = $('#id_category > option').eq(0).val();
-			$('#id_category').val(first);	
-		}
 		
 		if(callback != null) callback();
 	});
