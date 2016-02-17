@@ -56,6 +56,7 @@ function loadPrediction(predRow) {
 				output += '<td align="center" id="td_shopSize">'+val.ss+'</td>';
 				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
 				output += '<td align="center" id="td_wealthIndex">'+val.wi+'</td>';
+				output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
 				output += '</tr>';
 			}
 		});
@@ -76,7 +77,7 @@ function loadPrediction(predRow) {
 			headers += '<th id="th_shopSize">Торговая площадь&nbsp;<b id="sort_by_shopSize"></b></th>';
 			headers += '<th id="th_departmentCount">Количество отделов&nbsp;<b id="sort_by_departmentCount"></b></th>';
 			headers += '<th id="th_wealthIndex">Индекс богатства&nbsp;<b id="sort_by_wealthIndex"></b></th>';
-			//headers += '<th id="th_">&nbsp;<b id="sort_by_"></b></th>';
+			headers += '<th id="th_marketIdx">Индекс&nbsp;<b id="sort_by_marketIdx"></b></th>';
 			headers += '</tr></thead>';
 			predRow.html('<td colspan=11><table id="'+tableId+'">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
 			
