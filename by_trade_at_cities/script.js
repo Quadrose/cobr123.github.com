@@ -248,7 +248,7 @@ function loadProductCategories(callback) {
 	if (realm == null || realm == '') return;
 	
 	$.getJSON('./'+realm+'/product_categories.json', function (data) {
-		var output = '<option value="" selected=""></option>';
+		var output = '';
 
 		$.each(data, function (key, val) {
 			output += '<option value="'+val.c+'">'+val.c+'</option>';
@@ -291,7 +291,7 @@ function loadCountries(callback) {
 	if (realm == null || realm == '') return;
 	
 	$.getJSON('./'+realm+'/countries.json', function (data) {
-		var output = '<option value="" selected=""></option>';
+		var output = '<option value="" selected="">Все страны</option>';
 
 		$.each(data, function (key, val) {
 			output += '<option value="'+val.i+'">'+val.c+'</option>';
@@ -311,7 +311,7 @@ function loadRegions(callback) {
 	if (svCountryId == null || svCountryId == '') return;
 	
 	$.getJSON('./'+realm+'/regions.json', function (data) {
-		var output = '<option value="" selected=""></option>';
+		var output = '<option value="" selected="">Все регионы</option>';
 		
 		$.each(data, function (key, val) {
 			if(val.ci == svCountryId){
