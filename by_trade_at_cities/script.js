@@ -77,15 +77,15 @@ function loadPrediction(predRow) {
 			headers += '<th id="th_quality">Качество&nbsp;<b id="sort_by_quality"></b></th>';
 			headers += '<th id="th_brand">Бренд&nbsp;<b id="sort_by_brand"></b></th>';
 			headers += '<th id="th_marketVolume">Объем рынка&nbsp;<b id="sort_by_marketVolume"></b></th>';
-			headers += '<th id="th_sellerCnt">Количество продавцов&nbsp;<b id="sort_by_sellerCnt"></b></th>';
+			headers += '<th id="th_sellerCnt" title="Количество продавцов">К.п.&nbsp;<b id="sort_by_sellerCnt"></b></th>';
 			headers += '<th id="th_serviceLevel">Уровень сервиса&nbsp;<b id="sort_by_serviceLevel"></b></th>';
 			headers += '<th id="th_visitorsCount">Количество посетителей&nbsp;<b id="sort_by_visitorsCount"></b></th>';
 			headers += '<th id="th_notoriety">Известность&nbsp;<b id="sort_by_notoriety"></b></th>';
 			headers += '<th id="th_townDistrict">Район города&nbsp;<b id="sort_by_townDistrict"></b></th>';
 			headers += '<th id="th_shopSize">Торговая площадь&nbsp;<b id="sort_by_shopSize"></b></th>';
-			headers += '<th id="th_departmentCount">Количество отделов&nbsp;<b id="sort_by_departmentCount"></b></th>';
-			headers += '<th id="th_wealthIndex">Индекс богатства&nbsp;<b id="sort_by_wealthIndex"></b></th>';
-			headers += '<th id="th_marketIdx">Индекс&nbsp;<b id="sort_by_marketIdx"></b></th>';
+			headers += '<th id="th_departmentCount" title="Количество отделов">К.о.&nbsp;<b id="sort_by_departmentCount"></b></th>';
+			headers += '<th id="th_wealthIndex" title="Индекс богатства">И.б.&nbsp;<b id="sort_by_wealthIndex"></b></th>';
+			headers += '<th id="th_marketIdx" title="Индекс">И.&nbsp;<b id="sort_by_marketIdx"></b></th>';
 			headers += '</tr></thead>';
 			predRow.html('<td colspan=11><table id="'+tableId+'">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
 			
