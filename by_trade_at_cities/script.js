@@ -31,6 +31,7 @@ function loadPrediction(predRow) {
 		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
 		var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
 		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
+		var tableId = 'table_' + predRow.attr('id');
 		
 		$.each(data, function (key, val) {
 			var suitable = true;
@@ -76,7 +77,17 @@ function loadPrediction(predRow) {
 			headers += '<th id="th_wealthIndex">Индекс богатства&nbsp;<b id="sort_by_wealthIndex"></b></th>';
 			//headers += '<th id="th_">&nbsp;<b id="sort_by_"></b></th>';
 			headers += '</tr></thead>';
-			predRow.html('<td colspan=11><table>' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
+			predRow.html('<td colspan=11><table id="'+tableId+'">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
+			
+			var table = document.getElementById(tableId);
+			var tableBody = table.querySelector('tbody');
+			tinysort(
+					tableBody.querySelectorAll('tr')
+					,{
+							selector:'td#td_price'
+							,order: 'desc'
+					}
+			);
 		}
 	});
 	return false;
