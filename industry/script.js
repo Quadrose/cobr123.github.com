@@ -54,6 +54,7 @@ function loadSavedFlt(){
 		};
 		var productCategoriesCallback = function() {
 			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
+			id_category = id_category || $('#id_category > option').eq(0).val();
 			if (id_category == null || id_category == '') return;
 			$('#id_category').val(id_category);
 			loadProducts(loadProductsCallback);
