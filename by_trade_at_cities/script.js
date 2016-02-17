@@ -87,7 +87,7 @@ function loadPrediction(predRow) {
 			headers += '<th id="th_wealthIndex" title="Индекс богатства">И.б.&nbsp;<b id="sort_by_wealthIndex"></b></th>';
 			headers += '<th id="th_marketIdx" title="Индекс">И.&nbsp;<b id="sort_by_marketIdx"></b></th>';
 			headers += '</tr></thead>';
-			predRow.html('<td colspan=11><table id="'+tableId+'">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
+			predRow.html('<td colspan=11><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
 			
 			var table = document.getElementById(tableId);
 			var tableBody = table.querySelector('tbody');
