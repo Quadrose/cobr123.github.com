@@ -515,7 +515,7 @@ function loadProductCategories(callback) {
 	if (realm == null || realm == '') return;
 	
 	$.getJSON('./'+realm+'/materials.json', function (data) {
-		var output = '<option value="" selected=""></option>';
+		var output = '';
 		var categories = [];
 		$.each(data, function (key, val) {
 			if(categories[val.pc] == null && val.pc != 'Полезные ископаемые'){
