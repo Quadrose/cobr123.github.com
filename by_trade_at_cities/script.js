@@ -5,6 +5,14 @@ function getRealm(){
 function getProductID(){
 	return $('#id_product').val();
 }
+function updateProdRemainLinks(){
+	var productID = getProductID();
+	if (productID == null || productID == '') return;
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	$('#show_remain_link').attr('href','http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/');
+	$('#calc_prod_link').attr('href','/industry/#id_product=' + productID);
+}
 function nvl(val1, val2){
 	if (val1 == null || val1 == ''){
 		return val2;
@@ -319,6 +327,7 @@ function changeRealm(productCategoriesCallback, countryCallback) {
 	loadCountries(countryCallback);
 	setVal('realm', getRealm());
 	fillUpdateDate();
+	updateProdRemainLinks();
 }
 function changeCategory(callback) {
 	loadProducts(callback);
@@ -343,6 +352,7 @@ function changeProduct(productId) {
 	$('#id_product').val(productId);
 	loadData();
 	setVal('id_product', $('#id_product').val());
+	updateProdRemainLinks();
 }
 
 function transformToAssocArray( prmstr ) {
