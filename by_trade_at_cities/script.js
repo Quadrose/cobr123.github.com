@@ -298,7 +298,7 @@ function loadCountries(callback) {
 		});
 		
 		$('#id_country').html(output); 	// replace all existing content
-		$('#id_region').html(''); 	// replace all existing content
+		$('#id_region').html('<option value="" selected="">Все регионы</option>'); 	// replace all existing content
 		if(callback != null) callback();
 	});
 	return false;
