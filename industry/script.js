@@ -610,6 +610,20 @@ function fillUpdateDate() {
 	});
 }
 
+function selectCategoryByProoduct(productId) {
+	if (productId == null || productId == '') return;
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	
+	$.getJSON('./'+realm+'/materials.json', function (data) {
+		$.each(data, function (key, val) {
+			if(productId === val.i){
+				$('select#id_category').val(val.pc);
+			}
+		});
+	});
+	return false;
+}
 //////////////////////////////////////////////////////
 $(document).ready(function () { 
 	var table = document.getElementById('xtable');
@@ -650,5 +664,6 @@ $(document).ready(function () {
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);;
 		}
 		changeProduct($('#id_product').val());
+		selectCategoryByProoduct($('#id_product').val());
 	}
 });
