@@ -39,6 +39,7 @@ function loadPrediction(predRow) {
 			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
 			if (suitable && val.wi >= (nvWealthIndex - 5) && val.wi <= (nvWealthIndex + 5)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.mv >= (nvMarketVolume - 5000) && val.mv <= (nvMarketVolume + 5000)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.n >= 300) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
 				output += '<tr class="trec">';
