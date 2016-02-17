@@ -127,7 +127,7 @@ function loadSavedFlt(){
 		$('#realm').val(realm);
 		var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
-			id_product = id_product || $('#materials > img').eq(0).attr('id').replace("img", "");
+			id_product = id_product || $('#products > img').eq(0).attr('id').replace("img", "");
 			if (id_product == null || id_product == '') return;
 			changeProduct(id_product);
 		};
