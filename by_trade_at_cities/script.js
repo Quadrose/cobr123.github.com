@@ -448,5 +448,5 @@ $(document).ready(function () {
 		}
 	}
 	
-	$(window).scroll(moveScroll);
+	//$(window).scroll(moveScroll);
 });
