@@ -380,6 +380,27 @@ function fillUpdateDate() {
 	});
 }
 
+function moveScroll(){
+	var scroll = $(window).scrollTop();
+	var anchor_top = $("#xtable").offset().top;
+	var anchor_bottom = $("#bottom_anchor").offset().top;
+	if (scroll>anchor_top && scroll<anchor_bottom) {
+	clone_table = $("#clone");
+	if(clone_table.length == 0){
+	clone_table = $("#xtable").clone();
+	clone_table.attr('id', 'clone');
+	clone_table.css({position:'fixed',
+	         'pointer-events': 'none',
+	         top:0});
+	clone_table.width($("#xtable").width());
+	$("#table-container").append(clone_table);
+	$("#clone").css({visibility:'hidden'});
+	$("#clone thead").css({visibility:'visible', 'pointer-events':'auto'});
+	}
+	} else {
+	$("#clone").remove();
+	}
+}
 //////////////////////////////////////////////////////
 $(document).ready(function () { 
 	var table = document.getElementById('xtable');
@@ -426,4 +447,6 @@ $(document).ready(function () {
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);;
 		}
 	}
+	
+	$(window).scroll(moveScroll);
 });
