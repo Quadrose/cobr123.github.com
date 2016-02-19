@@ -212,7 +212,16 @@ function loadSavedFlt(){
 		fillUpdateDate();
 	}
 }
-
+var sagTownCaption = [];
+function fillTownCaptions() {
+	sagTownCaption = [];
+	var locale = getLocale();
+	var suffix = (locale === 'en') ? '_en' : '';
+	
+	$.getJSON('./'+realm+'/cities'+suffix+'.json', function (data) {
+		sagTownCaption[val.i] = val.c;
+	});
+}
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
@@ -222,6 +231,9 @@ function loadData() {
 	var locale = getLocale();
 	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
 	var domain = (locale === 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	if (sagTownCaption.length === 0) {
+	  fillTownCaptions();
+	}
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		var output = '';
@@ -260,7 +272,7 @@ function loadData() {
 			
 			if(suitable){
 				output += '<tr class="trec">';
-				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
+				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td align="center" id="td_w_idx">'+val.wi+'</td>';
 				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
 				output += '<td align="right" id="td_volume">'+val.v+'</td>';
