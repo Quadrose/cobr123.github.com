@@ -19,11 +19,22 @@ function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
 
-function changeLocale() {
-	setVal('locale', $('#locale').val());
-}
 function getLocale() {
 	return getVal('locale') || $('#locale').val() || 'ru';
+}
+function applyLocale() {
+	var locale = getLocale();
+	$("[lang]").each(function () {
+		if ($(this).attr("lang") == locale) {
+		    $(this).show();
+		} else {
+		    $(this).hide();
+		}
+	});
+}
+function changeLocale() {
+	setVal('locale', $('#locale').val() || 'ru');
+	applyLocale();
 }
 //резделитель разрядов
 function commaSeparateNumber(val, sep){
@@ -669,5 +680,8 @@ $(document).ready(function () {
 		}
 		changeProduct($('#id_product').val());
 		selectCategoryByProoduct($('#id_product').val());
+	}
+	if (getLocale() != 'ru') {
+		applyLocale();
 	}
 });

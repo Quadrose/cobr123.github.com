@@ -14,7 +14,14 @@
 &nbsp;|&nbsp;
 <a href="#" style="font-weight:bold; font-size:12px; color:#000000;">Производство</a>
 &nbsp;
-</div><br>
+</div>
+<div style="position: fixed; top: 10; right: 10;">
+		<select name="locale" id="locale" onchange="changeLocale();">
+				<option style="background-image:url(/img/ru.png);" value="ru" selected>Русский</option>
+				<option style="background-image:url(/img/us.gif);" value="en">English</option>
+		</select>
+</div>
+<br>
 <form method="GET" onsubmit="return loadData();">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
 <tbody><tr><td>
@@ -66,11 +73,5 @@
 </tbody></table>
 </form>
 
-<!--<div align="center">
-		<select name="locale" id="locale" onchange="changeLocale();">
-				<option style="background-image:url(/img/ru.png);" value="ru" selected>Русский</option>
-				<option style="background-image:url(/img/us.gif);" value="en">English</option>
-		</select>
-</div>-->
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter29957719 = new Ya.Metrika({ id:29957719, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/29957719" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 </body></html>
