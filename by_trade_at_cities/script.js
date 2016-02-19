@@ -27,6 +27,31 @@ function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
 
+function getLocale() {
+	return getVal('locale') || $('#locale').val() || 'ru';
+}
+function applyLocale() {
+	var locale = getLocale();
+	
+	if (locale === 'en') {
+		document.title = "Retail sales";
+		$('#btnSubmit').val('Generate');
+	} else {
+		document.title = "Розничная торговля в городах";
+		$('#btnSubmit').val('Сформировать');
+	}
+	$("[lang]").each(function () {
+		if ($(this).attr("lang") == locale) {
+		    $(this).show();
+		} else {
+		    $(this).hide();
+		}
+	});
+}
+function changeLocale() {
+	setVal('locale', $('#locale').val() || 'ru');
+	window.location.reload();
+}
 function loadPrediction(predRow) {
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
@@ -425,5 +450,9 @@ $(document).ready(function () {
 		    var p = hashParams[i].split('=');
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);;
 		}
+	}
+	if (getLocale() != 'ru') {
+		 $('#locale').val(getLocale());
+		applyLocale();
 	}
 });
