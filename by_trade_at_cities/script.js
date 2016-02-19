@@ -221,7 +221,9 @@ function fillTownCaptions() {
 	var suffix = (locale === 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/cities'+suffix+'.json', function (data) {
-		sagTownCaption[val.i] = val.c;
+		$.each(data, function (key, val) {
+			sagTownCaption[val.i] = val.c;
+		});
 	});
 }
 //////////////////////////////////////////////////////
