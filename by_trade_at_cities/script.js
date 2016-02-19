@@ -215,6 +215,8 @@ function loadSavedFlt(){
 var sagTownCaption = [];
 function fillTownCaptions() {
 	sagTownCaption = [];
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var suffix = (locale === 'en') ? '_en' : '';
 	
@@ -400,6 +402,7 @@ function loadRegions(callback) {
 	return false;
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
+	sagTownCaption = [];
 	loadProductCategories(productCategoriesCallback);
 	loadCountries(countryCallback);
 	setVal('realm', getRealm());
