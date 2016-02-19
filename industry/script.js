@@ -682,6 +682,7 @@ $(document).ready(function () {
 		selectCategoryByProoduct($('#id_product').val());
 	}
 	if (getLocale() != 'ru') {
+		 $('#locale').val(getLocale())
 		applyLocale();
 	}
 });
