@@ -219,7 +219,9 @@ function loadData() {
 	if (realm == null || realm == '') return;
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var locale = getLocale();
+	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
+	var domain = (locale === 'en') ? 'virtonomica.com' : 'virtonomica.ru';
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		var output = '';
@@ -268,7 +270,7 @@ function loadData() {
 				output += '<td align="right" id="td_shop_price">'+val.spr+'</td>';
 				output += '<td align="right" id="td_shop_quality">'+val.sq+'</td>';
 				output += '<td align="right" id="td_shop_brand">'+val.sb+'</td>';
-				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">Показать</td>';
+				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
 				output += '</tr>';
 				
 				nvPredIdx = nvPredIdx + 1;
