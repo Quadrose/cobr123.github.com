@@ -322,14 +322,16 @@ function loadCountries(callback) {
 	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/countries'+suffix+'.json', function (data) {
-		var output = '<option value="" selected="">Все страны</option>';
+	  var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
+	  var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
+		var output = '<option value="" selected="">'+allCountries+'</option>';
 
 		$.each(data, function (key, val) {
 			output += '<option value="'+val.i+'">'+val.c+'</option>';
 		});
 		
 		$('#id_country').html(output); 	// replace all existing content
-		$('#id_region').html('<option value="" selected="">Все регионы</option>'); 	// replace all existing content
+		$('#id_region').html('<option value="" selected="">'+allRegions+'</option>'); 	// replace all existing content
 		if(callback != null) callback();
 	});
 	return false;
@@ -341,9 +343,10 @@ function loadRegions(callback) {
 	var svCountryId = $('#id_country').val();
 	if (svCountryId == null || svCountryId == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
+	var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
 	
 	$.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
-		var output = '<option value="" selected="">Все регионы</option>';
+		var output = '<option value="" selected="">'+allRegions+'</option>';
 		
 		$.each(data, function (key, val) {
 			if(val.ci == svCountryId){
