@@ -24,6 +24,14 @@ function getLocale() {
 }
 function applyLocale() {
 	var locale = getLocale();
+	
+	if (locale === 'en') {
+		document.title = "Production";
+		$('#btnSubmit').val('Generate');
+	} else {
+		document.title = "Производство";
+		$('#btnSubmit').val('Сформировать');
+	}
 	$("[lang]").each(function () {
 		if ($(this).attr("lang") == locale) {
 		    $(this).show();
