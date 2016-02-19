@@ -526,12 +526,13 @@ function loadData() {
 function loadProductCategories(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/materials.json', function (data) {
+	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
 		var categories = [];
 		$.each(data, function (key, val) {
-			if(categories[val.pc] == null && val.pc != 'Полезные ископаемые'){
+			if(categories[val.pc] == null && val.pc != 'Полезные ископаемые' && val.pc != 'Natural resources'){
 				output += '<option value="'+val.pc+'">'+val.pc+'</option>';
 				categories[val.pc] = 1;
 			}
@@ -550,8 +551,9 @@ function loadProducts(callback) {
 	
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
+	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/materials.json', function (data) {
+	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
@@ -628,8 +630,9 @@ function selectCategoryByProoduct(productId) {
 	if (productId == null || productId == '') return;
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/materials.json', function (data) {
+	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
 			if(productId === val.i){
 				$('select#id_category').val(val.pc);
