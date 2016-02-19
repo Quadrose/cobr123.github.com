@@ -510,9 +510,10 @@ function loadRecipe() {
 	if (realm == null || realm == '') return;
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
+	var suffix = (getLocale() == 'en') ? '_en' : '';
 	material_remains = [];
-	console.log('load ./'+realm+'/recipe_'+productID+'.json');
-	$.getJSON('./'+realm+'/recipe_'+productID+'.json', function (recipes) {
+	console.log('load ./'+realm+'/recipe_'+productID+suffix+'.json');
+	$.getJSON('./'+realm+'/recipe_'+productID+suffix+'.json', function (recipes) {
 		recipes.forEach(function(recipe) {
 			recipe.ip.forEach(function(ingredient) {
 			  	addVolumeFromForIngredient(ingredient.pi); 
