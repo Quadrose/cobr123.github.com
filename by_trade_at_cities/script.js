@@ -56,6 +56,7 @@ function changeLocale() {
 function loadPrediction(predRow) {
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
+	var locale = getLocale();
 	
 	$.getJSON('/predict_retail_sales/retail_analytics_hist/'+productID+'.json', function (data) {
 		var output = '';
@@ -66,6 +67,7 @@ function loadPrediction(predRow) {
 		var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
 		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
 		var tableId = 'table_' + predRow.attr('id');
+		var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 		
 		$.each(data, function (key, val) {
 			var suitable = true;
@@ -95,23 +97,42 @@ function loadPrediction(predRow) {
 			}
 		});
 		if (output === '') {
-			predRow.html('Недостаточно данных. Попробуйте в другой день.'); 	// replace all existing content
+			predRow.html(notEnoughDataMsg); 	// replace all existing content
 		} else {
+			var salesVolumeLabel = (locale === 'en') ? 'Sales volume' : 'Объем продаж';
+			var brandLabel = (locale === 'en') ? 'Brand' : 'Бренд';
+			var priceLabel = (locale === 'en') ? 'Price' : 'Цена';
+			var marketVolumeLabel = (locale === 'en') ? 'Market volume' : 'Объем рынка';
+			var qualityLabel = (locale === 'en') ? 'Quality' : 'Качество';
+			var serviceLevelLabel = (locale === 'en') ? 'Service level' : 'Уровень сервиса';
+			var sellerCntLabel = (locale === 'en') ? 'NoM' : 'К.п.';
+			var sellerCntHint = (locale === 'en') ? 'Number of merchants' : 'Количество продавцов';
+			var notorietyLabel = (locale === 'en') ? 'Popularity' : 'Известность';
+			var visitorsCountLabel = (locale === 'en') ? 'Number of visitors' : 'Кол-во пос.';
+			var visitorsCountHint = (locale === 'en') ? 'Number of visitors' : 'Количество посетителей';
+			var townDistrictLabel = (locale === 'en') ? 'City district' : 'Район города';
+			var shopSizeLabel = (locale === 'en') ? 'Trade area' : 'Торг. пл.';
+			var departmentCountLabel = (locale === 'en') ? 'NoD' : 'К.о.';
+			var departmentCountHint = (locale === 'en') ? 'Number of departments' : 'Количество отделов';
+			var wealthIndexLabel = (locale === 'en') ? 'WL' : 'И.б.';
+			var wealthIndexHint = (locale === 'en') ? 'Wealth level' : 'Индекс богатства';
+			var indexLabel = (locale === 'en') ? 'Index' : 'И.';
+			
 			var headers = '<thead><tr class="theader">';
-			headers += '<th id="th_sellVolume">Объем продаж&nbsp;<b id="sort_by_sellVolume"></b></th>';
-			headers += '<th id="th_price">Цена&nbsp;<b id="sort_by_price"></b></th>';
-			headers += '<th id="th_quality">Качество&nbsp;<b id="sort_by_quality"></b></th>';
-			headers += '<th id="th_brand">Бренд&nbsp;<b id="sort_by_brand"></b></th>';
-			headers += '<th id="th_marketVolume">Объем рынка&nbsp;<b id="sort_by_marketVolume"></b></th>';
-			headers += '<th id="th_sellerCnt" title="Количество продавцов">К.п.&nbsp;<b id="sort_by_sellerCnt"></b></th>';
-			headers += '<th id="th_serviceLevel">Уровень сервиса&nbsp;<b id="sort_by_serviceLevel"></b></th>';
-			headers += '<th id="th_visitorsCount" title="Количество посетителей">Кол-во пос.&nbsp;<b id="sort_by_visitorsCount"></b></th>';
-			headers += '<th id="th_notoriety">Известность&nbsp;<b id="sort_by_notoriety"></b></th>';
-			headers += '<th id="th_townDistrict">Район города&nbsp;<b id="sort_by_townDistrict"></b></th>';
-			headers += '<th id="th_shopSize" title="Торговая площадь">Торг. пл.&nbsp;<b id="sort_by_shopSize"></b></th>';
-			headers += '<th id="th_departmentCount" title="Количество отделов">К.о.&nbsp;<b id="sort_by_departmentCount"></b></th>';
-			headers += '<th id="th_wealthIndex" title="Индекс богатства">И.б.&nbsp;<b id="sort_by_wealthIndex"></b></th>';
-			headers += '<th id="th_marketIdx" title="Индекс">И.&nbsp;<b id="sort_by_marketIdx"></b></th>';
+			headers += '<th id="th_sellVolume">'+salesVolumeLabel+'&nbsp;<b id="sort_by_sellVolume"></b></th>';
+			headers += '<th id="th_price">'+priceLabel+'&nbsp;<b id="sort_by_price"></b></th>';
+			headers += '<th id="th_quality">'+qualityLabel+'&nbsp;<b id="sort_by_quality"></b></th>';
+			headers += '<th id="th_brand">'+brandLabel+'&nbsp;<b id="sort_by_brand"></b></th>';
+			headers += '<th id="th_marketVolume">'+marketVolumeLabel+'&nbsp;<b id="sort_by_marketVolume"></b></th>';
+			headers += '<th id="th_sellerCnt" title="'+sellerCntHint+'">'+sellerCntLabel+'&nbsp;<b id="sort_by_sellerCnt"></b></th>';
+			headers += '<th id="th_serviceLevel">'+serviceLevelLabel+'&nbsp;<b id="sort_by_serviceLevel"></b></th>';
+			headers += '<th id="th_visitorsCount" title="'+visitorsCountHint+'">'+visitorsCountLabel+'&nbsp;<b id="sort_by_visitorsCount"></b></th>';
+			headers += '<th id="th_notoriety">'+notorietyLabel+'&nbsp;<b id="sort_by_notoriety"></b></th>';
+			headers += '<th id="th_townDistrict">'+townDistrictLabel+'&nbsp;<b id="sort_by_townDistrict"></b></th>';
+			headers += '<th id="th_shopSize" title="Торговая площадь">'+shopSizeLabel+'&nbsp;<b id="sort_by_shopSize"></b></th>';
+			headers += '<th id="th_departmentCount" title="'+departmentCountHint+'">'+departmentCountLabel+'&nbsp;<b id="sort_by_departmentCount"></b></th>';
+			headers += '<th id="th_wealthIndex" title="'+wealthIndexHint+'а">'+wealthIndexLabel+'&nbsp;<b id="sort_by_wealthIndex"></b></th>';
+			headers += '<th id="th_marketIdx" title="Индекс">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
 			headers += '</tr></thead>';
 			predRow.html('<td colspan=11><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
 			
@@ -130,15 +151,20 @@ function loadPrediction(predRow) {
 }
 function togglePrediction(npPredNum){
 	var link = $('#toggle_prediction_' + npPredNum + ' > a');
-	if(link.text() === 'Скрыть') {
+	var locale = getLocale();
+	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
+	var hideLabel = (locale === 'en') ? 'Hide' : 'Скрыть';
+	var loadingLabel = (locale === 'en') ? 'Loading...' : 'Загружаю...';
+	
+	if(link.text() === hideLabel) {
 		var predRow = $('#prediction_' + npPredNum);
 		predRow.remove();
-		link.text('Показать');
+		link.text(showLabel);
 	} else {
-		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=11>Загружаю...</td></tr>');
+		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=11>'+loadingLabel+'</td></tr>');
 		var predRow = $('#prediction_' + npPredNum);
 		loadPrediction(predRow);
-		link.text('Скрыть');
+		link.text(hideLabel);
 	}
 }
 function loadSavedFlt(){
