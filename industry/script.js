@@ -499,7 +499,8 @@ function addVolumeFromForIngredient(productID) {
 	
 	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
 	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
-	var field = '&nbsp;<span lang="en" style="display:none">from</span><span lang="ru">от</span>&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
+	var fromLabel = (getLocale() == 'en') ? 'from' : 'от';
+	var field = '&nbsp;'+fromLabel+'&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
 	var href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
 	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="http://'+domain+''+imgSrc+'"></a>';
 	$('#volumeFromByMaterials').append(svMaterialImg + field); 
