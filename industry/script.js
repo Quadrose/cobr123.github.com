@@ -129,15 +129,16 @@ function updateTableFromCache(splicedTableCache){
 	var realm = getRealm();
 	var output = '';
 	$('#xtabletbody').html(''); 	// replace all existing content
+	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
 	
 	splicedTableCache.forEach(function(val){
 		output += '<tr class="trec">';
 		var openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
-		var specHref = 'http://virtonomica.ru/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
+		var specHref = 'http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
 		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
 		output += '<td align="center">'+val.equipQual+'</td>';
 		var svDate = new Date().toISOString().slice(0, 10);
-		var techHref = 'http://virtonomica.ru/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
+		var techHref = 'http://'+domain+'/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
 		output += '<td align="center" id="td_tech"><a target="_blank" href="'+techHref+'">'+val.tech+'</a></td>';
 		var svMaterialsImg = '';
 		var svMaterialsQty = '';
@@ -149,15 +150,15 @@ function updateTableFromCache(splicedTableCache){
 		var imgSrc = '';
 		val.materials.forEach(function(mat){
 			imgSrc = sagMaterialImg[mat.productID].replace('/img/products/','/img/products/16/');
-			unitHref = 'http://virtonomica.ru/'+realm+'/main/unit/view/'+mat.unitID+'/';
-			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
-			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+imgSrc+'"></a></td>';
+			unitHref = 'http://'+domain+'/'+realm+'/main/unit/view/'+mat.unitID+'/';
+			href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
+			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://'+domain+''+imgSrc+'"></a></td>';
 			svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.ingQty)+'&nbsp;</td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'&nbsp;</td>';
 			svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
 			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a>&nbsp;</td>';
 		});
-		href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
+		href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
 		output += '<td align="center"><table cellspacing="0" cellpadding="0"><tr class="trec">'+svMaterialsImg+'</tr><tr class="trec">'+svMaterialsQty+'</tr><tr class="trec">'+svMaterialsQual+'</tr><tr class="trec">'+svMaterialsPrice+'</tr></table></td>';
 		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
 		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
@@ -486,12 +487,13 @@ function addVolumeFromForIngredient(productID) {
 	  $('#volumeFromByMaterials').append('<br>'); 
 	}
 	var realm = getRealm();
+	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
 	
 	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
 	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
 	var field = '&nbsp;от&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
-	var href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
-	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+imgSrc+'"></a>';
+	var href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
+	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="http://'+domain+''+imgSrc+'"></a>';
 	$('#volumeFromByMaterials').append(svMaterialImg + field); 
 	savVolumeFromByMaterials[productID] = 1;
 }
@@ -552,6 +554,7 @@ function loadProducts(callback) {
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
+	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
 	
 	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
@@ -568,7 +571,7 @@ function loadProducts(callback) {
 					output += '<br>';
 				}
 				cnt++;
-				output += '&nbsp;<img src="http://virtonomica.ru'+val.s+'"';
+				output += '&nbsp;<img src="http://'+domain+val.s+'"';
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
