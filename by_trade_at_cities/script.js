@@ -10,7 +10,8 @@ function updateProdRemainLinks(){
 	if (productID == null || productID == '') return;
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
-	$('#show_remain_link').attr('href','http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/');
+	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	$('#show_remain_link').attr('href','http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/');
 	$('#calc_prod_link').attr('href','/industry/#id_product=' + productID);
 }
 function nvl(val1, val2){
@@ -192,6 +193,7 @@ function loadData() {
 	if (realm == null || realm == '') return;
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
+	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		var output = '';
@@ -230,7 +232,7 @@ function loadData() {
 			
 			if(suitable){
 				output += '<tr class="trec">';
-				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
+				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
 				output += '<td align="center" id="td_w_idx">'+val.wi+'</td>';
 				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
 				output += '<td align="right" id="td_volume">'+val.v+'</td>';
@@ -271,8 +273,9 @@ function loadData() {
 function loadProductCategories(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/product_categories.json', function (data) {
+	$.getJSON('./'+realm+'/product_categories'+suffix+'.json', function (data) {
 		var output = '';
 
 		$.each(data, function (key, val) {
@@ -291,14 +294,16 @@ function loadProducts(callback) {
 	
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
+	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/products.json', function (data) {
+	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
 		$.each(data, function (key, val) {
 			if(svCategoryId == val.pc){
-				output += '&nbsp;<img src="http://virtonomica.ru'+val.s+'"';
+				output += '&nbsp;<img src="http://'+domain+val.s+'"';
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
@@ -314,8 +319,9 @@ function loadProducts(callback) {
 function loadCountries(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/countries.json', function (data) {
+	$.getJSON('./'+realm+'/countries'+suffix+'.json', function (data) {
 		var output = '<option value="" selected="">Все страны</option>';
 
 		$.each(data, function (key, val) {
@@ -334,8 +340,9 @@ function loadRegions(callback) {
 	
 	var svCountryId = $('#id_country').val();
 	if (svCountryId == null || svCountryId == '') return;
+	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/regions.json', function (data) {
+	$.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
 		var output = '<option value="" selected="">Все регионы</option>';
 		
 		$.each(data, function (key, val) {
@@ -399,9 +406,10 @@ function fillUpdateDate() {
 	$('#update_date').val(''); 	// replace all existing content
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	var prefix = (getLocale() == 'en') ? 'updated' : 'обновлено';
 	
 	$.getJSON('./'+realm+'/updateDate.json', function (data) {
-		$('#update_date').val('обновлено: ' + data.d); 	// replace all existing content
+		$('#update_date').val(prefix+': ' + data.d); 	// replace all existing content
 	});
 }
 
