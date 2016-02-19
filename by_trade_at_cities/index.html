@@ -8,12 +8,18 @@
 </head>
 <body>
 <div>
-<a href="/" style="font-size:12px; color:#000000;">Главная</a>
+<a href="/" style="font-size:12px; color:#000000;"><span lang="en" style="display:none">Main</span><span lang="ru">Главная</span></a>
 &nbsp;|&nbsp;
-<a href="#" style="font-weight:bold; font-size:12px; color:#000000;">Розничная торговля в городах</a>
+<a href="#" style="font-weight:bold; font-size:12px; color:#000000;"><span lang="en" style="display:none">Retail sales</span><span lang="ru">Розничная торговля в городах</span></a>
 &nbsp;|&nbsp;
-<a href="/industry/" style="font-size:12px; color:#000000;">Производство</a>
+<a href="/industry/" style="font-size:12px; color:#000000;"><span lang="en" style="display:none">Production</span><span lang="ru">Производство</span></a>
 &nbsp;
+</div>
+<div style="position: absolute; top: 10; right: 10;">
+		<select name="locale" id="locale" onchange="changeLocale();">
+				<option value="ru" selected>Русский</option>
+				<option value="en">English</option>
+		</select>
 </div>
 <br>
 <form method="GET" onsubmit="return loadData();">
@@ -21,7 +27,7 @@
 <tbody><tr><td>
 <table border="1" width="100%" cellspacing="0" cellpadding="5" bordercolordark="#000000" bordercolorlight="#FFFFFF">
 <tbody><tr class="trec"><td nowrap="">
-<u><b>Реалм</b></u>&nbsp;<select id="realm" name="realm" onchange="changeRealm();">
+<u><b><span lang="en" style="display:none">Realm</span><span lang="ru">Реалм</span></b></u>&nbsp;<select id="realm" name="realm" onchange="changeRealm();">
 <option value="vera" selected="">vera</option>
 <option value="olga">olga</option>
 <option value="anna">anna</option>
@@ -39,14 +45,14 @@
 <option value="" selected="">Все регионы</option>
 </select>
 <br>
-<u><b>Индекс богатства </b></u> от <input type="text" id="wealthIndexFrom" size="5" maxlength="6" value="1"> до <input type="text" id="wealthIndexTo" size="8" maxlength="8" value="100000000"><br>
-<u><b>Объём </b></u> от <input type="text" id="volumeFrom" size="5" maxlength="6" value="1"> до <input type="text" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
-<u><b>Местные, %</b></u> от <input type="text" id="localPercentFrom" size="5" maxlength="6" value="0.00"> до <input type="text" id="localPercentTo" size="5" maxlength="6" value="100.00"><br>
-<u><b>Местные: цена</b></u> от <input type="text" id="localPriceFrom" size="12" maxlength="12" value="0.00"> до <input type="text" id="localPriceTo" size="12" maxlength="12" value="1000000.00">,
-<u><b>качество</b></u> от <input type="text" id="localQualityFrom" size="7" maxlength="7" value="1.00"> до <input type="text" id="localQualityTo" size="7" maxlength="7" value="1000.00"><br>
-<u><b>Магазины: цена</b></u> от <input type="text" id="shopPriceFrom" size="12" maxlength="12" value="0.00"> до <input type="text" id="shopPriceTo" size="12" maxlength="12" value="1000000.00">,
-<u><b>качество</b></u> от <input type="text" id="shopQualityFrom" size="7" maxlength="7" value="1.00"> до <input type="text" id="shopQualityTo" size="7" maxlength="7" value="1000.00">,
-<u><b>бренд</b></u> от <input type="text" id="shopBrandFrom" size="7" maxlength="7" value="0.00"> до <input type="text" id="shopBrandTo" size="7" maxlength="7" value="100.00"><br>
+<u><b><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span> </b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="wealthIndexFrom" size="5" maxlength="6" value="1"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="wealthIndexTo" size="8" maxlength="8" value="100000000"><br>
+<u><b><span lang="en" style="display:none">Volume</span><span lang="ru">Объём</span> </b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="volumeFrom" size="5" maxlength="6" value="1"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
+<u><b><span lang="en" style="display:none">Local suppliers: %</span><span lang="ru">Местные: %</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="localPercentFrom" size="5" maxlength="6" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="localPercentTo" size="5" maxlength="6" value="100.00"><br>
+<u><b><span lang="en" style="display:none">Local suppliers: price</span><span lang="ru">Местные: цена</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="localPriceFrom" size="12" maxlength="12" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="localPriceTo" size="12" maxlength="12" value="1000000.00">,
+<u><b><span lang="en" style="display:none">quality</span><span lang="ru">качество</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="localQualityFrom" size="7" maxlength="7" value="1.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="localQualityTo" size="7" maxlength="7" value="1000.00"><br>
+<u><b><span lang="en" style="display:none">Stores: price</span><span lang="ru">Магазины, цена</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="shopPriceFrom" size="12" maxlength="12" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="shopPriceTo" size="12" maxlength="12" value="1000000.00">,
+<u><b><span lang="en" style="display:none">quality</span><span lang="ru">качество</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="shopQualityFrom" size="7" maxlength="7" value="1.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="shopQualityTo" size="7" maxlength="7" value="1000.00">,
+<u><b><span lang="en" style="display:none">brand</span><span lang="ru">бренд</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="shopBrandFrom" size="7" maxlength="7" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="shopBrandTo" size="7" maxlength="7" value="100.00"><br>
 <input type="submit" id="btnSubmit" value="Сформировать">
 </td></tr>
 </tbody></table>
@@ -58,20 +64,21 @@
 <div id="table-container">
 <table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">
 <thead><tr class="theader">
-<th rowspan="2" id="th_city">Город&nbsp;<b id="sort_by_city"></b></th>
-<th rowspan="2" id="th_w_idx">Индекс богатства&nbsp;<b id="sort_by_w_idx"></b></th>
-<th rowspan="2" id="th_idx">Индекс&nbsp;<b id="sort_by_idx"></b></th>
-<th rowspan="2" id="th_volume">Объём&nbsp;<b id="sort_by_volume"></b></th>
-<th rowspan="2" id="th_local_perc">Местные, %&nbsp;<b id="sort_by_local_perc"></b></th>
-<td colspan="2">Местные</td><td colspan="3">Магазины</td>
-<td rowspan="2">Прогноз</td>
+<th rowspan="2" id="th_city"><span lang="en" style="display:none">City</span><span lang="ru">Город</span>&nbsp;<b id="sort_by_city"></b></th>
+<th rowspan="2" id="th_w_idx"><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span>&nbsp;<b id="sort_by_w_idx"></b></th>
+<th rowspan="2" id="th_idx"><span lang="en" style="display:none">Index</span><span lang="ru">Индекс</span>&nbsp;<b id="sort_by_idx"></b></th>
+<th rowspan="2" id="th_volume"><span lang="en" style="display:none">Volume</span><span lang="ru">Объём</span>&nbsp;<b id="sort_by_volume"></b></th>
+<th rowspan="2" id="th_local_perc"><span lang="en" style="display:none">Local suppliers, %</span><span lang="ru">Местные, %</span>&nbsp;<b id="sort_by_local_perc"></b></th>
+<td colspan="2"><span lang="en" style="display:none">Local suppliers</span><span lang="ru">Местные</span></td>
+<td colspan="3"><span lang="en" style="display:none">Stores</span><span lang="ru">Магазины</span></td>
+<td rowspan="2"><span lang="en" style="display:none">Prediction</span><span lang="ru">Прогноз</span></td>
 </tr>
 <tr class="theader">
-<th id="th_local_price">Цена&nbsp;<b id="sort_by_local_price"></b></th>
-<th id="th_local_quality">Качество&nbsp;<b id="sort_by_local_quality"></b></th>
-<th id="th_shop_price">Цена&nbsp;<b id="sort_by_shop_price"></b></th>
-<th id="th_shop_quality">Качество&nbsp;<b id="sort_by_shop_quality"></b></th>
-<th id="th_shop_brand">Бренд&nbsp;<b id="sort_by_shop_brand"></b></th>
+<th id="th_local_price"><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span>&nbsp;<b id="sort_by_local_price"></b></th>
+<th id="th_local_quality"><span lang="en" style="display:none">Quality</span><span lang="ru">Качество</span>&nbsp;<b id="sort_by_local_quality"></b></th>
+<th id="th_shop_price"><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span>&nbsp;<b id="sort_by_shop_price"></b></th>
+<th id="th_shop_quality"><span lang="en" style="display:none">Quality</span><span lang="ru">Качество</span>&nbsp;<b id="sort_by_shop_quality"></b></th>
+<th id="th_shop_brand"><span lang="en" style="display:none">Brand</span><span lang="ru">Бренд</span>&nbsp;<b id="sort_by_shop_brand"></b></th>
 </tr></thead>
 <tbody id="xtabletbody">
 </tbody>
