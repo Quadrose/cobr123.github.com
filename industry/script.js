@@ -623,9 +623,10 @@ function fillUpdateDate() {
 	$('#update_date').val(''); 	// replace all existing content
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	var prefix = (getLocale() == 'en') ? 'updated' : 'обновлено';
 	
 	$.getJSON('./'+realm+'/updateDate.json', function (data) {
-		$('#update_date').val('обновлено: ' + data.d); 	// replace all existing content
+		$('#update_date').val(prefix+': ' + data.d); 	// replace all existing content
 	});
 }
 
