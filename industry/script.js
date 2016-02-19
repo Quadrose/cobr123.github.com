@@ -34,7 +34,7 @@ function applyLocale() {
 }
 function changeLocale() {
 	setVal('locale', $('#locale').val() || 'ru');
-	window.location = window.location.href;
+	window.location.reload();
 }
 //резделитель разрядов
 function commaSeparateNumber(val, sep){
