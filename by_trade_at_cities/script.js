@@ -276,7 +276,7 @@ function loadData() {
 			
 			if(suitable){
 				output += '<tr class="trec">';
-				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+(sagTownCaption[val.ti]|val.tc)+'</a></td>';
+				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td align="center" id="td_w_idx">'+val.wi+'</td>';
 				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
 				output += '<td align="right" id="td_volume">'+val.v+'</td>';
