@@ -72,6 +72,35 @@ function getCityDistrict(name, locale) {
 	  return name;
 	}
 }
+function getVolume(volume, locale) {
+  if (locale === 'en') {
+		return volume.replace('менее', 'below').replace('около', 'about').replace('более', 'over');
+	} else {
+		return volume;
+	}
+}
+
+function getServiceLevel(serviceLevel, locale) {
+  if (locale === 'en') {
+		if (serviceLevel === 'Элитный') {
+			return 'Elite';
+		} else if (serviceLevel === 'Очень высокий') {
+			return 'Very high';
+		} else if (serviceLevel === 'Высокий') {
+			return 'High';
+		} else if (serviceLevel === 'Нормальный') {
+			return 'Normal';
+		} else if (serviceLevel === 'Низкий') {
+			return 'Low';
+		} else if (serviceLevel === 'Очень низкий') {
+			return 'Very low';
+		} else {
+			return serviceLevel;
+		}
+	} else {
+	  return serviceLevel;
+	}
+}
 function loadPrediction(predRow) {
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
@@ -98,14 +127,14 @@ function loadPrediction(predRow) {
 			
 			if(suitable){
 				output += '<tr class="trec">';
-				output += '<td align="center" id="td_sellVolume">'+val.sv+'</td>';
+				output += '<td align="center" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
 				output += '<td align="center" id="td_price">'+val.p+'</td>';
 				output += '<td align="center" id="td_quality">'+val.q+'</td>';
 				output += '<td align="center" id="td_brand">'+val.b+'</td>';
 				output += '<td align="center" id="td_marketVolume">'+val.mv+'</td>';
 				output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
-				output += '<td align="center" id="td_serviceLevel">'+val.sl+'</td>';
-				output += '<td align="center" id="td_visitorsCount">'+val.vc+'</td>';
+				output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
+				output += '<td align="center" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
 				output += '<td align="center" id="td_notoriety">'+val.n+'</td>';
 				output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
 				output += '<td align="center" id="td_shopSize">'+val.ss+'</td>';
