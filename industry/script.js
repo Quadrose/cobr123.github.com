@@ -259,7 +259,7 @@ function calcResult(recipe, materials, tech) {
 	for (var i = 0; i < num; i++) {
 		IngTotalQual+= ingQual[i] * ingBaseQty[i];
 		IngTotalQty += ingBaseQty[i];
-	};
+	}
 	IngTotalQual = IngTotalQual/IngTotalQty*eff;	
 	
 	//качество товара
@@ -288,7 +288,9 @@ function calcResult(recipe, materials, tech) {
 function cartesianProduct(a) { // a = array of array
 		var totalMaxLen = 500000;
     var i, j, l, m, a1, o = [];
-    if (!a || a.length == 0) return a;
+    if (!a || a.length === 0) {
+    	return a;
+    }
 
     a1 = a.splice(0,1);
     a = cartesianProduct(a);
@@ -296,7 +298,9 @@ function cartesianProduct(a) { // a = array of array
         if (a && a.length){ 
 					for (j = 0, m = a.length; j < m; j++) {
 						o.push([a1[0][i]].concat(a[j]));
-						if (o.length > totalMaxLen) return o;
+						if (o.length > totalMaxLen) {
+							return o;
+						}
 					}
 				} else {
           o.push([a1[0][i]]);
@@ -322,35 +326,35 @@ function sortTableCache(a,b){
 	 ,productID: recipe.rp[0].pi
 	};
 	*/
-	if(svColId == 'th_tech' && a.tech != a.tech){
+	if(svColId == 'th_tech' && a.tech != b.tech){
 		if(isAscending){
 		  return b.tech - a.tech;
 		} else {
 		  return a.tech - b.tech;
 		}
 	} 
-	else if(svColId == 'th_quality' && a.quality != a.quality){
+	else if(svColId == 'th_quality' && a.quality != b.quality){
 		if(isAscending){
 		  return b.quality - a.quality;
 		} else {
 		  return a.quality - b.quality;
 		}
 	} 
-	else if(svColId == 'th_quantity' && a.quantity != a.quantity){
+	else if(svColId == 'th_quantity' && a.quantity != b.quantity){
 		if(isAscending){
 		  return b.quantity - a.quantity;
 		} else {
 		  return a.quantity - b.quantity;
 		}
 	} 
-	else if(svColId == 'th_cost' && a.cost != a.cost){
+	else if(svColId == 'th_cost' && a.cost != b.cost){
 		if(isAscending){
 		  return b.cost - a.cost;
 		} else {
 		  return a.cost - b.cost;
 		}
 	} 
-	else if(svColId == 'th_profit' && a.profit != a.profit){
+	else if(svColId == 'th_profit' && a.profit != b.profit){
 		if(isAscending){
 		  return b.profit - a.profit;
 		} else {
@@ -380,14 +384,14 @@ function sortMaterials(a,b){
 	 ,productID : productID
 	 ,unitID : remain.ui
 	};*/
-	if(svColId == 'th_quality' && a.quality != a.quality){
+	if(svColId == 'th_quality' && a.quality != b.quality){
 		if(isAscending){
 		  return b.quality - a.quality;
 		} else {
 		  return a.quality - b.quality;
 		}
 	} 
-	else if(svColId == 'th_cost' && a.price != a.price){
+	else if(svColId == 'th_cost' && a.price != b.price){
 		if(isAscending){
 		  return b.price - a.price;
 		} else {
@@ -403,7 +407,7 @@ function calcProduction(recipe) {
 	var allExists = true;
 	recipe.ip.forEach(function(ingredient) {
 		if(allExists){
-			if (material_remains[ingredient.pi] == null || material_remains[ingredient.pi].length == 0) {
+			if (material_remains[ingredient.pi] === null || material_remains[ingredient.pi].length === 0) {
 				allExists = false;
 			} else {
 				remains.push(material_remains[ingredient.pi]);
@@ -421,7 +425,9 @@ function calcProduction(recipe) {
 	setVal('workQuan', $('#workQuan').val());
 	setVal('workSalary', $('#workSalary').val());
 	//setVal('volumeFrom', $('#volumeFrom').val());
-	for (var key in savVolumeFromByMaterials ) setVal('volumeFrom_'+key, $('#volumeFrom_'+key).val());
+	for (var key in savVolumeFromByMaterials ) {
+		setVal('volumeFrom_'+key, $('#volumeFrom_'+key).val());
+	}
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
@@ -441,7 +447,9 @@ function calcProduction(recipe) {
 		});
 	}
 	var tmp = [];
-	for (var key in tableCache) tmp.push(tableCache[key]);
+	for (var key in tableCache) {
+		tmp.push(tableCache[key]);
+	}
 	tableCache = tmp;
 	sortAndUpdateResult();
 }
