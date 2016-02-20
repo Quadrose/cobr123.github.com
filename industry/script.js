@@ -20,7 +20,7 @@ function setVal(spName, pValue){
 }
 
 function getLocale() {
-	return $('#locale').val() || getVal('locale') || 'ru';
+	return getVal('locale') || $('#locale').val() || 'ru';
 }
 function applyLocale() {
 	var locale = getLocale();
@@ -706,7 +706,7 @@ $(document).ready(function () {
 			changeProduct(id_product);
 		}
 	}
-	if (getLocale() != 'ru') {
+	if (getLocale() != $('#locale').val()) {
 		 $('#locale').val(getLocale());
 		applyLocale();
 	}
