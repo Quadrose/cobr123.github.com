@@ -687,16 +687,22 @@ $(document).ready(function () {
 			sortAndUpdateResult();
 		}
 	});
+	var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
+	//только для локали, чтобы категории правильные загрузились сразу
+	if (hashParams != null && hashParams != '') {
+		for(var i = 0; i < hashParams.length; i++){
+		    var p = hashParams[i].split('=');
+		    if (p[0] === 'locale') {
+			setVal('locale', decodeURIComponent(p[1]));
+		    }
+		}
+	}
 	loadSavedFlt();
 	
-	var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
 	if (hashParams != null && hashParams != '') {
 		for(var i = 0; i < hashParams.length; i++){
 		    var p = hashParams[i].split('=');
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
-		    if (p[0] === 'locale') {
-			setVal('locale', decodeURIComponent(p[1]));
-		    }
 		}
 		selectCategoryByProoduct($('#id_product').val());
 		changeProduct($('#id_product').val());
