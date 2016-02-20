@@ -462,6 +462,10 @@ function changeRealm(productCategoriesCallback, countryCallback) {
 	setVal('realm', getRealm());
 	fillUpdateDate();
 	updateProdRemainLinks();
+	if(productCategoriesCallback === null) {
+		selectCategoryByProoduct($('#id_product').val());
+		changeProduct($('#id_product').val());
+	}
 }
 function changeCategory(callback) {
 	loadProducts(callback);
