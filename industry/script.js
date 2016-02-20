@@ -697,6 +697,7 @@ $(document).ready(function () {
 		}
 		changeProduct($('#id_product').val());
 		selectCategoryByProoduct($('#id_product').val());
+		window.location.hash = '';
 	}
 	if (getLocale() != 'ru') {
 		 $('#locale').val(getLocale());
