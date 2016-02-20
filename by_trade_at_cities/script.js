@@ -53,6 +53,25 @@ function changeLocale() {
 	setVal('locale', $('#locale').val() || 'ru');
 	window.location.reload();
 }
+function getCityDistrict(name, locale) {
+  if (locale === 'en') {
+		if (name === 'Центр города') {
+			return 'City centre';
+		} else if (name === 'Фешенебельный район') {
+			return 'Trendy neighborhood';
+		} else if (name === 'Пригород') {
+			return 'Suburb';
+		} else if (name === 'Окраина') {
+			return 'Outskirts';
+		} else if (name === 'Спальный район') {
+			return 'Residential area';
+		} else {
+			return name;
+		}
+	} else {
+	  return name;
+	}
+}
 function loadPrediction(predRow) {
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
@@ -88,7 +107,7 @@ function loadPrediction(predRow) {
 				output += '<td align="center" id="td_serviceLevel">'+val.sl+'</td>';
 				output += '<td align="center" id="td_visitorsCount">'+val.vc+'</td>';
 				output += '<td align="center" id="td_notoriety">'+val.n+'</td>';
-				output += '<td align="center" id="td_townDistrict">'+val.td+'</td>';
+				output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
 				output += '<td align="center" id="td_shopSize">'+val.ss+'</td>';
 				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
 				output += '<td align="center" id="td_wealthIndex">'+val.wi+'</td>';
