@@ -701,7 +701,7 @@ $(document).ready(function () {
 	} else {
 		var id_product = getProductID() || getVal('id_product');
 		var id_category = $('#id_category').val();
-		if (id_product != null && id_product != '' && id_category === '') {
+		if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
 			selectCategoryByProoduct(id_product);
 		}
 	}
