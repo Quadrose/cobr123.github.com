@@ -286,7 +286,7 @@ function calcResult(recipe, materials, tech) {
 	return result;
 }
 function cartesianProduct(a) { // a = array of array
-		var totalMaxLen = 1000000;
+		var totalMaxLen = 500000;
     var i, j, l, m, a1, o = [];
     if (!a || a.length == 0) return a;
 
