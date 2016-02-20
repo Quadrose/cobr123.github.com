@@ -6,7 +6,7 @@ function getProductID(){
 	return $('#id_product').val();
 }
 function nvl(val1, val2){
-	if (val1 == null || val1 == ''){
+	if (val1 === null || val1 === ''){
 		return val2;
 	} else {
 		return val1;
@@ -33,7 +33,7 @@ function applyLocale() {
 		$('#btnSubmit').val('Сформировать');
 	}
 	$("[lang]").each(function () {
-		if ($(this).attr("lang") == locale) {
+		if ($(this).attr("lang") === locale) {
 		    $(this).show();
 		} else {
 		    $(this).hide();
@@ -64,18 +64,18 @@ function loadSavedFlt(){
 	$('#workSalary').val(getVal('workSalary') || 300);
 	$('#volumeFrom_'+id_product).val(getVal('volumeFrom_'+id_product) || getVal('volumeFrom') || 1);
 	
-	if (realm != null || realm != '') {
+	if (realm !== null || realm !== '') {
 		$('#realm').val(realm);
 		var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
 			id_product = id_product || $('#materials > img').eq(0).attr('id').replace("img", "");
-			if (id_product == null || id_product == '') return;
+			if (id_product === null || id_product === '') return;
 			changeProduct(id_product);
 		};
 		var productCategoriesCallback = function() {
 			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
 			id_category = id_category || $('#id_category > option').eq(0).val();
-			if (id_category == null || id_category == '') return;
+			if (id_category === null || id_category === '') return;
 			$('#id_category').val(id_category);
 			loadProducts(loadProductsCallback);
   		};
@@ -113,7 +113,7 @@ function addToResultCache(val){
 	
 	if(suitable){
 		var existed = tableCache[val.quality];
-		if(existed == null || existed.cost > val.cost){
+		if(existed === null || existed.cost > val.cost){
 			tableCache[val.quality] = val;
 		}
 	}
@@ -137,7 +137,7 @@ function updateTableFromCache(splicedTableCache){
 	var realm = getRealm();
 	var output = '';
 	$('#xtabletbody').html(''); 	// replace all existing content
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var domain = (getLocale() === 'en') ? 'virtonomica.com' : 'virtonomica.ru';
 	
 	splicedTableCache.forEach(function(val){
 		output += '<tr class="trec">';
@@ -177,7 +177,7 @@ function updateTableFromCache(splicedTableCache){
 	});
 	//console.log('output = ' + output);
 	$('#xtabletbody').html(output); 	// replace all existing content
-	if(output != ''){
+	if(output !== ''){
 		sortTable();
 	}
 }
@@ -326,35 +326,35 @@ function sortTableCache(a,b){
 	 ,productID: recipe.rp[0].pi
 	};
 	*/
-	if(svColId == 'th_tech' && a.tech != b.tech){
+	if(svColId === 'th_tech' && a.tech !== b.tech){
 		if(isAscending){
 		  return b.tech - a.tech;
 		} else {
 		  return a.tech - b.tech;
 		}
 	} 
-	else if(svColId == 'th_quality' && a.quality != b.quality){
+	else if(svColId === 'th_quality' && a.quality !== b.quality){
 		if(isAscending){
 		  return b.quality - a.quality;
 		} else {
 		  return a.quality - b.quality;
 		}
 	} 
-	else if(svColId == 'th_quantity' && a.quantity != b.quantity){
+	else if(svColId === 'th_quantity' && a.quantity !== b.quantity){
 		if(isAscending){
 		  return b.quantity - a.quantity;
 		} else {
 		  return a.quantity - b.quantity;
 		}
 	} 
-	else if(svColId == 'th_cost' && a.cost != b.cost){
+	else if(svColId === 'th_cost' && a.cost !== b.cost){
 		if(isAscending){
 		  return b.cost - a.cost;
 		} else {
 		  return a.cost - b.cost;
 		}
 	} 
-	else if(svColId == 'th_profit' && a.profit != b.profit){
+	else if(svColId === 'th_profit' && a.profit !== b.profit){
 		if(isAscending){
 		  return b.profit - a.profit;
 		} else {
@@ -384,14 +384,14 @@ function sortMaterials(a,b){
 	 ,productID : productID
 	 ,unitID : remain.ui
 	};*/
-	if(svColId == 'th_quality' && a.quality != b.quality){
+	if(svColId === 'th_quality' && a.quality !== b.quality){
 		if(isAscending){
 		  return b.quality - a.quality;
 		} else {
 		  return a.quality - b.quality;
 		}
 	} 
-	else if(svColId == 'th_cost' && a.price != b.price){
+	else if(svColId === 'th_cost' && a.price !== b.price){
 		if(isAscending){
 		  return b.price - a.price;
 		} else {
@@ -455,14 +455,14 @@ function calcProduction(recipe) {
 }
 function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	if (productID == null || productID == '') return;
+	if (realm === null || realm === '') return;
+	if (productID === null || productID === '') return;
 	
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
 		remains.forEach(function(remain) {
 			var suitable = true;
-			if(material_remains[productID] == null){
+			if(material_remains[productID] === null){
 				material_remains[productID] = [];
 			}
 			if (suitable && remain.r >= parseFloatFromFilter('#volumeFrom_'+productID,remain.r)) {suitable = true;} else {suitable = false;}
@@ -503,11 +503,11 @@ function addVolumeFromForIngredient(productID) {
 	  $('#volumeFromByMaterials').append('<br>'); 
 	}
 	var realm = getRealm();
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var domain = (getLocale() === 'en') ? 'virtonomica.com' : 'virtonomica.ru';
 	
 	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
 	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
-	var fromLabel = (getLocale() == 'en') ? 'from' : 'от';
+	var fromLabel = (getLocale() === 'en') ? 'from' : 'от';
 	var field = '&nbsp;'+fromLabel+'&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
 	var href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
 	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="http://'+domain+''+imgSrc+'"></a>';
@@ -516,10 +516,10 @@ function addVolumeFromForIngredient(productID) {
 }
 function loadRecipe() {
 	var realm = getRealm();
-	if (realm == null || realm == '') return;
+	if (realm === null || realm === '') return;
 	var productID = getProductID();
-	if (productID == null || productID == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
+	if (productID === null || productID === '') return;
+	var suffix = (getLocale() === 'en') ? '_en' : '';
 	material_remains = [];
 	console.log('load ./'+realm+'/recipe_'+productID+suffix+'.json');
 	$.getJSON('./'+realm+'/recipe_'+productID+suffix+'.json', function (recipes) {
@@ -545,14 +545,14 @@ function loadData() {
 
 function loadProductCategories(callback) {
 	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
+	if (realm === null || realm === '') return;
+	var suffix = (getLocale() === 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
 		var categories = [];
 		$.each(data, function (key, val) {
-			if(categories[val.pc] == null && val.pc != 'Полезные ископаемые' && val.pc != 'Natural resources'){
+			if(categories[val.pc] === null && val.pc !== 'Полезные ископаемые' && val.pc !== 'Natural resources'){
 				output += '<option value="'+val.pc+'">'+val.pc+'</option>';
 				categories[val.pc] = 1;
 			}
@@ -561,7 +561,7 @@ function loadProductCategories(callback) {
 		$('#id_category').html(output); 	// replace all existing content
 		$('#materials').html(''); 
 		
-		if(callback != null) {
+		if(callback !== null) {
 			callback();
 		} else {
 			selectCategoryByProoduct($('#id_product').val());
@@ -572,12 +572,12 @@ function loadProductCategories(callback) {
 }
 function loadProducts(callback) {
 	var realm = getRealm();
-	if (realm == null || realm == '') return;
+	if (realm === null || realm === '') return;
 	
 	var svCategoryId = $('#id_category').val();
-	if (svCategoryId == null || svCategoryId == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	if (svCategoryId === null || svCategoryId === '') return;
+	var suffix = (getLocale() === 'en') ? '_en' : '';
+	var domain = (getLocale() === 'en') ? 'virtonomica.com' : 'virtonomica.ru';
 	
 	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
@@ -588,14 +588,14 @@ function loadProducts(callback) {
 		$.each(data, function (key, val) {
 			sagMaterialImg[val.i] = val.s;
 			
-			if(svCategoryId == val.pc){
+			if(svCategoryId === val.pc){
 				if(cnt > 30){
 					cnt = 0;
 					output += '<br>';
 				}
 				cnt++;
 				output += '&nbsp;<img src="http://'+domain+val.s+'"';
-				if(selected != null && selected == val.i){
+				if(selected !== null && selected === val.i){
 					output += ' border="1"';
 				}
 				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeProduct('+val.i+')">';
@@ -603,7 +603,7 @@ function loadProducts(callback) {
 		});
 		
 		$('#materials').html(output); 	// replace all existing content
-		if(callback != null) callback();
+		if(callback !== null) callback();
 	});
 	return false;
 }
@@ -618,7 +618,7 @@ function changeCategory(callback) {
 }
 function changeProduct(productId) {
 	var selected = $('#id_product').val();
-	if(selected != null && selected != ''){
+	if(selected !== null && selected !== ''){
 		$('#img'+selected).attr('border','');
 	}
 	savVolumeFromByMaterials = []
@@ -640,13 +640,13 @@ function transformToAssocArray( prmstr ) {
 }
 function getSearchParameters() {
       var prmstr = window.location.search.substr(1);
-      return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+      return prmstr !== null && prmstr !== "" ? transformToAssocArray(prmstr) : {};
 }
 function fillUpdateDate() {
 	$('#update_date').val(''); 	// replace all existing content
 	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	var prefix = (getLocale() == 'en') ? 'updated' : 'обновлено';
+	if (realm === null || realm === '') return;
+	var prefix = (getLocale() === 'en') ? 'updated' : 'обновлено';
 	
 	$.getJSON('./'+realm+'/updateDate.json', function (data) {
 		$('#update_date').val(prefix+': ' + data.d); 	// replace all existing content
@@ -654,10 +654,10 @@ function fillUpdateDate() {
 }
 
 function selectCategoryByProoduct(productId) {
-	if (productId == null || productId == '') return;
+	if (productId === null || productId === '') return;
 	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
+	if (realm === null || realm === '') return;
+	var suffix = (getLocale() === 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
@@ -685,7 +685,7 @@ $(document).ready(function () {
 		}
 		
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
-		if (tableHeaderId != null && tableHeaderId != '') {
+		if (tableHeaderId !== null && tableHeaderId !== '') {
 			//console.log(tableHeaderId);
 			isAscending = tableHeader.getAttribute('data-order')=='asc';
 			order = isAscending?'desc':'asc';
@@ -702,7 +702,7 @@ $(document).ready(function () {
 	});
 	var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
 	//только для локали, чтобы категории правильные загрузились сразу
-	if (hashParams != null && hashParams != '') {
+	if (hashParams !== null && hashParams !== '') {
 		for(var i = 0; i < hashParams.length; i++){
 		    var p = hashParams[i].split('=');
 		    if (p[0] === 'locale') {
@@ -712,7 +712,7 @@ $(document).ready(function () {
 	}
 	loadSavedFlt();
 	
-	if (hashParams != null && hashParams != '') {
+	if (hashParams !== null && hashParams !== '') {
 		for(var i = 0; i < hashParams.length; i++){
 		    var p = hashParams[i].split('=');
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
@@ -723,12 +723,12 @@ $(document).ready(function () {
 	} else {
 		var id_product = getProductID() || getVal('id_product');
 		var id_category = $('#id_category').val();
-		if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
+		if (id_product !== null && id_product !== '' && (id_category === null || id_category === '')) {
 			selectCategoryByProoduct(id_product);
 			changeProduct(id_product);
 		}
 	}
-	if (getLocale() !='ru') {
+	if (getLocale() !== 'ru') {
 		 $('#locale').val(getLocale());
 		applyLocale();
 	}
