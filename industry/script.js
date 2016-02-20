@@ -20,7 +20,7 @@ function setVal(spName, pValue){
 }
 
 function getLocale() {
-	return getVal('locale') || $('#locale').val() || 'ru';
+	return $('#locale').val() || getVal('locale') || 'ru';
 }
 function applyLocale() {
 	var locale = getLocale();
