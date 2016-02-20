@@ -506,6 +506,7 @@ $(document).ready(function () {
 		    var p = hashParams[i].split('=');
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);;
 		}
+		window.location.hash = '';
 	}
 	if (getLocale() != 'ru') {
 		 $('#locale').val(getLocale());
