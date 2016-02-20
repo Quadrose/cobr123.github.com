@@ -77,6 +77,11 @@ function loadSavedFlt(){
 			id_category = id_category || $('#id_category > option').eq(0).val();
 			if (id_category == null || id_category == '') return;
 			$('#id_category').val(id_category);
+			id_category = $('#id_category').val();
+			if (id_category == null || id_category == '') {
+				id_category = $('#id_category > option').eq(0).val();
+				$('#id_category').val(id_category);
+			}
 			loadProducts(loadProductsCallback);
   		};
 		changeRealm(productCategoriesCallback);
