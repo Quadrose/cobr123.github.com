@@ -380,7 +380,12 @@ function loadProductCategories(callback) {
 		
 		$('#id_category').html(output); 	// replace all existing content
 		$('#products').html(''); 
-		if(callback != null) callback();
+		if(callback != null) {
+			callback();
+		} else {
+			selectCategoryByProoduct($('#id_product').val());
+			changeProduct($('#id_product').val());
+		}
 	});
 	return false;
 }
@@ -462,10 +467,6 @@ function changeRealm(productCategoriesCallback, countryCallback) {
 	setVal('realm', getRealm());
 	fillUpdateDate();
 	updateProdRemainLinks();
-	if(productCategoriesCallback === null) {
-		selectCategoryByProoduct($('#id_product').val());
-		changeProduct($('#id_product').val());
-	}
 }
 function changeCategory(callback) {
 	loadProducts(callback);
