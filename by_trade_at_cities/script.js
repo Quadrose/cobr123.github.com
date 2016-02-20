@@ -503,9 +503,9 @@ function selectCategoryByProoduct(productId) {
 		$.each(data, function (key, val) {
 			if(productId === val.i){
 				$('select#id_category').val(val.pc);
-				loadProducts();
 			}
 		});
+		loadProducts();
 	});
 	return false;
 }
