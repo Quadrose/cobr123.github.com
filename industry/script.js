@@ -553,7 +553,12 @@ function loadProductCategories(callback) {
 		$('#id_category').html(output); 	// replace all existing content
 		$('#materials').html(''); 
 		
-		if(callback != null) callback();
+		if(callback != null) {
+			callback();
+		} else {
+			selectCategoryByProoduct($('#id_product').val());
+			changeProduct($('#id_product').val());
+		}
 	});
 	return false;
 }
@@ -650,9 +655,9 @@ function selectCategoryByProoduct(productId) {
 		$.each(data, function (key, val) {
 			if(productId === val.i){
 				$('select#id_category').val(val.pc);
-				loadProducts();
 			}
 		});
+		loadProducts();
 	});
 	return false;
 }
