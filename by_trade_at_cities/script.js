@@ -436,6 +436,22 @@ function changeProduct(productId) {
 	setVal('id_product', $('#id_product').val());
 	updateProdRemainLinks();
 }
+function selectCategoryByProoduct(productId) {
+	if (productId == null || productId == '') return;
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	var suffix = (getLocale() == 'en') ? '_en' : '';
+	
+	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
+		$.each(data, function (key, val) {
+			if(productId === val.i){
+				$('select#id_category').val(val.pc);
+				loadProducts();
+			}
+		});
+	});
+	return false;
+}
 
 function transformToAssocArray( prmstr ) {
     var params = {};
@@ -506,7 +522,16 @@ $(document).ready(function () {
 		    var p = hashParams[i].split('=');
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);;
 		}
+		selectCategoryByProoduct($('#id_product').val());
+		changeProduct($('#id_product').val());
 		window.location.hash = '';
+	} else {
+		var id_product = getProductID() || getVal('id_product');
+		var id_category = $('#id_category').val();
+		if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
+			selectCategoryByProoduct(id_product);
+			changeProduct(id_product);
+		}
 	}
 	if (getLocale() != 'ru') {
 		 $('#locale').val(getLocale());
