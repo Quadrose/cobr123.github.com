@@ -520,7 +520,10 @@ $(document).ready(function () {
 	if (hashParams != null && hashParams != '') {
 		for(var i = 0; i < hashParams.length; i++){
 		    var p = hashParams[i].split('=');
-		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);;
+		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
+		    if (p[0] === 'locale') {
+			setVal('locale', decodeURIComponent(p[1]));
+		    }
 		}
 		selectCategoryByProoduct($('#id_product').val());
 		changeProduct($('#id_product').val());
