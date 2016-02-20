@@ -698,6 +698,12 @@ $(document).ready(function () {
 		changeProduct($('#id_product').val());
 		selectCategoryByProoduct($('#id_product').val());
 		window.location.hash = '';
+	} else {
+		var id_product = getProductID() || getVal('id_product');
+		var id_category = $('#id_category').val();
+		if (id_product != null && id_product != '' && id_category === '') {
+			selectCategoryByProoduct(id_product);
+		}
 	}
 	if (getLocale() != 'ru') {
 		 $('#locale').val(getLocale());
