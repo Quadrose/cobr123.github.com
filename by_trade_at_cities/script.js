@@ -260,18 +260,21 @@ function loadSavedFlt(){
 		fillUpdateDate();
 	}
 }
-var sagTownCaption = [];
-function fillTownCaptions() {
-	sagTownCaption = [];
+var sagTownCaption = null;
+function fillTownCaptions(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var suffix = (locale === 'en') ? '_en' : '';
+	if(sagTownCaption === null) {
+		sagTownCaption = [];
+	}
 	
 	$.getJSON('./'+realm+'/cities'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
 			sagTownCaption[val.i] = val.c;
 		});
+		if(callback != null) callback();
 	});
 }
 //////////////////////////////////////////////////////
@@ -283,8 +286,9 @@ function loadData() {
 	var locale = getLocale();
 	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
 	var domain = (locale === 'en') ? 'virtonomica.com' : 'virtonomica.ru';
-	if (sagTownCaption.length === 0) {
-	  fillTownCaptions();
+	if (sagTownCaption === null) {
+	  fillTownCaptions(loadData);
+	  return false;
 	}
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
@@ -452,7 +456,7 @@ function loadRegions(callback) {
 	return false;
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
-	sagTownCaption = [];
+	fillTownCaptions();
 	loadProductCategories(productCategoriesCallback);
 	loadCountries(countryCallback);
 	setVal('realm', getRealm());
