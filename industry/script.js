@@ -335,37 +335,37 @@ function sortTableCache(a,b){
 	*/
 	if(svColId == 'tech' && a.tech != b.tech){
 		if(isAscending){
-		  return b.tech - a.tech;
-		} else {
 		  return a.tech - b.tech;
+		} else {
+		  return b.tech - a.tech;
 		}
 	} 
 	else if(svColId == 'quality' && a.quality != b.quality){
 		if(isAscending){
-		  return b.quality - a.quality;
-		} else {
 		  return a.quality - b.quality;
+		} else {
+		  return b.quality - a.quality;
 		}
 	} 
 	else if(svColId == 'quantity' && a.quantity != b.quantity){
 		if(isAscending){
-		  return b.quantity - a.quantity;
-		} else {
 		  return a.quantity - b.quantity;
+		} else {
+		  return b.quantity - a.quantity;
 		}
 	} 
 	else if(svColId == 'cost' && a.cost != b.cost){
 		if(isAscending){
-		  return b.cost - a.cost;
-		} else {
 		  return a.cost - b.cost;
+		} else {
+		  return b.cost - a.cost;
 		}
 	} 
 	else if(svColId == 'profit' && a.profit != b.profit){
 		if(isAscending){
-		  return b.profit - a.profit;
-		} else {
 		  return a.profit - b.profit;
+		} else {
+		  return b.profit - a.profit;
 		}
 	} else {
 		return a.cost/a.quality - b.cost/b.quality;
@@ -393,16 +393,16 @@ function sortMaterials(a,b){
 	};*/
 	if(svColId == 'quality' && a.quality != b.quality){
 		if(isAscending){
-		  return b.quality - a.quality;
-		} else {
 		  return a.quality - b.quality;
+		} else {
+		  return b.quality - a.quality;
 		}
 	} 
 	else if(svColId == 'cost' && a.price != b.price){
 		if(isAscending){
-		  return b.price - a.price;
-		} else {
 		  return a.price - b.price;
+		} else {
+		  return b.price - a.price;
 		}
 	} 
 	else {
