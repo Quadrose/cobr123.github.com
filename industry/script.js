@@ -19,6 +19,7 @@ function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
 function lockSubmit() {
+	$('#btnSubmit').attr('disabled', true);
 	var locale = getLocale();
 	
 	if (locale === 'en') {
@@ -26,7 +27,6 @@ function lockSubmit() {
 	} else {
 		$('#btnSubmit').val('Пожалуйста, подождите...');
 	}
-	$('#btnSubmit').attr('disabled', true);
 }
 function unlockSubmit() {
 	var locale = getLocale();
