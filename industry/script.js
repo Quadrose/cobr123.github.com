@@ -47,9 +47,11 @@ function applyLocale() {
 	if (locale === 'en') {
 		document.title = "Production";
 		$('#btnSubmit').val('Generate');
+		$('#locale_flag').attr('src','/img/us.gif');
 	} else {
 		document.title = "Производство";
 		$('#btnSubmit').val('Сформировать');
+		$('#locale_flag').attr('src','/img/ru.png');
 	}
 	$("[lang]").each(function () {
 		if ($(this).attr("lang") == locale) {
