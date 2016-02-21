@@ -462,6 +462,7 @@ function calcProduction(recipe) {
 	}
 	tableCache = tmp;
 	sortAndUpdateResult();
+	$('#btnSubmit').attr('disabled', false);
 }
 function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
@@ -495,7 +496,10 @@ function loadRemains(recipe, productID, npMinQuality) {
 		material_remains[productID]  = tmp;
 		
 		calcProduction(recipe);
-	});
+	})
+	  .fail(function() {
+		$('#btnSubmit').attr('disabled', false);
+	  });
 }
 
 Object.size = function(obj) {
@@ -539,9 +543,17 @@ function loadRecipe() {
 				loadRemains(recipe, ingredient.pi, ingredient.mq);
 			});
 		});
-	});
+	})
+	  .fail(function() {
+		$('#btnSubmit').attr('disabled', false);
+	  });
 }
 function loadData() {
+	if ($('#btnSubmit').attr('disabled') === 'disabled') {
+		return false;
+	} else {
+		$('#btnSubmit').attr('disabled', true);
+	}
 	tableCache = [];
 	/*
 	- загрузить рецепт
@@ -550,6 +562,11 @@ function loadData() {
 	- применить фильтр и если подошло записать в таблицу результатов
 	*/
 	loadRecipe();
+	//разблокируем по таймауту в случае ошибок
+	setTimeout(function() {
+		$('#btnSubmit').attr('disabled', false);
+	},5000);
+	
 	return false;
 }
 
