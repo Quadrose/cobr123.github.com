@@ -16,10 +16,11 @@
 &nbsp;
 </div>
 <div style="position: absolute; top: 10; right: 10;">
-		<select name="locale" id="locale" onchange="changeLocale();">
-				<option value="ru" selected>Русский</option>
-				<option value="en">English</option>
-		</select>
+	<img id="locale_flag" src="/img/ru.png">&nbsp;
+	<select name="locale" id="locale" onchange="changeLocale();">
+		<option value="ru" selected>Русский</option>
+		<option value="en">English</option>
+	</select>
 </div>
 <br>
 <form method="GET" onsubmit="return loadData();">
