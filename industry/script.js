@@ -18,7 +18,26 @@ function getVal(spName){
 function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
-
+function lockSubmit() {
+	var locale = getLocale();
+	
+	if (locale === 'en') {
+		$('#btnSubmit').val('Please wait...');
+	} else {
+		$('#btnSubmit').val('Пожалуйста, подождите...');
+	}
+	$('#btnSubmit').attr('disabled', true);
+}
+function unlockSubmit() {
+	var locale = getLocale();
+	
+	if (locale === 'en') {
+		$('#btnSubmit').val('Generate');
+	} else {
+		$('#btnSubmit').val('Сформировать');
+	}
+	$('#btnSubmit').attr('disabled', false);
+}
 function getLocale() {
 	return getVal('locale') || $('#locale').val() || 'ru';
 }
@@ -425,7 +444,8 @@ function calcProduction(recipe) {
 		}
 	});
 	if (!allExists){
-		//console.log('calcProduction not all ingredients has remains');
+		unlockSubmit();
+		console.log('calcProduction not all ingredients has remains');
 		return;
 	}
 	var techFrom = $("#techFrom").val() || 10;
@@ -462,12 +482,18 @@ function calcProduction(recipe) {
 	}
 	tableCache = tmp;
 	sortAndUpdateResult();
-	$('#btnSubmit').attr('disabled', false);
+	unlockSubmit();
 }
 function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	if (productID == null || productID == '') return;
+	if (realm == null || realm == '') {
+		unlockSubmit();
+		return;
+	}
+	if (productID == null || productID == '') {
+		unlockSubmit();
+		return;
+	}
 	
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
@@ -498,7 +524,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 		calcProduction(recipe);
 	})
 	  .fail(function() {
-		$('#btnSubmit').attr('disabled', false);
+		unlockSubmit();
 	  });
 }
 
@@ -530,9 +556,15 @@ function addVolumeFromForIngredient(productID) {
 }
 function loadRecipe() {
 	var realm = getRealm();
-	if (realm == null || realm == '') return;
+	if (realm == null || realm == '') {
+		unlockSubmit();
+		return;
+	}
 	var productID = getProductID();
-	if (productID == null || productID == '') return;
+	if (productID == null || productID == '') {
+		unlockSubmit();
+		return;
+	}
 	var suffix = (getLocale() == 'en') ? '_en' : '';
 	material_remains = [];
 	console.log('load ./'+realm+'/recipe_'+productID+suffix+'.json');
@@ -545,14 +577,14 @@ function loadRecipe() {
 		});
 	})
 	  .fail(function() {
-		$('#btnSubmit').attr('disabled', false);
+		unlockSubmit();
 	  });
 }
 function loadData() {
 	if ($('#btnSubmit').attr('disabled') === 'disabled') {
 		return false;
 	} else {
-		$('#btnSubmit').attr('disabled', true);
+		lockSubmit();
 	}
 	tableCache = [];
 	/*
@@ -564,7 +596,7 @@ function loadData() {
 	loadRecipe();
 	//разблокируем по таймауту в случае ошибок
 	setTimeout(function() {
-		$('#btnSubmit').attr('disabled', false);
+		unlockSubmit();
 	},5000);
 	
 	return false;
