@@ -159,7 +159,7 @@ function sortTable(){
 	var orderArrow = isAscending?'&#9650;':'&#9660;';
 	$('#sort_by_'+svColId).html(orderArrow);
 }
-var sagMaterialImg = [];
+var sagMaterialImg = null;
 function updateTableFromCache(splicedTableCache){
 	var realm = getRealm();
 	var output = '';
@@ -581,6 +581,7 @@ function loadRecipe() {
 	  });
 }
 function loadData() {
+	if (sagMaterialImg === null) return false;
 	if ($('#btnSubmit').attr('disabled') === 'disabled') {
 		return false;
 	} else {
