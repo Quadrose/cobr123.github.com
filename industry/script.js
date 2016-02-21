@@ -331,35 +331,35 @@ function sortTableCache(a,b){
 	 ,productID: recipe.rp[0].pi
 	};
 	*/
-	if(svColId == 'th_tech' && a.tech != b.tech){
+	if(svColId == 'tech' && a.tech != b.tech){
 		if(isAscending){
 		  return b.tech - a.tech;
 		} else {
 		  return a.tech - b.tech;
 		}
 	} 
-	else if(svColId == 'th_quality' && a.quality != b.quality){
+	else if(svColId == 'quality' && a.quality != b.quality){
 		if(isAscending){
 		  return b.quality - a.quality;
 		} else {
 		  return a.quality - b.quality;
 		}
 	} 
-	else if(svColId == 'th_quantity' && a.quantity != b.quantity){
+	else if(svColId == 'quantity' && a.quantity != b.quantity){
 		if(isAscending){
 		  return b.quantity - a.quantity;
 		} else {
 		  return a.quantity - b.quantity;
 		}
 	} 
-	else if(svColId == 'th_cost' && a.cost != b.cost){
+	else if(svColId == 'cost' && a.cost != b.cost){
 		if(isAscending){
 		  return b.cost - a.cost;
 		} else {
 		  return a.cost - b.cost;
 		}
 	} 
-	else if(svColId == 'th_profit' && a.profit != b.profit){
+	else if(svColId == 'profit' && a.profit != b.profit){
 		if(isAscending){
 		  return b.profit - a.profit;
 		} else {
@@ -389,14 +389,14 @@ function sortMaterials(a,b){
 	 ,productID : productID
 	 ,unitID : remain.ui
 	};*/
-	if(svColId == 'th_quality' && a.quality != b.quality){
+	if(svColId == 'quality' && a.quality != b.quality){
 		if(isAscending){
 		  return b.quality - a.quality;
 		} else {
 		  return a.quality - b.quality;
 		}
 	} 
-	else if(svColId == 'th_cost' && a.price != b.price){
+	else if(svColId == 'cost' && a.price != b.price){
 		if(isAscending){
 		  return b.price - a.price;
 		} else {
