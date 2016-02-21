@@ -37,9 +37,11 @@ function applyLocale() {
 	if (locale === 'en') {
 		document.title = "Retail sales";
 		$('#btnSubmit').val('Generate');
+		$('#locale_flag').attr('src','/img/us.gif');
 	} else {
 		document.title = "Розничная торговля в городах";
 		$('#btnSubmit').val('Сформировать');
+		$('#locale_flag').attr('src','/img/ru.png');
 	}
 	$("[lang]").each(function () {
 		if ($(this).attr("lang") == locale) {
