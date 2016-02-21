@@ -136,6 +136,9 @@ function sortTable(){
 					,order: svOrder
 			}
 	);
+	var isAscending = svOrder=='asc';
+	var orderArrow = isAscending?'&#9650;':'&#9660;';
+	$('#sort_by_'+svColId).html(orderArrow);
 }
 var sagMaterialImg = [];
 function updateTableFromCache(splicedTableCache){
