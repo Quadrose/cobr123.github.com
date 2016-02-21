@@ -222,6 +222,8 @@ function calcResult(recipe, materials, tech) {
 	//количество товаров производимых 1 человеком
 	var prodbase_quan   = recipe.rp[0].pbq;
 	//var prodbase_quan2  = recipe.rp[1].pbq || 0;
+	//итоговое количество товара за единицу производства
+	var resultQty = recipe.rp[0].rq;
 	
 	var work_quant	= parseFloatFromFilter("#workQuan") || 10000;
 	var work_salary	= parseFloatFromFilter("#workSalary") || 300;
@@ -282,7 +284,7 @@ function calcResult(recipe, materials, tech) {
 	var zp = work_salary * work_quant;
 	var exps = IngTotalCost + zp + zp * 0.1 ;
 	//$("#Cost", this).text( "$" + commaSeparateNumber((exps / Prod_Quantity).toFixed(2)) );
-	result.cost = (exps / Prod_Quantity).toFixed(2);
+	result.cost = (exps / Prod_Quantity / resultQty ).toFixed(2);
 	
 	//прибыль
 	var profit = ( Sale_Price * Prod_Quantity ) - exps;
