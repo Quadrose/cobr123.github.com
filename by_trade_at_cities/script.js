@@ -129,6 +129,7 @@ function loadPrediction(predRow) {
 		var uniqPred = [];
 		var key = '';
 		var suitable = true;
+		var maxCnt = 50;
 		
 		$.each(data, function (key, val) {
 			suitable = true;
@@ -143,6 +144,7 @@ function loadPrediction(predRow) {
 			if (suitable && (key in uniqPred)) {suitable = false;} else {suitable = true;}
 			
 			if(suitable){
+			    maxCnt -= 1;
 			    uniqPred[key] = 1;
 				output += '<tr class="trec">';
 				output += '<td align="center" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
@@ -160,6 +162,11 @@ function loadPrediction(predRow) {
 				output += '<td align="center" id="td_wealthIndex">'+val.wi+'</td>';
 				output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
 				output += '</tr>';
+
+                if (maxCnt <= 0) {
+                    //break each
+                    return false;
+                }
 			}
 		});
 		if (output === '') {
