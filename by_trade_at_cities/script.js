@@ -134,8 +134,8 @@ function loadPrediction(predRow) {
 		$.each(data, function (key, val) {
 			suitable = true;
 			key = val.sv + '|' + Math.round(val.p) + '|' + Math.round(val.q) + '|' + Math.round(val.b) + '|';
-			key += val.mv + '|' + val.sc + '|' + val.sl + '|' + val.vc + '|' + Math.round(val.n) + '|' + val.td + '|';
-			key += val.ss + '|' + val.dc + '|' + Math.round(val.wi) + '|' + val.mi;
+			key += val.mv + '|' + val.sc + '|' + val.sl + '|' + val.vc + '|' + val.td + '|';
+			key += val.ss + '|' + val.dc + '|' + val.mi;
 			
 			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
 			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
