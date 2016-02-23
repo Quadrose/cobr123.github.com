@@ -491,6 +491,7 @@ function changeCategory(callback) {
 	setVal('id_category', $('#id_category').val());
 }
 function changeCountry(callback) {
+    console.log('changeCountry, caller is '+ arguments.callee.caller.toString());
 	$('#id_region').html(''); 	// replace all existing content
 	loadRegions(callback);
 	loadData();
@@ -501,6 +502,7 @@ function changeRegion() {
 	setVal('id_region', $('#id_region').val());
 }
 function changeProduct(productId) {
+    console.log('changeProduct, caller is '+ arguments.callee.caller.toString());
 	var selected = $('#id_product').val();
 	if(selected != null && selected != ''){
 		$('#img'+selected).attr('border','');
