@@ -291,7 +291,7 @@ function fillTownCaptions(callback) {
 		$.each(data, function (key, val) {
 			sagTownCaption[val.i] = val.c;
 		});
-		if(callback != null) callback();
+		if(typeof(callback) === 'function') callback();
 	});
 }
 //////////////////////////////////////////////////////
@@ -307,7 +307,7 @@ function loadData() {
 	  fillTownCaptions(loadData);
 	  return false;
 	}
-    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
+//    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		var output = '';
@@ -398,7 +398,7 @@ function loadProductCategories(callback) {
 		
 		$('#id_category').html(output); 	// replace all existing content
 		$('#products').html(''); 
-		if(callback != null) {
+		if(typeof(callback) === 'function') {
 			callback();
 		} else {
 			selectCategoryByProduct($('#id_product').val());
@@ -432,7 +432,7 @@ function loadProducts(callback) {
 		});
 		
 		$('#products').html(output); 	// replace all existing content
-		if(callback != null) callback();
+		if(typeof(callback) === 'function') callback();
 	});
 	return false;
 }
@@ -452,7 +452,7 @@ function loadCountries(callback) {
 		
 		$('#id_country').html(output); 	// replace all existing content
 		$('#id_region').html('<option value="" selected="">'+allRegions+'</option>'); 	// replace all existing content
-		if(callback != null) callback();
+		if(typeof(callback) === 'function') callback();
 	});
 	return false;
 }
@@ -468,7 +468,7 @@ function loadRegions(callback) {
 	if (svCountryId == null || svCountryId == '') {
         var output = '<option value="" selected="">'+allRegions+'</option>';
         $('#id_region').html(output);
-        if(callback != null) callback();
+        if(typeof(callback) === 'function') callback();
 	} else {
         $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
             var output = '<option value="" selected="">'+allRegions+'</option>';
@@ -480,7 +480,7 @@ function loadRegions(callback) {
             });
 
             $('#id_region').html(output);
-            if(callback != null) callback();
+            if(typeof(callback) === 'function') callback();
         });
 	}
 	return false;
@@ -500,7 +500,7 @@ function changeCategory(callback) {
 function changeCountry(callback) {
 //    console.log('changeCountry, caller is '+ arguments.callee.caller.toString());
 	$('#id_region').html(''); 	// replace all existing content
-	console.log('changeCountry, typeof(callback) =  '+ typeof(callback));
+//	console.log('changeCountry, typeof(callback) =  '+ typeof(callback));
 	if (typeof(callback) === 'function'){
 	    loadRegions(callback);
 	} else {
