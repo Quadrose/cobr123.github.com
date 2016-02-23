@@ -222,6 +222,13 @@ function loadPrediction(predRow) {
 	});
 	return false;
 }
+function hideAllPredictions(){
+	var locale = getLocale();
+	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
+
+	$('tr[id^=prediction_]').remove();
+	$('td[id^=toggle_prediction_] > a').text(showLabel);
+}
 function togglePrediction(npPredNum){
 	var link = $('#toggle_prediction_' + npPredNum + ' > a');
 	var locale = getLocale();
@@ -618,7 +625,8 @@ $(document).ready(function () {
 		while (tableHeader.nodeName!=='TH') {
 				tableHeader = tableHeader.parentNode;
 		}
-		
+		hideAllPredictions();
+
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
