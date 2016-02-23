@@ -305,7 +305,7 @@ function loadData() {
 	  fillTownCaptions(loadData);
 	  return false;
 	}
-    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json');
+    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		var output = '';
@@ -490,7 +490,6 @@ function changeCategory(callback) {
 }
 function changeCountry(callback) {
 	$('#id_region').html(''); 	// replace all existing content
-    console.log('changeCountry, (callback === null) == '+(callback===null));
 	loadRegions(callback);
 	loadData();
 	setVal('id_country', $('#id_country').val());
