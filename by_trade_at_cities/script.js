@@ -519,7 +519,7 @@ function changeProduct(productId) {
 		$('#img'+selected).attr('border','');
 	}
 	if ($('#img'+productId).length === 0){
-        id_product = $('#products > img').eq(0).attr('id').replace("img", "");
+        productId = $('#products > img').eq(0).attr('id').replace("img", "");
     }
 	$('#img'+productId).attr('border','1');
 	$('#id_product').val(productId);
