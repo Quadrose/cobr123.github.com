@@ -140,7 +140,7 @@ function loadPrediction(predRow) {
 			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.mv >= (nvMarketVolume - 5000) && val.mv <= (nvMarketVolume + 5000)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.n >= 300) {suitable = true;} else {suitable = false;}
-			if (suitable && (key in uniqPred) {suitable = false;} else {suitable = true;}
+			if (suitable && (key in uniqPred)) {suitable = false;} else {suitable = true;}
 			
 			if(suitable){
 			    uniqPred[key] = 1;
