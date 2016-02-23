@@ -143,6 +143,7 @@ function loadPrediction(predRow) {
 			if (suitable && (key in uniqPred) {suitable = false;} else {suitable = true;}
 			
 			if(suitable){
+			    uniqPred[key] = 1;
 				output += '<tr class="trec">';
 				output += '<td align="center" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
 				output += '<td align="center" id="td_price">'+val.p+'</td>';
