@@ -237,9 +237,11 @@ function loadSavedFlt(){
 		$('#realm').val(realm);
 		var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
-			id_product = id_product || $('#products > img').eq(0).attr('id').replace("img", "");
-			if (id_product == null || id_product == '') return;
-			changeProduct(id_product);
+			if (id_product == null || id_product == '') {
+                id_product = $('#products > img').eq(0).attr('id').replace("img", "");
+                if (id_product == null || id_product == '') return;
+                changeProduct(id_product);
+			}
 		};
 		var productCategoriesCallback = function() {
 			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
