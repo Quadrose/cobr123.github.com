@@ -178,7 +178,7 @@ function updateTableFromCache(splicedTableCache){
 	var domain = getDomain(locale);
 	
 	splicedTableCache.forEach(function(val){
-		output += '<tr class="trec">';
+		output += '<tr class="trec hoverable">';
 		var openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
 		var specHref = 'http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
 		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
