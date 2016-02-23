@@ -240,6 +240,14 @@ function togglePrediction(npPredNum){
 		link.text(hideLabel);
 	}
 }
+//резделитель разрядов
+function commaSeparateNumber(val, sep){
+	var separator = sep || ',';
+	while (/(\d+)(\d{3})/.test(val.toString())){
+		val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1"+separator);
+	}
+	return val;
+}
 function loadSavedFlt(){
 	//var params = getSearchParameters();
 	var realm = getVal('realm') || 'olga';
@@ -291,6 +299,16 @@ function loadSavedFlt(){
 		loadCountries();
 		fillUpdateDate();
 	}
+	$('input[type="text"]').each(function(){
+			$(this).val(commaSeparateNumber($(this).val(),' '));
+	});
+	$('input[type="text"]')
+	 .focus(function(){
+			$(this).val($(this).val().replace(/\s+/g,''));
+	 })
+	 .focusout(function() {
+			$(this).val(commaSeparateNumber($(this).val(),' '));
+      });
 }
 var sagTownCaption = null;
 function fillTownCaptions(callback) {

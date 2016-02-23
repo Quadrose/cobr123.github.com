@@ -121,12 +121,13 @@ function loadSavedFlt(){
 	$('input[type="text"]').each(function(){
 			$(this).val(commaSeparateNumber($(this).val(),' '));
 	});
-	$('input[type="text"]').change(function(){
-			$(this).val(commaSeparateNumber($(this).val(),' '));
-	 })
+	$('input[type="text"]')
 	 .focus(function(){
 			$(this).val($(this).val().replace(/\s+/g,''));
-	 });
+	 })
+	 .focusout(function() {
+			$(this).val(commaSeparateNumber($(this).val(),' '));
+      });
 }
 function parseFloatFromFilter(spSelector, npDefVal){
 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
