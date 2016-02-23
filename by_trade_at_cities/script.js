@@ -146,7 +146,7 @@ function loadPrediction(predRow) {
 			if(suitable){
 			    maxCnt -= 1;
 			    uniqPred[key] = 1;
-				output += '<tr class="trec">';
+				output += '<tr class="trec hoverable">';
 				output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
 				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
@@ -234,7 +234,7 @@ function togglePrediction(npPredNum){
 		predRow.remove();
 		link.text(showLabel);
 	} else {
-		link.closest('tr').after('<tr id="prediction_'+npPredNum+'"><td colspan=11>'+loadingLabel+'</td></tr>');
+		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=11>'+loadingLabel+'</td></tr>');
 		var predRow = $('#prediction_' + npPredNum);
 		loadPrediction(predRow);
 		link.text(hideLabel);
@@ -381,7 +381,7 @@ function loadData() {
 			if (suitable && val.sb <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
-				output += '<tr class="trec">';
+				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
