@@ -627,10 +627,11 @@ $(document).ready(function () {
 		}
 		hideAllPredictions();
 
-		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
+		var tableHeaderId = getVal('sort_col_id') || tableHeader.getAttribute('id').substr(3);
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
-			isAscending = tableHeader.getAttribute('data-order')=='asc';
+			ascDesc = getVal('sort_dir') || tableHeader.getAttribute('data-order');
+			isAscending = ascDesc=='asc';
 			order = isAscending?'desc':'asc';
 			tableHeader.setAttribute('data-order',order);
 			$('#sort_by_'+$('#sort_col_id').val()).html('');
