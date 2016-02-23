@@ -148,18 +148,18 @@ function loadPrediction(predRow) {
 			    uniqPred[key] = 1;
 				output += '<tr class="trec">';
 				output += '<td align="center" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
-				output += '<td align="center" id="td_price">'+val.p+'</td>';
-				output += '<td align="center" id="td_quality">'+val.q+'</td>';
-				output += '<td align="center" id="td_brand">'+val.b+'</td>';
+				output += '<td align="center" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
+				output += '<td align="center" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
+				output += '<td align="center" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_marketVolume">'+val.mv+'</td>';
 				output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
 				output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
 				output += '<td align="center" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
-				output += '<td align="center" id="td_notoriety">'+val.n+'</td>';
+				output += '<td align="center" id="td_notoriety">'+parseFloat(val.n).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
 				output += '<td align="center" id="td_shopSize">'+val.ss+'</td>';
 				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
-				output += '<td align="center" id="td_wealthIndex">'+val.wi+'</td>';
+				output += '<td align="center" id="td_wealthIndex">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
 				output += '</tr>';
 
@@ -310,6 +310,9 @@ function loadSavedFlt(){
 			$(this).val(commaSeparateNumber($(this).val(),' '));
       });*/
 }
+function parseFloatFromFilter(spSelector, npDefVal){
+	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
+}
 var sagTownCaption = null;
 function fillTownCaptions(callback) {
 	var realm = getRealm();
@@ -380,15 +383,15 @@ function loadData() {
 			if(suitable){
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
-				output += '<td align="center" id="td_w_idx">'+val.wi+'</td>';
+				output += '<td align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
 				output += '<td align="right" id="td_volume">'+val.v+'</td>';
-				output += '<td align="right" id="td_local_perc" style="color:black">'+val.lpe+'</td>';
-				output += '<td align="right" id="td_local_price">'+val.lpr+'</td>';
-				output += '<td align="right" id="td_local_quality">'+val.lq+'</td>';
-				output += '<td align="right" id="td_shop_price">'+val.spr+'</td>';
-				output += '<td align="right" id="td_shop_quality">'+val.sq+'</td>';
-				output += '<td align="right" id="td_shop_brand">'+val.sb+'</td>';
+				output += '<td align="right" id="td_local_perc" style="color:black">'+parseFloat(val.lpe).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_local_price">'+parseFloat(val.lpr).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_local_quality">'+parseFloat(val.lq).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_shop_price">'+parseFloat(val.spr).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_shop_quality">'+parseFloat(val.sq).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_shop_brand">'+parseFloat(val.sb).toFixed(2)+'</td>';
 				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
 				output += '</tr>';
 				
