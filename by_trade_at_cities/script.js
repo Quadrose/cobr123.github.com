@@ -126,14 +126,21 @@ function loadPrediction(predRow) {
 		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
 		var tableId = 'table_' + predRow.attr('id');
 		var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
+		var uniqPred = [];
+		var key = '';
+		var suitable = true;
 		
 		$.each(data, function (key, val) {
-			var suitable = true;
+			suitable = true;
+			key = val.sv + '|' + Math.round(val.p) + '|' + Math.round(val.q) + '|' + Math.round(val.b) + '|';
+			key += val.mv + '|' + val.sc + '|' + val.sl + '|' + val.vc + '|' + Math.round(val.n) + '|' + val.td + '|';
+			key += val.ss + '|' + val.dc + '|' + Math.round(val.wi) + '|' + val.mi;
 			
 			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
 			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.mv >= (nvMarketVolume - 5000) && val.mv <= (nvMarketVolume + 5000)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.n >= 300) {suitable = true;} else {suitable = false;}
+			if (suitable && (key in uniqPred) {suitable = false;} else {suitable = true;}
 			
 			if(suitable){
 				output += '<tr class="trec">';
@@ -155,7 +162,7 @@ function loadPrediction(predRow) {
 			}
 		});
 		if (output === '') {
-			predRow.html(notEnoughDataMsg); 	// replace all existing content
+			predRow.html(notEnoughDataMsg);
 		} else {
 			var salesVolumeLabel = (locale === 'en') ? 'Sales volume' : 'Объем продаж';
 			var brandLabel = (locale === 'en') ? 'Brand' : 'Бренд';
