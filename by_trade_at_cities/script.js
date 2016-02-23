@@ -299,7 +299,7 @@ function loadSavedFlt(){
 		loadCountries();
 		fillUpdateDate();
 	}
-	$('input[type="text"]').each(function(){
+	/*$('input[type="text"]').each(function(){
 			$(this).val(commaSeparateNumber($(this).val(),' '));
 	});
 	$('input[type="text"]')
@@ -308,7 +308,7 @@ function loadSavedFlt(){
 	 })
 	 .focusout(function() {
 			$(this).val(commaSeparateNumber($(this).val(),' '));
-      });
+      });*/
 }
 var sagTownCaption = null;
 function fillTownCaptions(callback) {
