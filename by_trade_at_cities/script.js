@@ -413,8 +413,9 @@ function loadProducts(callback) {
 	
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
+	var locale = getLocale();
 	var domain = getDomain(locale);
-	var suffix = (getLocale() == 'en') ? '_en' : '';
+	var suffix = (locale == 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
 		var output = '';
@@ -460,22 +461,28 @@ function loadRegions(callback) {
 	if (realm == null || realm == '') return;
 	
 	var svCountryId = $('#id_country').val();
-	if (svCountryId == null || svCountryId == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
-	var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
-	
-	$.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
-		var output = '<option value="" selected="">'+allRegions+'</option>';
-		
-		$.each(data, function (key, val) {
-			if(val.ci == svCountryId){
-				output += '<option value="'+val.i+'">'+val.c+'</option>';
-			}
-		});
-		
-		$('#id_region').html(output); 	// replace all existing content
-		if(callback != null) callback();
-	});
+	var locale = getLocale();
+	var suffix = (locale == 'en') ? '_en' : '';
+	var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
+
+	if (svCountryId == null || svCountryId == '') {
+        var output = '<option value="" selected="">'+allRegions+'</option>';
+        $('#id_region').html(output);
+        if(callback != null) callback();
+	} else {
+        $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
+            var output = '<option value="" selected="">'+allRegions+'</option>';
+
+            $.each(data, function (key, val) {
+                if(val.ci == svCountryId){
+                    output += '<option value="'+val.i+'">'+val.c+'</option>';
+                }
+            });
+
+            $('#id_region').html(output);
+            if(callback != null) callback();
+        });
+	}
 	return false;
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
