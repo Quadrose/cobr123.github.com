@@ -154,12 +154,12 @@ function loadPrediction(predRow) {
 				output += '<td align="right" id="td_marketVolume">'+val.mv+'</td>';
 				output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
 				output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
-				output += '<td align="center" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
+				output += '<td align="right" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
 				output += '<td align="center" id="td_notoriety">'+parseFloat(val.n).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
 				output += '<td align="right" id="td_shopSize">'+commaSeparateNumber(val.ss,' ')+'</td>';
 				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
-				output += '<td align="center" id="td_wealthIndex">'+parseFloat(val.wi).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_wealthIndex">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
 				output += '</tr>';
 
