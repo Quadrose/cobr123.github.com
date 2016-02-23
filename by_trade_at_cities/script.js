@@ -5,12 +5,20 @@ function getRealm(){
 function getProductID(){
 	return $('#id_product').val();
 }
+function getDomain(locale) {
+  if (locale === 'en') {
+	  return 'virtonomics.com';
+	} else {
+	  return 'virtonomica.ru';
+	}
+}
 function updateProdRemainLinks(){
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var locale = getLocale();
+	var domain = getDomain(locale);
 	$('#show_remain_link').attr('href','http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/');
 	$('#calc_prod_link').attr('href','/industry/#id_product=' + productID);
 }
@@ -292,7 +300,7 @@ function loadData() {
 	if (productID == null || productID == '') return;
 	var locale = getLocale();
 	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
-	var domain = (locale === 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var domain = getDomain(locale);
 	if (sagTownCaption === null) {
 	  fillTownCaptions(loadData);
 	  return false;
@@ -402,7 +410,7 @@ function loadProducts(callback) {
 	
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var domain = getDomain(locale);
 	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
