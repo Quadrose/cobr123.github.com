@@ -494,6 +494,7 @@ function changeCountry(callback) {
 //    console.log('changeCountry, caller is '+ arguments.callee.caller.toString());
 	$('#id_region').html(''); 	// replace all existing content
 	loadRegions(callback);
+	console.log('changeCountry, typeof(callback) =  '+ typeof(callback));
 	loadData();
 	setVal('id_country', $('#id_country').val());
 }
