@@ -262,6 +262,15 @@ function loadSavedFlt(){
 	var id_region = getVal('id_region');
 	var id_category = getVal('id_category');
 	var id_product = getVal('id_product');
+
+	var sort_col_id = getVal('sort_col_id_btac');
+	if (sort_col_id != null || sort_col_id != '') {
+	    $('#sort_col_id').val(sort_col_id);
+	}
+	var sort_dir = getVal('sort_dir_btac');
+	if (sort_dir != null || sort_dir != '') {
+	    $('#sort_dir').val(sort_dir);
+	}
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
@@ -637,8 +646,8 @@ $(document).ready(function () {
 			$('#sort_by_'+$('#sort_col_id').val()).html('');
 			$('#sort_col_id').val(tableHeaderId);
 			$('#sort_dir').val(order);
-			setVal('sort_col_id', $('#sort_col_id').val());
-			setVal('sort_dir', $('#sort_dir').val());
+			setVal('sort_col_id_btac', $('#sort_col_id').val());
+			setVal('sort_dir_btac', $('#sort_dir').val());
 			var orderArrow = isAscending?'&#9660;':'&#9650;';
 			$('#sort_by_'+tableHeaderId).html(orderArrow);
 			tinysort(
