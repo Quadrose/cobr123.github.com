@@ -141,23 +141,23 @@ function loadPrediction(predRow) {
 			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.mv >= (nvMarketVolume - 5000) && val.mv <= (nvMarketVolume + 5000)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.n >= 300) {suitable = true;} else {suitable = false;}
-			if (suitable && (key in uniqPred)) {suitable = false;} else {suitable = true;}
+			if (suitable && (key in uniqPred)) {suitable = false;}
 			
 			if(suitable){
 			    maxCnt -= 1;
 			    uniqPred[key] = 1;
 				output += '<tr class="trec">';
-				output += '<td align="center" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
-				output += '<td align="center" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_marketVolume">'+val.mv+'</td>';
+				output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
+				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_marketVolume">'+val.mv+'</td>';
 				output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
 				output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
 				output += '<td align="center" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
 				output += '<td align="center" id="td_notoriety">'+parseFloat(val.n).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
-				output += '<td align="center" id="td_shopSize">'+val.ss+'</td>';
+				output += '<td align="right" id="td_shopSize">'+val.ss+'</td>';
 				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
 				output += '<td align="center" id="td_wealthIndex">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
