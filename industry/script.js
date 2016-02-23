@@ -65,6 +65,13 @@ function changeLocale() {
 	setVal('locale', $('#locale').val() || 'ru');
 	window.location.reload();
 }
+function getDomain(locale) {
+  if (locale === 'en') {
+	  return 'virtonomics.com';
+	} else {
+	  return 'virtonomica.ru';
+	}
+}
 //резделитель разрядов
 function commaSeparateNumber(val, sep){
 	var separator = sep || ',';
@@ -166,7 +173,8 @@ function updateTableFromCache(splicedTableCache){
 	var realm = getRealm();
 	var output = '';
 	$('#xtabletbody').html(''); 	// replace all existing content
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var locale = getLocale();
+	var domain = getDomain(locale);
 	
 	splicedTableCache.forEach(function(val){
 		output += '<tr class="trec">';
@@ -545,11 +553,12 @@ function addVolumeFromForIngredient(productID) {
 	  $('#volumeFromByMaterials').append('<br>'); 
 	}
 	var realm = getRealm();
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var locale = getLocale();
+	var domain = getDomain(locale);
 	
 	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
 	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
-	var fromLabel = (getLocale() == 'en') ? 'from' : 'от';
+	var fromLabel = (locale == 'en') ? 'from' : 'от';
 	var field = '&nbsp;'+fromLabel+'&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
 	var href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
 	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="http://'+domain+''+imgSrc+'"></a>';
@@ -638,8 +647,9 @@ function loadProducts(callback) {
 	
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
-	var domain = (getLocale() == 'en') ? 'virtonomica.com' : 'virtonomica.ru';
+	var locale = getLocale();
+	var domain = getDomain(locale);
+	var suffix = (locale === 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
