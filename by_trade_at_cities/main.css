@@ -1,5 +1,5 @@
   body { font-family:Verdana, Arial, Helvetica, sans-serif; font-size:14px; }
-  tr:hover {
+  tr.trec:hover {
     background-color: #ededed;
   }
   .trec {font-size:12px;}
