@@ -490,6 +490,7 @@ function changeCategory(callback) {
 }
 function changeCountry(callback) {
 	$('#id_region').html(''); 	// replace all existing content
+    console.log('changeCountry, (callback === null) == '+(callback===null));
 	loadRegions(callback);
 	loadData();
 	setVal('id_country', $('#id_country').val());
