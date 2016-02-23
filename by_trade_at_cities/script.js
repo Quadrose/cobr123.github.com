@@ -570,7 +570,7 @@ function changeProduct(productId) {
 	if(selected != null && selected != ''){
 		$('#img'+selected).attr('border','');
 	}
-	if ($('#img'+productId).length === 0){
+	if ($('#img'+productId).length === 0 && $('#products > img[id]').length > 0){
         productId = $('#products > img').eq(0).attr('id').replace("img", "");
     }
 	$('#img'+productId).attr('border','1');
