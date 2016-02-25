@@ -1,0 +1,93 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Сфера услуг</title>
+	<script type="text/javascript" src="http://yastatic.net/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="./tinysort.min.js"></script>
+	<script type="text/javascript" src="./tinysort.charorder.min.js"></script>
+	<script type="text/javascript" src="./script.js"></script>
+  <link rel="stylesheet" type="text/css" href="./main.css">
+</head>
+<body>
+<div>
+<a href="/" style="font-size:12px; color:#000000;"><span lang="en" style="display:none">Main</span><span lang="ru">Главная</span></a>
+&nbsp;|&nbsp;
+<a href="#" style="font-weight:bold; font-size:12px; color:#000000;"><span lang="en" style="display:none">Retail sales</span><span lang="ru">Розничная торговля в городах</span></a>
+&nbsp;|&nbsp;
+<a href="/industry/" style="font-size:12px; color:#000000;"><span lang="en" style="display:none">Production</span><span lang="ru">Производство</span></a>
+&nbsp;
+</div>
+<div style="position: absolute; top: 10; right: 10;">
+	<img id="locale_flag" src="/img/ru.png">&nbsp;
+	<select name="locale" id="locale" onchange="changeLocale();">
+		<option value="ru" selected>Русский</option>
+		<option value="en">English</option>
+	</select>
+</div>
+<br>
+<form method="GET" onsubmit="return loadData();">
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tbody><tr><td>
+<table border="1" width="100%" cellspacing="0" cellpadding="5" bordercolordark="#000000" bordercolorlight="#FFFFFF">
+<tbody><tr class="trec"><td nowrap="">
+<u><b><span lang="en" style="display:none">Realm</span><span lang="ru">Реалм</span></b></u>&nbsp;<select id="realm" name="realm" onchange="changeRealm();">
+<option value="vera" selected="">vera</option>
+<option value="olga">olga</option>
+<option value="anna">anna</option>
+<option value="lien">lien</option>
+<option value="mary">mary</option>
+</select>
+<input type="text" id="update_date" value="" readonly>
+<br>
+<select id="id_category" onchange="changeCategory();"></select>&nbsp;<div id="products"></div>
+<input type="hidden" id="id_product" name="id_product" value="">
+<br>
+<select id="id_country" onchange="changeCountry();">
+<option value="" selected="">Все страны</option>	
+</select>&nbsp;<select id="id_region" onchange="changeRegion();">
+<option value="" selected="">Все регионы</option>
+</select>
+<br>
+<u><b><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span> </b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="wealthIndexFrom" size="5" maxlength="6" value="1"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="wealthIndexTo" size="8" maxlength="8" value="100000000"><br>
+<u><b><span lang="en" style="display:none">Volume</span><span lang="ru">Объём</span> </b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="volumeFrom" size="5" maxlength="6" value="1"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
+<u><b><span lang="en" style="display:none">Local suppliers, %</span><span lang="ru">Местные, %</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="localPercentFrom" size="5" maxlength="6" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="localPercentTo" size="5" maxlength="6" value="100.00"><br>
+<u><b><span lang="en" style="display:none">Local suppliers: price</span><span lang="ru">Местные: цена</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="localPriceFrom" size="12" maxlength="12" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="localPriceTo" size="12" maxlength="12" value="1000000.00">,
+<u><b><span lang="en" style="display:none">quality</span><span lang="ru">качество</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="localQualityFrom" size="7" maxlength="7" value="1.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="localQualityTo" size="7" maxlength="7" value="1000.00"><br>
+<u><b><span lang="en" style="display:none">Stores: price</span><span lang="ru">Магазины, цена</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="shopPriceFrom" size="12" maxlength="12" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="shopPriceTo" size="12" maxlength="12" value="1000000.00">,
+<u><b><span lang="en" style="display:none">quality</span><span lang="ru">качество</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="shopQualityFrom" size="7" maxlength="7" value="1.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="shopQualityTo" size="7" maxlength="7" value="1000.00">,
+<u><b><span lang="en" style="display:none">brand</span><span lang="ru">бренд</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="shopBrandFrom" size="7" maxlength="7" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="shopBrandTo" size="7" maxlength="7" value="100.00"><br>
+<input type="submit" id="btnSubmit" value="Сформировать">
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr class="trec" align="right"><td><a id="calc_prod_link" href="http://cobr123.github.io/industry/#id_product=370080" target="_blank"><span lang="en" style="display:none">Calculate production</span><span lang="ru">Посчитать производство</span></a>&nbsp;|&nbsp;<a id="show_remain_link" href="http://virtonomica.ru/olga/main/globalreport/marketing/by_products/370080/" target="_blank"><span lang="en" style="display:none">Show remains in warehouses</span><span lang="ru">Показать запасы на складах</span></a></td></tr>
+<tr><td>
+<input type="hidden" id="sort_col_id" name="sort_col_id" value="local_perc">
+<input type="hidden" id="sort_dir" name="sort_dir" value="desc">
+<div id="table-container">
+<table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">
+<thead><tr class="theader">
+<th rowspan="2" id="th_city"><span lang="en" style="display:none">City</span><span lang="ru">Город</span>&nbsp;<b id="sort_by_city"></b></th>
+<th rowspan="2" id="th_w_idx"><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span>&nbsp;<b id="sort_by_w_idx"></b></th>
+<th rowspan="2" id="th_idx"><span lang="en" style="display:none">Index</span><span lang="ru">Индекс</span>&nbsp;<b id="sort_by_idx"></b></th>
+<th rowspan="2" id="th_volume"><span lang="en" style="display:none">Volume</span><span lang="ru">Объём</span>&nbsp;<b id="sort_by_volume"></b></th>
+<th rowspan="2" id="th_local_perc"><span lang="en" style="display:none" title="Local suppliers, %">L.s.%</span><span lang="ru">Местные, %</span>&nbsp;<b id="sort_by_local_perc"></b></th>
+<td colspan="2"><span lang="en" style="display:none">Local suppliers</span><span lang="ru">Местные</span></td>
+<td colspan="3"><span lang="en" style="display:none">Stores</span><span lang="ru">Магазины</span></td>
+<td rowspan="2"><span lang="en" style="display:none" title="Historical data on the sales of this product in the cities with the same volume of the market and the index of wealth. Sort by sale price.">Prediction</span><span lang="ru" title="Исторические данные о продажах данного продукта в городах с похожим объёмом рынка и индексом богатства. Отсортированы по цене продажи.">Прогноз</span></td>
+</tr>
+<tr class="theader">
+<th id="th_local_price"><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span>&nbsp;<b id="sort_by_local_price"></b></th>
+<th id="th_local_quality"><span lang="en" style="display:none">Quality</span><span lang="ru">Качество</span>&nbsp;<b id="sort_by_local_quality"></b></th>
+<th id="th_shop_price"><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span>&nbsp;<b id="sort_by_shop_price"></b></th>
+<th id="th_shop_quality"><span lang="en" style="display:none">Quality</span><span lang="ru">Качество</span>&nbsp;<b id="sort_by_shop_quality"></b></th>
+<th id="th_shop_brand"><span lang="en" style="display:none">Brand</span><span lang="ru">Бренд</span>&nbsp;<b id="sort_by_shop_brand"></b></th>
+</tr></thead>
+<tbody id="xtabletbody">
+</tbody>
+</table>
+<div id="bottom_anchor"></div>
+</div>
+</td></tr>
+</tbody></table>
+</form>
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter29957719 = new Ya.Metrika({ id:29957719, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/29957719" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body></html>
