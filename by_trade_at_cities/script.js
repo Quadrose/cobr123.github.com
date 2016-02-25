@@ -141,7 +141,7 @@ function loadPrediction(predRow) {
 			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
 			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.n >= 200) {suitable = true;} else {suitable = false;}
+			if (suitable && val.n >= 100) {suitable = true;} else {suitable = false;}
 			if (suitable && (key in uniqPred)) {suitable = false;}
 			
 			if(suitable){
