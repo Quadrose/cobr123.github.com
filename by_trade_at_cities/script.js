@@ -121,6 +121,7 @@ function loadPrediction(predRow) {
 		var svMarketIdx = predRow.prev().find('>td#td_idx').text();
 		console.log("svMarketIdx = '"+ svMarketIdx+"'" );
 		var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
+		var nvMarketVolumeDelta = nvMarketVolume * 0.25;
 		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
 		var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
 		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
@@ -139,15 +140,15 @@ function loadPrediction(predRow) {
 			
 			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
 			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.mv >= (nvMarketVolume - 5000) && val.mv <= (nvMarketVolume + 5000)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.n >= 300) {suitable = true;} else {suitable = false;}
+			if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.n >= 100) {suitable = true;} else {suitable = false;}
 			if (suitable && (key in uniqPred)) {suitable = false;}
 			
 			if(suitable){
 			    maxCnt -= 1;
 			    uniqPred[key] = 1;
 				output += '<tr class="trec hoverable">';
-				output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
+				output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+' ('+Math.round(parseFloat(val.sv.replace(/[\D]+/g,''))/parseFloat(val.mv)*100)+'%)</td>';
 				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
