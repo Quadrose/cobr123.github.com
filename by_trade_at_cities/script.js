@@ -121,6 +121,7 @@ function loadPrediction(predRow) {
 		var svMarketIdx = predRow.prev().find('>td#td_idx').text();
 		console.log("svMarketIdx = '"+ svMarketIdx+"'" );
 		var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
+		var nvMarketVolumeDelta = nvMarketVolume * 0.25;
 		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
 		var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
 		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
@@ -139,8 +140,8 @@ function loadPrediction(predRow) {
 			
 			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
 			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.mv >= (nvMarketVolume - 5000) && val.mv <= (nvMarketVolume + 5000)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.n >= 300) {suitable = true;} else {suitable = false;}
+			if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.n >= 200) {suitable = true;} else {suitable = false;}
 			if (suitable && (key in uniqPred)) {suitable = false;}
 			
 			if(suitable){
