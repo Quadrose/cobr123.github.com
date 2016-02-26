@@ -143,7 +143,7 @@ function loadSavedFlt(){
                 id_service = $('#services > img').eq(0).attr('id').replace("img", "");
                 if (id_service == null || id_service == '') return;
                 $('#id_service').val(id_service);
-                loadData();
+			    loadServices(loadData);
 			}
 		};
 		var productCategoriesCallback = function() {
