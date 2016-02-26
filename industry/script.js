@@ -645,7 +645,7 @@ function loadProductCategories(callback) {
 		if(callback != null) {
 			callback();
 		} else {
-			selectCategoryByProoduct($('#id_product').val());
+			selectCategoryByProduct($('#id_product').val());
 			changeProduct($('#id_product').val());
 		}
 	});
@@ -684,8 +684,8 @@ function loadProducts(callback) {
 			}
 		});
 		
-		$('#materials').html(output); 	// replace all existing content
-		if(callback != null) callback();
+		$('#materials').html(output);
+		if(typeof(callback) === 'function') callback();
 	});
 	return false;
 }
@@ -735,7 +735,7 @@ function fillUpdateDate() {
 	});
 }
 
-function selectCategoryByProoduct(productId) {
+function selectCategoryByProduct(productId, callback) {
 	if (productId == null || productId == '') return;
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
@@ -747,7 +747,7 @@ function selectCategoryByProoduct(productId) {
 				$('select#id_category').val(val.pc);
 			}
 		});
-		loadProducts();
+		loadProducts(callback);
 	});
 	return false;
 }
@@ -799,15 +799,19 @@ $(document).ready(function () {
 		    var p = hashParams[i].split('=');
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
-		selectCategoryByProoduct($('#id_product').val());
-		changeProduct($('#id_product').val());
+        var selectCategoryByProductCallback = function() {
+		    changeProduct($('#id_product').val());
+        };
+		selectCategoryByProduct($('#id_product').val(), selectCategoryByProductCallback);
 		window.location.hash = '';
 	} else {
 		var id_product = getProductID() || getVal('id_product');
 		var id_category = $('#id_category').val();
 		if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
-			selectCategoryByProoduct(id_product);
-			changeProduct(id_product);
+            var selectCategoryByProductCallback = function() {
+			    changeProduct(id_product);
+            };
+			selectCategoryByProduct(id_product, selectCategoryByProductCallback);
 		}
 	}
 	if (getLocale() != 'ru') {
