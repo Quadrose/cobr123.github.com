@@ -799,10 +799,11 @@ $(document).ready(function () {
 		    var p = hashParams[i].split('=');
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
+		var id_product = $('#id_product').val();
         var selectCategoryByProductCallback = function() {
-		    changeProduct($('#id_product').val());
+		    changeProduct(id_product);
         };
-		selectCategoryByProduct($('#id_product').val(), selectCategoryByProductCallback);
+		selectCategoryByProduct(id_product, selectCategoryByProductCallback);
 		window.location.hash = '';
 	} else {
 		var id_product = getProductID() || getVal('id_product');
