@@ -314,6 +314,9 @@ function loadServices(callback) {
 function updateEquipRawMat(data){
     var selected = $('#id_service').val();
     id_service_spec = $('#id_service_spec').val();
+	var locale = getLocale();
+	var domain = getDomain(locale);
+
     if (id_service_spec != null || id_service_spec != '') {
         $.each(data, function (key, val) {
             if(selected != null && selected == val.i){
