@@ -316,7 +316,7 @@ function loadServices(callback) {
                     serviceSpecs += '<option value="'+val.s[i]+'">'+val.s[i]+'</option>';
                 }
             }
-            services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeService(\''+val.c+'\')">';
+            services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeService(\''+val.i+'\')">';
 		});
 
 		$('#services').html(services);
