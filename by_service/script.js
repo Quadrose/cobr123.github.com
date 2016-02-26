@@ -124,7 +124,6 @@ function loadSavedFlt(){
 	var id_country = getVal('id_country');
 	var id_region = getVal('id_region');
 	var id_service = getVal('id_service');
-    var id_service_spec = getVal('id_service_spec');
 
 	var sort_col_id = getVal('sort_col_id_service');
 	if (sort_col_id != null || sort_col_id != '') {
