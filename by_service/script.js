@@ -297,7 +297,13 @@ function loadServices(callback) {
 
 		$('#services').html(services);
 		$('#id_service_spec').html(serviceSpecs);
-		$('#id_service_spec').val($('#id_service_spec > option').eq(0).val());
+        var id_service_spec = getVal('id_service_spec');
+		$('#id_service_spec').val(id_service_spec);
+        id_service_spec = $('#id_service_spec').val();
+        if (id_service_spec == null || id_service_spec == '') {
+            id_service_spec = $('#id_service_spec > option').eq(0).val();
+            $('#id_service_spec').val(id_service_spec);
+        }
 		if(typeof(callback) === 'function') {
 			callback();
 		}
