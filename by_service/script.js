@@ -243,7 +243,7 @@ function loadData() {
 			if (suitable){
                 suitable = false;
                 var tmp = val.pbs[serviceSpec];
-                if(tmp === null || (tmp >= parseFloatFromFilter('#percentFrom',tmp) && tmp <= parseFloatFromFilter('#percentFrom',tmp))){
+                if(tmp === null || (tmp >= parseFloatFromFilter('#percentFrom',tmp) && tmp <= parseFloatFromFilter('#percentTo',tmp))){
                     suitable = true;
                 }
             }
