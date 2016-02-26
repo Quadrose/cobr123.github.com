@@ -124,6 +124,7 @@ function loadSavedFlt(){
 	var id_country = getVal('id_country');
 	var id_region = getVal('id_region');
 	var id_service = getVal('id_service');
+    var id_service_spec = getVal('id_service_spec');
 
 	var sort_col_id = getVal('sort_col_id_service');
 	if (sort_col_id != null || sort_col_id != '') {
@@ -141,9 +142,9 @@ function loadSavedFlt(){
 			if (id_service == null || id_service == '') {
                 id_service = $('#services > img').eq(0).attr('id').replace("img", "");
                 if (id_service == null || id_service == '') return;
-                $('#id_service').val(id_service);
-			    loadServices(loadData);
 			}
+            $('#id_service').val(id_service);
+            loadServices(loadData);
 		};
 		var productCategoriesCallback = function() {
 			loadServices(loadProductsCallback);
@@ -309,6 +310,7 @@ function changeService(newVal) {
 	loadServices(loadData);
 }
 function changeServiceSpec() {
+    setVal('id_service_spec', $('#id_service_spec').val());
 	loadData();
 }
 function loadCountries(callback) {
