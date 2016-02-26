@@ -463,7 +463,7 @@ function calcProduction(recipe) {
 		if(allExists){
 			if (material_remains[ingredient.pi] === null || material_remains[ingredient.pi].length === 0) {
 				allExists = false;
-	            notAllHasRemains += '<a href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
+	            notAllHasRemains += '<a target="_blank" href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 			} else {
 				remains.push(material_remains[ingredient.pi]);
 			}
@@ -524,7 +524,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 	var locale = getLocale();
 	var domain = getDomain(locale);
 	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains for producrion ' : 'Недостаточно запасов ингридиентов на складе для производства ';
-	notAllHasRemains += '<a href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
+	notAllHasRemains += '<a target="_blank" href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
