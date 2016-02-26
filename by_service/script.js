@@ -465,4 +465,5 @@ $(document).ready(function () {
 		 $('#locale').val(getLocale());
 		applyLocale();
 	}
+	loadData();
 });
