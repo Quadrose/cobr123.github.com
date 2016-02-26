@@ -331,19 +331,19 @@ function updateEquipRawMat(data){
                     if(val.s[i].c === id_service_spec){
                         if(val.s[i].e != null){
                           equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
-                          equipCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="24" height="24" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+                          equipCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
                           equipCell += '</a>';
                           equipProdCell += '<a href="/industry/#id_product='+val.s[i].e.i+'" target="_blank">';
-                          equipProdCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="24" height="24" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+                          equipProdCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
                           equipProdCell += '</a>';
                         }
                         if(val.s[i].rm != null){
                             for (k in val.s[i].rm) {
                                 rawMatCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].rm[k].i+'/" target="_blank">';
-                                rawMatCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="24" height="24" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
+                                rawMatCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatCell += '</a>';
                                 rawMatProdCell += '<a href="/industry/#id_product='+val.s[i].rm[k].i+'" target="_blank">';
-                                rawMatProdCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="24" height="24" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
+                                rawMatProdCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatProdCell += '</a>';
                             }
                         }
