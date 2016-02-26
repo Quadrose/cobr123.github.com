@@ -309,7 +309,7 @@ function loadServices(callback) {
 		var serviceSpecs = '';
 
 		$.each(data, function (key, val) {
-			services += '&nbsp;<img src="http://'+domain + val.iu.substring(1)+'"';
+			services += '&nbsp;<img src="http://'+domain + val.iu+'"';
             if(selected != null && selected == val.i){
                 services += ' border="1"';
                 for (spec in val.s) {
