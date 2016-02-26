@@ -312,7 +312,7 @@ function loadServices(callback) {
 			services += '&nbsp;<img src="http://'+domain + val.iu+'"';
             if(selected != null && selected == val.i){
                 services += ' border="1"';
-                for (i = 0; i < val.s.length; i++) {
+                for (i in val.s) {
                     serviceSpecs += '<option value="'+val.s[i]+'">'+val.s[i]+'</option>';
                 }
             }
