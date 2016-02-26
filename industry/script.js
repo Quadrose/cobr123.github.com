@@ -455,6 +455,8 @@ function sortMaterials(a,b){
 function calcProduction(recipe) {
 	var remains = [];
 	var allExists = true;
+	var locale = getLocale();
+	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains' : 'Недостаточно запасов ингридиентов на складе для производства';
 	recipe.ip.forEach(function(ingredient) {
 		if(allExists){
 			if (material_remains[ingredient.pi] === null || material_remains[ingredient.pi].length === 0) {
@@ -466,6 +468,7 @@ function calcProduction(recipe) {
 	});
 	if (!allExists){
 		unlockSubmit();
+		$('#messages').append('<p>'+notAllHasRemains+'</p>');
 		console.log('calcProduction not all ingredients has remains');
 		return;
 	}
@@ -515,6 +518,8 @@ function loadRemains(recipe, productID, npMinQuality) {
 		unlockSubmit();
 		return;
 	}
+	var locale = getLocale();
+	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains' : 'Недостаточно запасов ингридиентов на складе для производства';
 	
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
@@ -545,6 +550,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 		calcProduction(recipe);
 	})
 	  .fail(function() {
+		$('#messages').append('<p>'+notAllHasRemains+'</p>');
 		unlockSubmit();
 	  });
 }
@@ -608,6 +614,7 @@ function loadData() {
 		return false;
 	} else {
 		lockSubmit();
+		$('#messages').html('');
 	}
 	tableCache = [];
 	/*
