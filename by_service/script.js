@@ -2,8 +2,8 @@
 function getRealm(){
 	return $('#realm').val();
 }
-function getProductID(){
-	return $('#id_product').val();
+function getServiceID(){
+	return $('#id_service').val();
 }
 function getDomain(locale) {
   if (locale === 'en') {
@@ -13,14 +13,14 @@ function getDomain(locale) {
 	}
 }
 function updateProdRemainLinks(){
-	var productID = getProductID();
-	if (productID == null || productID == '') return;
+	var serviceID = getServiceID();
+	if (serviceID == null || serviceID == '') return;
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var domain = getDomain(locale);
-	$('#show_remain_link').attr('href','http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/');
-	$('#calc_prod_link').attr('href','/industry/#id_product=' + productID);
+	$('#show_remain_link').attr('href','http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+serviceID+'/');
+	$('#calc_prod_link').attr('href','/industry/#id_service=' + serviceID);
 }
 function nvl(val1, val2){
 	if (val1 == null || val1 == ''){
@@ -43,11 +43,11 @@ function applyLocale() {
 	var locale = getLocale();
 	
 	if (locale === 'en') {
-		document.title = "Retail sales";
+		document.title = "Services sector";
 		$('#btnSubmit').val('Generate');
 		$('#locale_flag').attr('src','/img/us.gif');
 	} else {
-		document.title = "Розничная торговля в городах";
+		document.title = "Сфера услуг";
 		$('#btnSubmit').val('Сформировать');
 		$('#locale_flag').attr('src','/img/ru.png');
 	}
@@ -111,142 +111,6 @@ function getServiceLevel(serviceLevel, locale) {
 	  return serviceLevel;
 	}
 }
-function loadPrediction(predRow) {
-	var productID = getProductID();
-	if (productID == null || productID == '') return;
-	var locale = getLocale();
-	
-	$.getJSON('/predict_retail_sales/retail_analytics_hist/'+productID+'.json', function (data) {
-		var output = '';
-		var svMarketIdx = predRow.prev().find('>td#td_idx').text();
-		console.log("svMarketIdx = '"+ svMarketIdx+"'" );
-		var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
-		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
-		var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
-		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
-		var tableId = 'table_' + predRow.attr('id');
-		var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
-		var uniqPred = [];
-		var key = '';
-		var suitable = true;
-		var maxCnt = 50;
-		
-		$.each(data, function (key, val) {
-			suitable = true;
-			key = val.sv + '|' + Math.round(val.p) + '|' + Math.round(val.q) + '|' + Math.round(val.b) + '|';
-			key += val.mv + '|' + val.sc + '|' + val.sl + '|' + val.vc + '|' + val.td + '|';
-			key += val.ss + '|' + val.dc + '|' + val.mi;
-			
-			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
-			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.mv >= (nvMarketVolume - 5000) && val.mv <= (nvMarketVolume + 5000)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.n >= 300) {suitable = true;} else {suitable = false;}
-			if (suitable && (key in uniqPred)) {suitable = false;}
-			
-			if(suitable){
-			    maxCnt -= 1;
-			    uniqPred[key] = 1;
-				output += '<tr class="trec hoverable">';
-				output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+'</td>';
-				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_marketVolume">'+val.mv+'</td>';
-				output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
-				output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
-				output += '<td align="right" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
-				output += '<td align="center" id="td_notoriety">'+parseFloat(val.n).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
-				output += '<td align="right" id="td_shopSize">'+commaSeparateNumber(val.ss,' ')+'</td>';
-				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
-				output += '<td align="right" id="td_wealthIndex">'+parseFloat(val.wi).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
-				output += '</tr>';
-
-                if (maxCnt <= 0) {
-                    //break each
-                    return false;
-                }
-			}
-		});
-		if (output === '') {
-			predRow.html(notEnoughDataMsg);
-		} else {
-			var salesVolumeLabel = (locale === 'en') ? 'Sales volume' : 'Объем продаж';
-			var brandLabel = (locale === 'en') ? 'Brand' : 'Бренд';
-			var priceLabel = (locale === 'en') ? 'Price' : 'Цена';
-			var marketVolumeLabel = (locale === 'en') ? 'Market volume' : 'Объем рынка';
-			var qualityLabel = (locale === 'en') ? 'Quality' : 'Качество';
-			var serviceLevelLabel = (locale === 'en') ? 'Service level' : 'Уровень сервиса';
-			var sellerCntLabel = (locale === 'en') ? 'NoM' : 'К.п.';
-			var sellerCntHint = (locale === 'en') ? 'Number of merchants' : 'Количество продавцов';
-			var notorietyLabel = (locale === 'en') ? 'Popularity' : 'Известность';
-			var visitorsCountLabel = (locale === 'en') ? 'Number of visitors' : 'Кол-во пос.';
-			var visitorsCountHint = (locale === 'en') ? 'Number of visitors' : 'Количество посетителей';
-			var townDistrictLabel = (locale === 'en') ? 'City district' : 'Район города';
-			var shopSizeLabel = (locale === 'en') ? 'Trade area' : 'Торг. пл.';
-			var departmentCountLabel = (locale === 'en') ? 'NoD' : 'К.о.';
-			var departmentCountHint = (locale === 'en') ? 'Number of departments' : 'Количество отделов';
-			var wealthIndexLabel = (locale === 'en') ? 'WL' : 'И.б.';
-			var wealthIndexHint = (locale === 'en') ? 'Wealth level' : 'Индекс богатства';
-			var indexLabel = (locale === 'en') ? 'Index' : 'И.';
-			
-			var headers = '<thead><tr class="theader">';
-			headers += '<th id="th_sellVolume">'+salesVolumeLabel+'&nbsp;<b id="sort_by_sellVolume"></b></th>';
-			headers += '<th id="th_price">'+priceLabel+'&nbsp;<b id="sort_by_price"></b></th>';
-			headers += '<th id="th_quality">'+qualityLabel+'&nbsp;<b id="sort_by_quality"></b></th>';
-			headers += '<th id="th_brand">'+brandLabel+'&nbsp;<b id="sort_by_brand"></b></th>';
-			headers += '<th id="th_marketVolume">'+marketVolumeLabel+'&nbsp;<b id="sort_by_marketVolume"></b></th>';
-			headers += '<th id="th_sellerCnt" title="'+sellerCntHint+'">'+sellerCntLabel+'&nbsp;<b id="sort_by_sellerCnt"></b></th>';
-			headers += '<th id="th_serviceLevel">'+serviceLevelLabel+'&nbsp;<b id="sort_by_serviceLevel"></b></th>';
-			headers += '<th id="th_visitorsCount" title="'+visitorsCountHint+'">'+visitorsCountLabel+'&nbsp;<b id="sort_by_visitorsCount"></b></th>';
-			headers += '<th id="th_notoriety">'+notorietyLabel+'&nbsp;<b id="sort_by_notoriety"></b></th>';
-			headers += '<th id="th_townDistrict">'+townDistrictLabel+'&nbsp;<b id="sort_by_townDistrict"></b></th>';
-			headers += '<th id="th_shopSize" title="Торговая площадь">'+shopSizeLabel+'&nbsp;<b id="sort_by_shopSize"></b></th>';
-			headers += '<th id="th_departmentCount" title="'+departmentCountHint+'">'+departmentCountLabel+'&nbsp;<b id="sort_by_departmentCount"></b></th>';
-			headers += '<th id="th_wealthIndex" title="'+wealthIndexHint+'">'+wealthIndexLabel+'&nbsp;<b id="sort_by_wealthIndex"></b></th>';
-			headers += '<th id="th_marketIdx" title="Индекс">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
-			headers += '</tr></thead>';
-			predRow.html('<td colspan=11><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
-			
-			var table = document.getElementById(tableId);
-			var tableBody = table.querySelector('tbody');
-			tinysort(
-					tableBody.querySelectorAll('tr')
-					,{
-							selector:'td#td_price'
-							,order: 'desc'
-					}
-			);
-		}
-	});
-	return false;
-}
-function hideAllPredictions(){
-	var locale = getLocale();
-	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
-
-	$('tr[id^=prediction_]').remove();
-	$('td[id^=toggle_prediction_] > a').text(showLabel);
-}
-function togglePrediction(npPredNum){
-	var link = $('#toggle_prediction_' + npPredNum + ' > a');
-	var locale = getLocale();
-	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
-	var hideLabel = (locale === 'en') ? 'Hide' : 'Скрыть';
-	var loadingLabel = (locale === 'en') ? 'Loading...' : 'Загружаю...';
-	
-	if(link.text() === hideLabel) {
-		var predRow = $('#prediction_' + npPredNum);
-		predRow.remove();
-		link.text(showLabel);
-	} else {
-		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=11>'+loadingLabel+'</td></tr>');
-		var predRow = $('#prediction_' + npPredNum);
-		loadPrediction(predRow);
-		link.text(hideLabel);
-	}
-}
 //резделитель разрядов
 function commaSeparateNumber(val, sep){
 	var separator = sep || ',';
@@ -256,18 +120,17 @@ function commaSeparateNumber(val, sep){
 	return val;
 }
 function loadSavedFlt(){
-	//var params = getSearchParameters();
 	var realm = getVal('realm') || 'olga';
 	var id_country = getVal('id_country');
 	var id_region = getVal('id_region');
 	var id_category = getVal('id_category');
-	var id_product = getVal('id_product');
+	var id_service = getVal('id_service');
 
-	var sort_col_id = getVal('sort_col_id_btac');
+	var sort_col_id = getVal('sort_col_id_service');
 	if (sort_col_id != null || sort_col_id != '') {
 	    $('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = getVal('sort_dir_btac');
+	var sort_dir = getVal('sort_dir_service');
 	if (sort_dir != null || sort_dir != '') {
 	    $('#sort_dir').val(sort_dir);
 	}
@@ -276,10 +139,11 @@ function loadSavedFlt(){
 		$('#realm').val(realm);
 		var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
-			if (id_product == null || id_product == '') {
-                id_product = $('#products > img').eq(0).attr('id').replace("img", "");
-                if (id_product == null || id_product == '') return;
-                changeProduct(id_product);
+			if (id_service == null || id_service == '') {
+                id_service = $('#services > img').eq(0).attr('id').replace("img", "");
+                if (id_service == null || id_service == '') return;
+                $('#id_service').val(id_service);
+                loadServices();
 			}
 		};
 		var productCategoriesCallback = function() {
@@ -292,7 +156,7 @@ function loadSavedFlt(){
 				id_category = $('#id_category > option').eq(0).val();
 				$('#id_category').val(id_category);
 			}
-			loadProducts(loadProductsCallback);
+			loadServices(loadProductsCallback);
   		};
 		var changeCountryCallback = function() {
 			if (id_region != null || id_region != '') {
@@ -311,7 +175,7 @@ function loadSavedFlt(){
 		changeRealm(productCategoriesCallback, countryCallback);
 		
 	} else {
-		loadProductCategories();
+		loadServices();
 		loadCountries();
 		fillUpdateDate();
 	}
@@ -339,7 +203,7 @@ function fillTownCaptions(callback) {
 		sagTownCaption = [];
 	}
 	
-	$.getJSON('./'+realm+'/cities'+suffix+'.json', function (data) {
+	$.getJSON('/by_trade_at_cities/'+realm+'/cities'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
 			sagTownCaption[val.i] = val.c;
 		});
@@ -350,25 +214,25 @@ function fillTownCaptions(callback) {
 function loadData() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
-	var productID = getProductID();
-	if (productID == null || productID == '') return;
+	var serviceID = getServiceID();
+	if (serviceID == null || serviceID == '') return;
 	var locale = getLocale();
 	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
+	var suffix = (locale === 'en') ? '_en' : '';
 	var domain = getDomain(locale);
 	if (sagTownCaption === null) {
 	  fillTownCaptions(loadData);
 	  return false;
 	}
-//    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
+//    console.log('loadData /'+realm+'/tradeAtCity_'+serviceID+'.json, caller is '+ arguments.callee.caller.toString());
 	
-	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
+	$.getJSON('./'+realm+'/serviceAtCity_'+serviceID + suffix+'.json', function (data) {
 		var output = '';
 		var nvPredIdx = 1;
 		
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
-			if (suitable && val.pi == $('#id_product').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
 			
@@ -378,14 +242,11 @@ function loadData() {
 			if (suitable && val.v >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.v <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.lpe >= $('#localPercentFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpe <= $('#localPercentTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpe >= $('#percentFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpe <= $('#percentTo').val()) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.lpr >= $('#localPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpr <= $('#localPriceTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lq >= $('#localQualityFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lq <= $('#localQualityTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpr >= $('#priceFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpr <= $('#priceTo').val()) {suitable = true;} else {suitable = false;}
 			
 			if (suitable && val.spr >= $('#shopPriceFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.spr <= $('#shopPriceTo').val()) {suitable = true;} else {suitable = false;}
@@ -436,64 +297,46 @@ function loadData() {
 	return false;
 }
 
-function loadProductCategories(callback) {
+function loadServices(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
+	var domain = getDomain(locale);
+    var selected = $('#id_service').attr('value');
 	
-	$.getJSON('./'+realm+'/product_categories'+suffix+'.json', function (data) {
-		var output = '';
+	$.getJSON('./'+realm+'/service_unit_types'+suffix+'.json', function (data) {
+		var services = '';
+		var serviceSpecs = '';
 
 		$.each(data, function (key, val) {
-			output += '<option value="'+val.c+'">'+val.c+'</option>';
+			services += '&nbsp;<img src="http://'+domain + val.iu.substring(1)+'"';
+            if(selected != null && selected == val.i){
+                services += ' border="1"';
+                for (spec in val.s) {
+                    serviceSpecs += '<option value="'+spec+'">'+spec+'</option>';
+                }
+            }
+            services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="loadServices()">';
 		});
-		
-		$('#id_category').html(output); 	// replace all existing content
-		$('#products').html(''); 
+
+		$('#services').html(services);
+		$('#id_service_spec').html(serviceSpecs);
+		$('#id_service_spec').val($('#id_service_spec > option').eq(0).val());
 		if(typeof(callback) === 'function') {
 			callback();
-		} else {
-			selectCategoryByProduct($('#id_product').val());
-			changeProduct($('#id_product').val());
 		}
 	});
 	return false;
 }
-function loadProducts(callback) {
-	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	
-	var svCategoryId = $('#id_category').val();
-	if (svCategoryId == null || svCategoryId == '') return;
-	var locale = getLocale();
-	var domain = getDomain(locale);
-	var suffix = (locale == 'en') ? '_en' : '';
-	
-	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
-		var output = '';
-		var selected = $('#id_product').attr('value');
-		
-		$.each(data, function (key, val) {
-			if(svCategoryId == val.pc){
-				output += '&nbsp;<img src="http://'+domain+val.s+'"';
-				if(selected != null && selected == val.i){
-					output += ' border="1"';
-				}
-				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeProduct('+val.i+')">';
-			}
-		});
-		
-		$('#products').html(output); 	// replace all existing content
-		if(typeof(callback) === 'function') callback();
-	});
-	return false;
+function changeServiceSpec() {
+	loadData();
 }
 function loadCountries(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/countries'+suffix+'.json', function (data) {
+	$.getJSON('/by_trade_at_cities/'+realm+'/countries'+suffix+'.json', function (data) {
 	  var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
 	  var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
 		var output = '<option value="" selected="">'+allCountries+'</option>';
@@ -522,7 +365,7 @@ function loadRegions(callback) {
         $('#id_region').html(output);
         if(typeof(callback) === 'function') callback();
 	} else {
-        $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
+        $.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
             var output = '<option value="" selected="">'+allRegions+'</option>';
 
             $.each(data, function (key, val) {
@@ -539,15 +382,11 @@ function loadRegions(callback) {
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
 	fillTownCaptions();
-	loadProductCategories(productCategoriesCallback);
+	loadServices(productCategoriesCallback);
 	loadCountries(countryCallback);
 	setVal('realm', getRealm());
 	fillUpdateDate();
 	updateProdRemainLinks();
-}
-function changeCategory(callback) {
-	loadProducts(callback);
-	setVal('id_category', $('#id_category').val());
 }
 function changeCountry(callback) {
 //    console.log('changeCountry, caller is '+ arguments.callee.caller.toString());
@@ -564,51 +403,7 @@ function changeRegion() {
 	loadData();
 	setVal('id_region', $('#id_region').val());
 }
-function changeProduct(productId) {
-//    console.log('changeProduct, caller is '+ arguments.callee.caller.toString());
-	var selected = $('#id_product').val();
-	if(selected != null && selected != ''){
-		$('#img'+selected).attr('border','');
-	}
-	if ($('#img'+productId).length === 0 && $('#products > img[id]').length > 0){
-        productId = $('#products > img').eq(0).attr('id').replace("img", "");
-    }
-	$('#img'+productId).attr('border','1');
-	$('#id_product').val(productId);
-	loadData();
-	setVal('id_product', $('#id_product').val());
-	updateProdRemainLinks();
-}
-function selectCategoryByProduct(productId, callback) {
-	if (productId == null || productId == '') return;
-	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
-	
-	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
-		$.each(data, function (key, val) {
-			if(productId === val.i){
-				$('select#id_category').val(val.pc);
-			}
-		});
-		loadProducts(callback);
-	});
-	return false;
-}
 
-function transformToAssocArray( prmstr ) {
-    var params = {};
-    var prmarr = prmstr.split("&");
-    for ( var i = 0; i < prmarr.length; i++) {
-        var tmparr = prmarr[i].split("=");
-        params[tmparr[0]] = tmparr[1];
-    }
-    return params;
-}
-function getSearchParameters() {
-      var prmstr = window.location.search.substr(1);
-      return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
-}
 function fillUpdateDate() {
 	$('#update_date').val(''); 	// replace all existing content
 	var realm = getRealm();
@@ -634,7 +429,6 @@ $(document).ready(function () {
 		while (tableHeader.nodeName!=='TH') {
 				tableHeader = tableHeader.parentNode;
 		}
-		hideAllPredictions();
 
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
 		if (tableHeaderId != null && tableHeaderId != '') {
@@ -646,8 +440,8 @@ $(document).ready(function () {
 			$('#sort_by_'+$('#sort_col_id').val()).html('');
 			$('#sort_col_id').val(tableHeaderId);
 			$('#sort_dir').val(order);
-			setVal('sort_col_id_btac', $('#sort_col_id').val());
-			setVal('sort_dir_btac', $('#sort_dir').val());
+			setVal('sort_col_id_service', $('#sort_col_id').val());
+			setVal('sort_dir_service', $('#sort_dir').val());
 			var orderArrow = isAscending?'&#9660;':'&#9650;';
 			$('#sort_by_'+tableHeaderId).html(orderArrow);
 			tinysort(
@@ -676,20 +470,7 @@ $(document).ready(function () {
 		    var p = hashParams[i].split('=');
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
-        var selectCategoryByProductCallback = function() {
-		    changeProduct($('#id_product').val());
-        };
-		selectCategoryByProduct($('#id_product').val(), selectCategoryByProductCallback);
 		window.location.hash = '';
-	} else {
-		var id_product = getProductID() || getVal('id_product');
-		var id_category = $('#id_category').val();
-		if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
-            var selectCategoryByProductCallback = function() {
-			    changeProduct(id_product);
-            };
-			selectCategoryByProduct(id_product, selectCategoryByProductCallback);
-		}
 	}
 	if (getLocale() != 'ru') {
 		 $('#locale').val(getLocale());
