@@ -317,8 +317,8 @@ function updateEquipRawMat(data){
 	var locale = getLocale();
 	var domain = getDomain(locale);
 	var realm = getRealm();
-	var svRetailRow = (locale == 'en') ? 'Market' : 'Рыночное';
-	var svSelfProdRow = (locale == 'en') ? 'Production' : 'Производство';
+	var svRetailRow = (locale == 'en') ? 'Show remains in warehouses' : 'Показать запасы на складах';
+	var svSelfProdRow = (locale == 'en') ? 'Calculate production' : 'Посчитать производство';
 
     if (id_service_spec != null || id_service_spec != '') {
         $.each(data, function (key, val) {
