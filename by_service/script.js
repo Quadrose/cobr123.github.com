@@ -228,8 +228,8 @@ function loadData() {
 	
 	$.getJSON('./'+realm+'/serviceAtCity_'+serviceID + suffix+'.json', function (data) {
 		var output = '';
-		var nvPredIdx = 1;
 		var serviceSpec = $('#id_service_spec').val();
+        var percent = 0;
 		
 		$.each(data, function (key, val) {
 			var suitable = true;
@@ -240,30 +240,24 @@ function loadData() {
 			if (suitable && val.p >= parseFloatFromFilter('#priceFrom',val.p)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.p <= parseFloatFromFilter('#priceTo',val.p)) {suitable = true;} else {suitable = false;}
 
+            percent = val.pbs[serviceSpec] || 0;
 			if (suitable){
                 suitable = false;
-                var tmp = val.pbs[serviceSpec];
-                if(tmp === null || (tmp >= parseFloatFromFilter('#percentFrom',tmp) && tmp <= parseFloatFromFilter('#percentTo',tmp))){
+                if(percent >= parseFloatFromFilter('#percentFrom',percent) && percent <= parseFloatFromFilter('#percentTo',percent)) {
                     suitable = true;
                 }
             }
 
 			if(suitable){
 				output += '<tr class="trec hoverable">';
-				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
-				output += '<td align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
-				output += '<td align="right" id="td_volume">'+val.v+'</td>';
-				output += '<td align="right" id="td_local_perc" style="color:black">'+parseFloat(val.lpe).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_local_price">'+parseFloat(val.lpr).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_local_quality">'+parseFloat(val.lq).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_shop_price">'+parseFloat(val.spr).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_shop_quality">'+parseFloat(val.sq).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_shop_brand">'+parseFloat(val.sb).toFixed(2)+'</td>';
-				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
+				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td align="right" id="td_mdi">'+parseFloat(val.mdi).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_market_volume">'+val.v+'</td>';
+				output += '<td align="right" id="td_perc">'+percent.toFixed(2)+'</td>';
+				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_sc">'+val.sc+'</td>';
+				output += '<td align="right" id="td_cc">'+val.cc+'</td>';
 				output += '</tr>';
-				
-				nvPredIdx = nvPredIdx + 1;
 			}
 		});
 		
