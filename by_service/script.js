@@ -316,6 +316,7 @@ function updateEquipRawMat(data){
     id_service_spec = $('#id_service_spec').val();
 	var locale = getLocale();
 	var domain = getDomain(locale);
+	var realm = getRealm();
 
     if (id_service_spec != null || id_service_spec != '') {
         $.each(data, function (key, val) {
@@ -325,11 +326,15 @@ function updateEquipRawMat(data){
                 for (i in val.s) {
                     if(val.s[i].c === id_service_spec){
                         if(val.s[i].e != null){
+                          equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
                           equipCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="24" height="24" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+                          equipCell += '</a>';
                         }
                         if(val.s[i].rm != null){
                             for (k in val.s[i].rm) {
+                                rawMatCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].rm[k].i+'/" target="_blank">';
                                 rawMatCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="24" height="24" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
+                                rawMatCell += '</a>';
                             }
                         }
                         break;
