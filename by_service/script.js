@@ -240,7 +240,7 @@ function loadData() {
 
 			if(suitable){
 				output += '<tr class="trec hoverable">';
-				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td align="right" id="td_mdi">'+parseFloat(val.mdi).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_market_volume">'+val.v+'</td>';
 				output += '<td align="right" id="td_perc">'+percent.toFixed(2)+'</td>';
