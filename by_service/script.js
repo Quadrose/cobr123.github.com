@@ -179,7 +179,7 @@ function loadSavedFlt(){
 		loadCountries();
 		fillUpdateDate();
 	}
-	/*$('input[type="text"]').each(function(){
+	$('input[type="text"]').each(function(){
 			$(this).val(commaSeparateNumber($(this).val(),' '));
 	});
 	$('input[type="text"]')
@@ -188,7 +188,7 @@ function loadSavedFlt(){
 	 })
 	 .focusout(function() {
 			$(this).val(commaSeparateNumber($(this).val(),' '));
-      });*/
+      });
 }
 function parseFloatFromFilter(spSelector, npDefVal){
 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
@@ -229,6 +229,7 @@ function loadData() {
 	$.getJSON('./'+realm+'/serviceAtCity_'+serviceID + suffix+'.json', function (data) {
 		var output = '';
 		var nvPredIdx = 1;
+		var serviceSpec = $('#id_service_spec').val();
 		
 		$.each(data, function (key, val) {
 			var suitable = true;
@@ -236,27 +237,17 @@ function loadData() {
 			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.wi >= $('#wealthIndexFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.wi <= $('#wealthIndexTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.v >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.v <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lpe >= $('#percentFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpe <= $('#percentTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lpr >= $('#priceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpr <= $('#priceTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.spr >= $('#shopPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.spr <= $('#shopPriceTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.sq >= $('#shopQualityFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.sq <= $('#shopQualityTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.sb >= $('#shopBrandFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.sb <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
-			
+			if (suitable && val.p >= parseFloatFromFilter('#priceFrom',val.p)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.p <= parseFloatFromFilter('#priceTo',val.p)) {suitable = true;} else {suitable = false;}
+
+			if (suitable){
+                suitable = false;
+                var tmp = val.pbs[serviceSpec];
+                if(tmp === null || (tmp >= parseFloatFromFilter('#percentFrom',tmp) && tmp <= parseFloatFromFilter('#percentFrom',tmp))){
+                    suitable = true;
+                }
+            }
+
 			if(suitable){
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
