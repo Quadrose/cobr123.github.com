@@ -350,8 +350,8 @@ function updateEquipRawMat(data){
                         break;
                     }
                 }
-                var equip_raw_mat_body = '<tr><td>'+svRetailRow+'</td><td>'+ equipCell +'</td><td>'+ rawMatCell +'</td></tr>';
-                equip_raw_mat_body += '<tr><td>'+svSelfProdRow+'</td><td>'+ equipProdCell +'</td><td>'+ rawMatProdCell +'</td></tr>';
+                var equip_raw_mat_body = '<tr class="trec hoverable"><td>'+svRetailRow+'</td><td>'+ equipCell +'</td><td>'+ rawMatCell +'</td></tr>';
+                equip_raw_mat_body += '<tr class="trec hoverable"><td>'+svSelfProdRow+'</td><td>'+ equipProdCell +'</td><td>'+ rawMatProdCell +'</td></tr>';
                 $('#equip_raw_mat_body').html(equip_raw_mat_body);
                 //break each
                 return false;
