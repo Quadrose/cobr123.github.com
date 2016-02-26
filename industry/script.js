@@ -108,7 +108,8 @@ function loadSavedFlt(){
 			id_product = id_product || $('#materials > img').eq(0).attr('id').replace("img", "");
 			if (id_product == null || id_product == '') return;
 			changeProduct(id_product);
-		};*/
+		};
+		*/
 		var productCategoriesCallback = function() {
 			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
 			id_category = id_category || $('#id_category > option').eq(0).val();
