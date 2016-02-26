@@ -103,12 +103,12 @@ function loadSavedFlt(){
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
-		var loadProductsCallback = function() {
+		/*var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
 			id_product = id_product || $('#materials > img').eq(0).attr('id').replace("img", "");
 			if (id_product == null || id_product == '') return;
 			changeProduct(id_product);
-		};
+		};*/
 		var productCategoriesCallback = function() {
 			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
 			id_category = id_category || $('#id_category > option').eq(0).val();
@@ -119,7 +119,7 @@ function loadSavedFlt(){
 				id_category = $('#id_category > option').eq(0).val();
 				$('#id_category').val(id_category);
 			}
-			loadProducts(loadProductsCallback);
+			loadProducts();
   		};
 		changeRealm(productCategoriesCallback);
 		
