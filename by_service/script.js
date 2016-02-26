@@ -275,7 +275,8 @@ function loadData() {
 function loadServices(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
+	var locale = getLocale();
+	var suffix = (locale == 'en') ? '_en' : '';
 	var domain = getDomain(locale);
     var selected = $('#id_service').val();
 	
@@ -347,7 +348,6 @@ function changeServiceSpec() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
-	var domain = getDomain(locale);
 
 	$.getJSON('./'+realm+'/service_unit_types'+suffix+'.json', function (data) {
         updateEquipRawMat(data);
@@ -358,11 +358,12 @@ function changeServiceSpec() {
 function loadCountries(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
-	var suffix = (getLocale() == 'en') ? '_en' : '';
+	var locale = getLocale();
+	var suffix = (locale == 'en') ? '_en' : '';
 	
 	$.getJSON('/by_trade_at_cities/'+realm+'/countries'+suffix+'.json', function (data) {
-	  var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
-	  var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
+	  var allCountries = (locale == 'en') ? 'All countries' : 'Все страны';
+	  var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
 		var output = '<option value="" selected="">'+allCountries+'</option>';
 
 		$.each(data, function (key, val) {
