@@ -312,11 +312,11 @@ function loadServices(callback) {
 			services += '&nbsp;<img src="http://'+domain + val.iu+'"';
             if(selected != null && selected == val.i){
                 services += ' border="1"';
-                for (spec in val.s) {
-                    serviceSpecs += '<option value="'+spec+'">'+spec+'</option>';
+                for (i = 0; i < val.s.length; i++) {
+                    serviceSpecs += '<option value="'+val.s[i]+'">'+val.s[i]+'</option>';
                 }
             }
-            services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeService(\"'+val.c+'\")">';
+            services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeService(\''+val.c+'\')">';
 		});
 
 		$('#services').html(services);
