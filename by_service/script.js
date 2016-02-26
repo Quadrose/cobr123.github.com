@@ -312,6 +312,7 @@ function loadServices(callback) {
 	return false;
 }
 function updateEquipRawMat(data){
+    var selected = $('#id_service').val();
     id_service_spec = $('#id_service_spec').val();
     if (id_service_spec != null || id_service_spec != '') {
         $.each(data, function (key, val) {
