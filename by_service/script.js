@@ -317,30 +317,42 @@ function updateEquipRawMat(data){
 	var locale = getLocale();
 	var domain = getDomain(locale);
 	var realm = getRealm();
+	var svRetailRow = (locale == 'en') ? 'Market' : 'Рыночное';
+	var svSelfProdRow = (locale == 'en') ? 'Production' : 'Производство';
 
     if (id_service_spec != null || id_service_spec != '') {
         $.each(data, function (key, val) {
             if(selected != null && selected == val.i){
                 var equipCell = '';
+                var equipProdCell = '';
                 var rawMatCell = '';
+                var rawMatProdCell = '';
                 for (i in val.s) {
                     if(val.s[i].c === id_service_spec){
                         if(val.s[i].e != null){
                           equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
                           equipCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="24" height="24" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
                           equipCell += '</a>';
+                          equipProdCell += '<a href="/industry/#id_product='+val.s[i].e.i+'" target="_blank">';
+                          equipProdCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="24" height="24" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+                          equipProdCell += '</a>';
                         }
                         if(val.s[i].rm != null){
                             for (k in val.s[i].rm) {
                                 rawMatCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].rm[k].i+'/" target="_blank">';
                                 rawMatCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="24" height="24" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatCell += '</a>';
+                                rawMatProdCell += '<a href="/industry/#id_product='+val.s[i].rm[k].i+'" target="_blank">';
+                                rawMatProdCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="24" height="24" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
+                                rawMatProdCell += '</a>';
                             }
                         }
                         break;
                     }
                 }
-                $('#equip_raw_mat_body').html('<tr><td>'+ equipCell +'</td><td>'+ rawMatCell +'</td></tr>');
+                var equip_raw_mat_body = '<tr><td>'+svRetailRow+'</td><td>'+ equipCell +'</td><td>'+ rawMatCell +'</td></tr>';
+                equip_raw_mat_body += '<tr><td>'+svSelfProdRow+'</td><td>'+ equipProdCell +'</td><td>'+ rawMatProdCell +'</td></tr>';
+                $('#equip_raw_mat_body').html(equip_raw_mat_body);
                 //break each
                 return false;
             }
