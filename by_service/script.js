@@ -123,7 +123,6 @@ function loadSavedFlt(){
 	var realm = getVal('realm') || 'olga';
 	var id_country = getVal('id_country');
 	var id_region = getVal('id_region');
-	var id_category = getVal('id_category');
 	var id_service = getVal('id_service');
 
 	var sort_col_id = getVal('sort_col_id_service');
@@ -306,6 +305,7 @@ function loadServices(callback) {
 }
 function changeService(newVal) {
     $('#id_service').val(newVal);
+    setVal('id_service', newVal);
 	loadServices(loadData);
 }
 function changeServiceSpec() {
