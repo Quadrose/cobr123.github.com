@@ -143,19 +143,10 @@ function loadSavedFlt(){
                 id_service = $('#services > img').eq(0).attr('id').replace("img", "");
                 if (id_service == null || id_service == '') return;
                 $('#id_service').val(id_service);
-                loadServices();
+                loadData();
 			}
 		};
 		var productCategoriesCallback = function() {
-			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
-			id_category = id_category || $('#id_category > option').eq(0).val();
-			if (id_category == null || id_category == '') return;
-			$('#id_category').val(id_category);
-			id_category = $('#id_category').val();
-			if (id_category == null || id_category == '') {
-				id_category = $('#id_category > option').eq(0).val();
-				$('#id_category').val(id_category);
-			}
 			loadServices(loadProductsCallback);
   		};
 		var changeCountryCallback = function() {
@@ -465,5 +456,4 @@ $(document).ready(function () {
 		 $('#locale').val(getLocale());
 		applyLocale();
 	}
-	loadData();
 });
