@@ -302,7 +302,7 @@ function loadServices(callback) {
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
 	var domain = getDomain(locale);
-    var selected = $('#id_service').attr('value');
+    var selected = $('#id_service').val();
 	
 	$.getJSON('./'+realm+'/service_unit_types'+suffix+'.json', function (data) {
 		var services = '';
@@ -316,7 +316,7 @@ function loadServices(callback) {
                     serviceSpecs += '<option value="'+spec+'">'+spec+'</option>';
                 }
             }
-            services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="loadServices()">';
+            services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeService(\"'+val.c+'\")">';
 		});
 
 		$('#services').html(services);
@@ -327,6 +327,10 @@ function loadServices(callback) {
 		}
 	});
 	return false;
+}
+function changeService(newVal) {
+    $('#id_service').val(newVal);
+	loadServices(loadData);
 }
 function changeServiceSpec() {
 	loadData();
