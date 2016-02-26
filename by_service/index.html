@@ -51,12 +51,21 @@
 <u><b><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="priceFrom" size="12" maxlength="12" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="priceTo" size="12" maxlength="12" value="1000000.00"><br>
 <input type="submit" id="btnSubmit" value="Сформировать">
 </td></tr>
+<tr>
+<table id="equip_raw_mat" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">
+    <thead><tr class="theader">
+        <th><span lang="en" style="display:none">Equipment</span><span lang="ru">Оборудование</span></th>
+        <th><span lang="en" style="display:none">Raw material</span><span lang="ru">Сырьё</span></th>
+    </tr></thead>
+    <tbody id="equip_raw_mat_body">
+    </tbody>
+</table>
+</tr>
 </tbody></table>
 </td></tr>
 <tr><td>
 <input type="hidden" id="sort_col_id" name="sort_col_id" value="local_perc">
 <input type="hidden" id="sort_dir" name="sort_dir" value="desc">
-<div id="table-container">
 <table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">
 <thead><tr class="theader">
 <th id="th_city"><span lang="en" style="display:none">City</span><span lang="ru">Город</span>&nbsp;<b id="sort_by_city"></b></th>
@@ -70,8 +79,6 @@
 <tbody id="xtabletbody">
 </tbody>
 </table>
-<div id="bottom_anchor"></div>
-</div>
 </td></tr>
 </tbody></table>
 </form>

@@ -284,11 +284,11 @@ function loadServices(callback) {
 		var serviceSpecs = '';
 
 		$.each(data, function (key, val) {
-			services += '&nbsp;<img src="http://'+domain + val.iu+'"';
+			services += '&nbsp;<img src="http://'+ domain + val.iu+'"';
             if(selected != null && selected == val.i){
                 services += ' border="1"';
                 for (i in val.s) {
-                    serviceSpecs += '<option value="'+val.s[i]+'">'+val.s[i]+'</option>';
+                    serviceSpecs += '<option value="'+val.s[i].c+'">'+val.s[i].c+'</option>';
                 }
             }
             services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeService(\''+val.i+'\')">';
@@ -302,6 +302,31 @@ function loadServices(callback) {
         if (id_service_spec == null || id_service_spec == '') {
             id_service_spec = $('#id_service_spec > option').eq(0).val();
             $('#id_service_spec').val(id_service_spec);
+        }
+        id_service_spec = $('#id_service_spec').val();
+        if (id_service_spec != null || id_service_spec != '') {
+            $.each(data, function (key, val) {
+                if(selected != null && selected == val.i){
+                    var equipCell = '';
+                    var rawMatCell = '';
+                    for (i in val.s) {
+                        if(val.s[i].c === id_service_spec){
+                            if(val.s[i].e != null){
+                              equipCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="24" height="24" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+                            }
+                            if(val.s[i].rm != null){
+                                for (k in val.s[i].rm) {
+                                    rawMatCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="24" height="24" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    $('#equip_raw_mat_body').html('<tr><td>'+ equipCell +'</td><td>'+ rawMatCell +'</td></tr>');
+                    //break each
+                    return false;
+                }
+            });
         }
 		if(typeof(callback) === 'function') {
 			callback();
