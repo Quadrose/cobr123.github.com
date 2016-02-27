@@ -461,6 +461,8 @@ function calcProduction(recipe) {
 	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains for producrion ' : 'Недостаточно запасов ингридиентов на складе для производства ';
 	recipe.ip.forEach(function(ingredient) {
 		if(allExists){
+		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
+		    console.log('typeof material_remains[ingredient.pi] = "' + typeof(material_remains[ingredient.pi]) + '"');
 			if (material_remains[ingredient.pi] === null || material_remains[ingredient.pi].length === 0) {
 				allExists = false;
 	            notAllHasRemains += '<a target="_blank" href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
