@@ -328,7 +328,7 @@ function updateEquipRawMat(data){
                 var rawMatCell = '';
                 var rawMatProdCell = '';
                 for (i in val.s) {
-                    if(val.s[i].c === id_service_spec){
+                    if(i === id_service_spec){
                         if(val.s[i].e != null){
                           equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
                           equipCell += '<img src="http://'+ domain + val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
