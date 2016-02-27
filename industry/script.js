@@ -461,7 +461,7 @@ function calcProduction(recipe) {
 	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains for producrion ' : 'Недостаточно запасов ингридиентов на складе для производства ';
 	recipe.ip.forEach(function(ingredient) {
 		if(allExists){
-		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
+//		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
 		    console.log('typeof material_remains[ingredient.pi] = "' + typeof(material_remains[ingredient.pi]) + '"');
 			if (material_remains[ingredient.pi] === null || material_remains[ingredient.pi].length === 0) {
 				allExists = false;
@@ -553,8 +553,6 @@ function loadRemains(recipe, productID, npMinQuality) {
 		tmp.sort(function(a,b) { return a.remain - b.remain } );
 		tmp.splice(100);
 		material_remains[productID]  = tmp;
-		
-		calcProduction(recipe);
 	})
 	  .fail(function() {
 		$('#messages').append('<p>'+notAllHasRemains+'</p>');
@@ -603,12 +601,13 @@ function loadRecipe() {
 	var suffix = (getLocale() == 'en') ? '_en' : '';
 	material_remains = [];
 	console.log('load ./'+realm+'/recipe_'+productID+suffix+'.json');
-	$.getJSON('./'+realm+'/recipe_'+productID+suffix+'.json', function (recipes) {
+	$.getJSON('./'+realm+'/recipe_'+ productID + suffix +'.json', function (recipes) {
 		recipes.forEach(function(recipe) {
 			recipe.ip.forEach(function(ingredient) {
 			  	addVolumeFromForIngredient(ingredient.pi); 
 				loadRemains(recipe, ingredient.pi, ingredient.mq);
 			});
+		    calcProduction(recipe);
 		});
 	})
 	  .fail(function() {
