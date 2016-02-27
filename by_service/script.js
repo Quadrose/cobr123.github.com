@@ -289,7 +289,7 @@ function loadServices(callback) {
             if(selected != null && selected == val.i){
                 services += ' border="1"';
                 for (i in val.s) {
-                    serviceSpecs += '<option value="'+val.s[i].c+'">'+val.s[i].c+'</option>';
+                    serviceSpecs += '<option value="'+i+'">'+val.s[i].c+'</option>';
                 }
             }
             services += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeService(\''+val.i+'\')">';
