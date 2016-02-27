@@ -218,7 +218,7 @@ function loadData() {
 	
 	$.getJSON('./'+realm+'/serviceAtCity_'+serviceID + suffix+'.json', function (data) {
 		var output = '';
-		var serviceSpec = $('#id_service_spec').val();
+		var serviceSpec = $('#id_service_spec > option').eq($('#id_service_spec').val()).text();
         var percent = 0;
 		
 		$.each(data, function (key, val) {
