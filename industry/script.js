@@ -553,6 +553,8 @@ function loadRemains(recipe, productID, npMinQuality) {
 		tmp.sort(function(a,b) { return a.remain - b.remain } );
 		tmp.splice(100);
 		material_remains[productID]  = tmp;
+
+		calcProduction(recipe);
 	})
 	  .fail(function() {
 		$('#messages').append('<p>'+notAllHasRemains+'</p>');
@@ -607,7 +609,6 @@ function loadRecipe() {
 			  	addVolumeFromForIngredient(ingredient.pi); 
 				loadRemains(recipe, ingredient.pi, ingredient.mq);
 			});
-		    calcProduction(recipe);
 		});
 	})
 	  .fail(function() {
