@@ -499,7 +499,7 @@ function calcProduction(recipe) {
 	materials.splice(10000);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 
-	calcResultLoop(recipe, techFrom, techTo, materials, 0);
+	calcResultLoop(recipe, techFrom, techFrom, techTo, materials, 0);
 
 	var tmp = [];
 	for (var key in tableCache) {
@@ -509,16 +509,19 @@ function calcProduction(recipe) {
 	sortAndUpdateResult();
 	unlockSubmit();
 }
-function calcResultLoop(recipe, techFrom, techTo, materials, materialIdx) {
-    if (techFrom > techTo) { return; }
-    if (materials.length < materialIdx) { return; }
-    console.log('calcResult for tech = ' + techFrom);
+function calcResultLoop(recipe, tech, techFrom, techTo, materials, materialIdx) {
+    if (materials.length < materialIdx) {
+        materialIdx = 0;
+        tech += 1;
+    }
+    if (tech > techTo) { return; }
+    console.log('calcResult for tech = ' + tech);
 
-    var result = calcResult(recipe, materials[materialIdx], techFrom);
+    var result = calcResult(recipe, materials[materialIdx], tech);
     addToResultCache(result);
 
     setTimeout(function(){
-        calcResultLoop(recipe, techFrom + 1, techTo, materials, materialIdx + 1);
+        calcResultLoop(recipe, tech, techFrom, techTo, materials, materialIdx + 1);
     },0);
 }
 function loadRemains(recipe, productID, npMinQuality) {
