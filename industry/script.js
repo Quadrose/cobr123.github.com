@@ -538,8 +538,12 @@ function sortRemains(a,b){
 		} else {
 		  return b.price - a.price;
 		}
-	} else if(svColId == 'costperqua' && a.price != b.price) {
-		return a.price/a.quality - b.price/b.quality;
+	} else if(svColId == 'costperqua' && a.price/a.quality != b.price/b.quality) {
+		if(isAscending){
+		  return a.price/a.quality - b.price/b.quality;
+		} else {
+		  return b.price/b.quality - a.price/a.quality;
+		}
 	} else {
         return a.remain - b.remain;
     }
