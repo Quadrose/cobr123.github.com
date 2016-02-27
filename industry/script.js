@@ -811,6 +811,7 @@ $(document).ready(function () {
 		var tableHeader = e.target;
 		var isAscending;
 		var order;
+		var orderArrow;
 		
 		while (tableHeader.nodeName!=='TH') {
 				tableHeader = tableHeader.parentNode;
@@ -822,8 +823,10 @@ $(document).ready(function () {
 			isAscending = tableHeader.getAttribute('data-order')=='asc';
 			if ($('#sort_col_id').val() === tableHeaderId) {
 			    order = isAscending ? 'desc' : 'asc';
+			    orderArrow = isAscending ? '&#9660;' : '&#9650;';
 			} else {
 			    order = isAscending ? 'asc' : 'desc';
+			    orderArrow = isAscending ? '&#9650;' : '&#9660;';
 			}
 			tableHeader.setAttribute('data-order',order);
 			$('#sort_by_'+$('#sort_col_id').val()).html('');
@@ -831,7 +834,6 @@ $(document).ready(function () {
 			$('#sort_dir').val(order);
 			setVal('sort_col_id_ind', $('#sort_col_id').val());
 			setVal('sort_dir_ind', $('#sort_dir').val());
-			var orderArrow = isAscending?'&#9660;':'&#9650;';
 			$('#sort_by_'+tableHeaderId).html(orderArrow);
 			loadData();
 		}
