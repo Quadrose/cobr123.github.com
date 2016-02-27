@@ -820,7 +820,11 @@ $(document).ready(function () {
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
 			isAscending = tableHeader.getAttribute('data-order')=='asc';
-			order = isAscending?'desc':'asc';
+			if ($('#sort_col_id').val() === tableHeaderId) {
+			    order = isAscending ? 'desc' : 'asc';
+			} else {
+			    order = isAscending ? 'asc' : 'desc';
+			}
 			tableHeader.setAttribute('data-order',order);
 			$('#sort_by_'+$('#sort_col_id').val()).html('');
 			$('#sort_col_id').val(tableHeaderId);
@@ -829,7 +833,7 @@ $(document).ready(function () {
 			setVal('sort_dir_ind', $('#sort_dir').val());
 			var orderArrow = isAscending?'&#9660;':'&#9650;';
 			$('#sort_by_'+tableHeaderId).html(orderArrow);
-			sortAndUpdateResult();
+			loadData();
 		}
 	});
 	var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
