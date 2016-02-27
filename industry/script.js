@@ -463,6 +463,7 @@ function calcProduction(recipe) {
 		if(allExists){
 //		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
 		    if (typeof(material_remains[ingredient.pi]) === 'undefined'){
+		        console.log('ingredient.pi = "' + ingredient.pi + '"');
 		        //remains loading, wait
 		        return;
 		    }
