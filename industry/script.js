@@ -499,29 +499,33 @@ function calcProduction(recipe) {
 	materials.splice(10000);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 
-	calcResultLoop(recipe, techFrom, techTo, materials, 0);
-
-	var tmp = [];
-	for (var key in tableCache) {
-		tmp.push(tableCache[key]);
-	}
-	tableCache = tmp;
-	sortAndUpdateResult();
-	unlockSubmit();
+    var callback = function() {
+        var tmp = [];
+        for (var key in tableCache) {
+            tmp.push(tableCache[key]);
+        }
+        tableCache = tmp;
+        sortAndUpdateResult();
+        unlockSubmit();
+    };
+	calcResultLoop(recipe, techFrom, techTo, materials, 0, callback);
 }
-function calcResultLoop(recipe, techFrom, techTo, materials, materialIdx) {
+function calcResultLoop(recipe, techFrom, techTo, materials, materialIdx, callback) {
     if (materials.length < materialIdx) {
         materialIdx = 0;
         techFrom += 1;
     }
-    if (techFrom > techTo) { return; }
+    if (techFrom > techTo) {
+        callback();
+        return;
+    }
     console.log('calcResult for tech = ' + techFrom);
 
     var result = calcResult(recipe, materials[materialIdx], techFrom);
     addToResultCache(result);
 
     setTimeout(function(){
-        calcResultLoop(recipe, techFrom, techTo, materials, materialIdx + 1);
+        calcResultLoop(recipe, techFrom, techTo, materials, materialIdx + 1, callback);
     },0);
 }
 function loadRemains(recipe, productID, npMinQuality) {
