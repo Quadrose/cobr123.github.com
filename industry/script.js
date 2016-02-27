@@ -499,34 +499,20 @@ function calcProduction(recipe) {
 	materials.splice(10000);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 
-    var callback = function() {
-        var tmp = [];
-        for (var key in tableCache) {
-            tmp.push(tableCache[key]);
-        }
-        tableCache = tmp;
-        sortAndUpdateResult();
-        unlockSubmit();
-    };
-	calcResultLoop(recipe, techFrom, techTo, materials, 0, callback);
-}
-function calcResultLoop(recipe, techFrom, techTo, materials, materialIdx, callback) {
-    if (materials.length < materialIdx) {
-        materialIdx = 0;
-        techFrom += 1;
-    }
-    if (techFrom > techTo) {
-        callback();
-        return;
-    }
-    console.log('calcResult for tech = ' + techFrom);
-
-    var result = calcResult(recipe, materials[materialIdx], techFrom);
-    addToResultCache(result);
-
-    setTimeout(function(){
-        calcResultLoop(recipe, techFrom, techTo, materials, materialIdx + 1, callback);
-    },0);
+	for (var tech = techFrom; tech <= techTo; tech++) {
+	  console.log('calcResult for tech = ' + tech);
+		materials.forEach(function(mats) {
+			var result = calcResult(recipe, mats, tech);
+			addToResultCache(result);
+		});
+	}
+	var tmp = [];
+	for (var key in tableCache) {
+		tmp.push(tableCache[key]);
+	}
+	tableCache = tmp;
+	sortAndUpdateResult();
+	unlockSubmit();
 }
 function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
@@ -649,7 +635,7 @@ function loadData() {
 	//разблокируем по таймауту в случае ошибок
 	setTimeout(function() {
 		unlockSubmit();
-	},5000);
+	},10000);
 	
 	return false;
 }
