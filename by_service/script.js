@@ -513,6 +513,11 @@ $(document).ready(function () {
 					,{
 							selector:'td#td_'+tableHeaderId
 							,order: order
+                            ,sortFunction:function(a,b){
+                                     var clearA = a.elm.textContent.replace(',', '').replace(/\s+/g,'');
+                                     var clearB = b.elm.textContent.replace(',', '').replace(/\s+/g,'');
+                                     return clearA === clearB ? 0 : (clearA > clearB ? 1 : -1);
+                                 }
 					}
 			);
 		}
