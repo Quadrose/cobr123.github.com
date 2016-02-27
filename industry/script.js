@@ -462,11 +462,6 @@ function calcProduction(recipe) {
 	recipe.ip.forEach(function(ingredient) {
 		if(allExists){
 //		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
-		    if (typeof(material_remains[ingredient.pi]) === 'undefined'){
-		        console.log('ingredient.pi = "' + ingredient.pi + '"');
-		        //remains loading, wait
-		        return;
-		    }
 		    console.log('typeof material_remains[ingredient.pi] = "' + typeof(material_remains[ingredient.pi]) + '"');
 
 			if (material_remains[ingredient.pi] === null || material_remains[ingredient.pi].length === 0) {
