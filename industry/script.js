@@ -821,7 +821,7 @@ $(document).ready(function () {
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
 			isAscending = tableHeader.getAttribute('data-order')=='asc';
-			if ($('#sort_col_id').val() === tableHeaderId) {
+			if ($('#sort_col_id').val() == tableHeaderId) {
 			    order = isAscending ? 'desc' : 'asc';
 			    orderArrow = isAscending ? '&#9660;' : '&#9650;';
 			} else {
