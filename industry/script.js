@@ -230,7 +230,7 @@ function updateTableFromCache(splicedTableCache){
 	}
 }
 //////////////////////////////////////////////////////
-var material_remains = [];
+var material_remains = null;
 function calcResult(recipe, materials, tech) {
 	//console.log('calcResult for materials.length = ' + materials.length);
 	var result = {
