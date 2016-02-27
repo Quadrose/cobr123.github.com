@@ -825,6 +825,7 @@ $(document).ready(function () {
 			    order = isAscending ? 'desc' : 'asc';
 			    orderArrow = isAscending ? '&#9660;' : '&#9650;';
 			} else {
+			    isAscending = $('#sort_dir').val()=='asc';
 			    order = isAscending ? 'asc' : 'desc';
 			    orderArrow = isAscending ? '&#9650;' : '&#9660;';
 			}
