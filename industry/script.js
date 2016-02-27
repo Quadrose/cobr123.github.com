@@ -462,7 +462,7 @@ function calcProduction(recipe) {
 	recipe.ip.forEach(function(ingredient) {
 		if(allExists){
 //		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
-		    console.log('typeof material_remains[ingredient.pi] = "' + typeof(material_remains[ingredient.pi]) + '"');
+//		    console.log('typeof material_remains[ingredient.pi] = "' + typeof(material_remains[ingredient.pi]) + '"');
 
 			if (material_remains[ingredient.pi] === null || material_remains[ingredient.pi].length === 0) {
 				allExists = false;
@@ -498,14 +498,9 @@ function calcProduction(recipe) {
 	materials.sort(sortMaterials);
 	materials.splice(10000);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
-	
-	for (var tech = techFrom; tech <= techTo; tech++) { 
-	  console.log('calcResult for tech = ' + tech);
-		materials.forEach(function(mats) {
-			var result = calcResult(recipe, mats, tech);
-			addToResultCache(result);
-		});
-	}
+
+	calcResultLoop(recipe, techFrom, techTo, materials, 0);
+
 	var tmp = [];
 	for (var key in tableCache) {
 		tmp.push(tableCache[key]);
@@ -513,6 +508,18 @@ function calcProduction(recipe) {
 	tableCache = tmp;
 	sortAndUpdateResult();
 	unlockSubmit();
+}
+function calcResultLoop(recipe, techFrom, techTo, materials, materialIdx) {
+    if (techFrom > techTo) { return; }
+    if (materials.length < materialIdx) { return; }
+    console.log('calcResult for tech = ' + techFrom);
+
+    var result = calcResult(recipe, materials[materialIdx], techFrom);
+    addToResultCache(result);
+
+    setTimeout(function(){
+        calcResultLoop(recipe, techFrom + 1, techTo, materials, materialIdx + 1);
+    },0);
 }
 function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
