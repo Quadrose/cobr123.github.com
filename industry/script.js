@@ -514,6 +514,36 @@ function calcProduction(recipe) {
 	sortAndUpdateResult();
 	unlockSubmit();
 }
+function sortRemains(a,b){
+	var svOrder = $('#sort_dir').val();
+	var svColId = $('#sort_col_id').val();
+	var isAscending = svOrder=='asc';
+	/*{
+	  quality: remain.q
+	 ,price  : remain.p
+	 ,ingQty : 0
+	 ,remain : remain.r
+	 ,productID : productID
+	 ,unitID : remain.ui
+	};*/
+	if(svColId == 'quality' && a.quality != b.quality){
+		if(isAscending){
+		  return a.quality - b.quality;
+		} else {
+		  return b.quality - a.quality;
+		}
+	} else if(svColId == 'cost' && a.price != b.price){
+		if(isAscending){
+		  return a.price - b.price;
+		} else {
+		  return b.price - a.price;
+		}
+	} else if(svColId == 'costperqua' && a.price != b.price) {
+		return a.price/a.quality - b.price/b.quality;
+	} else {
+        return a.remain - b.remain;
+    }
+}
 function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
 	if (realm == null || realm == '') {
@@ -551,7 +581,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 			}
 		});
 		var tmp = material_remains[productID];
-		tmp.sort(function(a,b) { return a.remain - b.remain } );
+		tmp.sort(sortRemains);
 		tmp.splice(100);
 		material_remains[productID]  = tmp;
 
