@@ -336,7 +336,7 @@ function calcResult(recipe, materials, tech) {
 	return result;
 }
 function cartesianProduct(a) { // a = array of array
-		var totalMaxLen = 100000;
+		var totalMaxLen = 20000;
     var i, j, l, m, a1, o = [];
     if (!a || a.length === 0) {
     	return a;
@@ -491,7 +491,7 @@ function calcProduction(recipe) {
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
-	var techDiff = techTo - techFrom + materials[0].length;
+//	var techDiff = techTo - techFrom + materials[0].length;
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	//materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
 	//materials.splice(10000/techDiff);
