@@ -431,6 +431,15 @@ function changeRealm(productCategoriesCallback, countryCallback) {
 	loadServices(productCategoriesCallback);
 	loadCountries(countryCallback);
 	setVal('realm', getRealm());
+	id_country = getVal('id_country');
+    if(typeof(countryCallback) !== 'function' && id_country != null && id_country ! = '') {
+        $('#id_country').val(id_country);
+		var countryCallback = function() {
+            $('#id_region').val(getVal('id_region'));
+            loadData();
+  		};
+        changeCountry(callback);
+    }
 	fillUpdateDate();
 	updateProdRemainLinks();
 }
