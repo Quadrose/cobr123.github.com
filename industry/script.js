@@ -72,6 +72,15 @@ function getDomain(locale) {
 	  return 'virtonomica.ru';
 	}
 }
+function updateGeneralReportLink(){
+	var productID = getProductID();
+	if (productID == null || productID == '') return;
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	var locale = getLocale();
+	var domain = getDomain(locale);
+	$('#general_report_link').attr('href','http://'+domain+'/'+realm+'/main/globalreport/product_history/'+productID+'/');
+}
 //резделитель разрядов
 function commaSeparateNumber(val, sep){
 	var separator = sep || ',';
@@ -743,6 +752,7 @@ function changeRealm(productCategoriesCallback) {
 	loadProductCategories(productCategoriesCallback);
 	setVal('realm', getRealm());
 	fillUpdateDate();
+	updateGeneralReportLink();
 }
 function changeCategory(callback) {
 	loadProducts(callback);
@@ -759,6 +769,7 @@ function changeProduct(productId) {
 	$('#id_product').val(productId);
 	loadData();
 	setVal('id_product', $('#id_product').val());
+	updateGeneralReportLink();
 }
 
 function transformToAssocArray( prmstr ) {
