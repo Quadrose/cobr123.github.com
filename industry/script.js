@@ -821,14 +821,8 @@ $(document).ready(function () {
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
 			isAscending = tableHeader.getAttribute('data-order')=='asc';
-			if ($('#sort_col_id').val() == tableHeaderId) {
-			    order = isAscending ? 'desc' : 'asc';
-			    orderArrow = isAscending ? '&#9660;' : '&#9650;';
-			} else {
-			    isAscending = $('#sort_dir').val()=='asc';
-			    order = isAscending ? 'asc' : 'desc';
-			    orderArrow = isAscending ? '&#9650;' : '&#9660;';
-			}
+            order = isAscending ? 'desc' : 'asc';
+            orderArrow = isAscending ? '&#9660;' : '&#9650;';
 			tableHeader.setAttribute('data-order',order);
 			$('#sort_by_'+$('#sort_col_id').val()).html('');
 			$('#sort_col_id').val(tableHeaderId);
