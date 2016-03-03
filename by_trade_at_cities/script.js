@@ -409,6 +409,8 @@ function loadData() {
 				output += '<td align="right" id="td_shop_price">'+parseFloat(val.spr).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_shop_quality">'+parseFloat(val.sq).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_shop_brand">'+parseFloat(val.sb).toFixed(2)+'</td>';
+				output += '<td align="right" id="td_sc">'+val.sc+'</td>';
+				output += '<td align="right" id="td_cc">'+val.cc+'</td>';
 				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
 				output += '</tr>';
 				
