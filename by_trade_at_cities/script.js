@@ -242,7 +242,7 @@ function togglePrediction(npPredNum){
 		predRow.remove();
 		link.text(showLabel);
 	} else {
-		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=11>'+loadingLabel+'</td></tr>');
+		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=13>'+loadingLabel+'</td></tr>');
 		var predRow = $('#prediction_' + npPredNum);
 		loadPrediction(predRow);
 		link.text(hideLabel);
