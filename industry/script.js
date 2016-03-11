@@ -667,6 +667,7 @@ function loadData() {
 	} else {
 		lockSubmit();
 		$('#messages').html('');
+	    $('#xtabletbody').html('');
 	}
 	tableCache = [];
 	/*
