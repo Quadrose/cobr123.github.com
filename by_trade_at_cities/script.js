@@ -264,11 +264,11 @@ function loadSavedFlt(){
 	var id_category = getVal('id_category');
 	var id_product = getVal('id_product');
 
-	var sort_col_id = getVal('sort_col_id_btac');
+	var sort_col_id = getVal('sort_col_id_btac') || 'local_perc';
 	if (sort_col_id != null || sort_col_id != '') {
 	    $('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = getVal('sort_dir_btac');
+	var sort_dir = getVal('sort_dir_btac') || 'desc';
 	if (sort_dir != null || sort_dir != '') {
 	    $('#sort_dir').val(sort_dir);
 	}
