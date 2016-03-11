@@ -201,7 +201,7 @@ function updateTableFromCache(splicedTableCache){
 		var openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
 		var specHref = 'http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
 		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
-		output += '<td align="center"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/1529/">'+val.equipQual+'</a></td>';
+		output += '<td align="center"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ val.equipId +'/">'+val.equipQual+'</a></td>';
 		var svDate = new Date().toISOString().slice(0, 10);
 		var techHref = 'http://'+domain+'/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
 		output += '<td align="center" id="td_tech"><a target="_blank" href="'+techHref+'">'+val.tech+'</a></td>';
@@ -251,6 +251,7 @@ function calcResult(recipe, materials, tech) {
 	 ,cost: 0
 	 ,profit: 0
 	 ,equipQual: 0
+	 ,equipId: recipe.e.i
 	 ,materials: materials
 	 ,productID: recipe.rp[0].pi
 	};
