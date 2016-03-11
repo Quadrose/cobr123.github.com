@@ -95,11 +95,11 @@ function loadSavedFlt(){
 	var id_category = getVal('id_category');
 	var id_product = getVal('id_product');
 
-	var sort_col_id = getVal('sort_col_id_ind');
+	var sort_col_id = getVal('sort_col_id_ind') || 'costperqua';
 	if (sort_col_id != null || sort_col_id != '') {
 	    $('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = getVal('sort_dir_ind');
+	var sort_dir = getVal('sort_dir_ind') || 'asc';
 	if (sort_dir != null || sort_dir != '') {
 	    $('#sort_dir').val(sort_dir);
 	}
