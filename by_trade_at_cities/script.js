@@ -115,6 +115,7 @@ function loadPrediction(predRow) {
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
 	var locale = getLocale();
+    var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 	
 	$.getJSON('/predict_retail_sales/retail_analytics_hist/'+productID+'.json', function (data) {
 		var output = '';
@@ -126,7 +127,6 @@ function loadPrediction(predRow) {
 		var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
 		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
 		var tableId = 'table_' + predRow.attr('id');
-		var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 		var uniqPred = [];
 		var key = '';
 		var suitable = true;
@@ -220,7 +220,10 @@ function loadPrediction(predRow) {
 					}
 			);
 		}
-	});
+	})
+	  .fail(function() {
+            predRow.html(notEnoughDataMsg);
+	  });
 	return false;
 }
 function hideAllPredictions(){
