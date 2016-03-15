@@ -275,7 +275,7 @@ function loadSavedFlt(){
 	if (sort_dir != null || sort_dir != '') {
 	    $('#sort_dir').val(sort_dir);
 	}
-	if (getVal('locale') == '' && (document.referrer === 'http://virtonomics.com/' || document.referrer === 'http://virtonomics-free.blogspot.ca/')) {
+	if (getVal('locale') == '' && (document.referrer.substring(0, 'http://virtonomics.com/'.length) === 'http://virtonomics.com/' || document.referrer.substring(0, 'http://virtonomics-free.blogspot.ca/'.length) === 'http://virtonomics-free.blogspot.ca/')) {
 	    setVal('locale', 'en');
 	}
 	
