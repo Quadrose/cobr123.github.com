@@ -447,7 +447,7 @@ function loadData() {
 	return false;
 }
 function unknownIfNull(locale, opValue) {
-	if (opValue == null || opValue == ''){
+	if (opValue === null || opValue === ''){
 	  return (locale == 'en') ? 'unknown' : 'не изв.';
 	} else {
 	  return opValue;
