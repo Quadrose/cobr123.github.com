@@ -399,7 +399,7 @@ function loadCountries(callback) {
 		sagRegionCaption = [];
 	}
 
-    $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
             sagRegionCaption[val.i] = val.c;
         });
