@@ -659,16 +659,20 @@ function hideCol(colID){
     $('th, td', 'tr').filter('#' + colID).hide();
 }
 function toggleCol(colID){
-    $('th, td', 'tr').filter('#' + colID).toggle();
+    $('th#'+ colID +', td#' + colID, 'tr').toggle();
 }
 function showAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
-        toggleCol($(this).value());
+        var value = $(this).value();
+        console.log('value = ' + value);
+        toggleCol(value);
     });
 }
 function hideAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
-        toggleCol($(this).value());
+        var value = $(this).value();
+        console.log('value = ' + value);
+        toggleCol(value);
     });
 }
 //////////////////////////////////////////////////////
