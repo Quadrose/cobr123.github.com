@@ -517,6 +517,7 @@ function loadCountries(callback) {
 	});
 	return false;
 }
+var nagIncomeTaxRate = [];
 function loadRegions(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
@@ -525,22 +526,38 @@ function loadRegions(callback) {
 	var locale = getLocale();
 	var suffix = (locale == 'en') ? '_en' : '';
 	var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
+	var svItrPrefix = (locale == 'en') ? 'Rate of profit tax' : 'Ставка налога на прибыль';
+    $('#income_tax_rate').text('');
 
 	if (svCountryId == null || svCountryId == '') {
         var output = '<option value="" selected="">'+allRegions+'</option>';
         $('#id_region').html(output);
         if(typeof(callback) === 'function') callback();
 	} else {
+	    var nvIncomeTaxRateCnt = 0;
+	    var navIncomeTaxRate = [];
+	    nagIncomeTaxRate = [];
+
         $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
             var output = '<option value="" selected="">'+allRegions+'</option>';
 
             $.each(data, function (key, val) {
                 if(val.ci == svCountryId){
                     output += '<option value="'+val.i+'">'+val.c+'</option>';
+                    if (val['itr'] != null) {
+                        navIncomeTaxRate.push(val.itr);
+                        nvIncomeTaxRateCnt += 1;
+                        nagIncomeTaxRate[val.i] = val.itr;
+                    }
                 }
             });
 
             $('#id_region').html(output);
+            if (nvIncomeTaxRateCnt === 1) {
+		        $('#income_tax_rate').text(svItrPrefix+': ' + Math.max.apply(null, navIncomeTaxRate) + '%');
+            } else if (nvIncomeTaxRateCnt > 1) {
+                $('#income_tax_rate').text(svItrPrefix+': ' + Math.min.apply(null, navIncomeTaxRate) + '% - ' + Math.max.apply(null, navIncomeTaxRate) + '%');
+             }
             if(typeof(callback) === 'function') callback();
         });
 	}
@@ -571,7 +588,16 @@ function changeCountry(callback) {
 }
 function changeRegion() {
 	loadData();
-	setVal('id_region', $('#id_region').val());
+	var id_region = $('#id_region').val();
+	setVal('id_region', id_region);
+
+    if (nagIncomeTaxRate[id_region] != null) {
+	    var locale = getLocale();
+	    var svItrPrefix = (locale == 'en') ? 'Rate of profit tax' : 'Ставка налога на прибыль';
+        $('#income_tax_rate').text(svItrPrefix+': ' + nagIncomeTaxRate[id_region] + '%');
+    }
+}
+function updateCountryDutyList() {
 }
 function changeProduct(productId) {
 //    console.log('changeProduct, caller is '+ arguments.callee.caller.toString());
