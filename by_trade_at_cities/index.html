@@ -63,18 +63,18 @@
 <input type="submit" id="btnSubmit" value="Сформировать">
 <span lang="en" style="display:none">
 <select id="show_hide_col_en" multiple="multiple">
-	<option value="th_city" selected="selected">City</option>
-	<option value="th_w_idx" selected="selected">Wealth level</option>
-	<option value="th_idx" selected="selected">Index</option>
-	<option value="th_volume" selected="selected">Volume</option>
-	<option value="th_local_perc" selected="selected">Local suppliers, %</option>
-	<option value="th_locals" selected="selected">Local suppliers</option>
-	<option value="th_stores" selected="selected">Stores</option>
-	<option value="th_sc" selected="selected">Number of merchants</option>
-	<option value="th_cc" selected="selected">Number of companies</option>
-	<option value="th_itr" selected="selected">Rate of profit tax</option>
-	<option value="th_itp" selected="selected">Import duty</option>
-	<option value="th_pred" selected="selected">Prediction</option>
+	<option value="city" selected="selected">City</option>
+	<option value="w_idx" selected="selected">Wealth level</option>
+	<option value="idx" selected="selected">Index</option>
+	<option value="volume" selected="selected">Volume</option>
+	<option value="local_perc" selected="selected">Local suppliers, %</option>
+	<option value="locals" selected="selected">Local suppliers</option>
+	<option value="stores" selected="selected">Stores</option>
+	<option value="sc" selected="selected">Number of merchants</option>
+	<option value="cc" selected="selected">Number of companies</option>
+	<option value="itr" selected="selected">Rate of profit tax</option>
+	<option value="itp" selected="selected">Import duty</option>
+	<option value="pred" selected="selected">Prediction</option>
 </select>
 </span>
 <span lang="ru">
@@ -103,18 +103,18 @@
 <div id="table-container">
 <table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">
 <thead><tr class="theader">
-<th rowspan="2" id="city"><span lang="en" style="display:none">City</span><span lang="ru">Город</span>&nbsp;<b id="sort_by_city"></b></th>
-<th rowspan="2" id="w_idx"><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span>&nbsp;<b id="sort_by_w_idx"></b></th>
-<th rowspan="2" id="idx"><span lang="en" style="display:none">Index</span><span lang="ru">Индекс</span>&nbsp;<b id="sort_by_idx"></b></th>
-<th rowspan="2" id="volume"><span lang="en" style="display:none">Volume</span><span lang="ru">Объём</span>&nbsp;<b id="sort_by_volume"></b></th>
-<th rowspan="2" id="local_perc"><span lang="en" style="display:none" title="Local suppliers, %">L.s.%</span><span lang="ru">Местные, %</span>&nbsp;<b id="sort_by_local_perc"></b></th>
-<td colspan="2" id="locals"><span lang="en" style="display:none">Local suppliers</span><span lang="ru">Местные</span></td>
-<td colspan="3" id="stores"><span lang="en" style="display:none">Stores</span><span lang="ru">Магазины</span></td>
-<th rowspan="2" id="sc"><span lang="en" style="display:none" title="Number of merchants">NoM</span><span lang="ru" title="Количество продавцов">К.п.</span>&nbsp;<b id="sort_by_sc"></b></th>
-<th rowspan="2" id="cc"><span lang="en" style="display:none" title="Number of companies">NoC</span><span lang="ru" title="Количество компаний">К.к.</span>&nbsp;<b id="sort_by_cc"></b></th>
-<th rowspan="2" id="itr"><span lang="en" style="display:none" title="Rate of profit tax">Tax, %</span><span lang="ru" title="Ставка налога на прибыль">Налог, %</span>&nbsp;<b id="sort_by_itr"></b></th>
-<th rowspan="2" id="itp"><span lang="en" style="display:none" title="Import duty">Duty, %</span><span lang="ru" title="Пошлина на импорт">Пошлина, %</span>&nbsp;<b id="sort_by_itp"></b></th>
-<td rowspan="2" id="pred"><span lang="en" style="display:none" title="Historical data on the sales of this product in the cities with the same volume of the market and the index of wealth. Sort by sale price.">Prediction</span><span lang="ru" title="Исторические данные о продажах данного продукта в городах с похожим объёмом рынка и индексом богатства. Отсортированы по цене продажи.">Прогноз</span></td>
+<th rowspan="2" id="th_city"><span lang="en" style="display:none">City</span><span lang="ru">Город</span>&nbsp;<b id="sort_by_city"></b></th>
+<th rowspan="2" id="th_w_idx"><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span>&nbsp;<b id="sort_by_w_idx"></b></th>
+<th rowspan="2" id="th_idx"><span lang="en" style="display:none">Index</span><span lang="ru">Индекс</span>&nbsp;<b id="sort_by_idx"></b></th>
+<th rowspan="2" id="th_volume"><span lang="en" style="display:none">Volume</span><span lang="ru">Объём</span>&nbsp;<b id="sort_by_volume"></b></th>
+<th rowspan="2" id="th_local_perc"><span lang="en" style="display:none" title="Local suppliers, %">L.s.%</span><span lang="ru">Местные, %</span>&nbsp;<b id="sort_by_local_perc"></b></th>
+<td colspan="2" id="th_locals"><span lang="en" style="display:none">Local suppliers</span><span lang="ru">Местные</span></td>
+<td colspan="3" id="th_stores"><span lang="en" style="display:none">Stores</span><span lang="ru">Магазины</span></td>
+<th rowspan="2" id="th_sc"><span lang="en" style="display:none" title="Number of merchants">NoM</span><span lang="ru" title="Количество продавцов">К.п.</span>&nbsp;<b id="sort_by_sc"></b></th>
+<th rowspan="2" id="th_cc"><span lang="en" style="display:none" title="Number of companies">NoC</span><span lang="ru" title="Количество компаний">К.к.</span>&nbsp;<b id="sort_by_cc"></b></th>
+<th rowspan="2" id="th_itr"><span lang="en" style="display:none" title="Rate of profit tax">Tax, %</span><span lang="ru" title="Ставка налога на прибыль">Налог, %</span>&nbsp;<b id="sort_by_itr"></b></th>
+<th rowspan="2" id="th_itp"><span lang="en" style="display:none" title="Import duty">Duty, %</span><span lang="ru" title="Пошлина на импорт">Пошлина, %</span>&nbsp;<b id="sort_by_itp"></b></th>
+<td rowspan="2" id="th_pred"><span lang="en" style="display:none" title="Historical data on the sales of this product in the cities with the same volume of the market and the index of wealth. Sort by sale price.">Prediction</span><span lang="ru" title="Исторические данные о продажах данного продукта в городах с похожим объёмом рынка и индексом богатства. Отсортированы по цене продажи.">Прогноз</span></td>
 </tr>
 <tr class="theader">
 <th id="th_local_price"><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span>&nbsp;<b id="sort_by_local_price"></b></th>
