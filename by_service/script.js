@@ -404,6 +404,7 @@ function loadCountries(callback) {
             sagRegionCaption[val.i] = val.c;
         });
     });
+
 	$.getJSON('/by_trade_at_cities/'+realm+'/countries'+suffix+'.json', function (data) {
 	  var allCountries = (locale == 'en') ? 'All countries' : 'Все страны';
 	  var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
