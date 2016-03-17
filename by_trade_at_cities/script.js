@@ -208,7 +208,7 @@ function loadPrediction(predRow) {
 			headers += '<th id="th_wealthIndex" title="'+wealthIndexHint+'">'+wealthIndexLabel+'&nbsp;<b id="sort_by_wealthIndex"></b></th>';
 			headers += '<th id="th_marketIdx" title="Индекс">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
 			headers += '</tr></thead>';
-			predRow.html('<td colspan=13><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
+			predRow.html('<td colspan=15><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
 			
 			var table = document.getElementById(tableId);
 			var tableBody = table.querySelector('tbody');
@@ -245,7 +245,7 @@ function togglePrediction(npPredNum){
 		predRow.remove();
 		link.text(showLabel);
 	} else {
-		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=13>'+loadingLabel+'</td></tr>');
+		link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=15>'+loadingLabel+'</td></tr>');
 		var predRow = $('#prediction_' + npPredNum);
 		loadPrediction(predRow);
 		link.text(hideLabel);
