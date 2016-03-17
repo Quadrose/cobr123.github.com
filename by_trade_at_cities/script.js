@@ -585,6 +585,7 @@ function changeCountry(callback) {
 	    loadRegions(loadData);
 	}
 	setVal('id_country', $('#id_country').val());
+	updateCountryDutyList();
 }
 function changeRegion() {
 	loadData();
