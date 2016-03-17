@@ -550,24 +550,24 @@ function loadRegions(callback) {
 	var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
 	var svItrPrefix = (locale == 'en') ? 'Rate of profit tax' : 'Ставка налога на прибыль';
 
-	if (svCountryId == null || svCountryId == '') {
+    $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
         var output = '<option value="" selected="">'+allRegions+'</option>';
-        $('#id_region').html(output);
-        if(typeof(callback) === 'function') callback();
-	} else {
-        $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
-            var output = '<option value="" selected="">'+allRegions+'</option>';
 
+        if (svCountryId == null || svCountryId == '') {
+            $.each(data, function (key, val) {
+                output += '<option value="'+val.i+'">'+val.c+'</option>';
+            });
+        } else {
             $.each(data, function (key, val) {
                 if(val.ci == svCountryId){
                     output += '<option value="'+val.i+'">'+val.c+'</option>';
                 }
             });
+        }
 
-            $('#id_region').html(output);
-            if(typeof(callback) === 'function') callback();
-        });
-	}
+        $('#id_region').html(output);
+        if(typeof(callback) === 'function') callback();
+    });
 	return false;
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
