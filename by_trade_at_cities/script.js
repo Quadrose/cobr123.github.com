@@ -517,7 +517,12 @@ function loadCountries(callback) {
 	if(sagRegionCaption === null) {
 		sagRegionCaption = [];
 	}
-	
+
+    $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
+        $.each(data, function (key, val) {
+            sagRegionCaption[val.i] = val.c;
+        });
+    });
 	$.getJSON('./'+realm+'/countries'+suffix+'.json', function (data) {
 	  var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
 	  var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
@@ -532,11 +537,6 @@ function loadCountries(callback) {
 		$('#id_region').html('<option value="" selected="">'+allRegions+'</option>'); 	// replace all existing content
 		if(typeof(callback) === 'function') callback();
 	});
-    $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
-        $.each(data, function (key, val) {
-            sagRegionCaption[val.i] = val.c;
-        });
-    });
 	return false;
 }
 
