@@ -241,12 +241,14 @@ function loadData() {
 			if(suitable){
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td align="right" id="td_w_idx">'+unknownIfNull(locale, parseFloat(val['wi']).toFixed(2))+'</td>';
 				output += '<td align="right" id="td_mdi">'+parseFloat(val.mdi).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_market_volume">'+val.v+'</td>';
 				output += '<td align="right" id="td_perc">'+percent.toFixed(2)+'</td>';
 				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_sc">'+val.sc+'</td>';
 				output += '<td align="right" id="td_cc">'+val.cc+'</td>';
+				output += '<td align="right" id="td_itp">'+unknownIfNull(locale, val['itp'])+'</td>';
 				output += '</tr>';
 			}
 		});
@@ -272,6 +274,13 @@ function loadData() {
 	return false;
 }
 
+function unknownIfNull(locale, opValue) {
+	if (opValue == null || opValue === '' || opValue === 'NaN'){
+	  return (locale == 'en') ? 'unknown' : 'не изв.';
+	} else {
+	  return opValue;
+	}
+}
 function loadServices(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
