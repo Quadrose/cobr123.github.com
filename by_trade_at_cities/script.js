@@ -652,12 +652,57 @@ function fillUpdateDate() {
 		$('#update_date').text(prefix+': ' + data.d); 	// replace all existing content
 	});
 }
-
+function showCol(colID){
+    $('th, td', 'tr').filter('#' + colID).show();
+}
+function hideCol(colID){
+    $('th, td', 'tr').filter('#' + colID).hide();
+}
+function showAllCol(){
+    $('select#show_hide_col_ru').each(function() {
+        showCol($(this).val());
+    });
+}
+function hideAllCol(){
+    $('select#show_hide_col_ru').each(function() {
+        hideCol($(this).val());
+    });
+}
 //////////////////////////////////////////////////////
 $(document).ready(function () {
     $("select#show_hide_col_ru").multiselect();
     $("select#show_hide_col_en").multiselect();
 
+    $("select#show_hide_col_ru").multiselect({
+        click: function(event, ui){
+            if (ui.checked) {
+                showCol(ui.value);
+            } else {
+                hideCol(ui.value);
+            }
+        },
+        checkAll: function(){
+            showAllCol();
+        },
+        uncheckAll: function(){
+            hideAllCol();
+        }
+    });
+    $("select#show_hide_col_en").multiselect({
+        click: function(event, ui){
+            if (ui.checked) {
+                showCol(ui.value);
+            } else {
+                hideCol(ui.value);
+            }
+        },
+        checkAll: function(){
+            showAllCol();
+        },
+        uncheckAll: function(){
+            hideAllCol();
+        }
+    });
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
 		
