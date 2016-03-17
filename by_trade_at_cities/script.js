@@ -653,26 +653,21 @@ function fillUpdateDate() {
 	});
 }
 function showCol(colID){
-    $('th, td', 'tr').filter('#' + colID).show();
+    $('th#th_'+ colID +', td#td_' + colID, 'tr').show();
 }
 function hideCol(colID){
-    $('th, td', 'tr').filter('#' + colID).hide();
-}
-function toggleCol(colID){
-    $('th#'+ colID +', td#' + colID, 'tr').toggle();
+    $('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
 }
 function showAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
-        var value = $(this).value();
-        console.log('value = ' + value);
-        toggleCol(value);
+        var value = $(this).attr('value');
+        showCol(value);
     });
 }
 function hideAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
-        var value = $(this).value();
-        console.log('value = ' + value);
-        toggleCol(value);
+        var value = $(this).attr('value');
+        hideCol(value);
     });
 }
 //////////////////////////////////////////////////////
@@ -682,12 +677,11 @@ $(document).ready(function () {
 
     $("select#show_hide_col_ru").multiselect({
         click: function(event, ui){
-            /*if (ui.checked) {
+            if (ui.checked) {
                 showCol(ui.value);
             } else {
                 hideCol(ui.value);
-            }*/
-            toggleCol(ui.value);
+            }
         },
         checkAll: function(){
             showAllCol();
