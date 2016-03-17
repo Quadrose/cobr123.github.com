@@ -337,6 +337,8 @@ function parseFloatFromFilter(spSelector, npDefVal){
 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
 }
 var sagTownCaption = null;
+var sagCountryCaption = null;
+var sagRegionCaption = null;
 function fillTownCaptions(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
@@ -405,7 +407,7 @@ function loadData() {
 			
 			if(suitable){
 				output += '<tr class="trec hoverable">';
-				output += '<td id="td_city"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
 				output += '<td align="right" id="td_volume">'+val.v+'</td>';
@@ -509,6 +511,9 @@ function loadCountries(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
+	if(sagCountryCaption === null) {
+		sagCountryCaption = [];
+	}
 	
 	$.getJSON('./'+realm+'/countries'+suffix+'.json', function (data) {
 	  var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
@@ -517,6 +522,7 @@ function loadCountries(callback) {
 
 		$.each(data, function (key, val) {
 			output += '<option value="'+val.i+'">'+val.c+'</option>';
+			sagCountryCaption[val.i] = val.c;
 		});
 		
 		$('#id_country').html(output); 	// replace all existing content
@@ -536,6 +542,9 @@ function loadRegions(callback) {
 	var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
 	var svItrPrefix = (locale == 'en') ? 'Rate of profit tax' : 'Ставка налога на прибыль';
     $('#income_tax_rate').text('');
+	if(sagRegionCaption === null) {
+		sagRegionCaption = [];
+	}
 
 	if (svCountryId == null || svCountryId == '') {
         var output = '<option value="" selected="">'+allRegions+'</option>';
@@ -558,6 +567,7 @@ function loadRegions(callback) {
                         nagIncomeTaxRate[val.i] = val.itr;
                     }
                 }
+			    sagRegionCaption[val.i] = val.c;
             });
 
             $('#id_region').html(output);
