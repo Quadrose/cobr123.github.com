@@ -429,24 +429,24 @@ function loadRegions(callback) {
 	var suffix = (locale == 'en') ? '_en' : '';
 	var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
 
-	if (svCountryId == null || svCountryId == '') {
+    $.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
         var output = '<option value="" selected="">'+allRegions+'</option>';
-        $('#id_region').html(output);
-        if(typeof(callback) === 'function') callback();
-	} else {
-        $.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
-            var output = '<option value="" selected="">'+allRegions+'</option>';
 
+        if (svCountryId == null || svCountryId == '') {
+            $.each(data, function (key, val) {
+                output += '<option value="'+val.i+'">'+val.c+'</option>';
+            });
+        } else {
             $.each(data, function (key, val) {
                 if(val.ci == svCountryId){
                     output += '<option value="'+val.i+'">'+val.c+'</option>';
                 }
             });
+        }
 
-            $('#id_region').html(output);
-            if(typeof(callback) === 'function') callback();
-        });
-	}
+        $('#id_region').html(output);
+        if(typeof(callback) === 'function') callback();
+    });
 	return false;
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
