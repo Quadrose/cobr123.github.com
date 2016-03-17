@@ -654,7 +654,10 @@ function fillUpdateDate() {
 }
 
 //////////////////////////////////////////////////////
-$(document).ready(function () { 
+$(document).ready(function () {
+    $("select#show_hide_col_ru").multiselect();
+    $("select#show_hide_col_en").multiselect();
+
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
 		
