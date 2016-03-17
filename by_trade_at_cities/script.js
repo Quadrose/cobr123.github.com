@@ -548,7 +548,6 @@ function loadRegions(callback) {
 	var locale = getLocale();
 	var suffix = (locale == 'en') ? '_en' : '';
 	var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
-	var svItrPrefix = (locale == 'en') ? 'Rate of profit tax' : 'Ставка налога на прибыль';
 
     $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
         var output = '<option value="" selected="">'+allRegions+'</option>';
