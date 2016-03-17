@@ -606,12 +606,12 @@ function updateCountryDutyList() {
 	var countryID = $('#id_country').val();
 	if (countryID == null || countryID == '') return;
 	var locale = getLocale();
-	var prefix = (locale === 'en') ? 'Customs duties' : 'Таможенные пошлины страны';
+	var prefix = (locale === 'en') ? 'Import duty' : 'Пошлина на импорт';
 
 	$.getJSON('./'+realm+'/countrydutylist/'+countryID+'.json', function (data) {
 		$.each(data, function (key, val) {
             if(val.pi == productID) {
-                $('#country_duty_list').text(prefix+': ' + data.d); 	// replace all existing content
+                $('#country_duty_list').text(prefix+': ' + val.itp + '%'); 	// replace all existing content
             }
 		});
 	});
