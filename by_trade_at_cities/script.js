@@ -658,14 +658,17 @@ function showCol(colID){
 function hideCol(colID){
     $('th, td', 'tr').filter('#' + colID).hide();
 }
+function toggleCol(colID){
+    $('th, td', 'tr').filter('#' + colID).toggle();
+}
 function showAllCol(){
-    $('select#show_hide_col_ru').each(function() {
-        showCol($(this).val());
+    $('select#show_hide_col_ru > option').each(function() {
+        toggleCol($(this).value());
     });
 }
 function hideAllCol(){
-    $('select#show_hide_col_ru').each(function() {
-        hideCol($(this).val());
+    $('select#show_hide_col_ru > option').each(function() {
+        toggleCol($(this).value());
     });
 }
 //////////////////////////////////////////////////////
@@ -675,11 +678,12 @@ $(document).ready(function () {
 
     $("select#show_hide_col_ru").multiselect({
         click: function(event, ui){
-            if (ui.checked) {
+            /*if (ui.checked) {
                 showCol(ui.value);
             } else {
                 hideCol(ui.value);
-            }
+            }*/
+            toggleCol(ui.value);
         },
         checkAll: function(){
             showAllCol();
