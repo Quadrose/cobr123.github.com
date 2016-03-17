@@ -250,7 +250,7 @@ function loadData() {
 				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
 				output += '<td align="right" id="td_sc">'+val.sc+'</td>';
 				output += '<td align="right" id="td_cc">'+val.cc+'</td>';
-				output += '<td align="right" id="td_itp">'+unknownIfNull(locale, val['itp'])+'</td>';
+				output += '<td align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
 				output += '</tr>';
 			}
 		});
