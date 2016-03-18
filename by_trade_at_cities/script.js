@@ -703,14 +703,11 @@ $(document).ready(function () {
     } else {
         $.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
-            show_hide_col.multiselect('widget')
-                .find(':checkbox')
-                .eq(ui.value === val ? 0 : 1)
-                .filter(':checked')
-                .each(function(){
-                    this.click();
-                });
+            show_hide_col.multiselect("widget").find(":radio[value='"+val+"']").each(function() {
+                 this.click();
+            });
         });
+        show_hide_col.multiselect('refresh');
     }
 
     $("select#show_hide_col_ru").multiselect({
