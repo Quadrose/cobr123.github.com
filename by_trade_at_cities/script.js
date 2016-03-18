@@ -355,9 +355,9 @@ function fillTownCaptions(callback) {
 		if(typeof(callback) === 'function') callback();
 	});
 }
-var sagVisibibleColumns = [];
+var sagInvisibibleColumns = [];
 function getColStyle(spColID){
-    if (sagVisibibleColumns[spColID] === 0){
+    if ($.inArray(spColID, sagInvisibibleColumns) === 1) {
         return 'style="display: none;"';
     } else {
         return '';
@@ -666,7 +666,7 @@ function showCol(colID){
     } else {
         $('th#th_'+ colID +', td#td_' + colID, 'tr').show();
     }
-    sagVisibibleColumns[colID] = 1;
+    sagInvisibibleColumns.push(colID);
 }
 function hideCol(colID){
     if (colID === 'pred'){
@@ -674,33 +674,36 @@ function hideCol(colID){
     } else {
         $('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
     }
-    sagVisibibleColumns[colID] = 0;
+    sagInvisibibleColumns = jQuery.grep(sagInvisibibleColumns, function(value) {
+      return value != colID;
+    });
 }
 function showAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
         var value = $(this).attr('value');
         showCol(value);
     });
-    sagVisibibleColumns = [];
-    setVal('visibible_columns_btac', sagVisibibleColumns);
+    sagInvisibibleColumns = [];
+    setVal('invisibible_columns_btac', sagInvisibibleColumns);
 }
 function hideAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
         var value = $(this).attr('value');
         hideCol(value);
     });
-    setVal('visibible_columns_btac', sagVisibibleColumns);
+    setVal('invisibible_columns_btac', sagInvisibibleColumns);
 }
 //////////////////////////////////////////////////////
 $(document).ready(function () {
-    sagVisibibleColumns = getVal('visibible_columns_btac');
-    if (sagVisibibleColumns == null) {
-        sagVisibibleColumns = [];
+    sagInvisibibleColumns = getVal('invisibible_columns_btac');
+    if (sagInvisibibleColumns == null) {
+        sagInvisibibleColumns = [];
     } else {
         $('select[id^=show_hide_col_] > option').each(function() {
             var value = $(this).attr('value');
-            if (sagVisibibleColumns[value] === 0) {
+            if ($.inArray(value, sagInvisibibleColumns) === 1) {
                 $(this).attr('selected','');
+                //hideCol(value);
             }
         });
     }
@@ -715,7 +718,7 @@ $(document).ready(function () {
             } else {
                 hideCol(ui.value);
             }
-			setVal('visibible_columns_btac', sagVisibibleColumns);
+			setVal('invisibible_columns_btac', sagInvisibibleColumns);
         },
         checkAll: function(){
             showAllCol();
@@ -731,7 +734,7 @@ $(document).ready(function () {
             } else {
                 hideCol(ui.value);
             }
-			setVal('visibible_columns_btac', sagVisibibleColumns);
+			setVal('invisibible_columns_btac', sagInvisibibleColumns);
         },
         checkAll: function(){
             showAllCol();
