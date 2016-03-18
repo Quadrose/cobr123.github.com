@@ -681,15 +681,30 @@ function showAllCol(){
         var value = $(this).attr('value');
         showCol(value);
     });
+    sagVisibibleColumns = [];
+    setVal('visibible_columns_btac', sagVisibibleColumns);
 }
 function hideAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
         var value = $(this).attr('value');
         hideCol(value);
     });
+    setVal('visibible_columns_btac', sagVisibibleColumns);
 }
 //////////////////////////////////////////////////////
 $(document).ready(function () {
+    sagVisibibleColumns = getVal('visibible_columns_btac');
+    if (sagVisibibleColumns == null) {
+        sagVisibibleColumns = [];
+    } else {
+        $('select[id^=show_hide_col_] > option').each(function() {
+            var value = $(this).attr('value');
+            if (sagVisibibleColumns[value] === 0) {
+                $(this).attr('selected','');
+            }
+        });
+    }
+
     $("select#show_hide_col_ru").multiselect();
     $("select#show_hide_col_en").multiselect();
 
@@ -700,6 +715,7 @@ $(document).ready(function () {
             } else {
                 hideCol(ui.value);
             }
+			setVal('visibible_columns_btac', sagVisibibleColumns);
         },
         checkAll: function(){
             showAllCol();
@@ -715,6 +731,7 @@ $(document).ready(function () {
             } else {
                 hideCol(ui.value);
             }
+			setVal('visibible_columns_btac', sagVisibibleColumns);
         },
         checkAll: function(){
             showAllCol();
