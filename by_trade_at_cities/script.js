@@ -719,7 +719,7 @@ function initShowHideColSelect() {
     } else {
         $.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
-            hideAllCol(val);
+            hideCol(val);
             $("select[id^=show_hide_col_] > option[value="+val+"]").attr('selected',false);
         });
         show_hide_col.multiselect('refresh');
