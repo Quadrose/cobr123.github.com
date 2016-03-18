@@ -355,6 +355,14 @@ function fillTownCaptions(callback) {
 		if(typeof(callback) === 'function') callback();
 	});
 }
+var sagVisibibleColumns = [];
+function getColStyle(spColID){
+    if (sagVisibibleColumns[spColID] === 0){
+        return 'style="display: none;"';
+    } else {
+        return '';
+    }
+}
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
@@ -408,19 +416,19 @@ function loadData() {
 			if(suitable){
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
-				output += '<td align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
-				output += '<td align="right" id="td_volume">'+val.v+'</td>';
-				output += '<td align="right" id="td_local_perc" style="color:black">'+parseFloat(val.lpe).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_local_price">'+parseFloat(val.lpr).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_local_quality">'+parseFloat(val.lq).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_shop_price">'+parseFloat(val.spr).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_shop_quality">'+parseFloat(val.sq).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_shop_brand">'+parseFloat(val.sb).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_sc">'+val.sc+'</td>';
-				output += '<td align="right" id="td_cc">'+val.cc+'</td>';
-				output += '<td align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
-				output += '<td align="right" id="td_itp">'+unknownIfNull(locale, val['itp'])+'</td>';
+				output += '<td '+getColStyle('w_idx')+' align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('idx')+' align="center" id="td_idx">'+val.mi+'</td>';
+				output += '<td '+getColStyle('volume')+' align="right" id="td_volume">'+val.v+'</td>';
+				output += '<td '+getColStyle('local_perc')+' align="right" id="td_local_perc" style="color:black">'+parseFloat(val.lpe).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('local_price')+' align="right" id="td_local_price">'+parseFloat(val.lpr).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('local_quality')+' align="right" id="td_local_quality">'+parseFloat(val.lq).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('shop_price')+' align="right" id="td_shop_price">'+parseFloat(val.spr).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('shop_quality')+' align="right" id="td_shop_quality">'+parseFloat(val.sq).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('shop_brand')+' align="right" id="td_shop_brand">'+parseFloat(val.sb).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('sc')+' align="right" id="td_sc">'+val.sc+'</td>';
+				output += '<td '+getColStyle('cc')+' align="right" id="td_cc">'+val.cc+'</td>';
+				output += '<td '+getColStyle('itr')+' align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
+				output += '<td '+getColStyle('itp')+' align="right" id="td_itp">'+unknownIfNull(locale, val['itp'])+'</td>';
 				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
 				output += '</tr>';
 				
@@ -662,6 +670,7 @@ function showCol(colID){
         $('th#th_shop_brand'+ colID +', td#td_shop_brand' + colID, 'tr').show();
     }
     $('th#th_'+ colID +', td#td_' + colID, 'tr').show();
+    sagVisibibleColumns[colID] = 1;
 }
 function hideCol(colID){
     if (colID === 'locals'){
@@ -673,6 +682,7 @@ function hideCol(colID){
         $('th#th_shop_brand'+ colID +', td#td_shop_brand' + colID, 'tr').hide();
     }
     $('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
+    sagVisibibleColumns[colID] = 0;
 }
 function showAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
