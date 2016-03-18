@@ -696,19 +696,6 @@ function hideAllCol(){
 function initShowHideColSelect() {
     var show_hide_col = (getLocale() === 'en') ? $("select#show_hide_col_en").multiselect() : $("select#show_hide_col_ru").multiselect();
 
-    sagInvisibibleColumns = getVal('invisibible_columns_btac');
-    if (sagInvisibibleColumns == null) {
-        sagInvisibibleColumns = [];
-    } else {
-        $.each(sagInvisibibleColumns, function (key, val) {
-//            console.log('key = '+key +', val = '+val);
-            show_hide_col.multiselect("widget").find(":radio[value='"+val+"']").each(function() {
-                 this.click();
-            });
-        });
-        show_hide_col.multiselect('refresh');
-    }
-
     show_hide_col.multiselect({
         click: function(event, ui){
             if (ui.checked) {
@@ -725,6 +712,19 @@ function initShowHideColSelect() {
             hideAllCol();
         }
     });
+
+    sagInvisibibleColumns = getVal('invisibible_columns_btac');
+    if (sagInvisibibleColumns == null) {
+        sagInvisibibleColumns = [];
+    } else {
+        $.each(sagInvisibibleColumns, function (key, val) {
+//            console.log('key = '+key +', val = '+val);
+            show_hide_col.multiselect("widget").find(":radio[value='"+val+"']").each(function() {
+                 this.click();
+            });
+        });
+        show_hide_col.multiselect('refresh');
+    }
 }
 //////////////////////////////////////////////////////
 $(document).ready(function () {
