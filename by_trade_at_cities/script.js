@@ -694,9 +694,6 @@ function hideAllCol(){
     setVal('invisibible_columns_btac', sagInvisibibleColumns);
 }
 function initShowHideColSelect() {
-}
-//////////////////////////////////////////////////////
-$(document).ready(function () {
     var show_hide_col = (getLocale() === 'en') ? $("select#show_hide_col_en").multiselect() : $("select#show_hide_col_ru").multiselect();
 
     show_hide_col.multiselect({
@@ -727,6 +724,10 @@ $(document).ready(function () {
         });
         show_hide_col.multiselect('refresh');
     }
+}
+//////////////////////////////////////////////////////
+$(document).ready(function () {
+    initShowHideColSelect();
 
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
