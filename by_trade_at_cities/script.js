@@ -693,8 +693,7 @@ function hideAllCol(){
     });
     setVal('invisibible_columns_btac', sagInvisibibleColumns);
 }
-//////////////////////////////////////////////////////
-$(document).ready(function () {
+function initShowHideColSelect() {
     var show_hide_col = (getLocale() === 'en') ? $("select#show_hide_col_en").multiselect() : $("select#show_hide_col_ru").multiselect();
 
     sagInvisibibleColumns = getVal('invisibible_columns_btac');
@@ -710,7 +709,7 @@ $(document).ready(function () {
         show_hide_col.multiselect('refresh');
     }
 
-    $("select#show_hide_col_ru").multiselect({
+    show_hide_col.multiselect({
         click: function(event, ui){
             if (ui.checked) {
                 showCol(ui.value);
@@ -726,22 +725,11 @@ $(document).ready(function () {
             hideAllCol();
         }
     });
-    $("select#show_hide_col_en").multiselect({
-        click: function(event, ui){
-            if (ui.checked) {
-                showCol(ui.value);
-            } else {
-                hideCol(ui.value);
-            }
-			setVal('invisibible_columns_btac', sagInvisibibleColumns);
-        },
-        checkAll: function(){
-            showAllCol();
-        },
-        uncheckAll: function(){
-            hideAllCol();
-        }
-    });
+}
+//////////////////////////////////////////////////////
+$(document).ready(function () {
+    initShowHideColSelect();
+
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
 		
