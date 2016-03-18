@@ -429,7 +429,7 @@ function loadData() {
 				output += '<td '+getColStyle('cc')+' align="right" id="td_cc">'+val.cc+'</td>';
 				output += '<td '+getColStyle('itr')+' align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
 				output += '<td '+getColStyle('itp')+' align="right" id="td_itp">'+unknownIfNull(locale, val['itp'])+'</td>';
-				output += '<td align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
+				output += '<td '+getColStyle('pred')+' align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
 				output += '</tr>';
 				
 				nvPredIdx = nvPredIdx + 1;
