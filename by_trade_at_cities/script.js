@@ -666,7 +666,9 @@ function showCol(colID){
     } else {
         $('th#th_'+ colID +', td#td_' + colID, 'tr').show();
     }
-    sagInvisibibleColumns.push(colID);
+    sagInvisibibleColumns = jQuery.grep(sagInvisibibleColumns, function(value) {
+      return value != colID;
+    });
 }
 function hideCol(colID){
     if (colID === 'pred'){
@@ -674,9 +676,7 @@ function hideCol(colID){
     } else {
         $('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
     }
-    sagInvisibibleColumns = jQuery.grep(sagInvisibibleColumns, function(value) {
-      return value != colID;
-    });
+    sagInvisibibleColumns.push(colID);
 }
 function showAllCol(){
     $('select#show_hide_col_ru > option').each(function() {
