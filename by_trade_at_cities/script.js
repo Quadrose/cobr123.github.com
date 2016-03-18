@@ -357,7 +357,7 @@ function fillTownCaptions(callback) {
 }
 var sagInvisibibleColumns = [];
 function getColStyle(spColID){
-    if ($.inArray(spColID, sagInvisibibleColumns) === 1) {
+    if ($.inArray(spColID, sagInvisibibleColumns) >= 0) {
         return 'style="display: none;"';
     } else {
         return '';
