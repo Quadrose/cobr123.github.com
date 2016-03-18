@@ -661,27 +661,19 @@ function fillUpdateDate() {
 	});
 }
 function showCol(colID){
-    if (colID === 'locals'){
-        $('th#th_local_price'+ colID +', td#td_local_price' + colID, 'tr').show();
-        $('th#th_local_quality'+ colID +', td#td_local_quality' + colID, 'tr').show();
-    } else if (colID === 'stores'){
-        $('th#th_shop_price'+ colID +', td#td_shop_price' + colID, 'tr').show();
-        $('th#th_shop_quality'+ colID +', td#td_shop_quality' + colID, 'tr').show();
-        $('th#th_shop_brand'+ colID +', td#td_shop_brand' + colID, 'tr').show();
+    if (colID === 'pred'){
+        $('th#th_pred, td[id^=toggle_prediction_]', 'tr').show();
+    } else {
+        $('th#th_'+ colID +', td#td_' + colID, 'tr').show();
     }
-    $('th#th_'+ colID +', td#td_' + colID, 'tr').show();
     sagVisibibleColumns[colID] = 1;
 }
 function hideCol(colID){
-    if (colID === 'locals'){
-        $('th#th_local_price'+ colID +', td#td_local_price' + colID, 'tr').hide();
-        $('th#th_local_quality'+ colID +', td#td_local_quality' + colID, 'tr').hide();
-    } else if (colID === 'stores'){
-        $('th#th_shop_price'+ colID +', td#td_shop_price' + colID, 'tr').hide();
-        $('th#th_shop_quality'+ colID +', td#td_shop_quality' + colID, 'tr').hide();
-        $('th#th_shop_brand'+ colID +', td#td_shop_brand' + colID, 'tr').hide();
+    if (colID === 'pred'){
+        $('th#th_pred, td[id^=toggle_prediction_]', 'tr').hide();
+    } else {
+        $('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
     }
-    $('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
     sagVisibibleColumns[colID] = 0;
 }
 function showAllCol(){
