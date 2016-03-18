@@ -694,7 +694,8 @@ function hideAllCol(){
     setVal('invisibible_columns_btac', sagInvisibibleColumns);
 }
 function initShowHideColSelect() {
-    var show_hide_col = (getLocale() === 'en') ? $("select#show_hide_col_en").multiselect() : $("select#show_hide_col_ru").multiselect();
+    var show_hide_col_id = (getLocale() === 'en') ? "show_hide_col_en" : "show_hide_col_ru";
+    var show_hide_col = $("select#" + show_hide_col_id).multiselect();
 
     show_hide_col.multiselect({
         click: function(event, ui){
@@ -720,7 +721,7 @@ function initShowHideColSelect() {
         $.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
             hideCol(val);
-            $("select[id^=show_hide_col_] > option[value="+val+"]").attr('selected',false);
+            $("select#"+ show_hide_col_id +" > option[value="+val+"]").attr('selected',false);
         });
         show_hide_col.multiselect('refresh');
     }
