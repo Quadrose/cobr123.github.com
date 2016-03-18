@@ -719,9 +719,8 @@ function initShowHideColSelect() {
     } else {
         $.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
-            show_hide_col.multiselect("widget").find(":radio[value='"+val+"']").each(function() {
-                 this.click();
-            });
+            hideAllCol(val);
+            $("select[id^=show_hide_col_] > option[value="+val+"]").attr('selected',false);
         });
         show_hide_col.multiselect('refresh');
     }
