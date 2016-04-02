@@ -490,6 +490,9 @@ function calcProduction(recipe) {
 	}
 	var techFrom = $("#techFrom").val() || 10;
 	var techTo = $("#techTo").val() || techFrom;
+	if (techTo < techFrom) {
+		techTo = techFrom;
+	}
 	setVal('techFrom', techFrom);
 	setVal('techTo', techTo);
 	setVal('workQuan', $('#workQuan').val());
@@ -501,12 +504,12 @@ function calcProduction(recipe) {
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
-//	var techDiff = techTo - techFrom + materials[0].length;
+	var techDiff = techTo - techFrom + 1;
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	//materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
 	//materials.splice(10000/techDiff);
 	materials.sort(sortMaterials);
-	materials.splice(10000);
+	materials.splice(10000/techDiff);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 
 	for (var tech = techFrom; tech <= techTo; tech++) {
