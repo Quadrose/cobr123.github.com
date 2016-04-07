@@ -332,6 +332,7 @@ function loadSavedFlt(){
 	 .focusout(function() {
 			$(this).val(commaSeparateNumber($(this).val(),' '));
       });*/
+      updateProdRemainLinks();
 }
 function parseFloatFromFilter(spSelector, npDefVal){
 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
