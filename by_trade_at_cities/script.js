@@ -287,6 +287,7 @@ function loadSavedFlt(){
                 id_product = $('#products > img').eq(0).attr('id').replace("img", "");
                 if (id_product == null || id_product == '') return;
                 changeProduct(id_product);
+                updateProdRemainLinks();
 			}
 		};
 		var productCategoriesCallback = function() {
@@ -332,7 +333,6 @@ function loadSavedFlt(){
 	 .focusout(function() {
 			$(this).val(commaSeparateNumber($(this).val(),' '));
       });*/
-      updateProdRemainLinks();
 }
 function parseFloatFromFilter(spSelector, npDefVal){
 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
