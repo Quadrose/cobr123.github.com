@@ -12,15 +12,15 @@ function getDomain(locale) {
 	  return 'virtonomica.ru';
 	}
 }
-function updateProdRemainLinks(){
+function updateReferenceLink(){
 	var serviceID = getServiceID();
 	if (serviceID == null || serviceID == '') return;
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var domain = getDomain(locale);
-	$('#show_remain_link').attr('href','http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+serviceID+'/');
-	$('#calc_prod_link').attr('href','/industry/#id_service=' + serviceID);
+	//http://virtonomica.ru/olga/main/industry/unit_type/info/359926
+	$('#reference_link').attr('href','http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+serviceID);
 }
 function nvl(val1, val2){
 	if (val1 == null || val1 == ''){
@@ -374,6 +374,7 @@ function changeService(newVal) {
     $('#id_service').val(newVal);
     setVal('id_service', newVal);
 	loadServices(loadData);
+	updateReferenceLink();
 }
 function changeServiceSpec() {
     setVal('id_service_spec', $('#id_service_spec').val());
@@ -469,7 +470,7 @@ function changeRealm(productCategoriesCallback, countryCallback) {
 	loadCountries(countryCallback);
 	setVal('realm', getRealm());
 	fillUpdateDate();
-	updateProdRemainLinks();
+	updateReferenceLink();
 }
 function changeCountry(callback) {
 //    console.log('changeCountry, caller is '+ arguments.callee.caller.toString());
