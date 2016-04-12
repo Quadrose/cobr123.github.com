@@ -192,24 +192,32 @@ function updateTableFromCache(splicedTableCache){
 	var output = '';
 	var locale = getLocale();
 	var domain = getDomain(locale);
-	
+	var href = '';
+	var unitHref = '';
+	var imgSrc = '';
+	var techHref = '';
+	var svMaterialsImg = '';
+	var svMaterialsQty = '';
+	var svMaterialsQual = '';
+	var svMaterialsPrice = '';
+	//var svPricePerQty = '';
+	var svDate = new Date().toISOString().slice(0, 10);
+	var openCalcHref = '';
+	var specHref = '';
+
 	splicedTableCache.forEach(function(val){
 		output += '<tr class="trec hoverable">';
-		var openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
-		var specHref = 'http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
+		openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
+		specHref = 'http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
 		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
 		output += '<td align="center"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ val.equipId +'/">'+val.equipQual+'</a></td>';
-		var svDate = new Date().toISOString().slice(0, 10);
-		var techHref = 'http://'+domain+'/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
+		techHref = 'http://'+domain+'/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
 		output += '<td align="center" id="td_tech" id="td_quality" data-value="'+val.tech+'"><a target="_blank" href="'+techHref+'">'+val.tech+'</a></td>';
-		var svMaterialsImg = '';
-		var svMaterialsQty = '';
-		var svMaterialsQual = '';
-		var svMaterialsPrice = '';
-		//var svPricePerQty = '';
-		var href = '';
-		var unitHref = '';
-		var imgSrc = '';
+		svMaterialsImg = '';
+		svMaterialsQty = '';
+		svMaterialsQual = '';
+		svMaterialsPrice = '';
+		//vPricePerQty = '';
 		val.materials.forEach(function(mat){
 			imgSrc = sagMaterialImg[mat.productID].replace('/img/products/','/img/products/16/');
 			unitHref = 'http://'+domain+'/'+realm+'/main/unit/view/'+mat.unitID+'/';
