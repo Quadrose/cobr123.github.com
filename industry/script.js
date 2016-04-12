@@ -167,11 +167,7 @@ function addToResultCache(val){
 		}
 	}
 }
-function sortTableFunc(a, b){
-	var numA = parseFloat(a.text().replace(',', '').replace('$', '').replace(/\s+/g,''), 10);
-	var numB = parseFloat(b.text().replace(',', '').replace('$', '').replace(/\s+/g,''), 10);
-	return numA === numB ? 0 : (numA > numB ? 1 : -1);
-}
+
 function sortTable(){
 	var svOrder = $('#sort_dir').val();
 	var svColId = $('#sort_col_id').val();
@@ -183,7 +179,7 @@ function sortTable(){
 			,{
 					selector:'td#td_'+svColId
 					,order: svOrder
-					,sortFunction: sortTableFunc
+					,data: 'value'
 			}
 	);
 	var isAscending = svOrder=='asc';
@@ -205,12 +201,12 @@ function updateTableFromCache(splicedTableCache){
 		output += '<td align="center"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ val.equipId +'/">'+val.equipQual+'</a></td>';
 		var svDate = new Date().toISOString().slice(0, 10);
 		var techHref = 'http://'+domain+'/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
-		output += '<td align="center" id="td_tech"><a target="_blank" href="'+techHref+'">'+val.tech+'</a></td>';
+		output += '<td align="center" id="td_tech" id="td_quality" data-value="'+val.tech+'"><a target="_blank" href="'+techHref+'">'+val.tech+'</a></td>';
 		var svMaterialsImg = '';
 		var svMaterialsQty = '';
 		var svMaterialsQual = '';
 		var svMaterialsPrice = '';
-		var svPricePerQty = '';
+		//var svPricePerQty = '';
 		var href = '';
 		var unitHref = '';
 		var imgSrc = '';
@@ -221,16 +217,16 @@ function updateTableFromCache(splicedTableCache){
 			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://'+domain+''+imgSrc+'"></a></td>';
 			svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.ingQty)+'&nbsp;</td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'&nbsp;</td>';
-			svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
+			//svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
 			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a>&nbsp;</td>';
 		});
 		href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
 		output += '<td align="center"><table cellspacing="0" cellpadding="0"><tr class="trec">'+svMaterialsImg+'</tr><tr class="trec">'+svMaterialsQty+'</tr><tr class="trec">'+svMaterialsQual+'</tr><tr class="trec">'+svMaterialsPrice+'</tr></table></td>';
-		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
-		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
-		output += '<td align="center" id="td_cost">$'+commaSeparateNumber(val.cost)+'</td>';
-		output += '<td align="center" id="td_costperqua">$'+commaSeparateNumber((val.cost / val.quality).toFixed(2))+'</td>';
-		output += '<td align="center" id="td_profit">$'+commaSeparateNumber(val.profit)+'</td>';
+		output += '<td align="center" id="td_quality" data-value="'+val.quality+'"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
+		output += '<td align="center" id="td_quantity" data-value="'+val.quantity+'">'+commaSeparateNumber(val.quantity)+'</td>';
+		output += '<td align="center" id="td_cost" data-value="'+val.cost+'">$'+commaSeparateNumber(val.cost)+'</td>';
+		output += '<td align="center" id="td_costperqua" data-value="'+(val.cost / val.quality).toFixed(2)+'">$'+commaSeparateNumber((val.cost / val.quality).toFixed(2))+'</td>';
+		output += '<td align="center" id="td_profit" data-value="'+val.profit+'">$'+commaSeparateNumber(val.profit)+'</td>';
 		output += '</tr>';
 	});
 	//console.log('output = ' + output);
