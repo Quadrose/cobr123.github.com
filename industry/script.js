@@ -5,13 +5,6 @@ function getRealm(){
 function getProductID(){
 	return $('#id_product').val();
 }
-function nvl(val1, val2){
-	if (val1 == null || val1 == ''){
-		return val2;
-	} else {
-		return val1;
-	}
-}
 function getVal(spName){
 	return JSON.parse(window.localStorage.getItem(spName));
 }
@@ -192,7 +185,6 @@ var sagMaterialImg = null;
 function updateTableFromCache(splicedTableCache){
 	var realm = getRealm();
 	var output = '';
-	$('#xtabletbody').html(''); 	// replace all existing content
 	var locale = getLocale();
 	var domain = getDomain(locale);
 	
@@ -259,7 +251,6 @@ function calcResult(recipe, materials, tech) {
 				ingPrice = [],
 				ingBaseQty = [],
 				ingTotalPrice = [],
-				ingCost = [],
 				IngTotalCost = 0;
 				
 	recipe.ip.forEach(function(ingredient) {
@@ -617,7 +608,7 @@ Object.size = function(obj) {
     }
     return size;
 };
-var savVolumeFromByMaterials = []
+var savVolumeFromByMaterials = [];
 function addVolumeFromForIngredient(productID) {
 	if(savVolumeFromByMaterials[productID] === 1) return;
 	var size = Object.size(savVolumeFromByMaterials);
@@ -768,7 +759,7 @@ function changeProduct(productId) {
 	if(selected != null && selected != ''){
 		$('#img'+selected).attr('border','');
 	}
-	savVolumeFromByMaterials = []
+	savVolumeFromByMaterials = [];
 	$('#volumeFromByMaterials').html(''); 
 	$('#img'+productId).attr('border','1');
 	$('#id_product').val(productId);
@@ -785,10 +776,6 @@ function transformToAssocArray( prmstr ) {
         params[tmparr[0]] = tmparr[1];
     }
     return params;
-}
-function getSearchParameters() {
-      var prmstr = window.location.search.substr(1);
-      return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
 }
 function fillUpdateDate() {
 	$('#update_date').text('');
@@ -823,7 +810,6 @@ $(document).ready(function () {
 	var tableHead = table.querySelector('thead');
 		
 	tableHead.addEventListener('click',function(e){
-		var tableBody = table.querySelector('tbody');
 		var tableHeader = e.target;
 		var isAscending;
 		var order;
