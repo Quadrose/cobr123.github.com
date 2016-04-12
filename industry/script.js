@@ -337,7 +337,7 @@ function calcResult(recipe, materials, tech) {
 	var zp = work_salary * work_quant;
 	var exps = IngTotalCost + zp + zp * 0.1 ;
 	//$("#Cost", this).text( "$" + commaSeparateNumber((exps / Prod_Quantity).toFixed(2)) );
-	result.cost = (exps / Prod_Quantity / resultQty ).toFixed(2);
+	result.cost = (exps / Prod_Quantity ).toFixed(2);
 	
 	//прибыль
 	var profit = ( Sale_Price * Prod_Quantity ) - exps;
