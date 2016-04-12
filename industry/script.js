@@ -168,8 +168,8 @@ function addToResultCache(val){
 	}
 }
 function sortTableFunc(a, b){
-	var numA = parseFloat(a.replace(',', '').replace(/\s+/g,''), 10);
-	var numB = parseFloat(b.replace(',', '').replace(/\s+/g,''), 10);
+	var numA = parseFloat(a.replace(',', '').replace('$', '').replace(/\s+/g,''), 10);
+	var numB = parseFloat(b.replace(',', '').replace('$', '').replace(/\s+/g,''), 10);
 	return numA === numB ? 0 : (numA > numB ? 1 : -1);
 }
 function sortTable(){
