@@ -282,7 +282,7 @@ function calcResult(recipe, materials, tech) {
 	var work_salary	= parseFloatFromFilter("#workSalary") || 300;
 	
 	//квалификация работников
-	var PersonalQual = Math.pow(tech, 0.8);
+	//var PersonalQual = Math.pow(tech, 0.8);
 	//$("#PersonalQual", this).text(PersonalQual.toFixed(2));
 	
 	//качество станков
@@ -293,7 +293,7 @@ function calcResult(recipe, materials, tech) {
 	var ingQuantity = [];
 	//количество ингридиентов
 	for (var i = 0; i < num; i++) {
-		ingQuantity[i] = ingBaseQty[i] * prodbase_quan * work_quant * Math.pow(1.05, tech-1 ) * eff;
+		ingQuantity[i] = ingBaseQty[i] / resultQty * prodbase_quan * work_quant * Math.pow(1.05, tech-1 ) * eff;
 		result.materials[i].ingQty = Math.round( ingQuantity[i] );
 		//console.log('ingQuantity[i] = ' + ingQuantity[i]);
 	}
