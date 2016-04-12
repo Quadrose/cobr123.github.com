@@ -141,8 +141,11 @@ function loadSavedFlt(){
 			$(this).val(commaSeparateNumber($(this).val(),' '));
       });
 }
+function strToNum(spStr){
+	return parseFloat(spStr.replace(',', '.').replace(/\s+/g,''),10);
+}
 function parseFloatFromFilter(spSelector, npDefVal){
-	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
+	return strToNum($(spSelector).val()) || npDefVal;
 }
 //////////////////////////////////////////////////////
 var tableCache = [];
@@ -164,6 +167,11 @@ function addToResultCache(val){
 		}
 	}
 }
+function sortTableFunc(a, b){
+	var numA = parseFloat(a.replace(',', '').replace(/\s+/g,''), 10);
+	var numB = parseFloat(b.replace(',', '').replace(/\s+/g,''), 10);
+	return numA === numB ? 0 : (numA > numB ? 1 : -1);
+}
 function sortTable(){
 	var svOrder = $('#sort_dir').val();
 	var svColId = $('#sort_col_id').val();
@@ -175,6 +183,7 @@ function sortTable(){
 			,{
 					selector:'td#td_'+svColId
 					,order: svOrder
+					,sortFunction: sortTableFunc
 			}
 	);
 	var isAscending = svOrder=='asc';
