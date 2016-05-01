@@ -387,7 +387,7 @@ function updateOthers(townID, attr){
 }
 function addHoverHandlers() {
     var timer;
-    var delay = 1000;
+    var delay = 500;
 
     $('td[field_name]').hover(function() {
         var cell = $(this);
