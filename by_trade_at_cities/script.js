@@ -546,7 +546,7 @@ function loadProducts(callback) {
 		
 		$.each(data, function (key, val) {
 			if(svCategoryId == val.pc){
-				output += '<td><table cellpadding="0" cellspacing="0"><tr><td><img src="http://'+domain+val.s+'"';
+				output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td><img src="http://'+domain+val.s+'"';
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
