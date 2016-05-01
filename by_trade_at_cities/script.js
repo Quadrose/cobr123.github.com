@@ -369,6 +369,7 @@ function getLast(str){
 	var matches = str.match(/\/(\d+)$/);
 	return matches[1];
 }
+
 function updateOthers(townID, attr){
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
@@ -387,6 +388,7 @@ function updateOthers(townID, attr){
         });
     });
 }
+
 function addHoverHandlers() {
     var timer;
     var delay = 500;
