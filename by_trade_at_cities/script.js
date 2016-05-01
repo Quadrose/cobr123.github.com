@@ -373,13 +373,15 @@ function updateOthers(townID, attr){
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 
+    var text = '';
     $('td[img_sub_product_id]').each(function() {
         var cell = $(this);
         var productID = cell.attr('img_sub_product_id');
         $.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
             $.each(data, function (key, val) {
                 if(townID === val.ti){
-                    cell.html(val[attr].replace(/\.\d+$/,''));
+                    text = val[attr] + '';
+                    cell.html(text.replace(/\.\d+$/,''));
                 }
             });
         });
