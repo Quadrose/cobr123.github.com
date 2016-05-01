@@ -379,7 +379,7 @@ function updateOthers(townID, attr){
         $.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
             $.each(data, function (key, val) {
                 if(townID === val.ti){
-                    cell.html(val[attr]);
+                    cell.html(val[attr].replace(/\.\d+$/,''));
                 }
             });
         });
