@@ -458,7 +458,7 @@ function loadData() {
 			if(suitable){
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
-				output += '<td field_name="wi" '+getColStyle('w_idx')+' align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('w_idx')+' align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td field_name="mi" '+getColStyle('idx')+' align="center" id="td_idx">'+val.mi+'</td>';
 				output += '<td field_name="v" '+getColStyle('volume')+' align="right" id="td_volume">'+val.v+'</td>';
 				output += '<td field_name="lpe" '+getColStyle('local_perc')+' align="right" id="td_local_perc" style="color:black">'+parseFloat(val.lpe).toFixed(2)+'</td>';
@@ -469,7 +469,7 @@ function loadData() {
 				output += '<td field_name="sb" '+getColStyle('shop_brand')+' align="right" id="td_shop_brand">'+parseFloat(val.sb).toFixed(2)+'</td>';
 				output += '<td field_name="sc" '+getColStyle('sc')+' align="right" id="td_sc">'+val.sc+'</td>';
 				output += '<td field_name="cc" '+getColStyle('cc')+' align="right" id="td_cc">'+val.cc+'</td>';
-				output += '<td field_name="itr" '+getColStyle('itr')+' align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
+				output += '<td '+getColStyle('itr')+' align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
 				output += '<td field_name="itp" '+getColStyle('itp')+' align="right" id="td_itp">'+unknownIfNull(locale, val['itp'])+'</td>';
 				output += '<td '+getColStyle('pred')+' align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
 				output += '</tr>';
