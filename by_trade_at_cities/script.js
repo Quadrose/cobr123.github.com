@@ -546,7 +546,7 @@ function loadProducts(callback) {
 		
 		$.each(data, function (key, val) {
 			if(svCategoryId == val.pc){
-				output += '<td><table><tr><td><img src="http://'+domain+val.s+'"';
+				output += '<td><table cellpadding="0" cellspacing="0"><tr><td><img src="http://'+domain+val.s+'"';
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
@@ -555,7 +555,7 @@ function loadProducts(callback) {
 			}
 		});
 		
-		$('#products').html('<table><tr>' + output + '</tr></table>'); 	// replace all existing content
+		$('#products').html('<table cellpadding="0" cellspacing="0"><tr>' + output + '</tr></table>'); 	// replace all existing content
 		if(typeof(callback) === 'function') callback();
 	});
 	return false;
