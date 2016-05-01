@@ -555,7 +555,7 @@ function loadProducts(callback) {
 			}
 		});
 		
-		$('#products').html('<table cellpadding="0" cellspacing="0"><tr class="trec2">' + output + '</tr></table>'); 	// replace all existing content
+		$('#products').html('<table cellpadding="0" cellspacing="0"><tr>' + output + '</tr></table>'); 	// replace all existing content
 		if(typeof(callback) === 'function') callback();
 	});
 	return false;
