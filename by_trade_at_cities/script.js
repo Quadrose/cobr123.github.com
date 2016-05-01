@@ -551,7 +551,7 @@ function loadProducts(callback) {
 					output += ' border="1"';
 				}
 				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeProduct('+val.i+')">';
-				output += '</td><td img_sub_product_id="'+val.i+'"></td></tr></table></td>';
+				output += '</td></tr><tr><td img_sub_product_id="'+val.i+'"></td></tr></table></td>';
 			}
 		});
 		
