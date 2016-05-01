@@ -551,11 +551,11 @@ function loadProducts(callback) {
 					output += ' border="1"';
 				}
 				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeProduct('+val.i+')">';
-				output += '</td></tr><tr><td img_sub_product_id="'+val.i+'"></td></tr></table></td>';
+				output += '</td></tr><tr class="trec2"><td img_sub_product_id="'+val.i+'"></td></tr></table></td>';
 			}
 		});
 		
-		$('#products').html('<table cellpadding="0" cellspacing="0"><tr>' + output + '</tr></table>'); 	// replace all existing content
+		$('#products').html('<table cellpadding="0" cellspacing="0"><tr class="trec2">' + output + '</tr></table>'); 	// replace all existing content
 		if(typeof(callback) === 'function') callback();
 	});
 	return false;
