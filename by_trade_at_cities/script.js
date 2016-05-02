@@ -356,6 +356,7 @@ function fillTownCaptions(callback) {
 		if(typeof(callback) === 'function') callback();
 	});
 }
+
 var sagInvisibibleColumns = [];
 function getColStyle(spColID){
     if ($.inArray(spColID, sagInvisibibleColumns) >= 0) {
