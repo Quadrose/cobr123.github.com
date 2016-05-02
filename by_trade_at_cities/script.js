@@ -372,7 +372,7 @@ function getLast(str){
 
 function shortenNumber(text){
 	if (text.length > 3) {
-		var num = parseFloat(cell.text());
+		var num = parseFloat(text);
 		if (num < 1e+6) {
 			num = (num / 1e+3).toFixed(0) + 'k';
 		} else if (num < 1e+9) {
