@@ -370,6 +370,26 @@ function getLast(str){
 	return matches[1];
 }
 
+function shortenNumber(text){
+	if (text.length > 3) {
+		var num = parseFloat(cell.text());
+		if (num < 1e+6) {
+			num = (num / 1e+3).toFixed(0) + 'k';
+		} else if (num < 1e+9) {
+			num = (num / 1e+6).toFixed(0) + 'm';
+		} else if (num < 1e+12) {
+			num = (num / 1e+9).toFixed(0) + 'b';
+		} else if (num < 1e+15) {
+			num = (num / 1e+12).toFixed(0) + 't';
+		} else if (num < 1e+18) {
+			num = (num / 1e+15).toFixed(0) + 'q';
+		}
+        return num;
+	} else {
+        return text;
+    }
+}
+
 function updateOthers(townID, attr){
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
@@ -382,7 +402,7 @@ function updateOthers(townID, attr){
             $.each(data, function (key, val) {
                 if(townID === val.ti){
                     text = val[attr] + '';
-                    cell.html(text.replace(/\.\d+$/,''));
+                    cell.html(shortenNumber(text.replace(/\.\d+$/,'')));
                 }
             });
         });
