@@ -331,6 +331,7 @@ function updateEquipRawMat(data){
 	var realm = getRealm();
 	var svRetailRow = (locale == 'en') ? 'Show remains in warehouses' : 'Показать запасы на складах';
 	var svSelfProdRow = (locale == 'en') ? 'Calculate production' : 'Посчитать производство';
+	var svRetailSalesRow = (locale == 'en') ? 'Retail sales' : 'Розничная торговля в городах';
 
     if (id_service_spec != null || id_service_spec != '') {
         $.each(data, function (key, val) {
@@ -339,6 +340,7 @@ function updateEquipRawMat(data){
                 var equipProdCell = '';
                 var rawMatCell = '';
                 var rawMatProdCell = '';
+                var rawMatRetailSalesCell = '';
                 for (i in val.s) {
                     if(i === id_service_spec){
                         if(val.s[i].e != null){
@@ -357,6 +359,9 @@ function updateEquipRawMat(data){
                                 rawMatProdCell += '<a href="/industry/#id_product='+val.s[i].rm[k].i+'" target="_blank">';
                                 rawMatProdCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatProdCell += '</a>';
+                                rawMatRetailSalesCell += '<a href="/by_trade_at_cities/#id_product='+val.s[i].rm[k].i+'" target="_blank">';
+                                rawMatRetailSalesCell += '<img src="http://'+ domain + val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
+                                rawMatRetailSalesCell += '</a>';
                             }
                         }
                         break;
@@ -364,6 +369,7 @@ function updateEquipRawMat(data){
                 }
                 var equip_raw_mat_body = '<tr class="trec hoverable"><td>'+svRetailRow+'</td><td>'+ equipCell +'</td><td>'+ rawMatCell +'</td></tr>';
                 equip_raw_mat_body += '<tr class="trec hoverable"><td>'+svSelfProdRow+'</td><td>'+ equipProdCell +'</td><td>'+ rawMatProdCell +'</td></tr>';
+                equip_raw_mat_body += '<tr class="trec hoverable"><td>'+svRetailSalesRow+'</td><td></td><td>'+ rawMatRetailSalesCell +'</td></tr>';
                 $('#equip_raw_mat_body').html(equip_raw_mat_body);
                 //break each
                 return false;
