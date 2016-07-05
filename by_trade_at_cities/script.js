@@ -570,7 +570,6 @@ function loadProducts(callback) {
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
 	var locale = getLocale();
-	var domain = getDomain(locale);
 	var suffix = (locale == 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
@@ -579,7 +578,7 @@ function loadProducts(callback) {
 		
 		$.each(data, function (key, val) {
 			if(svCategoryId == val.pc){
-				output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td><img src="http://'+domain+val.s+'"';
+				output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td><img src="'+ val.s+'"';
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
