@@ -123,6 +123,7 @@ function loadSavedFlt(){
 	var realm = getVal('realm') || 'olga';
 	var id_country = getVal('id_country');
 	var id_region = getVal('id_region');
+	var id_town = getVal('id_town');
 	var id_service = getVal('id_service');
 
 	var sort_col_id = getVal('sort_col_id_service') || 'perc';
@@ -149,11 +150,17 @@ function loadSavedFlt(){
 		var productCategoriesCallback = function() {
 			loadServices(loadProductsCallback);
   		};
+		var changeRegionCallback = function() {
+			if (id_town != null || id_town != '') {
+				$('#id_town').val(id_town);
+				changeTown();
+			}
+		};
 		var changeCountryCallback = function() {
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region);
 				//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
-				changeRegion();
+				changeRegion(changeRegionCallback);
 			}
   		};
 		var countryCallback = function() {
@@ -229,6 +236,7 @@ function loadData() {
 			
 			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.ti == nvl($('#id_town').val(),val.ti)) {suitable = true;} else {suitable = false;}
 			
 			if (suitable && val.p >= parseFloatFromFilter('#priceFrom',val.p)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.p <= parseFloatFromFilter('#priceTo',val.p)) {suitable = true;} else {suitable = false;}
@@ -423,6 +431,34 @@ function loadCountries(callback) {
 	});
 	return false;
 }
+function loadTowns(callback) {
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+
+	var svCountryId = $('#id_country').val();
+	var svRegionId = $('#id_region').val();
+	var locale = getLocale();
+	var suffix = (locale == 'en') ? '_en' : '';
+	var allTowns = (locale == 'en') ? 'All cities' : 'Все города';
+
+	$.getJSON('/by_trade_at_cities/'+realm+'/cities'+suffix+'.json', function (data) {
+		var output = '<option value="" selected="">'+allTowns+'</option>';
+
+		$.each(data, function (key, val) {
+			if(svRegionId != null && svRegionId != '' && val.ri == svRegionId){
+				output += '<option value="'+val.i+'">'+val.c+'</option>';
+			} else if(svCountryId != null && svCountryId != '' && val.ci == svCountryId){
+				output += '<option value="'+val.i+'">'+val.c+'</option>';
+			} else {
+				output += '<option value="'+val.i+'">'+val.c+'</option>';
+			}
+		});
+
+		$('#id_town').html(output);
+		if(typeof(callback) === 'function') callback();
+	});
+	return false;
+}
 function loadRegions(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
@@ -448,7 +484,7 @@ function loadRegions(callback) {
         }
 
         $('#id_region').html(output);
-        if(typeof(callback) === 'function') callback();
+		loadTowns(callback);
     });
 	return false;
 }
@@ -484,9 +520,17 @@ function changeCountry(callback) {
 	}
 	setVal('id_country', $('#id_country').val());
 }
-function changeRegion() {
-	loadData();
+function changeRegion(callback) {
+	if (typeof(callback) === 'function'){
+		loadTowns(callback);
+	} else {
+		loadTowns(loadData);
+	}
 	setVal('id_region', $('#id_region').val());
+}
+function changeTown() {
+	loadData();
+	setVal('id_town', $('#id_town').val());
 }
 
 function fillUpdateDate() {
