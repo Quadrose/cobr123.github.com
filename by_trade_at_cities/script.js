@@ -644,7 +644,7 @@ function loadTowns(callback) {
 				output += '<option value="'+val.i+'">'+val.c+'</option>';
 			} else if(svCountryId != null && svCountryId != '' && val.ci == svCountryId){
 				output += '<option value="'+val.i+'">'+val.c+'</option>';
-			} else {
+			} else if((svCountryId == null || svCountryId == '') && (svRegionId == null || svRegionId == '')){
 				output += '<option value="'+val.i+'">'+val.c+'</option>';
 			}
 		});
