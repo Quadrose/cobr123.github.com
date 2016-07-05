@@ -512,11 +512,13 @@ function changeCountry(callback) {
 //    console.log('changeCountry, caller is '+ arguments.callee.caller.toString());
 	$('#id_region').html(''); 	// replace all existing content
 //	console.log('changeCountry, typeof(callback) =  '+ typeof(callback));
-	if (typeof(callback) === 'function'){
-	    loadRegions(callback);
-	} else {
-	    loadRegions(loadData);
+	if (typeof(callback) !== 'function'){
+		callback = function() {
+			$('#id_region').val(getVal('id_region'));
+			loadTowns(loadData);
+		};
 	}
+	loadRegions(callback);
 	setVal('id_country', $('#id_country').val());
 }
 function changeRegion(callback) {
