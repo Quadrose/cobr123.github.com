@@ -222,7 +222,7 @@ function updateTableFromCache(splicedTableCache){
 			imgSrc = sagMaterialImg[mat.productID].replace('/img/products/','/img/products/16/');
 			unitHref = 'http://'+domain+'/'+realm+'/main/unit/view/'+mat.unitID+'/';
 			href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
-			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://'+domain+''+imgSrc+'"></a></td>';
+			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
 			svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.ingQty)+'&nbsp;</td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'&nbsp;</td>';
 			//svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
@@ -637,7 +637,7 @@ function addVolumeFromForIngredient(productID) {
 	var fromLabel = (locale == 'en') ? 'from' : 'от';
 	var field = '&nbsp;'+fromLabel+'&nbsp;<input type="text" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
 	var href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
-	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="http://'+domain+''+imgSrc+'"></a>';
+	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a>';
 	$('#volumeFromByMaterials').append(svMaterialImg + field); 
 	savVolumeFromByMaterials[productID] = 1;
 }
@@ -726,7 +726,6 @@ function loadProducts(callback) {
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
 	var locale = getLocale();
-	var domain = getDomain(locale);
 	var suffix = (locale === 'en') ? '_en' : '';
 	
 	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
@@ -744,7 +743,7 @@ function loadProducts(callback) {
 					output += '<br>';
 				}
 				cnt++;
-				output += '&nbsp;<img src="http://'+domain+val.s+'"';
+				output += '&nbsp;<img src="'+ val.s +'"';
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
