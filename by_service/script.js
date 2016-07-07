@@ -380,6 +380,9 @@ function updateEquipRawMat(data){
 
                 for (i in val.s) {
                     if(i === id_service_spec){
+						nvDynColCnt += 2;
+						svDynColHeaders += '<th id="td_cbs_lpr">'+localPrice+'</th>';
+						svDynColHeaders += '<th id="td_cbs_lq">'+localQuality+'</th>';
                         if(val.s[i].e != null){
 						  equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
 						  equipCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
@@ -387,9 +390,6 @@ function updateEquipRawMat(data){
 						  equipProdCell += '<a href="/industry/#id_product='+val.s[i].e.i+'" target="_blank">';
 						  equipProdCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
 						  equipProdCell += '</a>';
-						  nvDynColCnt += 2;
-						  svDynColHeaders += '<th id="td_cbs_lpr">'+localPrice+'</th>';
-						  svDynColHeaders += '<th id="td_cbs_lq">'+localQuality+'</th>';
                         }
                         if(val.s[i].rm != null){
                             for (k in val.s[i].rm) {
