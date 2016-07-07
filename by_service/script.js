@@ -269,7 +269,7 @@ function loadData() {
 				if(val['rbs'] != null){
 					retailBySpec = val.rbs[serviceSpec];
 					if(retailBySpec != null){
-						idx = 0;
+						idx = 1;
 						for (rbsKey in retailBySpec) {
 							output += '<td align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
 							output += '<td align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
@@ -282,7 +282,7 @@ function loadData() {
 				if(val['cbs'] != null){
 					calcBySpec = val.cbs[serviceSpec];
 					if(calcBySpec != null){
-						idx = 0;
+						idx = 1;
 						for (cbsKey in calcBySpec) {
 							output += '<td align="right" id="td_rbs_lpr_' + cbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + cbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(calcBySpec[cbsKey].lpr).toFixed(2) + '</a></td>';
 							output += '<td align="right" id="td_rbs_lq_' + cbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + cbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(calcBySpec[cbsKey].lq).toFixed(2) + '</a></td>';
