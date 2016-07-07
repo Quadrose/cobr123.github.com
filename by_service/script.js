@@ -375,7 +375,7 @@ function updateEquipRawMat(data){
                 var equipProdCell = '';
                 var rawMatCell = '';
                 var rawMatProdCell = '';
-				var nvDynColCnt = 0;
+				var nvDynColCnt = 2;
 				var svDynColHeaders = '';
 
                 for (i in val.s) {
