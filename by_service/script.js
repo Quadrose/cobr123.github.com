@@ -270,8 +270,8 @@ function loadData() {
 				if(val['cbs'] != null){
 					calcBySpec = val.cbs[serviceSpec];
 					if(calcBySpec != null){
-						output += '<td align="right" id="td_cbs_lpr"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + cbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(calcBySpec.lpr).toFixed(2) + '</a></td>';
-						output += '<td align="right" id="td_cbs_lq"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + cbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(calcBySpec.lq).toFixed(2) + '</a></td>';
+						output += '<td align="right" id="td_cbs_lpr">' + parseFloat(calcBySpec.lpr).toFixed(2) + '</td>';
+						output += '<td align="right" id="td_cbs_lq">' + parseFloat(calcBySpec.lq).toFixed(2) + '</td>';
 					}
 				}
 
