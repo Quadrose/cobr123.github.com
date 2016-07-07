@@ -266,10 +266,19 @@ function loadData() {
 				output += '<td align="right" id="td_cc">'+val.cc+'</td>';
 				output += '<td align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
 
+
+				if(val['cbs'] != null){
+					calcBySpec = val.cbs[serviceSpec];
+					if(calcBySpec != null){
+						output += '<td align="right" id="td_cbs_lpr"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + cbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(calcBySpec.lpr).toFixed(2) + '</a></td>';
+						output += '<td align="right" id="td_cbs_lq"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + cbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(calcBySpec.lq).toFixed(2) + '</a></td>';
+					}
+				}
+
 				if(val['rbs'] != null){
 					retailBySpec = val.rbs[serviceSpec];
 					if(retailBySpec != null){
-						idx = 1;
+						idx = 0;
 						for (rbsKey in retailBySpec) {
 							output += '<td align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
 							output += '<td align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
@@ -278,20 +287,6 @@ function loadData() {
 						}
 					}
 				}
-
-				if(val['cbs'] != null){
-					calcBySpec = val.cbs[serviceSpec];
-					if(calcBySpec != null){
-						idx = 1;
-						for (cbsKey in calcBySpec) {
-							output += '<td align="right" id="td_rbs_lpr_' + cbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + cbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(calcBySpec[cbsKey].lpr).toFixed(2) + '</a></td>';
-							output += '<td align="right" id="td_rbs_lq_' + cbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + cbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(calcBySpec[cbsKey].lq).toFixed(2) + '</a></td>';
-							++idx;
-							if(idx >= ingCnt) {break;}
-						}
-					}
-				}
-
 				output += '</tr>';
 			}
 		});
@@ -393,8 +388,8 @@ function updateEquipRawMat(data){
 						  equipProdCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
 						  equipProdCell += '</a>';
 						  nvDynColCnt += 2;
-						  svDynColHeaders += '<th>'+localPrice+'<img src="'+ val.s[i].e.s+'" width="16" height="16" title="'+val.s[i].e.c+'""></th>';
-						  svDynColHeaders += '<th>'+localQuality+'<img src="'+ val.s[i].e.s+'" width="16" height="16" title="'+val.s[i].e.c+'""></th>';
+						  svDynColHeaders += '<th id="td_cbs_lpr">'+localPrice+'</th>';
+						  svDynColHeaders += '<th id="td_cbs_lq">'+localQuality+'</th>';
                         }
                         if(val.s[i].rm != null){
                             for (k in val.s[i].rm) {
@@ -405,8 +400,8 @@ function updateEquipRawMat(data){
                                 rawMatProdCell += '<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatProdCell += '</a>';
 								nvDynColCnt += 2;
-								svDynColHeaders += '<th>'+localPrice+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
-								svDynColHeaders += '<th>'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+								svDynColHeaders += '<th id="td_rbs_lpr_'+val.s[i].rm[k].i+'">'+localPrice+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+								svDynColHeaders += '<th id="td_rbs_lq_'+val.s[i].rm[k].i+'">'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
 							}
                         }
                         break;
