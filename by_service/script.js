@@ -230,7 +230,11 @@ function loadData() {
 		var output = '';
 		var serviceSpec = $('#id_service_spec > option').eq($('#id_service_spec').val()).text();
         var percent = 0;
-		
+		var retailBySpec = null;
+		var calcBySpec = null;
+		var equipCnt = $('#equip_raw_mat_body > tr > td:eq(1) > a > img').length;
+		var ingCnt = $('#equip_raw_mat_body > tr > td:eq(2) > a > img').length;
+
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
@@ -262,22 +266,22 @@ function loadData() {
 				output += '<td align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
 
 				if(val['rbs'] != null){
-					var retailBySpec = val.rbs[serviceSpec];
+					retailBySpec = val.rbs[serviceSpec];
 					if(retailBySpec != null){
-						$.each(retailBySpec, function (rbsKey, rbsVal) {
-							output += '<td align="right" id="td_rbs_lpr_'+ rbsKey +'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+rbsKey+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">' + parseFloat(rbsVal.lpr).toFixed(2) + '</a></td>';
-							output += '<td align="right" id="td_rbs_lq_'+ rbsKey +'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+rbsKey+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">' + parseFloat(rbsVal.lq).toFixed(2) + '</a></td>';
-						});
+						for (var rbsKey in retailBySpec) {
+							output += '<td align="right" id="td_rbs_lpr_'+ rbsKey +'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+rbsKey+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
+							output += '<td align="right" id="td_rbs_lq_'+ rbsKey +'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+rbsKey+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
+						}
 					}
 				}
 
 				if(val['cbs'] != null){
-					var calcBySpec = val.cbs[serviceSpec];
+					calcBySpec = val.cbs[serviceSpec];
 					if(calcBySpec != null){
-						$.each(calcBySpec, function (cbsKey, cbsVal) {
-							output += '<td align="right" id="td_rbs_lpr_'+ cbsKey +'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+cbsKey+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">' + parseFloat(cbsVal.lpr).toFixed(2) + '</a></td>';
-							output += '<td align="right" id="td_rbs_lq_'+ cbsKey +'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+cbsKey+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">' + parseFloat(cbsVal.lq).toFixed(2) + '</a></td>';
-						});
+						for (var cbsKey in calcBySpec) {
+							output += '<td align="right" id="td_rbs_lpr_'+ cbsKey +'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+cbsKey+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">' + parseFloat(calcBySpec[cbsKey].lpr).toFixed(2) + '</a></td>';
+							output += '<td align="right" id="td_rbs_lq_'+ cbsKey +'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+cbsKey+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">' + parseFloat(calcBySpec[cbsKey].lq).toFixed(2) + '</a></td>';
+						}
 					}
 				}
 
