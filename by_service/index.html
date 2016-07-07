@@ -77,18 +77,23 @@
 <input type="hidden" id="sort_col_id" name="sort_col_id" value="local_perc">
 <input type="hidden" id="sort_dir" name="sort_dir" value="desc">
 <table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">
-<thead><tr class="theader">
-<th id="th_city"><span lang="en" style="display:none">City</span><span lang="ru">Город</span>&nbsp;<b id="sort_by_city"></b></th>
-<th id="th_w_idx"><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span>&nbsp;<b id="sort_by_w_idx"></b></th>
-<th id="th_mdi"><span lang="en" style="display:none">Market development index</span><span lang="ru">Индекс развития рынка</span>&nbsp;<b id="sort_by_mdi"></b></th>
-<th id="th_market_volume"><span lang="en" style="display:none">Market volume</span><span lang="ru">Объём рынка</span>&nbsp;<b id="sort_by_market_volume"></b></th>
-<th id="th_perc"><span lang="en" style="display:none">%</span><span lang="ru">%</span>&nbsp;<b id="sort_by_perc"></b></th>
-<th id="th_price"><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span>&nbsp;<b id="sort_by_price"></b></th>
-<th id="th_sc"><span lang="en" style="display:none" title="Number of merchants">NoM</span><span lang="ru" title="Количество продавцов">К.п.</span>&nbsp;<b id="sort_by_sc"></b></th>
-<th id="th_cc"><span lang="en" style="display:none" title="Number of companies">NoC</span><span lang="ru" title="Количество компаний">К.к.</span>&nbsp;<b id="sort_by_cc"></b></th>
-<th id="th_itr"><span lang="en" style="display:none" title="Rate of profit tax">Tax, %</span><span lang="ru" title="Ставка налога на прибыль">Налог, %</span>&nbsp;<b id="sort_by_itr"></b></th>
-<th id="th_dyn_attr" colspan="100"><span lang="en" style="display:none">Test</span><span lang="ru">Test</span>&nbsp;<b id="sort_by_dyn_attr"></b></th>
-</tr></thead>
+<thead>
+<tr class="theader">
+<th id="th_city" rowspan="2"><span lang="en" style="display:none">City</span><span lang="ru">Город</span>&nbsp;<b id="sort_by_city"></b></th>
+<th id="th_w_idx" rowspan="2"><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span>&nbsp;<b id="sort_by_w_idx"></b></th>
+<th id="th_mdi" rowspan="2"><span lang="en" style="display:none">Market development index</span><span lang="ru">Индекс развития рынка</span>&nbsp;<b id="sort_by_mdi"></b></th>
+<th id="th_market_volume" rowspan="2"><span lang="en" style="display:none">Market volume</span><span lang="ru">Объём рынка</span>&nbsp;<b id="sort_by_market_volume"></b></th>
+<th id="th_perc" rowspan="2"><span lang="en" style="display:none">%</span><span lang="ru">%</span>&nbsp;<b id="sort_by_perc"></b></th>
+<th id="th_price" rowspan="2"><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span>&nbsp;<b id="sort_by_price"></b></th>
+<th id="th_sc" rowspan="2"><span lang="en" style="display:none" title="Number of merchants">NoM</span><span lang="ru" title="Количество продавцов">К.п.</span>&nbsp;<b id="sort_by_sc"></b></th>
+<th id="th_cc" rowspan="2"><span lang="en" style="display:none" title="Number of companies">NoC</span><span lang="ru" title="Количество компаний">К.к.</span>&nbsp;<b id="sort_by_cc"></b></th>
+<th id="th_itr" rowspan="2"><span lang="en" style="display:none" title="Rate of profit tax">Tax, %</span><span lang="ru" title="Ставка налога на прибыль">Налог, %</span>&nbsp;<b id="sort_by_itr"></b></th>
+<th id="th_dyn_col" colspan="100"><span lang="en" style="display:none">Retail</span><span lang="ru">Розница</span></th>
+</tr>
+
+<tr class="theader" id="tr_dyn_col">
+</tr>
+</thead>
 <tbody id="xtabletbody">
 </tbody>
 </table>

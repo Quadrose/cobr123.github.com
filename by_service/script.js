@@ -367,6 +367,8 @@ function updateEquipRawMat(data){
 	var realm = getRealm();
 	var svRetailRow = (locale == 'en') ? 'Show remains in warehouses' : 'Показать запасы на складах';
 	var svSelfProdRow = (locale == 'en') ? 'Calculate production' : 'Посчитать производство';
+	var localPrice = (locale == 'en') ? '<span title="Local suppliers price">L.s. price</span>' : 'Местные, цена';
+	var localQuality = (locale == 'en') ? '<span title="Local suppliers quality">L.s. quality</span>' : 'Местные, качество';
 
     if (id_service_spec != null || id_service_spec != '') {
         $.each(data, function (key, val) {
@@ -375,15 +377,21 @@ function updateEquipRawMat(data){
                 var equipProdCell = '';
                 var rawMatCell = '';
                 var rawMatProdCell = '';
+				var nvDynColCnt = 0;
+				var svDynColHeaders = '';
+
                 for (i in val.s) {
                     if(i === id_service_spec){
                         if(val.s[i].e != null){
-                          equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
-                          equipCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
-                          equipCell += '</a>';
-                          equipProdCell += '<a href="/industry/#id_product='+val.s[i].e.i+'" target="_blank">';
-                          equipProdCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
-                          equipProdCell += '</a>';
+						  equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
+						  equipCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+						  equipCell += '</a>';
+						  equipProdCell += '<a href="/industry/#id_product='+val.s[i].e.i+'" target="_blank">';
+						  equipProdCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+						  equipProdCell += '</a>';
+						  nvDynColCnt += 2;
+						  svDynColHeaders += '<th>'+localPrice+'<img src="'+ val.s[i].e.s+'" width="16" height="16" title="'+val.s[i].e.c+'""></th>';
+						  svDynColHeaders += '<th>'+localQuality+'<img src="'+ val.s[i].e.s+'" width="16" height="16" title="'+val.s[i].e.c+'""></th>';
                         }
                         if(val.s[i].rm != null){
                             for (k in val.s[i].rm) {
@@ -393,14 +401,20 @@ function updateEquipRawMat(data){
                                 rawMatProdCell += '<a href="/industry/#id_product='+val.s[i].rm[k].i+'" target="_blank">';
                                 rawMatProdCell += '<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatProdCell += '</a>';
-                            }
+								nvDynColCnt += 2;
+								svDynColHeaders += '<th>'+localPrice+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+								svDynColHeaders += '<th>'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+							}
                         }
                         break;
                     }
                 }
                 var equip_raw_mat_body = '<tr class="trec hoverable"><td>'+svRetailRow+'</td><td>'+ equipCell +'</td><td>'+ rawMatCell +'</td></tr>';
                 equip_raw_mat_body += '<tr class="trec hoverable"><td>'+svSelfProdRow+'</td><td>'+ equipProdCell +'</td><td>'+ rawMatProdCell +'</td></tr>';
-                $('#equip_raw_mat_body').html(equip_raw_mat_body);
+				$('#equip_raw_mat_body').html(equip_raw_mat_body);
+
+				$('#th_dyn_col').attr('colspan', nvDynColCnt);
+				$('#tr_dyn_col').html(svDynColHeaders);
                 //break each
                 return false;
             }
