@@ -664,8 +664,11 @@ function initShowHideColSelect() {
 		sagInvisibibleColumns = [];
 		hideCol('rbs_lpr');
 		hideCol('rbs_lq');
+
 		hideCol('rbs_spr');
 		hideCol('rbs_sq');
+
+		hideCol('cbs_lq');
 		hideCol('cbs_spr');
 		hideCol('cbs_sq');
 	}
