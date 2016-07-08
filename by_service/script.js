@@ -394,10 +394,10 @@ function updateEquipRawMat(data){
                 for (i in val.s) {
                     if(i === id_service_spec){
 						nvDynColCnt += 4;
-						svDynColHeaders += '<th '+getColStyle('cbs_lpr')+' id="th_cbs_lpr">'+localPrice+'(sum)</th>';
-						svDynColHeaders += '<th '+getColStyle('cbs_lq')+' id="th_cbs_lq">'+localQuality+'(avg)</th>';
-						svDynColHeaders += '<th '+getColStyle('cbs_spr')+' id="th_cbs_spr">'+shopPrice+'(sum)</th>';
-						svDynColHeaders += '<th '+getColStyle('cbs_sq')+' id="th_cbs_sq">'+shopQuality+'(avg)</th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_lpr')+' id="th_cbs_lpr">'+localPrice+'(sum)&nbsp;<b id="sort_by_cbs_lpr"></b></th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_lq')+' id="th_cbs_lq">'+localQuality+'(avg)&nbsp;<b id="sort_by_cbs_lq"></b></th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_spr')+' id="th_cbs_spr">'+shopPrice+'(sum)&nbsp;<b id="sort_by_cbs_spr"></b></th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_sq')+' id="th_cbs_sq">'+shopQuality+'(avg)&nbsp;<b id="sort_by_cbs_sq"></b></th>';
                         if(val.s[i].e != null){
 						  svImgUrl = val.s[i].e.s;
 						  svProductID = val.s[i].e.i;
@@ -421,10 +421,10 @@ function updateEquipRawMat(data){
                                 rawMatProdCell += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'" title="'+svProductCaption+'"">';
                                 rawMatProdCell += '</a>';
 								nvDynColCnt += 4;
-								svDynColHeaders += '<th '+getColStyle('rbs_lpr')+' id="th_rbs_lpr_' + svProductID + '">' + localPrice + '<img src="' + svImgUrl + '" width="16" height="16" title="' + svProductCaption + '""></th>';
-								svDynColHeaders += '<th '+getColStyle('rbs_lq')+' id="th_rbs_lq_'+svProductID+'">'+localQuality+'<img src="'+ svImgUrl+'" width="16" height="16" title="'+svProductCaption+'""></th>';
-								svDynColHeaders += '<th '+getColStyle('rbs_spr')+' id="th_rbs_spr_' + svProductID + '">' + shopPrice + '<img src="' + svImgUrl + '" width="16" height="16" title="' + svProductCaption + '""></th>';
-								svDynColHeaders += '<th '+getColStyle('rbs_sq')+' id="th_rbs_sq_'+svProductID+'">'+shopQuality+'<img src="'+ svImgUrl+'" width="16" height="16" title="'+svProductCaption+'""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_lpr')+' id="th_rbs_lpr_' + svProductID + '">' + localPrice + '<img src="' + svImgUrl + '" width="16" height="16" title="' + svProductCaption + '"">&nbsp;<b id="sort_by_rbs_lpr_' + svProductID + '"></b></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_lq')+' id="th_rbs_lq_'+svProductID+'">'+localQuality+'<img src="'+ svImgUrl+'" width="16" height="16" title="'+svProductCaption+'"">&nbsp;<b id="sort_by_rbs_lq_'+svProductID+'"></b></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_spr')+' id="th_rbs_spr_' + svProductID + '">' + shopPrice + '<img src="' + svImgUrl + '" width="16" height="16" title="' + svProductCaption + '"">&nbsp;<b id="sort_by_rbs_spr_' + svProductID + '"></b></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_sq')+' id="th_rbs_sq_'+svProductID+'">'+shopQuality+'<img src="'+ svImgUrl+'" width="16" height="16" title="'+svProductCaption+'"">&nbsp;<b id="sort_by_rbs_sq_'+svProductID+'"></b></th>';
 							}
                         }
                         break;
