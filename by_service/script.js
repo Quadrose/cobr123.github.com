@@ -279,8 +279,10 @@ function loadData() {
 				if(val['cbs'] != null){
 					calcBySpec = val.cbs[serviceSpec];
 					if(calcBySpec != null){
-						output += '<td align="right" id="td_cbs_lpr">' + parseFloat(calcBySpec.lpr).toFixed(2) + '</td>';
-						output += '<td align="right" id="td_cbs_lq">' + parseFloat(calcBySpec.lq).toFixed(2) + '</td>';
+						output += '<td '+getColStyle('cbs_lpr')+' align="right" id="td_cbs_lpr">' + parseFloat(calcBySpec.lpr).toFixed(2) + '</td>';
+						output += '<td '+getColStyle('cbs_lq')+' align="right" id="td_cbs_lq">' + parseFloat(calcBySpec.lq).toFixed(2) + '</td>';
+						output += '<td '+getColStyle('cbs_spr')+' align="right" id="td_cbs_spr">' + parseFloat(calcBySpec.spr).toFixed(2) + '</td>';
+						output += '<td '+getColStyle('cbs_sq')+' align="right" id="td_cbs_sq">' + parseFloat(calcBySpec.sq).toFixed(2) + '</td>';
 					}
 				}
 
@@ -393,9 +395,11 @@ function updateEquipRawMat(data){
 
                 for (i in val.s) {
                     if(i === id_service_spec){
-						nvDynColCnt += 2;
-						svDynColHeaders += '<th '+getColStyle('cbs_lpr')+' id="th_cbs_lpr">'+localPrice+'</th>';
-						svDynColHeaders += '<th '+getColStyle('cbs_lq')+' id="th_cbs_lq">'+localQuality+'</th>';
+						nvDynColCnt += 4;
+						svDynColHeaders += '<th '+getColStyle('cbs_lpr')+' id="th_cbs_lpr">'+localPrice+'(sum)</th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_lq')+' id="th_cbs_lq">'+localQuality+'(avg)</th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_spr')+' id="th_cbs_spr">'+shopPrice+'(sum)</th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_sq')+' id="th_cbs_sq">'+shopQuality+'(avg)</th>';
                         if(val.s[i].e != null){
 						  equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
 						  equipCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
@@ -660,6 +664,8 @@ function initShowHideColSelect() {
 		sagInvisibibleColumns = [];
 		hideCol('rbs_spr');
 		hideCol('rbs_sq');
+		hideCol('cbs_spr');
+		hideCol('cbs_sq');
 	}
 	$.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
