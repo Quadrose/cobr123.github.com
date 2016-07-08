@@ -392,8 +392,8 @@ function updateEquipRawMat(data){
                 for (i in val.s) {
                     if(i === id_service_spec){
 						nvDynColCnt += 2;
-						svDynColHeaders += '<th id="th_cbs_lpr">'+localPrice+'</th>';
-						svDynColHeaders += '<th id="th_cbs_lq">'+localQuality+'</th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_lpr')+' id="th_cbs_lpr">'+localPrice+'</th>';
+						svDynColHeaders += '<th '+getColStyle('cbs_lq')+' id="th_cbs_lq">'+localQuality+'</th>';
                         if(val.s[i].e != null){
 						  equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
 						  equipCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
@@ -411,8 +411,8 @@ function updateEquipRawMat(data){
                                 rawMatProdCell += '<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatProdCell += '</a>';
 								nvDynColCnt += 2;
-								svDynColHeaders += '<th id="th_rbs_lpr_'+val.s[i].rm[k].i+'">'+localPrice+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
-								svDynColHeaders += '<th id="th_rbs_lq_'+val.s[i].rm[k].i+'">'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_lpr')+' id="th_rbs_lpr_' + val.s[i].rm[k].i + '">' + localPrice + '<img src="' + val.s[i].rm[k].s + '" width="16" height="16" title="' + val.s[i].rm[k].c + '""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_lq')+' id="th_rbs_lq_'+val.s[i].rm[k].i+'">'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
 							}
                         }
                         break;
