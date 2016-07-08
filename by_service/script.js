@@ -610,8 +610,10 @@ function showCol(colID){
 	});
 }
 function hideCol(colID){
-	if (colID === 'pred'){
-		$('th#th_pred, td[id^=toggle_prediction_]', 'tr').hide();
+	if (colID.lastIndexOf('rbs_', 0) === 0){
+		$('th#[id^=th_rbs_], td[id^=td_rbs_]', 'tr').hide();
+	} else if (colID.lastIndexOf('cbs_', 0) === 0){
+		$('th#[id^=th_cbs_], td[id^=td_cbs_]', 'tr').hide();
 	} else {
 		$('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
 	}
