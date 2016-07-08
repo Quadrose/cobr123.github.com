@@ -378,6 +378,8 @@ function updateEquipRawMat(data){
 	var svSelfProdRow = (locale == 'en') ? 'Calculate production' : 'Посчитать производство';
 	var localPrice = (locale == 'en') ? '<span title="Local suppliers price">L.s. price</span>' : 'Местные, цена';
 	var localQuality = (locale == 'en') ? '<span title="Local suppliers quality">L.s. quality</span>' : 'Местные, качество';
+	var shopPrice = (locale == 'en') ? 'Stores price' : 'Магазины, цена';
+	var shopQuality = (locale == 'en') ? 'Stores quality' : 'Магазины, качество';
 
     if (id_service_spec != null || id_service_spec != '') {
         $.each(data, function (key, val) {
@@ -410,9 +412,11 @@ function updateEquipRawMat(data){
                                 rawMatProdCell += '<a href="/industry/#id_product='+val.s[i].rm[k].i+'" target="_blank">';
                                 rawMatProdCell += '<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatProdCell += '</a>';
-								nvDynColCnt += 2;
+								nvDynColCnt += 4;
 								svDynColHeaders += '<th '+getColStyle('rbs_lpr')+' id="th_rbs_lpr_' + val.s[i].rm[k].i + '">' + localPrice + '<img src="' + val.s[i].rm[k].s + '" width="16" height="16" title="' + val.s[i].rm[k].c + '""></th>';
 								svDynColHeaders += '<th '+getColStyle('rbs_lq')+' id="th_rbs_lq_'+val.s[i].rm[k].i+'">'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_spr')+' id="th_rbs_spr_' + val.s[i].rm[k].i + '">' + shopPrice + '<img src="' + val.s[i].rm[k].s + '" width="16" height="16" title="' + val.s[i].rm[k].c + '""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_sq')+' id="th_rbs_sq_'+val.s[i].rm[k].i+'">'+shopQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
 							}
                         }
                         break;
