@@ -210,6 +210,15 @@ function fillTownCaptions(callback) {
 		if(typeof(callback) === 'function') callback();
 	});
 }
+
+var sagInvisibibleColumns = [];
+function getColStyle(spColID){
+	if ($.inArray(spColID, sagInvisibibleColumns) >= 0) {
+		return 'style="display: none;"';
+	} else {
+		return '';
+	}
+}
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
@@ -257,14 +266,14 @@ function loadData() {
 			if(suitable){
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
-				output += '<td align="right" id="td_w_idx">'+unknownIfNull(locale, parseFloat(val['wi']).toFixed(2))+'</td>';
-				output += '<td align="right" id="td_mdi">'+parseFloat(val.mdi).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_market_volume">'+val.v+'</td>';
-				output += '<td align="right" id="td_perc">'+percent.toFixed(2)+'</td>';
-				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_sc">'+val.sc+'</td>';
-				output += '<td align="right" id="td_cc">'+val.cc+'</td>';
-				output += '<td align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
+				output += '<td '+getColStyle('w_idx')+' align="right" id="td_w_idx">'+unknownIfNull(locale, parseFloat(val['wi']).toFixed(2))+'</td>';
+				output += '<td '+getColStyle('mdi')+' align="right" id="td_mdi">'+parseFloat(val.mdi).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('market_volume')+' align="right" id="td_market_volume">'+val.v+'</td>';
+				output += '<td '+getColStyle('perc')+' align="right" id="td_perc">'+percent.toFixed(2)+'</td>';
+				output += '<td '+getColStyle('price')+' align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('sc')+' align="right" id="td_sc">'+val.sc+'</td>';
+				output += '<td '+getColStyle('cc')+' align="right" id="td_cc">'+val.cc+'</td>';
+				output += '<td '+getColStyle('itr')+' align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
 
 
 				if(val['cbs'] != null){
@@ -280,8 +289,10 @@ function loadData() {
 					if(retailBySpec != null){
 						idx = 0;
 						for (rbsKey in retailBySpec) {
-							output += '<td align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
-							output += '<td align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_lpr')+' align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_lq')+' align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_spr')+' align="right" id="td_rbs_spr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].spr).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_sq')+' align="right" id="td_rbs_sq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].sq).toFixed(2) + '</a></td>';
 							++idx;
 							if(idx >= ingCnt) {break;}
 						}
@@ -381,8 +392,8 @@ function updateEquipRawMat(data){
                 for (i in val.s) {
                     if(i === id_service_spec){
 						nvDynColCnt += 2;
-						svDynColHeaders += '<th id="td_cbs_lpr">'+localPrice+'</th>';
-						svDynColHeaders += '<th id="td_cbs_lq">'+localQuality+'</th>';
+						svDynColHeaders += '<th id="th_cbs_lpr">'+localPrice+'</th>';
+						svDynColHeaders += '<th id="th_cbs_lq">'+localQuality+'</th>';
                         if(val.s[i].e != null){
 						  equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
 						  equipCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
@@ -400,8 +411,8 @@ function updateEquipRawMat(data){
                                 rawMatProdCell += '<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
                                 rawMatProdCell += '</a>';
 								nvDynColCnt += 2;
-								svDynColHeaders += '<th id="td_rbs_lpr_'+val.s[i].rm[k].i+'">'+localPrice+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
-								svDynColHeaders += '<th id="td_rbs_lq_'+val.s[i].rm[k].i+'">'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+								svDynColHeaders += '<th id="th_rbs_lpr_'+val.s[i].rm[k].i+'">'+localPrice+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+								svDynColHeaders += '<th id="th_rbs_lq_'+val.s[i].rm[k].i+'">'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
 							}
                         }
                         break;
@@ -586,8 +597,79 @@ function fillUpdateDate() {
 	});
 }
 
+function showCol(colID){
+	if (colID.lastIndexOf('rbs_', 0) === 0){
+		$('th#[id^=th_rbs_], td[id^=td_rbs_]', 'tr').show();
+	} else if (colID.lastIndexOf('cbs_', 0) === 0){
+		$('th#[id^=th_cbs_], td[id^=td_cbs_]', 'tr').show();
+	} else {
+		$('th#th_'+ colID +', td#td_' + colID, 'tr').show();
+	}
+	sagInvisibibleColumns = jQuery.grep(sagInvisibibleColumns, function(value) {
+		return value != colID;
+	});
+}
+function hideCol(colID){
+	if (colID === 'pred'){
+		$('th#th_pred, td[id^=toggle_prediction_]', 'tr').hide();
+	} else {
+		$('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
+	}
+	sagInvisibibleColumns.push(colID);
+}
+function showAllCol(){
+	$('select#show_hide_col_ru > option').each(function() {
+		var value = $(this).attr('value');
+		showCol(value);
+	});
+	sagInvisibibleColumns = [];
+	setVal('invisibible_columns_service', sagInvisibibleColumns);
+}
+function hideAllCol(){
+	$('select#show_hide_col_ru > option').each(function() {
+		var value = $(this).attr('value');
+		hideCol(value);
+	});
+	setVal('invisibible_columns_service', sagInvisibibleColumns);
+}
+function initShowHideColSelect() {
+	var show_hide_col_id = (getLocale() === 'en') ? "show_hide_col_en" : "show_hide_col_ru";
+	var show_hide_col = $("select#" + show_hide_col_id).multiselect();
+
+	show_hide_col.multiselect({
+		click: function(event, ui){
+			if (ui.checked) {
+				showCol(ui.value);
+			} else {
+				hideCol(ui.value);
+			}
+			setVal('invisibible_columns_service', sagInvisibibleColumns);
+		},
+		checkAll: function(){
+			showAllCol();
+		},
+		uncheckAll: function(){
+			hideAllCol();
+		}
+	});
+
+	sagInvisibibleColumns = getVal('invisibible_columns_service');
+	if (sagInvisibibleColumns == null) {
+		sagInvisibibleColumns = [];
+		hideCol('rbs_spr');
+		hideCol('rbs_sq');
+	}
+	$.each(sagInvisibibleColumns, function (key, val) {
+//            console.log('key = '+key +', val = '+val);
+		hideCol(val);
+		$("select#"+ show_hide_col_id +" > option[value="+val+"]").attr('selected',false);
+	});
+	show_hide_col.multiselect('refresh');
+}
 //////////////////////////////////////////////////////
-$(document).ready(function () { 
+$(document).ready(function () {
+	initShowHideColSelect();
+
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
 		

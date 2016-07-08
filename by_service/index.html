@@ -5,6 +5,10 @@
 	<script type="text/javascript" src="./tinysort.min.js"></script>
 	<script type="text/javascript" src="./tinysort.charorder.min.js"></script>
 	<script type="text/javascript" src="./script.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/jquery.multiselect.css" />
+	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css" />
+	<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.multiselect.min.js"></script>
 </head>
 <body>
 <div>
@@ -51,6 +55,38 @@
 <u><b><span lang="en" style="display:none">%</span><span lang="ru">%</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="percentFrom" size="5" maxlength="6" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="percentTo" size="5" maxlength="6" value="100.00"><br>
 <u><b><span lang="en" style="display:none">Price</span><span lang="ru">Цена</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="text" id="priceFrom" size="12" maxlength="12" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="text" id="priceTo" size="12" maxlength="12" value="1000000.00"><br>
 <input type="submit" id="btnSubmit" value="Сформировать">
+<span lang="en" style="display:none">
+<select id="show_hide_col_en" multiple="multiple">
+	<option value="w_idx" selected="selected">Wealth level</option>
+	<option value="mdi" selected="selected">Market development index</option>
+	<option value="market_volume" selected="selected">Volume</option>
+	<option value="perc" selected="selected">%</option>
+	<option value="price" selected="selected">Price</option>
+	<option value="sc" selected="selected">Number of merchants</option>
+	<option value="cc" selected="selected">Number of companies</option>
+	<option value="itr" selected="selected">Rate of profit tax</option>
+	<option value="rbs_lpr" selected="selected">Local suppliers, price</option>
+	<option value="rbs_lq" selected="selected">Local suppliers, quality</option>
+	<option value="rbs_spr" selected="selected">Stores price</option>
+	<option value="rbs_sq" selected="selected">Stores quality</option>
+</select>
+</span>
+	<span lang="ru">
+<select id="show_hide_col_ru" multiple="multiple">
+	<option value="w_idx" selected="selected">Индекс богатства</option>
+	<option value="mdi" selected="selected">Индекс развития рынка</option>
+	<option value="market_volume" selected="selected">Объём</option>
+	<option value="perc" selected="selected">%</option>
+	<option value="price" selected="selected">Цена</option>
+	<option value="sc" selected="selected">Количество продавцов</option>
+	<option value="cc" selected="selected">Количество компаний</option>
+	<option value="itr" selected="selected">Ставка налога на прибыль</option>
+	<option value="rbs_lpr" selected="selected">Местные, цена</option>
+	<option value="rbs_lq" selected="selected">Местные, качество</option>
+	<option value="rbs_spr" selected="selected">Магазины, цена</option>
+	<option value="rbs_sq" selected="selected">Магазины, качество</option>
+</select>
+</span>
 </td></tr>
 <tr class="trec" align="right">
 	<td>
