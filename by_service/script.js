@@ -598,10 +598,8 @@ function fillUpdateDate() {
 }
 
 function showCol(colID){
-	if (colID.lastIndexOf('rbs_', 0) === 0){
-		$('th[id^=th_rbs_], td[id^=td_rbs_]', 'tr').show();
-	} else if (colID.lastIndexOf('cbs_', 0) === 0){
-		$('th[id^=th_cbs_], td[id^=td_cbs_]', 'tr').show();
+	if (colID.lastIndexOf('rbs_', 0) === 0 || colID.lastIndexOf('cbs_', 0) === 0){
+		$('th[id^=th_'+ colID +'], td[id^=td_'+ colID +']', 'tr').show();
 	} else {
 		$('th#th_'+ colID +', td#td_' + colID, 'tr').show();
 	}
@@ -610,10 +608,8 @@ function showCol(colID){
 	});
 }
 function hideCol(colID){
-	if (colID.lastIndexOf('rbs_', 0) === 0){
-		$('th[id^=th_rbs_], td[id^=td_rbs_]', 'tr').hide();
-	} else if (colID.lastIndexOf('cbs_', 0) === 0){
-		$('th[id^=th_cbs_], td[id^=td_cbs_]', 'tr').hide();
+	if (colID.lastIndexOf('rbs_', 0) === 0 || colID.lastIndexOf('cbs_', 0) === 0){
+		$('th[id^=th_'+ colID +'], td[id^=td_'+ colID +']', 'tr').hide();
 	} else {
 		$('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
 	}
