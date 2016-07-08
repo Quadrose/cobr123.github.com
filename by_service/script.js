@@ -241,9 +241,6 @@ function loadData() {
         var percent = 0;
 		var retailBySpec = null;
 		var calcBySpec = null;
-		var equipCnt = $('#equip_raw_mat_body > tr > td:eq(1) > a > img').length;
-		var ingCnt = $('#equip_raw_mat_body > tr > td:eq(2) > a > img').length;
-		var idx = 0;
 
 		$.each(data, function (key, val) {
 			var suitable = true;
@@ -289,15 +286,13 @@ function loadData() {
 				if(val['rbs'] != null){
 					retailBySpec = val.rbs[serviceSpec];
 					if(retailBySpec != null){
-						idx = 0;
-						for (rbsKey in retailBySpec) {
+						$('#equip_raw_mat_body > tr:eq(0) > td:eq(2) > a > img').each(function() {
+							var rbsKey = $(this).attr('productID');
 							output += '<td '+getColStyle('rbs_lpr')+' align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
 							output += '<td '+getColStyle('rbs_lq')+' align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
 							output += '<td '+getColStyle('rbs_spr')+' align="right" id="td_rbs_spr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].spr).toFixed(2) + '</a></td>';
 							output += '<td '+getColStyle('rbs_sq')+' align="right" id="td_rbs_sq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].sq).toFixed(2) + '</a></td>';
-							++idx;
-							if(idx >= ingCnt) {break;}
-						}
+						});
 					}
 				}
 				output += '</tr>';
@@ -392,6 +387,9 @@ function updateEquipRawMat(data){
                 var rawMatProdCell = '';
 				var nvDynColCnt = 2;
 				var svDynColHeaders = '';
+				var svImgUrl = '';
+				var svProductID = '';
+				var svProductCaption = '';
 
                 for (i in val.s) {
                     if(i === id_service_spec){
@@ -401,26 +399,32 @@ function updateEquipRawMat(data){
 						svDynColHeaders += '<th '+getColStyle('cbs_spr')+' id="th_cbs_spr">'+shopPrice+'(sum)</th>';
 						svDynColHeaders += '<th '+getColStyle('cbs_sq')+' id="th_cbs_sq">'+shopQuality+'(avg)</th>';
                         if(val.s[i].e != null){
-						  equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].e.i+'/" target="_blank">';
-						  equipCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+						  svImgUrl = val.s[i].e.s;
+						  svProductID = val.s[i].e.i;
+						  svProductCaption = val.s[i].e.c;
+						  equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ svProductID +'/" target="_blank">';
+						  equipCell += '<img src="'+ svImgUrl +'" width="16" height="16" id="img'+ svProductID +'" title="'+ svProductCaption +'"">';
 						  equipCell += '</a>';
-						  equipProdCell += '<a href="/industry/#id_product='+val.s[i].e.i+'" target="_blank">';
-						  equipProdCell += '<img src="'+ val.s[i].e.s+'" width="16" height="16" id="img'+val.s[i].e.i+'" title="'+val.s[i].e.c+'"">';
+						  equipProdCell += '<a href="/industry/#id_product='+ svProductID +'" target="_blank">';
+						  equipProdCell += '<img src="'+ svImgUrl +'" width="16" height="16" id="img'+ svProductID +'" title="'+ svProductCaption +'"">';
 						  equipProdCell += '</a>';
                         }
                         if(val.s[i].rm != null){
                             for (k in val.s[i].rm) {
-                                rawMatCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.s[i].rm[k].i+'/" target="_blank">';
-                                rawMatCell += '<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
+								svImgUrl = val.s[i].rm[k].s;
+								svProductID = val.s[i].rm[k].i;
+								svProductCaption = val.s[i].rm[k].c;
+                                rawMatCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+svProductID+'/" target="_blank">';
+                                rawMatCell += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'" title="'+svProductCaption+'"">';
                                 rawMatCell += '</a>';
-                                rawMatProdCell += '<a href="/industry/#id_product='+val.s[i].rm[k].i+'" target="_blank">';
-                                rawMatProdCell += '<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" id="img'+val.s[i].rm[k].i+'" title="'+val.s[i].rm[k].c+'"">';
+                                rawMatProdCell += '<a href="/industry/#id_product='+svProductID+'" target="_blank">';
+                                rawMatProdCell += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'" title="'+svProductCaption+'"">';
                                 rawMatProdCell += '</a>';
 								nvDynColCnt += 4;
-								svDynColHeaders += '<th '+getColStyle('rbs_lpr')+' id="th_rbs_lpr_' + val.s[i].rm[k].i + '">' + localPrice + '<img src="' + val.s[i].rm[k].s + '" width="16" height="16" title="' + val.s[i].rm[k].c + '""></th>';
-								svDynColHeaders += '<th '+getColStyle('rbs_lq')+' id="th_rbs_lq_'+val.s[i].rm[k].i+'">'+localQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
-								svDynColHeaders += '<th '+getColStyle('rbs_spr')+' id="th_rbs_spr_' + val.s[i].rm[k].i + '">' + shopPrice + '<img src="' + val.s[i].rm[k].s + '" width="16" height="16" title="' + val.s[i].rm[k].c + '""></th>';
-								svDynColHeaders += '<th '+getColStyle('rbs_sq')+' id="th_rbs_sq_'+val.s[i].rm[k].i+'">'+shopQuality+'<img src="'+ val.s[i].rm[k].s+'" width="16" height="16" title="'+val.s[i].rm[k].c+'""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_lpr')+' id="th_rbs_lpr_' + svProductID + '">' + localPrice + '<img src="' + svImgUrl + '" width="16" height="16" title="' + svProductCaption + '""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_lq')+' id="th_rbs_lq_'+svProductID+'">'+localQuality+'<img src="'+ svImgUrl+'" width="16" height="16" title="'+svProductCaption+'""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_spr')+' id="th_rbs_spr_' + svProductID + '">' + shopPrice + '<img src="' + svImgUrl + '" width="16" height="16" title="' + svProductCaption + '""></th>';
+								svDynColHeaders += '<th '+getColStyle('rbs_sq')+' id="th_rbs_sq_'+svProductID+'">'+shopQuality+'<img src="'+ svImgUrl+'" width="16" height="16" title="'+svProductCaption+'""></th>';
 							}
                         }
                         break;
