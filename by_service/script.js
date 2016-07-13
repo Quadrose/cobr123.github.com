@@ -152,20 +152,20 @@ function loadSavedFlt(){
   		};
 		var changeRegionCallback = function() {
 			if (id_town != null || id_town != '') {
-				$('#id_town').val(id_town);
+				$('#id_town').val(id_town).trigger("chosen:updated");
 				changeTown();
 			}
 		};
 		var changeCountryCallback = function() {
 			if (id_region != null || id_region != '') {
-				$('#id_region').val(id_region);
+				$('#id_region').val(id_region).trigger("chosen:updated");
 				//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
 				changeRegion(changeRegionCallback);
 			}
   		};
 		var countryCallback = function() {
 			if (id_country != null || id_country != '') {
-				$('#id_country').val(id_country);
+				$('#id_country').val(id_country).trigger("chosen:updated");
 				//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
 				changeCountry(changeCountryCallback);
 			}
@@ -488,10 +488,8 @@ function loadCountries(callback) {
 			sagCountryCaption[val.i] = val.c;
 		});
 		
-		$('#id_country').html(output); 	// replace all existing content
-		$('#id_country').trigger("chosen:updated");
-		$('#id_region').html('<option value="" selected="">'+allRegions+'</option>'); 	// replace all existing content
-		$('#id_region').trigger("chosen:updated");
+		$('#id_country').html(output).trigger("chosen:updated");
+		$('#id_region').html('<option value="" selected="">'+allRegions+'</option>').trigger("chosen:updated");
 		if(typeof(callback) === 'function') callback();
 	});
 	return false;
@@ -519,8 +517,7 @@ function loadTowns(callback) {
 			}
 		});
 
-		$('#id_town').html(output);
-		$('#id_town').trigger("chosen:updated");
+		$('#id_town').html(output).trigger("chosen:updated");
 		if(typeof(callback) === 'function') callback();
 	});
 	return false;
@@ -549,8 +546,7 @@ function loadRegions(callback) {
             });
         }
 
-        $('#id_region').html(output);
-		$('#id_region').trigger("chosen:updated");
+        $('#id_region').html(output).trigger("chosen:updated");
 		loadTowns(callback);
     });
 	return false;
