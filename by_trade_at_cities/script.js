@@ -619,7 +619,9 @@ function loadCountries(callback) {
 		});
 		
 		$('#id_country').html(output); 	// replace all existing content
+		$('#id_country').trigger("chosen:updated");
 		$('#id_region').html('<option value="" selected="">'+allRegions+'</option>'); 	// replace all existing content
+		$('#id_region').trigger("chosen:updated");
 		if(typeof(callback) === 'function') callback();
 	});
 	return false;
@@ -649,6 +651,7 @@ function loadTowns(callback) {
 		});
 
 		$('#id_town').html(output);
+		$('#id_town').trigger("chosen:updated");
 		if(typeof(callback) === 'function') callback();
 	});
 	return false;
@@ -678,6 +681,7 @@ function loadRegions(callback) {
         }
 
         $('#id_region').html(output);
+		$('#id_region').trigger("chosen:updated");
 		loadTowns(callback);
     });
 	return false;
@@ -844,6 +848,22 @@ function initShowHideColSelect() {
 //////////////////////////////////////////////////////
 $(document).ready(function () {
     initShowHideColSelect();
+
+	$('select#id_country').chosen({
+		inherit_select_classes: true
+		,search_contains: true
+		,include_group_label_in_selected: true
+	});
+	$('select#id_region').chosen({
+		inherit_select_classes: true
+		,search_contains: true
+		,include_group_label_in_selected: true
+	});
+	$('select#id_town').chosen({
+		inherit_select_classes: true
+		,search_contains: true
+		,include_group_label_in_selected: true
+	});
 
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
