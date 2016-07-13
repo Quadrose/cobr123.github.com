@@ -691,21 +691,24 @@ function initShowHideColSelect() {
 $(document).ready(function () {
 	initShowHideColSelect();
 
-	$('select#id_country').chosen({
+	$('#id_country').chosen({
 		inherit_select_classes: true
 		,search_contains: true
 		,include_group_label_in_selected: true
 	});
-	$('select#id_region').chosen({
+	$('#id_region').chosen({
 		inherit_select_classes: true
 		,search_contains: true
 		,include_group_label_in_selected: true
 	});
-	$('select#id_town').chosen({
+	$('#id_town').chosen({
 		inherit_select_classes: true
 		,search_contains: true
 		,include_group_label_in_selected: true
 	});
+	$('#id_country').css({"width": "200px"});
+	$('#id_region').css({"width": "200px"});
+	$('#id_town').css({"width": "200px"});
 
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
