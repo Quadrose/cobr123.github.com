@@ -701,19 +701,19 @@ $(document).ready(function () {
 		inherit_select_classes: true
 		,search_contains: true
 		,include_group_label_in_selected: true
-		,width: "200px"
+		,width: "300px"
 	});
 	$('#id_region').chosen({
 		inherit_select_classes: true
 		,search_contains: true
 		,include_group_label_in_selected: true
-		,width: "200px"
+		,width: "350px"
 	});
 	$('#id_town').chosen({
 		inherit_select_classes: true
 		,search_contains: true
 		,include_group_label_in_selected: true
-		,width: "200px"
+		,width: "250px"
 	});
 
 	var table = document.getElementById('xtable');
