@@ -112,12 +112,13 @@ function getServiceLevel(serviceLevel, locale) {
 	}
 }
 function loadPrediction(predRow) {
+	var realm = getRealm();
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
 	var locale = getLocale();
     var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 	
-	$.getJSON('/predict_retail_sales/retail_analytics_hist/'+productID+'.json', function (data) {
+	$.getJSON('./'+realm+'/retail_analytics_'+productID+'.json', function (data) {
 		var output = '';
 		var svMarketIdx = predRow.prev().find('>td#td_idx').text();
 		console.log("svMarketIdx = '"+ svMarketIdx+"'" );
