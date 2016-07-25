@@ -219,6 +219,34 @@ function getColStyle(spColID){
 		return '';
 	}
 }
+function updateUrl() {
+	var serviceID = getServiceID();
+	var serviceSpecID = $('#id_service_spec').val();
+	var realm = getRealm();
+	var svColId = $('#sort_col_id').val();
+	var svOrder = $('#sort_dir').val();
+	var id_country = getVal('id_country');
+	var id_region = getVal('id_region');
+	var id_town = getVal('id_town');
+	var percentFrom = $('#percentFrom').val();
+	var percentTo = $('#percentTo').val();
+	var priceFrom = $('#priceFrom').val();
+	var priceTo = $('#priceTo').val();
+	window.history.pushState("", ""
+		, '#id_service='      + serviceID
+		+ '&id_service_spec=' + serviceSpecID
+		+ '&realm='           + realm
+		+ '&sort_col_id='     + svColId
+		+ '&sort_dir='        + svOrder
+		+ '&id_country='      + id_country
+		+ '&id_region='       + id_region
+		+ '&id_town='         + id_town
+		+ '&percentFrom='     + percentFrom
+		+ '&percentTo='       + percentTo
+		+ '&priceFrom='       + priceFrom
+		+ '&priceTo='         + priceTo
+	);
+}
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
@@ -234,7 +262,9 @@ function loadData() {
 	  return false;
 	}
 //    console.log('loadData /'+realm+'/tradeAtCity_'+serviceID+'.json, caller is '+ arguments.callee.caller.toString());
-	
+
+	updateUrl();
+
 	$.getJSON('./'+realm+'/serviceAtCity_'+serviceID + suffix+'.json', function (data) {
 		var output = '';
 		var serviceSpec = $('#id_service_spec > option').eq($('#id_service_spec').val()).text();
