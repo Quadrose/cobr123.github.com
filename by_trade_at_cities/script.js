@@ -946,7 +946,7 @@ $(document).ready(function () {
 
 		var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
-			if (id_product == null || id_product == '') {
+			if (id_product != null && id_product != '') {
 				var selectCategoryByProductCallback = function() {
 					changeProduct(id_product);
 				};
