@@ -940,6 +940,9 @@ $(document).ready(function () {
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
 		var id_product = $('#id_product').val();
+		var id_country = getVal('id_country');
+		var id_region = getVal('id_region');
+		var id_town = getVal('id_town');
 
 		var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
@@ -951,16 +954,16 @@ $(document).ready(function () {
 			}
 		};
 		var changeRegionCallback = function() {
-			$('#id_town').trigger("chosen:updated");
+			$('#id_town').val(id_town).trigger("chosen:updated");
 			changeTown();
 		};
 		var changeCountryCallback = function() {
-			$('#id_region').trigger("chosen:updated");
+			$('#id_region').val(id_region).trigger("chosen:updated");
 			//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
 			changeRegion(changeRegionCallback);
 		};
 		var countryCallback = function() {
-			$('#id_country').trigger("chosen:updated");
+			$('#id_country').val(id_country).trigger("chosen:updated");
 			//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
 			changeCountry(changeCountryCallback);
 		};
