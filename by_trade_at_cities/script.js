@@ -6,10 +6,10 @@ function getProductID(){
 	return $('#id_product').val();
 }
 function getDomain(locale) {
-  if (locale === 'en') {
-	  return 'virtonomics.com';
+	if (locale === 'en') {
+		return 'virtonomics.com';
 	} else {
-	  return 'virtonomica.ru';
+		return 'virtonomica.ru';
 	}
 }
 function updateProdRemainLinks(){
@@ -41,7 +41,7 @@ function getLocale() {
 }
 function applyLocale() {
 	var locale = getLocale();
-	
+
 	if (locale === 'en') {
 		document.title = "Retail sales";
 		$('#btnSubmit').val('Generate');
@@ -53,9 +53,9 @@ function applyLocale() {
 	}
 	$("[lang]").each(function () {
 		if ($(this).attr("lang") == locale) {
-		    $(this).show();
+			$(this).show();
 		} else {
-		    $(this).hide();
+			$(this).hide();
 		}
 	});
 }
@@ -64,7 +64,7 @@ function changeLocale() {
 	window.location.reload();
 }
 function getCityDistrict(name, locale) {
-  if (locale === 'en') {
+	if (locale === 'en') {
 		if (name === 'Центр города') {
 			return 'City centre';
 		} else if (name === 'Фешенебельный район') {
@@ -79,11 +79,11 @@ function getCityDistrict(name, locale) {
 			return name;
 		}
 	} else {
-	  return name;
+		return name;
 	}
 }
 function getVolume(volume, locale) {
-  if (locale === 'en') {
+	if (locale === 'en') {
 		return volume.replace('менее', 'below').replace('около', 'about').replace('более', 'over');
 	} else {
 		return volume;
@@ -91,7 +91,7 @@ function getVolume(volume, locale) {
 }
 
 function getServiceLevel(serviceLevel, locale) {
-  if (locale === 'en') {
+	if (locale === 'en') {
 		if (serviceLevel === 'Элитный') {
 			return 'Elite';
 		} else if (serviceLevel === 'Очень высокий') {
@@ -108,7 +108,7 @@ function getServiceLevel(serviceLevel, locale) {
 			return serviceLevel;
 		}
 	} else {
-	  return serviceLevel;
+		return serviceLevel;
 	}
 }
 function loadPrediction(predRow) {
@@ -116,8 +116,8 @@ function loadPrediction(predRow) {
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
 	var locale = getLocale();
-    var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
-	
+	var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
+
 	$.getJSON('./'+realm+'/retail_analytics_'+productID+'.json', function (data) {
 		var output = '';
 		var svMarketIdx = predRow.prev().find('>td#td_idx').text();
@@ -132,22 +132,22 @@ function loadPrediction(predRow) {
 		var key = '';
 		var suitable = true;
 		var maxCnt = 50;
-		
+
 		$.each(data, function (key, val) {
 			suitable = true;
 			key = val.sv + '|' + Math.round(val.p) + '|' + Math.round(val.q) + '|' + Math.round(val.b) + '|';
 			key += val.mv + '|' + val.sc + '|' + val.sl + '|' + val.vc + '|' + val.td + '|';
 			key += val.ss + '|' + val.dc + '|' + val.mi;
-			
+
 			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
 			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.n >= 100) {suitable = true;} else {suitable = false;}
 			if (suitable && (key in uniqPred)) {suitable = false;}
-			
+
 			if(suitable){
-			    maxCnt -= 1;
-			    uniqPred[key] = 1;
+				maxCnt -= 1;
+				uniqPred[key] = 1;
 				output += '<tr class="trec hoverable">';
 				output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+' ('+Math.round(parseFloat(val.sv.replace(/[\D]+/g,''))/parseFloat(val.mv)*100)+'%)</td>';
 				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
@@ -165,10 +165,10 @@ function loadPrediction(predRow) {
 				output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
 				output += '</tr>';
 
-                if (maxCnt <= 0) {
-                    //break each
-                    return false;
-                }
+				if (maxCnt <= 0) {
+					//break each
+					return false;
+				}
 			}
 		});
 		if (output === '') {
@@ -192,7 +192,7 @@ function loadPrediction(predRow) {
 			var wealthIndexLabel = (locale === 'en') ? 'WL' : 'И.б.';
 			var wealthIndexHint = (locale === 'en') ? 'Wealth level' : 'Индекс богатства';
 			var indexLabel = (locale === 'en') ? 'Index' : 'И.';
-			
+
 			var headers = '<thead><tr class="theader">';
 			headers += '<th id="th_sellVolume">'+salesVolumeLabel+'&nbsp;<b id="sort_by_sellVolume"></b></th>';
 			headers += '<th id="th_price">'+priceLabel+'&nbsp;<b id="sort_by_price"></b></th>';
@@ -210,21 +210,21 @@ function loadPrediction(predRow) {
 			headers += '<th id="th_marketIdx" title="Индекс">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
 			headers += '</tr></thead>';
 			predRow.html('<td colspan=15><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
-			
+
 			var table = document.getElementById(tableId);
 			var tableBody = table.querySelector('tbody');
 			tinysort(
-					tableBody.querySelectorAll('tr')
-					,{
-							selector:'td#td_price'
-							,order: 'desc'
-					}
+				tableBody.querySelectorAll('tr')
+				,{
+					selector:'td#td_price'
+					,order: 'desc'
+				}
 			);
 		}
 	})
-	  .fail(function() {
-            predRow.html(notEnoughDataMsg);
-	  });
+		.fail(function() {
+			predRow.html(notEnoughDataMsg);
+		});
 	return false;
 }
 function hideAllPredictions(){
@@ -240,7 +240,7 @@ function togglePrediction(npPredNum){
 	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
 	var hideLabel = (locale === 'en') ? 'Hide' : 'Скрыть';
 	var loadingLabel = (locale === 'en') ? 'Loading...' : 'Загружаю...';
-	
+
 	if(link.text() === hideLabel) {
 		var predRow = $('#prediction_' + npPredNum);
 		predRow.remove();
@@ -261,91 +261,86 @@ function commaSeparateNumber(val, sep){
 	return val;
 }
 function loadSavedFlt(){
+	//var params = getSearchParameters();
+	var realm = getVal('realm') || 'olga';
+	var id_country = getVal('id_country');
+	var id_region = getVal('id_region');
+	var id_town = getVal('id_town');
+	var id_category = getVal('id_category');
+	var id_product = getVal('id_product');
+
 	var sort_col_id = getVal('sort_col_id_btac') || 'local_perc';
 	if (sort_col_id != null || sort_col_id != '') {
-	    $('#sort_col_id').val(sort_col_id);
+		$('#sort_col_id').val(sort_col_id);
 	}
 	var sort_dir = getVal('sort_dir_btac') || 'desc';
 	if (sort_dir != null || sort_dir != '') {
-	    $('#sort_dir').val(sort_dir);
+		$('#sort_dir').val(sort_dir);
 	}
 	if ((getVal('locale') === null || getVal('locale') === '') && (document.referrer.substring(0, 'http://virtonomics.com/'.length) === 'http://virtonomics.com/' || document.referrer.substring(0, 'http://virtonomics-free.blogspot.'.length) === 'http://virtonomics-free.blogspot.')) {
-	    setVal('locale', 'en');
+		setVal('locale', 'en');
 	}
-	var realm = getVal('realm') || 'olga';
+
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
+		var loadProductsCallback = function() {
+			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
+			if (id_product == null || id_product == '') {
+				id_product = $('#products > img').eq(0).attr('id').replace("img", "");
+				if (id_product == null || id_product == '') return;
+				changeProduct(id_product);
+				updateProdRemainLinks();
+			}
+		};
+		var productCategoriesCallback = function() {
+			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
+			id_category = id_category || $('#id_category > option').eq(0).val();
+			if (id_category == null || id_category == '') return;
+			$('#id_category').val(id_category);
+			id_category = $('#id_category').val();
+			if (id_category == null || id_category == '') {
+				id_category = $('#id_category > option').eq(0).val();
+				$('#id_category').val(id_category);
+			}
+			loadProducts(loadProductsCallback);
+		};
+		var changeRegionCallback = function() {
+			if (id_town != null || id_town != '') {
+				$('#id_town').val(id_town).trigger("chosen:updated");
+				changeTown();
+			}
+		};
+		var changeCountryCallback = function() {
+			if (id_region != null || id_region != '') {
+				$('#id_region').val(id_region).trigger("chosen:updated");
+				//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
+				changeRegion(changeRegionCallback);
+			}
+		};
+		var countryCallback = function() {
+			if (id_country != null || id_country != '') {
+				$('#id_country').val(id_country).trigger("chosen:updated");
+				//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
+				changeCountry(changeCountryCallback);
+			}
+		};
+		changeRealm(productCategoriesCallback, countryCallback);
+
+	} else {
+		loadProductCategories();
+		loadCountries();
+		fillUpdateDate();
 	}
-	$('#id_country').val(getVal('id_country'));
-	$('#id_region').val(getVal('id_region'));
-	$('#id_town').val(getVal('id_town'));
-
-	$('#id_category').val(getVal('id_category'));
-	$('#id_product').val(getVal('id_product'));
-
 	/*$('input[type="text"]').each(function(){
-			$(this).val(commaSeparateNumber($(this).val(),' '));
-	});
-	$('input[type="text"]')
+	 $(this).val(commaSeparateNumber($(this).val(),' '));
+	 });
+	 $('input[type="text"]')
 	 .focus(function(){
-			$(this).val($(this).val().replace(/\s+/g,''));
+	 $(this).val($(this).val().replace(/\s+/g,''));
 	 })
 	 .focusout(function() {
-			$(this).val(commaSeparateNumber($(this).val(),' '));
-      });*/
-}
-function initDataLoad() {
-	var id_product = $('#id_product').val();
-	var id_category = $('#id_category').val();
-
-	var id_country = $('#id_country').val();
-	var id_region  = $('#id_region').val();
-	var id_town    = $('#id_town').val();
-
-	var loadProductsCallback = function() {
-		//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
-		if (id_product == null || id_product == '') {
-			id_product = $('#products > img').eq(0).attr('id').replace("img", "");
-			if (id_product != null && id_product != ''){
-				changeProduct(id_product);
-			}
-		} else {
-			var id_category = $('#id_category').val();
-			if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
-				var selectCategoryByProductCallback = function () {
-					changeProduct(id_product);
-				};
-				selectCategoryByProduct(id_product, selectCategoryByProductCallback);
-			}
-		}
-	};
-	var productCategoriesCallback = function() {
-		//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
-		id_category = id_category || $('#id_category > option').eq(0).val();
-		if (id_category == null || id_category == '') return;
-		$('#id_category').val(id_category);
-		id_category = $('#id_category').val();
-		if (id_category == null || id_category == '') {
-			id_category = $('#id_category > option').eq(0).val();
-			$('#id_category').val(id_category);
-		}
-		loadProducts(loadProductsCallback);
-	};
-	var changeRegionCallback = function() {
-		$('#id_town').val(id_town).trigger("chosen:updated");
-		changeTown();
-	};
-	var changeCountryCallback = function() {
-		$('#id_region').val(id_region).trigger("chosen:updated");
-		//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
-		changeRegion(changeRegionCallback);
-	};
-	var countryCallback = function() {
-		$('#id_country').val(id_country).trigger("chosen:updated");
-		//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
-		changeCountry(changeCountryCallback);
-	};
-	changeRealm(productCategoriesCallback, countryCallback);
+	 $(this).val(commaSeparateNumber($(this).val(),' '));
+	 });*/
 }
 function parseFloatFromFilter(spSelector, npDefVal){
 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
@@ -361,7 +356,7 @@ function fillTownCaptions(callback) {
 	if(sagTownCaption === null) {
 		sagTownCaption = [];
 	}
-	
+
 	$.getJSON('./'+realm+'/cities'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
 			sagTownCaption[val.i] = val.c;
@@ -372,11 +367,11 @@ function fillTownCaptions(callback) {
 
 var sagInvisibibleColumns = [];
 function getColStyle(spColID){
-    if ($.inArray(spColID, sagInvisibibleColumns) >= 0) {
-        return 'style="display: none;"';
-    } else {
-        return '';
-    }
+	if ($.inArray(spColID, sagInvisibibleColumns) >= 0) {
+		return 'style="display: none;"';
+	} else {
+		return '';
+	}
 }
 
 function getLast(str){
@@ -398,68 +393,68 @@ function shortenNumber(text){
 		} else if (num < 1e+18) {
 			num = (num / 1e+15).toFixed(0) + 'q';
 		}
-        return num;
+		return num;
 	} else {
-        return text;
-    }
+		return text;
+	}
 }
 
 function updateOthers(townID, attr){
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 
-    var text = '';
-    $('td[img_sub_product_id]').each(function() {
-        var cell = $(this);
-        var productID = cell.attr('img_sub_product_id');
-        $.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
-            $.each(data, function (key, val) {
-                if(townID === val.ti){
-                    text = val[attr] + '';
-                    cell.html(shortenNumber(text.replace(/\.\d+$/,'')));
-                }
-            });
-        });
-    });
+	var text = '';
+	$('td[img_sub_product_id]').each(function() {
+		var cell = $(this);
+		var productID = cell.attr('img_sub_product_id');
+		$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
+			$.each(data, function (key, val) {
+				if(townID === val.ti){
+					text = val[attr] + '';
+					cell.html(shortenNumber(text.replace(/\.\d+$/,'')));
+				}
+			});
+		});
+	});
 }
 
 function addHoverHandlers() {
-    var timer;
-    var delay = 500;
+	var timer;
+	var delay = 500;
 
-    $('td[field_name]').hover(function() {
-        var cell = $(this);
-        var attrName = cell.attr('field_name');
-        if (attrName != '') {
-            //on mouse hover, start a timeout
-            timer = setTimeout(function() {
-                //Do your stuff here
-                var townID = getLast($('td#td_city > a', cell.parent()).attr('href'));
-                updateOthers(townID, attrName);
-            }, delay);
-        }
-    }, function() {
-       //Do mouse leaving function stuff here
-        clearTimeout(timer);
-    });
+	$('td[field_name]').hover(function() {
+		var cell = $(this);
+		var attrName = cell.attr('field_name');
+		if (attrName != '') {
+			//on mouse hover, start a timeout
+			timer = setTimeout(function() {
+				//Do your stuff here
+				var townID = getLast($('td#td_city > a', cell.parent()).attr('href'));
+				updateOthers(townID, attrName);
+			}, delay);
+		}
+	}, function() {
+		//Do mouse leaving function stuff here
+		clearTimeout(timer);
+	});
 }
 function updateUrl() {
-    var productID = getProductID();
-    var realm = getRealm();
-    var svColId = $('#sort_col_id').val();
-    var svOrder = $('#sort_dir').val();
-    var id_country = getVal('id_country');
-    var id_region = getVal('id_region');
-    var id_town = getVal('id_town');
-    window.history.pushState("", ""
-        , '#id_product='  + productID
-        + '&realm='       + realm 
-        + '&sort_col_id=' + svColId
-        + '&sort_dir='    + svOrder
-        + '&id_country='  + id_country
-        + '&id_region='   + id_region
-        + '&id_town='     + id_town
-    );
+	var productID = getProductID();
+	var realm = getRealm();
+	var svColId = $('#sort_col_id').val();
+	var svOrder = $('#sort_dir').val();
+	var id_country = getVal('id_country');
+	var id_region = getVal('id_region');
+	var id_town = getVal('id_town');
+	window.history.pushState("", ""
+		, '#id_product='  + productID
+		+ '&realm='       + realm
+		+ '&sort_col_id=' + svColId
+		+ '&sort_dir='    + svOrder
+		+ '&id_country='  + id_country
+		+ '&id_region='   + id_region
+		+ '&id_town='     + id_town
+	);
 }
 //////////////////////////////////////////////////////
 function loadData() {
@@ -471,49 +466,49 @@ function loadData() {
 	var showLabel = (locale === 'en') ? 'Show' : 'Показать';
 	var domain = getDomain(locale);
 	if (sagTownCaption === null) {
-	  fillTownCaptions(loadData);
-	  return false;
+		fillTownCaptions(loadData);
+		return false;
 	}
 //    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
 
-    updateUrl();
+	updateUrl();
 
-    $.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
+	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		var output = '';
 		var nvPredIdx = 1;
-		
+
 		$.each(data, function (key, val) {
 			var suitable = true;
-			
+
 			if (suitable && val.pi == $('#id_product').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ti == nvl($('#id_town').val(),val.ti)) {suitable = true;} else {suitable = false;}
-			
+
 			if (suitable && val.wi >= $('#wealthIndexFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.wi <= $('#wealthIndexTo').val()) {suitable = true;} else {suitable = false;}
-			
+
 			if (suitable && val.v >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.v <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
-			
+
 			if (suitable && val.lpe >= $('#localPercentFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.lpe <= $('#localPercentTo').val()) {suitable = true;} else {suitable = false;}
-			
+
 			if (suitable && val.lpr >= $('#localPriceFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.lpr <= $('#localPriceTo').val()) {suitable = true;} else {suitable = false;}
-			
+
 			if (suitable && val.lq >= $('#localQualityFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.lq <= $('#localQualityTo').val()) {suitable = true;} else {suitable = false;}
-			
+
 			if (suitable && val.spr >= $('#shopPriceFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.spr <= $('#shopPriceTo').val()) {suitable = true;} else {suitable = false;}
-			
+
 			if (suitable && val.sq >= $('#shopQualityFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.sq <= $('#shopQualityTo').val()) {suitable = true;} else {suitable = false;}
-			
+
 			if (suitable && val.sb >= $('#shopBrandFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.sb <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
-			
+
 			if(suitable){
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
@@ -532,27 +527,27 @@ function loadData() {
 				output += '<td field_name="itp" '+getColStyle('itp')+' align="right" id="td_itp">'+unknownIfNull(locale, val['itp'])+'</td>';
 				output += '<td '+getColStyle('pred')+' align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
 				output += '</tr>';
-				
+
 				nvPredIdx = nvPredIdx + 1;
 			}
 		});
-		
+
 		$('#xtabletbody').html(output); 	// replace all existing content
-		
+
 		var svOrder = $('#sort_dir').val();
 		var svColId = $('#sort_col_id').val();
 		var isAscending = svOrder=='asc';
 		var orderArrow = isAscending?'&#9650;':'&#9660;';
 		$('#sort_by_'+svColId).html(orderArrow);
-		 
+
 		var table = document.getElementById('xtable');
 		var tableBody = table.querySelector('tbody');
 		tinysort(
-				tableBody.querySelectorAll('tr')
-				,{
-						selector:'td#td_'+svColId
-						,order: svOrder
-				}
+			tableBody.querySelectorAll('tr')
+			,{
+				selector:'td#td_'+svColId
+				,order: svOrder
+			}
 		);
 
 		addHoverHandlers();
@@ -561,25 +556,25 @@ function loadData() {
 }
 function unknownIfNull(locale, opValue) {
 	if (opValue == null || opValue === ''){
-	  return (locale == 'en') ? 'unknown' : 'не изв.';
+		return (locale == 'en') ? 'unknown' : 'не изв.';
 	} else {
-	  return opValue;
+		return opValue;
 	}
 }
 function loadProductCategories(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
-	
+
 	$.getJSON('./'+realm+'/product_categories'+suffix+'.json', function (data) {
 		var output = '';
 
 		$.each(data, function (key, val) {
 			output += '<option value="'+val.c+'">'+val.c+'</option>';
 		});
-		
+
 		$('#id_category').html(output); 	// replace all existing content
-		$('#products').html(''); 
+		$('#products').html('');
 		if(typeof(callback) === 'function') {
 			callback();
 		} else {
@@ -592,16 +587,16 @@ function loadProductCategories(callback) {
 function loadProducts(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
-	
+
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
 	var locale = getLocale();
 	var suffix = (locale == 'en') ? '_en' : '';
-	
+
 	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
-		
+
 		$.each(data, function (key, val) {
 			if(svCategoryId == val.pc){
 				output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td><img src="'+ val.s+'"';
@@ -612,7 +607,7 @@ function loadProducts(callback) {
 				output += '</td></tr><tr class="trec"><td img_sub_product_id="'+val.i+'" align="center"></td></tr></table></td>';
 			}
 		});
-		
+
 		$('#products').html('<table cellpadding="1" cellspacing="1"><tr>' + output + '</tr></table>'); 	// replace all existing content
 		if(typeof(callback) === 'function') callback();
 	});
@@ -629,21 +624,21 @@ function loadCountries(callback) {
 		sagRegionCaption = [];
 	}
 
-    $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
-        $.each(data, function (key, val) {
-            sagRegionCaption[val.i] = val.c;
-        });
-    });
+	$.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
+		$.each(data, function (key, val) {
+			sagRegionCaption[val.i] = val.c;
+		});
+	});
 	$.getJSON('./'+realm+'/countries'+suffix+'.json', function (data) {
-	  var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
-	  var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
+		var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
+		var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
 		var output = '<option value="" selected="">'+allCountries+'</option>';
 
 		$.each(data, function (key, val) {
 			output += '<option value="'+val.i+'">'+val.c+'</option>';
 			sagCountryCaption[val.i] = val.c;
 		});
-		
+
 		$('#id_country').html(output).trigger("chosen:updated"); 	// replace all existing content
 		$('#id_region').html('<option value="" selected="">'+allRegions+'</option>').trigger("chosen:updated"); 	// replace all existing content
 		if(typeof(callback) === 'function') callback();
@@ -682,30 +677,30 @@ function loadTowns(callback) {
 function loadRegions(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
-	
+
 	var svCountryId = $('#id_country').val();
 	var locale = getLocale();
 	var suffix = (locale == 'en') ? '_en' : '';
 	var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
 
-    $.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
-        var output = '<option value="" selected="">'+allRegions+'</option>';
+	$.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
+		var output = '<option value="" selected="">'+allRegions+'</option>';
 
-        if (svCountryId == null || svCountryId == '') {
-            $.each(data, function (key, val) {
-                output += '<option value="'+val.i+'">'+val.c+'</option>';
-            });
-        } else {
-            $.each(data, function (key, val) {
-                if(val.ci == svCountryId){
-                    output += '<option value="'+val.i+'">'+val.c+'</option>';
-                }
-            });
-        }
+		if (svCountryId == null || svCountryId == '') {
+			$.each(data, function (key, val) {
+				output += '<option value="'+val.i+'">'+val.c+'</option>';
+			});
+		} else {
+			$.each(data, function (key, val) {
+				if(val.ci == svCountryId){
+					output += '<option value="'+val.i+'">'+val.c+'</option>';
+				}
+			});
+		}
 
-        $('#id_region').html(output).trigger("chosen:updated");
+		$('#id_region').html(output).trigger("chosen:updated");
 		loadTowns(callback);
-    });
+	});
 	return false;
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
@@ -753,8 +748,8 @@ function changeProduct(productId) {
 		$('#img'+selected).attr('border','');
 	}
 	if ($('#img'+productId).length === 0 && $('#products > img[id]').length > 0){
-        productId = $('#products > img').eq(0).attr('id').replace("img", "");
-    }
+		productId = $('#products > img').eq(0).attr('id').replace("img", "");
+	}
 	$('#img'+productId).attr('border','1');
 	$('#id_product').val(productId);
 	loadData();
@@ -766,7 +761,7 @@ function selectCategoryByProduct(productId, callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
-	
+
 	$.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
 			if(productId === val.i){
@@ -779,107 +774,107 @@ function selectCategoryByProduct(productId, callback) {
 }
 
 function transformToAssocArray( prmstr ) {
-    var params = {};
-    var prmarr = prmstr.split("&");
-    for ( var i = 0; i < prmarr.length; i++) {
-        var tmparr = prmarr[i].split("=");
-        params[tmparr[0]] = tmparr[1];
-    }
-    return params;
+	var params = {};
+	var prmarr = prmstr.split("&");
+	for ( var i = 0; i < prmarr.length; i++) {
+		var tmparr = prmarr[i].split("=");
+		params[tmparr[0]] = tmparr[1];
+	}
+	return params;
 }
 function getSearchParameters() {
-      var prmstr = window.location.search.substr(1);
-      return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+	var prmstr = window.location.search.substr(1);
+	return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
 }
 function fillUpdateDate() {
 	$('#update_date').text(''); 	// replace all existing content
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var prefix = (getLocale() == 'en') ? 'updated' : 'обновлено';
-	
+
 	$.getJSON('./'+realm+'/updateDate.json', function (data) {
 		$('#update_date').text(prefix+': ' + data.d); 	// replace all existing content
 	});
 }
 function showCol(colID){
-    if (colID === 'pred'){
-        $('th#th_pred, td[id^=toggle_prediction_]', 'tr').show();
-    } else {
-        $('th#th_'+ colID +', td#td_' + colID, 'tr').show();
-    }
-    sagInvisibibleColumns = jQuery.grep(sagInvisibibleColumns, function(value) {
-      return value != colID;
-    });
+	if (colID === 'pred'){
+		$('th#th_pred, td[id^=toggle_prediction_]', 'tr').show();
+	} else {
+		$('th#th_'+ colID +', td#td_' + colID, 'tr').show();
+	}
+	sagInvisibibleColumns = jQuery.grep(sagInvisibibleColumns, function(value) {
+		return value != colID;
+	});
 }
 function hideCol(colID){
-    if (colID === 'pred'){
-        $('th#th_pred, td[id^=toggle_prediction_]', 'tr').hide();
-    } else {
-        $('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
-    }
-    sagInvisibibleColumns.push(colID);
+	if (colID === 'pred'){
+		$('th#th_pred, td[id^=toggle_prediction_]', 'tr').hide();
+	} else {
+		$('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
+	}
+	sagInvisibibleColumns.push(colID);
 }
 function showAllCol(){
-    $('select#show_hide_col_ru > option').each(function() {
-        var value = $(this).attr('value');
-        showCol(value);
-    });
-    sagInvisibibleColumns = [];
-    setVal('invisibible_columns_btac', sagInvisibibleColumns);
+	$('select#show_hide_col_ru > option').each(function() {
+		var value = $(this).attr('value');
+		showCol(value);
+	});
+	sagInvisibibleColumns = [];
+	setVal('invisibible_columns_btac', sagInvisibibleColumns);
 }
 function hideAllCol(){
-    $('select#show_hide_col_ru > option').each(function() {
-        var value = $(this).attr('value');
-        hideCol(value);
-    });
-    setVal('invisibible_columns_btac', sagInvisibibleColumns);
+	$('select#show_hide_col_ru > option').each(function() {
+		var value = $(this).attr('value');
+		hideCol(value);
+	});
+	setVal('invisibible_columns_btac', sagInvisibibleColumns);
 }
 function initShowHideColSelect() {
-    var show_hide_col_id = (getLocale() === 'en') ? "show_hide_col_en" : "show_hide_col_ru";
-    var show_hide_col = $("select#" + show_hide_col_id).multiselect();
+	var show_hide_col_id = (getLocale() === 'en') ? "show_hide_col_en" : "show_hide_col_ru";
+	var show_hide_col = $("select#" + show_hide_col_id).multiselect();
 
-    show_hide_col.multiselect({
-        click: function(event, ui){
-            if (ui.checked) {
-                showCol(ui.value);
-            } else {
-                hideCol(ui.value);
-            }
+	show_hide_col.multiselect({
+		click: function(event, ui){
+			if (ui.checked) {
+				showCol(ui.value);
+			} else {
+				hideCol(ui.value);
+			}
 			setVal('invisibible_columns_btac', sagInvisibibleColumns);
-        },
-        checkAll: function(){
-            showAllCol();
-        },
-        uncheckAll: function(){
-            hideAllCol();
-        }
-    });
+		},
+		checkAll: function(){
+			showAllCol();
+		},
+		uncheckAll: function(){
+			hideAllCol();
+		}
+	});
 
-    sagInvisibibleColumns = getVal('invisibible_columns_btac');
-    if (sagInvisibibleColumns == null) {
-        sagInvisibibleColumns = [];
-    } else {
-        $.each(sagInvisibibleColumns, function (key, val) {
+	sagInvisibibleColumns = getVal('invisibible_columns_btac');
+	if (sagInvisibibleColumns == null) {
+		sagInvisibibleColumns = [];
+	} else {
+		$.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
-            hideCol(val);
-            $("select#"+ show_hide_col_id +" > option[value="+val+"]").attr('selected',false);
-        });
-        show_hide_col.multiselect('refresh');
-    }
+			hideCol(val);
+			$("select#"+ show_hide_col_id +" > option[value="+val+"]").attr('selected',false);
+		});
+		show_hide_col.multiselect('refresh');
+	}
 }
 //////////////////////////////////////////////////////
 $(document).ready(function () {
-    var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
-    //только для локали, чтобы категории правильные загрузились сразу
-    if (hashParams != null && hashParams != '') {
-        for(var i = 0; i < hashParams.length; i++){
-            var p = hashParams[i].split('=');
-            if (p[0] === 'locale') {
-                setVal('locale', decodeURIComponent(p[1]));
-            }
-        }
-    }
-    initShowHideColSelect();
+	var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
+	//только для локали, чтобы категории правильные загрузились сразу
+	if (hashParams != null && hashParams != '') {
+		for(var i = 0; i < hashParams.length; i++){
+			var p = hashParams[i].split('=');
+			if (p[0] === 'locale') {
+				setVal('locale', decodeURIComponent(p[1]));
+			}
+		}
+	}
+	initShowHideColSelect();
 
 	$('#id_country').chosen({
 		inherit_select_classes: true
@@ -902,15 +897,15 @@ $(document).ready(function () {
 
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
-		
+
 	tableHead.addEventListener('click',function(e){
 		var tableBody = table.querySelector('tbody');
 		var tableHeader = e.target;
 		var isAscending;
 		var order;
-		
+
 		while (tableHeader.nodeName!=='TH') {
-				tableHeader = tableHeader.parentNode;
+			tableHeader = tableHeader.parentNode;
 		}
 		hideAllPredictions();
 
@@ -929,26 +924,39 @@ $(document).ready(function () {
 			var orderArrow = isAscending?'&#9660;':'&#9650;';
 			$('#sort_by_'+tableHeaderId).html(orderArrow);
 			tinysort(
-					tableBody.querySelectorAll('tr')
-					,{
-							selector:'td#td_'+tableHeaderId
-							,order: order
-					}
+				tableBody.querySelectorAll('tr')
+				,{
+					selector:'td#td_'+tableHeaderId
+					,order: order
+				}
 			);
 		}
 	});
 	loadSavedFlt();
 
 	if (hashParams != null && hashParams != '') {
-		for (var i = 0; i < hashParams.length; i++) {
+		for(var i = 0; i < hashParams.length; i++){
 			var p = hashParams[i].split('=');
 			document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
+		var id_product = $('#id_product').val();
+		var selectCategoryByProductCallback = function() {
+			changeProduct(id_product);
+		};
+		selectCategoryByProduct(id_product, selectCategoryByProductCallback);
+		window.location.hash = '';
+	} else {
+		var id_product = getProductID() || getVal('id_product');
+		var id_category = $('#id_category').val();
+		if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
+			var selectCategoryByProductCallback = function() {
+				changeProduct(id_product);
+			};
+			selectCategoryByProduct(id_product, selectCategoryByProductCallback);
+		}
 	}
-
 	if (getLocale() != 'ru') {
-		 $('#locale').val(getLocale());
+		$('#locale').val(getLocale());
 		applyLocale();
 	}
-	initDataLoad();
 });
