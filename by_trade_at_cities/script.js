@@ -438,6 +438,24 @@ function addHoverHandlers() {
         clearTimeout(timer);
     });
 }
+function updateUrl() {
+    var productID = getProductID();
+    var realm = getRealm();
+    var svColId = $('#sort_col_id').val();
+    var svOrder = $('#sort_dir').val();
+    var id_country = getVal('id_country');
+    var id_region = getVal('id_region');
+    var id_town = getVal('id_town');
+    window.history.pushState("", ""
+        , '#id_product='  + productID
+        + '&realm='       + realm 
+        + '&sort_col_id=' + svColId
+        + '&sort_dir='    + svOrder
+        + '&id_country='  + id_country
+        + '&id_region='   + id_region
+        + '&id_town='     + id_town
+    );
+}
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
@@ -452,8 +470,10 @@ function loadData() {
 	  return false;
 	}
 //    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
-	
-	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
+
+    updateUrl();
+
+    $.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 		var output = '';
 		var nvPredIdx = 1;
 		
