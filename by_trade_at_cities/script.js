@@ -940,11 +940,31 @@ $(document).ready(function () {
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
 		var id_product = $('#id_product').val();
-        var selectCategoryByProductCallback = function() {
-		    changeProduct(id_product);
-        };
-		selectCategoryByProduct(id_product, selectCategoryByProductCallback);
-		window.location.hash = '';
+
+		var loadProductsCallback = function() {
+			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
+			if (id_product == null || id_product == '') {
+				var selectCategoryByProductCallback = function() {
+					changeProduct(id_product);
+				};
+				selectCategoryByProduct(id_product, selectCategoryByProductCallback);
+			}
+		};
+		var changeRegionCallback = function() {
+			$('#id_town').trigger("chosen:updated");
+			changeTown();
+		};
+		var changeCountryCallback = function() {
+			$('#id_region').trigger("chosen:updated");
+			//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
+			changeRegion(changeRegionCallback);
+		};
+		var countryCallback = function() {
+			$('#id_country').trigger("chosen:updated");
+			//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
+			changeCountry(changeCountryCallback);
+		};
+		changeRealm(loadProductsCallback, countryCallback);
 	} else {
 		var id_product = getProductID() || getVal('id_product');
 		var id_category = $('#id_category').val();
