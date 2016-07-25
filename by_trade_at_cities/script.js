@@ -312,8 +312,9 @@ function loadSavedFlt(callback){
 				} else {
 					changeTown();
 				}
+			} else if(typeof(callback) === 'function') {
+				callback();
 			}
-			if(typeof(callback) === 'function') callback();
 		};
 		var changeCountryCallback = function() {
 			if (id_region != null || id_region != '') {
@@ -337,7 +338,7 @@ function loadSavedFlt(callback){
 		
 	} else {
 		loadProductCategories();
-		loadCountries();
+		loadCountries(callback);
 		fillUpdateDate();
 	}
 	/*$('input[type="text"]').each(function(){
