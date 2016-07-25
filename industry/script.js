@@ -667,6 +667,25 @@ function loadRecipe() {
 		unlockSubmit();
 	  });
 }
+function updateUrl() {
+	var productID = getProductID();
+	var realm = getRealm();
+	var svColId = $('#sort_col_id').val();
+	var svOrder = $('#sort_dir').val();
+	var techFrom = $('#techFrom').val();
+	var techTo = $('#techTo').val();
+	var qualityFrom = $('#qualityFrom').val();
+
+	window.history.pushState("", ""
+		, '#id_product='  + productID
+		+ '&realm='       + realm
+		+ '&sort_col_id=' + svColId
+		+ '&sort_dir='    + svOrder
+		+ '&techFrom='    + techFrom
+		+ '&techTo='      + techTo
+		+ '&qualityFrom=' + qualityFrom
+	);
+}
 function loadData() {
 	if (sagMaterialImg === null) return false;
 	if ($('#btnSubmit').attr('disabled') === 'disabled') {
@@ -677,6 +696,9 @@ function loadData() {
 	    $('#xtabletbody').html('');
 	}
 	tableCache = [];
+
+	updateUrl();
+
 	/*
 	- загрузить рецепт
 	- для каждого ингридиента загрузить остатки
