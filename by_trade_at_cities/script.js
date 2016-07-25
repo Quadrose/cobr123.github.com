@@ -940,9 +940,9 @@ $(document).ready(function () {
 		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
 		var id_product = $('#id_product').val();
-		var id_country = getVal('id_country');
-		var id_region = getVal('id_region');
-		var id_town = getVal('id_town');
+		var id_country = $('#id_country').val();
+		var id_region = $('#id_region').val();
+		var id_town = $('#id_town').val();
 
 		var loadProductsCallback = function() {
 			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
