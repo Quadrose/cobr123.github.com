@@ -260,7 +260,7 @@ function commaSeparateNumber(val, sep){
 	}
 	return val;
 }
-function loadSavedFlt(){
+function loadSavedFlt(callback){
 	//var params = getSearchParameters();
 	var realm = getVal('realm') || 'olga';
 	var id_country = getVal('id_country');
@@ -307,14 +307,21 @@ function loadSavedFlt(){
 		var changeRegionCallback = function() {
 			if (id_town != null || id_town != '') {
 				$('#id_town').val(id_town).trigger("chosen:updated");
-				changeTown();
+				if(typeof(callback) === 'function') {
+					callback();
+				} else {
+					changeTown();
+				}
 			}
+			if(typeof(callback) === 'function') callback();
 		};
 		var changeCountryCallback = function() {
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region).trigger("chosen:updated");
 				//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
 				changeRegion(changeRegionCallback);
+			} else {
+				changeRegionCallback();
 			}
   		};
 		var countryCallback = function() {
@@ -322,6 +329,8 @@ function loadSavedFlt(){
 				$('#id_country').val(id_country).trigger("chosen:updated");
 				//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
 				changeCountry(changeCountryCallback);
+			} else {
+				changeCountryCallback();
 			}
   		};
 		changeRealm(productCategoriesCallback, countryCallback);
@@ -932,50 +941,52 @@ $(document).ready(function () {
 			);
 		}
 	});
-	loadSavedFlt();
-	
-	if (hashParams != null && hashParams != '') {
-		for(var i = 0; i < hashParams.length; i++){
-		    var p = hashParams[i].split('=');
-		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
-		}
-		var id_product = $('#id_product').val();
-		var id_country = $('#id_country').val();
-		var id_region = $('#id_region').val();
-		var id_town = $('#id_town').val();
 
-		var loadProductsCallback = function() {
-			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
-			if (id_product != null && id_product != '') {
-				var selectCategoryByProductCallback = function() {
+	var loadSavedFltCallback = function() {
+		if (hashParams != null && hashParams != '') {
+			for (var i = 0; i < hashParams.length; i++) {
+				var p = hashParams[i].split('=');
+				document.getElementById(p[0]).value = decodeURIComponent(p[1]);
+			}
+			var id_product = $('#id_product').val();
+			var id_country = $('#id_country').val();
+			var id_region = $('#id_region').val();
+			var id_town = $('#id_town').val();
+
+			var loadProductsCallback = function () {
+				//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
+				if (id_product != null && id_product != '') {
+					var selectCategoryByProductCallback = function () {
+						changeProduct(id_product);
+					};
+					selectCategoryByProduct(id_product, selectCategoryByProductCallback);
+				}
+			};
+			var changeRegionCallback = function () {
+				$('#id_town').val(id_town).trigger("chosen:updated");
+				changeTown();
+			};
+			var changeCountryCallback = function () {
+				$('#id_region').val(id_region).trigger("chosen:updated");
+				changeRegion(changeRegionCallback);
+			};
+			var countryCallback = function () {
+				$('#id_country').val(id_country).trigger("chosen:updated");
+				changeCountry(changeCountryCallback);
+			};
+			changeRealm(loadProductsCallback, countryCallback);
+		} else {
+			var id_product = getProductID() || getVal('id_product');
+			var id_category = $('#id_category').val();
+			if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
+				var selectCategoryByProductCallback = function () {
 					changeProduct(id_product);
 				};
 				selectCategoryByProduct(id_product, selectCategoryByProductCallback);
 			}
-		};
-		var changeRegionCallback = function() {
-			$('#id_town').val(id_town).trigger("chosen:updated");
-			changeTown();
-		};
-		var changeCountryCallback = function() {
-			$('#id_region').val(id_region).trigger("chosen:updated");
-			changeRegion(changeRegionCallback);
-		};
-		var countryCallback = function() {
-			$('#id_country').val(id_country).trigger("chosen:updated");
-			changeCountry(changeCountryCallback);
-		};
-		changeRealm(loadProductsCallback, countryCallback);
-	} else {
-		var id_product = getProductID() || getVal('id_product');
-		var id_category = $('#id_category').val();
-		if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
-            var selectCategoryByProductCallback = function() {
-			    changeProduct(id_product);
-            };
-			selectCategoryByProduct(id_product, selectCategoryByProductCallback);
 		}
-	}
+	};
+	loadSavedFlt(loadSavedFltCallback);
 	if (getLocale() != 'ru') {
 		 $('#locale').val(getLocale());
 		applyLocale();
