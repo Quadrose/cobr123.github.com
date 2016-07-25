@@ -959,12 +959,10 @@ $(document).ready(function () {
 		};
 		var changeCountryCallback = function() {
 			$('#id_region').val(id_region).trigger("chosen:updated");
-			//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
 			changeRegion(changeRegionCallback);
 		};
 		var countryCallback = function() {
 			$('#id_country').val(id_country).trigger("chosen:updated");
-			//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
 			changeCountry(changeCountryCallback);
 		};
 		changeRealm(loadProductsCallback, countryCallback);
