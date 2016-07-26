@@ -269,7 +269,7 @@ function loadSavedFlt(urlParams){
 	var id_category = getVal('id_category');
 	var id_product  = getVal('id_product');
 
-	if (urlParams['realm'] != '' && urlParams['id_product'] != ''){
+	if (urlParams['realm'] != '' && urlParams['id_product'] != '') {
 		realm       = urlParams['realm'];
 		id_country  = urlParams['id_country'];
 		id_region   = urlParams['id_region'];
@@ -298,7 +298,6 @@ function loadSavedFlt(urlParams){
 				id_product = $('#products > img').eq(0).attr('id').replace("img", "");
 				if (id_product == null || id_product == '') return;
 				changeProduct(id_product);
-				updateProdRemainLinks();
 			}
 		};
 		var productCategoriesCallback = function() {
@@ -314,24 +313,18 @@ function loadSavedFlt(urlParams){
 			loadProducts(loadProductsCallback);
 		};
 		var changeRegionCallback = function() {
-			if (id_town != null || id_town != '') {
-				$('#id_town').val(id_town).trigger("chosen:updated");
-				changeTown();
-			}
+			$('#id_town').val(id_town).trigger("chosen:updated");
+			changeTown();
 		};
 		var changeCountryCallback = function() {
-			if (id_region != null || id_region != '') {
-				$('#id_region').val(id_region).trigger("chosen:updated");
-				//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
-				changeRegion(changeRegionCallback);
-			}
+			$('#id_region').val(id_region).trigger("chosen:updated");
+			//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
+			changeRegion(changeRegionCallback);
 		};
 		var countryCallback = function() {
-			if (id_country != null || id_country != '') {
-				$('#id_country').val(id_country).trigger("chosen:updated");
-				//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
-				changeCountry(changeCountryCallback);
-			}
+			$('#id_country').val(id_country).trigger("chosen:updated");
+			//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
+			changeCountry(changeCountryCallback);
 		};
 		changeRealm(productCategoriesCallback, countryCallback);
 
