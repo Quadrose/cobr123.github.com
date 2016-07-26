@@ -262,12 +262,21 @@ function commaSeparateNumber(val, sep){
 }
 function loadSavedFlt(urlParams){
 	//var params = getSearchParameters();
-	var realm       = urlParams['realm'] | getVal('realm') || 'olga';
-	var id_country  = urlParams['id_country'] | getVal('id_country');
-	var id_region   = urlParams['id_region'] | getVal('id_region');
-	var id_town     = urlParams['id_town'] | getVal('id_town');
-	var id_category = urlParams['id_category'] | getVal('id_category');
-	var id_product  = urlParams['id_product'] | getVal('id_product');
+	var realm       = getVal('realm') || 'olga';
+	var id_country  = getVal('id_country');
+	var id_region   = getVal('id_region');
+	var id_town     = getVal('id_town');
+	var id_category = getVal('id_category');
+	var id_product  = getVal('id_product');
+
+	if (urlParams['realm'] != '' && urlParams['id_product'] != ''){
+		realm       = urlParams['realm'];
+		id_country  = urlParams['id_country'];
+		id_region   = urlParams['id_region'];
+		id_town     = urlParams['id_town'];
+		id_category = urlParams['id_category'];
+		id_product  = urlParams['id_product'];
+	}
 
 	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_btac') || 'local_perc';
 	if (sort_col_id != null || sort_col_id != '') {
