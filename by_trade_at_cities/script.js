@@ -260,20 +260,20 @@ function commaSeparateNumber(val, sep){
 	}
 	return val;
 }
-function loadSavedFlt(){
+function loadSavedFlt(urlParams){
 	//var params = getSearchParameters();
-	var realm = getVal('realm') || 'olga';
-	var id_country = getVal('id_country');
-	var id_region = getVal('id_region');
-	var id_town = getVal('id_town');
-	var id_category = getVal('id_category');
-	var id_product = getVal('id_product');
+	var realm       = urlParams['realm'] | getVal('realm') || 'olga';
+	var id_country  = urlParams['id_country'] | getVal('id_country');
+	var id_region   = urlParams['id_region'] | getVal('id_region');
+	var id_town     = urlParams['id_town'] | getVal('id_town');
+	var id_category = urlParams['id_category'] | getVal('id_category');
+	var id_product  = urlParams['id_product'] | getVal('id_product');
 
-	var sort_col_id = getVal('sort_col_id_btac') || 'local_perc';
+	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_btac') || 'local_perc';
 	if (sort_col_id != null || sort_col_id != '') {
 		$('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = getVal('sort_dir_btac') || 'desc';
+	var sort_dir = urlParams['sort_dir'] | getVal('sort_dir_btac') || 'desc';
 	if (sort_dir != null || sort_dir != '') {
 		$('#sort_dir').val(sort_dir);
 	}
@@ -864,7 +864,8 @@ function initShowHideColSelect() {
 }
 //////////////////////////////////////////////////////
 $(document).ready(function () {
-	var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
+	var urlParams = [];
+	var hashParams = window.location.hash.substr(1).toLowerCase().split('&'); // substr(1) to remove the `#`
 	//только для локали, чтобы категории правильные загрузились сразу
 	if (hashParams != null && hashParams != '') {
 		for(var i = 0; i < hashParams.length; i++){
@@ -872,6 +873,7 @@ $(document).ready(function () {
 			if (p[0] === 'locale') {
 				setVal('locale', decodeURIComponent(p[1]));
 			}
+			urlParams[p[0]] = decodeURIComponent(p[1]);
 		}
 	}
 	initShowHideColSelect();
@@ -932,10 +934,10 @@ $(document).ready(function () {
 			);
 		}
 	});
-	loadSavedFlt();
+	loadSavedFlt(urlParams);
 
 	if (hashParams != null && hashParams != '') {
-		for(var i = 0; i < hashParams.length; i++){
+		/*for(var i = 0; i < hashParams.length; i++){
 			var p = hashParams[i].split('=');
 			document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
@@ -944,7 +946,7 @@ $(document).ready(function () {
 			changeProduct(id_product);
 		};
 		selectCategoryByProduct(id_product, selectCategoryByProductCallback);
-		window.location.hash = '';
+		window.location.hash = '';*/
 	} else {
 		var id_product = getProductID() || getVal('id_product');
 		var id_category = $('#id_category').val();
