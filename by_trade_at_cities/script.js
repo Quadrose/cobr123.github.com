@@ -914,7 +914,7 @@ $(document).ready(function () {
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
-			ascDesc = tableHeader.getAttribute('data-order');
+			var ascDesc = tableHeader.getAttribute('data-order');
 			isAscending = ascDesc=='asc';
 			order = isAscending?'desc':'asc';
 			tableHeader.setAttribute('data-order',order);
