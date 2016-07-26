@@ -236,8 +236,6 @@ function updateUrl() {
 		, '#id_service='      + serviceID
 		+ '&id_service_spec=' + serviceSpecID
 		+ '&realm='           + realm
-		+ '&sort_col_id='     + svColId
-		+ '&sort_dir='        + svOrder
 		+ '&id_country='      + id_country
 		+ '&id_region='       + id_region
 		+ '&id_town='         + id_town
@@ -245,6 +243,8 @@ function updateUrl() {
 		+ '&percentTo='       + percentTo
 		+ '&priceFrom='       + priceFrom
 		+ '&priceTo='         + priceTo
+		+ '&sort_col_id='     + svColId
+		+ '&sort_dir='        + svOrder
 	);
 }
 //////////////////////////////////////////////////////

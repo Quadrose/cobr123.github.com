@@ -679,11 +679,11 @@ function updateUrl() {
 	window.history.pushState("", ""
 		, '#id_product='  + productID
 		+ '&realm='       + realm
-		+ '&sort_col_id=' + svColId
-		+ '&sort_dir='    + svOrder
 		+ '&techFrom='    + techFrom
 		+ '&techTo='      + techTo
 		+ '&qualityFrom=' + qualityFrom
+		+ '&sort_col_id=' + svColId
+		+ '&sort_dir='    + svOrder
 	);
 }
 function loadData() {

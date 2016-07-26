@@ -447,11 +447,11 @@ function updateUrl() {
 	window.history.pushState("", ""
 		, '#id_product='  + productID
 		+ '&realm='       + realm
-		+ '&sort_col_id=' + svColId
-		+ '&sort_dir='    + svOrder
 		+ '&id_country='  + id_country
 		+ '&id_region='   + id_region
 		+ '&id_town='     + id_town
+		+ '&sort_col_id=' + svColId
+		+ '&sort_dir='    + svOrder
 	);
 }
 //////////////////////////////////////////////////////
