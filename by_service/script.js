@@ -225,9 +225,9 @@ function updateUrl() {
 	var realm = getRealm();
 	var svColId = $('#sort_col_id').val();
 	var svOrder = $('#sort_dir').val();
-	var id_country = getVal('id_country');
-	var id_region = getVal('id_region');
-	var id_town = getVal('id_town');
+	var id_country = $('#id_country').val();
+	var id_region = $('#id_region').val();
+	var id_town = $('#id_town').val();
 	var percentFrom = $('#percentFrom').val();
 	var percentTo = $('#percentTo').val();
 	var priceFrom = $('#priceFrom').val();
