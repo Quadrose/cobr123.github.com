@@ -677,9 +677,11 @@ function loadRecipe() {
 	  });
 }
 function fillFormFromUrl(urlParams){
+	var newVal = '';
 	['techFrom', 'techTo', 'qualityFrom'].map( function(attrID) {
-		if(urlParams[attrID] !== null && urlParams[attrID] != '') {
-			$('#' + attrID).val(urlParams[attrID]);
+		newVal = urlParams[attrID];
+		if(newVal !== null && newVal != '') {
+			$('#' + attrID).val(newVal);
 		}
 	});
 }

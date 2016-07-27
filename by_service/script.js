@@ -215,9 +215,11 @@ function getColStyle(spColID){
 	}
 }
 function fillFormFromUrl(urlParams){
+	var newVal = '';
 	['percentFrom', 'percentTo', 'priceFrom', 'priceTo'].map( function(attrID) {
-		if(urlParams[attrID] !== null && urlParams[attrID] != '') {
-			$('#' + attrID).val(urlParams[attrID]);
+		newVal = urlParams[attrID];
+		if(newVal !== null && newVal != '') {
+			$('#' + attrID).val(newVal);
 		}
 	});
 }
