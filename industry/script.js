@@ -102,8 +102,8 @@ function loadSavedFlt(urlParams){
 	    $('#sort_dir').val(sort_dir);
 	}
 	
-	$('#techFrom').val(getVal('techFrom') || 10);
-	$('#techTo').val(getVal('techTo') || 10);
+	$('#tech_from').val(getVal('tech_from') || 10);
+	$('#tech_to').val(getVal('tech_to') || 10);
 	$('#workQuan').val(getVal('workQuan') || 10000);
 	$('#workSalary').val(getVal('workSalary') || 300);
 	$('#volumeFrom_'+id_product).val(getVal('volumeFrom_'+id_product) || getVal('volumeFrom') || 1);
@@ -163,7 +163,7 @@ function addToResultCache(val){
 	//console.log('val.quality = ' + val.quality);
 	//console.log('val.cost = ' + val.cost);
 	
-	if (suitable && val.quality >= parseFloatFromFilter("#qualityFrom", val.quality)) {suitable = true;} else {suitable = false;}
+	if (suitable && val.quality >= parseFloatFromFilter("#quality_from", val.quality)) {suitable = true;} else {suitable = false;}
 	if (suitable && val.quality <= parseFloatFromFilter('#qualityTo', val.quality)) {suitable = true;} else {suitable = false;}
 	
 	if (suitable && val.cost >= parseFloatFromFilter('#costFrom', val.cost)) {suitable = true;} else {suitable = false;}
@@ -501,13 +501,13 @@ function calcProduction(recipe) {
 		console.log('calcProduction not all ingredients has remains');
 		return;
 	}
-	var techFrom = $("#techFrom").val() || 10;
-	var techTo = $("#techTo").val() || techFrom;
-	if (techTo < techFrom) {
-		techTo = techFrom;
+	var tech_from = $("#tech_from").val() || 10;
+	var tech_to = $("#tech_to").val() || tech_from;
+	if (tech_to < tech_from) {
+		tech_to = tech_from;
 	}
-	setVal('techFrom', techFrom);
-	setVal('techTo', techTo);
+	setVal('tech_from', tech_from);
+	setVal('tech_to', tech_to);
 	setVal('workQuan', $('#workQuan').val());
 	setVal('workSalary', $('#workSalary').val());
 	//setVal('volumeFrom', $('#volumeFrom').val());
@@ -517,7 +517,7 @@ function calcProduction(recipe) {
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
-	var techDiff = techTo - techFrom + 1;
+	var techDiff = tech_to - tech_from + 1;
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	//materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
 	//materials.splice(10000/techDiff);
@@ -525,7 +525,7 @@ function calcProduction(recipe) {
 	materials.splice(10000/techDiff);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 
-	for (var tech = techFrom; tech <= techTo; tech++) {
+	for (var tech = tech_from; tech <= tech_to; tech++) {
 	  console.log('calcResult for tech = ' + tech);
 		materials.forEach(function(mats) {
 			var result = calcResult(recipe, mats, tech);
@@ -678,7 +678,7 @@ function loadRecipe() {
 }
 function fillFormFromUrl(urlParams){
 	var newVal = '';
-	['techFrom', 'techTo', 'qualityFrom'].map( function(attrID) {
+	['tech_from', 'tech_to', 'quality_from'].map( function(attrID) {
 		newVal = urlParams[attrID];
 		if(newVal != null && newVal != '') {
 			$('#' + attrID).val(newVal);
@@ -690,16 +690,16 @@ function updateUrl() {
 	var realm = getRealm();
 	var svColId = $('#sort_col_id').val();
 	var svOrder = $('#sort_dir').val();
-	var techFrom = $('#techFrom').val();
-	var techTo = $('#techTo').val();
-	var qualityFrom = $('#qualityFrom').val();
+	var tech_from = $('#tech_from').val();
+	var tech_to = $('#tech_to').val();
+	var quality_from = $('#quality_from').val();
 
 	window.history.pushState("", ""
 		, '#id_product='  + productID
 		+ '&realm='       + realm
-		+ '&techFrom='    + strToNum(techFrom)
-		+ '&techTo='      + strToNum(techTo)
-		+ '&qualityFrom=' + strToNum(qualityFrom)
+		+ '&tech_from='    + strToNum(tech_from)
+		+ '&tech_to='      + strToNum(tech_to)
+		+ '&quality_from=' + strToNum(quality_from)
 		+ '&sort_col_id=' + svColId
 		+ '&sort_dir='    + svOrder
 	);
