@@ -938,29 +938,14 @@ $(document).ready(function () {
 			);
 		}
 	});
-	loadSavedFlt(urlParams);
-
 	if (hashParams != null && hashParams != '') {
-		/*for(var i = 0; i < hashParams.length; i++){
+		for(var i = 0; i < hashParams.length; i++){
 			var p = hashParams[i].split('=');
 			document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
-		var id_product = $('#id_product').val();
-		var selectCategoryByProductCallback = function() {
-			changeProduct(id_product);
-		};
-		selectCategoryByProduct(id_product, selectCategoryByProductCallback);
-		window.location.hash = '';*/
-	} else {
-		var id_product = getProductID() || getVal('id_product');
-		var id_category = $('#id_category').val();
-		if (id_product != null && id_product != '' && (id_category === null || id_category === '')) {
-			var selectCategoryByProductCallback = function() {
-				changeProduct(id_product);
-			};
-			selectCategoryByProduct(id_product, selectCategoryByProductCallback);
-		}
 	}
+	loadSavedFlt(urlParams);
+
 	if (getLocale() != 'ru') {
 		$('#locale').val(getLocale());
 		applyLocale();
