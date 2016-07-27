@@ -180,6 +180,9 @@ function loadSavedFlt(urlParams){
 			$(this).val(commaSeparateNumber($(this).val(),' '));
       });
 }
+function strToNum(spStr){
+	return parseFloat(spStr.replace(',', '.').replace(/\s+/g,''),10);
+}
 function parseFloatFromFilter(spSelector, npDefVal){
 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
 }
@@ -239,10 +242,10 @@ function updateUrl() {
 		+ '&id_country='      + id_country
 		+ '&id_region='       + id_region
 		+ '&id_town='         + id_town
-		+ '&percentFrom='     + percentFrom
-		+ '&percentTo='       + percentTo
-		+ '&priceFrom='       + priceFrom
-		+ '&priceTo='         + priceTo
+		+ '&percentFrom='     + strToNum(percentFrom)
+		+ '&percentTo='       + strToNum(percentTo)
+		+ '&priceFrom='       + strToNum(priceFrom)
+		+ '&priceTo='         + strToNum(priceTo)
 		+ '&sort_col_id='     + svColId
 		+ '&sort_dir='        + svOrder
 	);

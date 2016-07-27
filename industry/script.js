@@ -695,9 +695,9 @@ function updateUrl() {
 	window.history.pushState("", ""
 		, '#id_product='  + productID
 		+ '&realm='       + realm
-		+ '&techFrom='    + techFrom
-		+ '&techTo='      + techTo
-		+ '&qualityFrom=' + qualityFrom
+		+ '&techFrom='    + strToNum(techFrom)
+		+ '&techTo='      + strToNum(techTo)
+		+ '&qualityFrom=' + strToNum(qualityFrom)
 		+ '&sort_col_id=' + svColId
 		+ '&sort_dir='    + svOrder
 	);
