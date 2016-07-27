@@ -261,7 +261,6 @@ function commaSeparateNumber(val, sep){
 	return val;
 }
 function loadSavedFlt(urlParams){
-	//var params = getSearchParameters();
 	var realm       = getVal('realm') || 'olga';
 	var id_country  = getVal('id_country');
 	var id_region   = getVal('id_region');
@@ -275,6 +274,7 @@ function loadSavedFlt(urlParams){
 		id_region   = urlParams['id_region'];
 		id_town     = urlParams['id_town'];
 		id_product  = urlParams['id_product'];
+		fillFormFromUrl(urlParams);
 	}
 
 	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_btac') || 'local_perc';
@@ -441,6 +441,8 @@ function addHoverHandlers() {
 		//Do mouse leaving function stuff here
 		clearTimeout(timer);
 	});
+}
+function fillFormFromUrl(urlParams){
 }
 function updateUrl() {
 	var productID = getProductID();

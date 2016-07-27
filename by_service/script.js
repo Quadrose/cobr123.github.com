@@ -132,6 +132,7 @@ function loadSavedFlt(urlParams){
 		id_region   = urlParams['id_region'];
 		id_town     = urlParams['id_town'];
 		id_service  = urlParams['id_service'];
+		fillFormFromUrl(urlParams);
 	}
 
 	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_service') || 'perc';
@@ -218,6 +219,13 @@ function getColStyle(spColID){
 	} else {
 		return '';
 	}
+}
+function fillFormFromUrl(urlParams){
+	['percentFrom', 'percentTo', 'priceFrom', 'priceTo'].map( function(attrID) {
+		if(urlParams[attrID] !== null && urlParams[attrID] != '') {
+			$('#' + attrID).val(urlParams[attrID]);
+		}
+	});
 }
 function updateUrl() {
 	var serviceID = getServiceID();

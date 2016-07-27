@@ -83,7 +83,6 @@ function commaSeparateNumber(val, sep){
 	return val;
 }
 function loadSavedFlt(urlParams){
-	//var params = getSearchParameters();
 	var realm       = getVal('realm') || 'olga';
 	var id_category = getVal('id_category');
 	var id_product  = getVal('id_product');
@@ -91,6 +90,7 @@ function loadSavedFlt(urlParams){
 	if (Object.keys(urlParams).length > 0 && urlParams['realm'] != '' && urlParams['id_product'] != '') {
 		realm       = urlParams['realm'];
 		id_product  = urlParams['id_product'];
+		fillFormFromUrl(urlParams);
 	}
 
 	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_ind') || 'costperqua';
@@ -675,6 +675,13 @@ function loadRecipe() {
 	  .fail(function() {
 		unlockSubmit();
 	  });
+}
+function fillFormFromUrl(urlParams){
+	['techFrom', 'techTo', 'qualityFrom'].map( function(attrID) {
+		if(urlParams[attrID] !== null && urlParams[attrID] != '') {
+			$('#' + attrID).val(urlParams[attrID]);
+		}
+	});
 }
 function updateUrl() {
 	var productID = getProductID();
