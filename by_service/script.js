@@ -125,6 +125,7 @@ function loadSavedFlt(urlParams){
 	var id_region  = getVal('id_region');
 	var id_town    = getVal('id_town');
 	var id_service = getVal('id_service');
+	var id_service_spec = getVal('id_service_spec');
 
 	if (Object.keys(urlParams).length > 0 && urlParams['realm'] != '' && urlParams['id_service'] != '') {
 		realm       = urlParams['realm'];
@@ -132,6 +133,7 @@ function loadSavedFlt(urlParams){
 		id_region   = urlParams['id_region'];
 		id_town     = urlParams['id_town'];
 		id_service  = urlParams['id_service'];
+		id_service_spec  = urlParams['id_service_spec'];
 		fillFormFromUrl(urlParams);
 	}
 
@@ -146,19 +148,6 @@ function loadSavedFlt(urlParams){
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
-		var loadProductsCallback = function() {
-			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
-			if (id_service == null || id_service == '') {
-                id_service = $('#services > img').eq(0).attr('id').replace("img", "");
-                if (id_service == null || id_service == '') return;
-			}
-            $('#id_service').val(id_service);
-            loadServices(loadData);
-	        updateReferenceLink();
-		};
-		var productCategoriesCallback = function() {
-			loadServices(loadProductsCallback);
-  		};
 		var changeRegionCallback = function() {
 			$('#id_town').val(id_town).trigger("chosen:updated");
 			changeTown();
@@ -171,7 +160,9 @@ function loadSavedFlt(urlParams){
 			$('#id_country').val(id_country).trigger("chosen:updated");
 			changeCountry(changeCountryCallback);
   		};
-		changeRealm(productCategoriesCallback, countryCallback);
+		$('#id_service').val(id_service);
+		setVal('id_service_spec', id_service_spec)
+		changeRealm(null, countryCallback);
 		
 	} else {
 		loadServices();
