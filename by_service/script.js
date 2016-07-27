@@ -216,7 +216,7 @@ function getColStyle(spColID){
 }
 function fillFormFromUrl(urlParams){
 	var newVal = '';
-	['percentFrom', 'percentTo', 'priceFrom', 'priceTo'].map( function(attrID) {
+	['percent_from', 'percent_to', 'price_from', 'price_to'].map( function(attrID) {
 		newVal = urlParams[attrID];
 		if(newVal != null && newVal != '') {
 			$('#' + attrID).val(newVal);
@@ -232,10 +232,10 @@ function updateUrl() {
 	var id_country = $('#id_country').val();
 	var id_region = $('#id_region').val();
 	var id_town = $('#id_town').val();
-	var percentFrom = $('#percentFrom').val();
-	var percentTo = $('#percentTo').val();
-	var priceFrom = $('#priceFrom').val();
-	var priceTo = $('#priceTo').val();
+	var percent_from = $('#percent_from').val();
+	var percent_to = $('#percent_to').val();
+	var price_from = $('#price_from').val();
+	var price_to = $('#price_to').val();
 
 	window.history.pushState("", ""
 		, '#id_service='      + serviceID
@@ -244,10 +244,10 @@ function updateUrl() {
 		+ '&id_country='      + id_country
 		+ '&id_region='       + id_region
 		+ '&id_town='         + id_town
-		+ '&percentFrom='     + strToNum(percentFrom)
-		+ '&percentTo='       + strToNum(percentTo)
-		+ '&priceFrom='       + strToNum(priceFrom)
-		+ '&priceTo='         + strToNum(priceTo)
+		+ '&percent_from='     + strToNum(percent_from)
+		+ '&percent_to='       + strToNum(percent_to)
+		+ '&price_from='       + strToNum(price_from)
+		+ '&price_to='         + strToNum(price_to)
 		+ '&sort_col_id='     + svColId
 		+ '&sort_dir='        + svOrder
 	);
@@ -284,13 +284,13 @@ function loadData() {
 			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ti == nvl($('#id_town').val(),val.ti)) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.p >= parseFloatFromFilter('#priceFrom',val.p)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.p <= parseFloatFromFilter('#priceTo',val.p)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.p >= parseFloatFromFilter('#price_from',val.p)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.p <= parseFloatFromFilter('#price_to',val.p)) {suitable = true;} else {suitable = false;}
 
             percent = val.pbs[serviceSpec] || 0;
 			if (suitable){
                 suitable = false;
-                if(percent >= parseFloatFromFilter('#percentFrom',percent) && percent <= parseFloatFromFilter('#percentTo',percent)) {
+                if(percent >= parseFloatFromFilter('#percent_from',percent) && percent <= parseFloatFromFilter('#percent_to',percent)) {
                     suitable = true;
                 }
             }
