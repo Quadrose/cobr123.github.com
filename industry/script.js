@@ -680,7 +680,7 @@ function fillFormFromUrl(urlParams){
 	var newVal = '';
 	['techFrom', 'techTo', 'qualityFrom'].map( function(attrID) {
 		newVal = urlParams[attrID];
-		if(newVal !== null && newVal != '') {
+		if(newVal != null && newVal != '') {
 			$('#' + attrID).val(newVal);
 		}
 	});
