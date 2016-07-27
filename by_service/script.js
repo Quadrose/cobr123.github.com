@@ -584,7 +584,7 @@ function loadRegions(callback) {
 function changeRealm(productCategoriesCallback, countryCallback) {
 	fillTownCaptions();
 	loadServices(productCategoriesCallback);
-	id_country = getVal('id_country');
+	var id_country = getVal('id_country');
     if(typeof(countryCallback) !== 'function') {
         if(id_country != null && id_country != '') {
             var regionCallback = function() {
