@@ -161,7 +161,7 @@ function loadSavedFlt(urlParams){
 			changeCountry(changeCountryCallback);
   		};
 		$('#id_service').val(id_service);
-		setVal('id_service_spec', id_service_spec)
+		setVal('id_service_spec', id_service_spec);
 		changeRealm(null, countryCallback);
 		
 	} else {
