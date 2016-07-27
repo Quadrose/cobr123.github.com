@@ -938,12 +938,6 @@ $(document).ready(function () {
 			);
 		}
 	});
-	if (hashParams != null && hashParams != '') {
-		for(var i = 0; i < hashParams.length; i++){
-			var p = hashParams[i].split('=');
-			document.getElementById(p[0]).value = decodeURIComponent(p[1]);
-		}
-	}
 	loadSavedFlt(urlParams);
 
 	if (getLocale() != 'ru') {
