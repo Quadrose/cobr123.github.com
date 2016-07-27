@@ -181,10 +181,14 @@ function loadSavedFlt(urlParams){
       });
 }
 function strToNum(spStr){
-	return parseFloat(spStr.replace(',', '.').replace(/\s+/g,''),10);
+    if (spStr == null) {
+        return null;
+    } else {
+        return parseFloat(spStr.replace(',', '.').replace(/\s+/g, ''), 10);
+    }
 }
 function parseFloatFromFilter(spSelector, npDefVal){
-	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
+    return strToNum($(spSelector).val()) || npDefVal;
 }
 var sagTownCaption = null;
 var sagCountryCaption = null;
