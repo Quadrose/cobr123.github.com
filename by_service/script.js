@@ -119,18 +119,26 @@ function commaSeparateNumber(val, sep){
 	}
 	return val;
 }
-function loadSavedFlt(){
-	var realm = getVal('realm') || 'olga';
+function loadSavedFlt(urlParams){
+	var realm      = getVal('realm') || 'olga';
 	var id_country = getVal('id_country');
-	var id_region = getVal('id_region');
-	var id_town = getVal('id_town');
+	var id_region  = getVal('id_region');
+	var id_town    = getVal('id_town');
 	var id_service = getVal('id_service');
 
-	var sort_col_id = getVal('sort_col_id_service') || 'perc';
+	if (Object.keys(urlParams).length > 0 && urlParams['realm'] != '' && urlParams['id_service'] != '') {
+		realm       = urlParams['realm'];
+		id_country  = urlParams['id_country'];
+		id_region   = urlParams['id_region'];
+		id_town     = urlParams['id_town'];
+		id_service  = urlParams['id_service'];
+	}
+
+	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_service') || 'perc';
 	if (sort_col_id != null || sort_col_id != '') {
 	    $('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = getVal('sort_dir_service') || 'asc';
+	var sort_dir = urlParams['sort_dir'] | getVal('sort_dir_service') || 'asc';
 	if (sort_dir != null || sort_dir != '') {
 	    $('#sort_dir').val(sort_dir);
 	}
@@ -151,24 +159,16 @@ function loadSavedFlt(){
 			loadServices(loadProductsCallback);
   		};
 		var changeRegionCallback = function() {
-			if (id_town != null || id_town != '') {
-				$('#id_town').val(id_town).trigger("chosen:updated");
-				changeTown();
-			}
+			$('#id_town').val(id_town).trigger("chosen:updated");
+			changeTown();
 		};
 		var changeCountryCallback = function() {
-			if (id_region != null || id_region != '') {
-				$('#id_region').val(id_region).trigger("chosen:updated");
-				//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
-				changeRegion(changeRegionCallback);
-			}
+			$('#id_region').val(id_region).trigger("chosen:updated");
+			changeRegion(changeRegionCallback);
   		};
 		var countryCallback = function() {
-			if (id_country != null || id_country != '') {
-				$('#id_country').val(id_country).trigger("chosen:updated");
-				//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
-				changeCountry(changeCountryCallback);
-			}
+			$('#id_country').val(id_country).trigger("chosen:updated");
+			changeCountry(changeCountryCallback);
   		};
 		changeRealm(productCategoriesCallback, countryCallback);
 		
@@ -232,6 +232,7 @@ function updateUrl() {
 	var percentTo = $('#percentTo').val();
 	var priceFrom = $('#priceFrom').val();
 	var priceTo = $('#priceTo').val();
+
 	window.history.pushState("", ""
 		, '#id_service='      + serviceID
 		+ '&id_service_spec=' + serviceSpecID
@@ -715,7 +716,8 @@ function initShowHideColSelect() {
 }
 //////////////////////////////////////////////////////
 $(document).ready(function () {
-	var hashParams = window.location.hash.substr(1).split('&'); // substr(1) to remove the `#`
+	var urlParams = [];
+	var hashParams = window.location.hash.substr(1).toLowerCase().split('&'); // substr(1) to remove the `#`
 	//только для локали, чтобы категории правильные загрузились сразу
 	if (hashParams != null && hashParams != '') {
 		for(var i = 0; i < hashParams.length; i++){
@@ -723,6 +725,7 @@ $(document).ready(function () {
 			if (p[0] === 'locale') {
 				setVal('locale', decodeURIComponent(p[1]));
 			}
+			urlParams[p[0]] = decodeURIComponent(p[1]);
 		}
 	}
 	initShowHideColSelect();
@@ -782,15 +785,14 @@ $(document).ready(function () {
 			);
 		}
 	});
-	loadSavedFlt();
-	
 	if (hashParams != null && hashParams != '') {
 		for(var i = 0; i < hashParams.length; i++){
-		    var p = hashParams[i].split('=');
-		    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
+			var p = hashParams[i].split('=');
+			document.getElementById(p[0]).value = decodeURIComponent(p[1]);
 		}
-		window.location.hash = '';
 	}
+	loadSavedFlt(urlParams);
+
 	if (getLocale() != 'ru') {
 		 $('#locale').val(getLocale());
 		applyLocale();
