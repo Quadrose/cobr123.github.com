@@ -12,6 +12,20 @@ function getDomain(locale) {
 		return 'virtonomica.ru';
 	}
 }
+function view_graph(item,city) {
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	var locale = getLocale();
+	var domain = getDomain(locale);
+	$("#graph").html('<div style="position: fixed; bottom:250px; right:15px;">'
+	+ '<a href="#" onclick="clear_graph(); return false;">x</a></div>'
+	+ '<img src="http://'+domain+'/'+realm+'/graph/globalreport/marketing/product/'+item+'/'+city+'/" width="900" height="250" style="border: 1px solid #CCCCCC; padding: 5px; margin: 3px;">'
+	);
+	//alert('http://virtonomica.ru/vera/graph/globalreport/marketing/product/'+item+'/'+city+'/');
+}
+function clear_graph() {
+	$("#graph").html('');
+}
 function updateProdRemainLinks(){
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
@@ -518,6 +532,7 @@ function loadData() {
 			if(suitable){
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td field_name="graph" '+getColStyle('graph')+' align="right" id="td_graph"><a href="#" onclick="view_graph('+val.pi+','+val.ti+'); return false;"><img src="/img/graph.png" width="18"></a></td>';
 				output += '<td '+getColStyle('w_idx')+' align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td field_name="mi" '+getColStyle('idx')+' align="center" id="td_idx">'+val.mi+'</td>';
 				output += '<td field_name="v" '+getColStyle('volume')+' align="right" id="td_volume">'+val.v+'</td>';
