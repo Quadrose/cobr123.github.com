@@ -425,6 +425,7 @@ function updateOthers(townID, attr){
 	$('td[img_sub_product_id]').each(function() {
 		var cell = $(this);
 		var productID = cell.attr('img_sub_product_id');
+		cell.attr('town_id', townID);
 		$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
 			$.each(data, function (key, val) {
 				if(townID === val.ti){
