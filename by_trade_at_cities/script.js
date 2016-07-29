@@ -456,6 +456,27 @@ function addHoverHandlers() {
 		clearTimeout(timer);
 	});
 }
+function addImgSubProdHoverHandlers() {
+	var timer;
+	var delay = 500;
+
+	$('td[img_sub_product_id]').hover(function() {
+		var cell = $(this);
+		var town_id = cell.attr('town_id');
+		var product_id = cell.attr('img_sub_product_id');
+		if (town_id != '') {
+			//on mouse hover, start a timeout
+			timer = setTimeout(function() {
+				//Do your stuff here
+				view_graph(product_id,town_id);
+			}, delay);
+		}
+	}, function() {
+		//Do mouse leaving function stuff here
+		clearTimeout(timer);
+		clear_graph();
+	});
+}
 function fillFormFromUrl(urlParams){
 }
 function updateUrl() {
@@ -625,11 +646,11 @@ function loadProducts(callback) {
 					output += ' border="1"';
 				}
 				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeProduct('+val.i+')">';
-				output += '</td></tr><tr class="trec"><td img_sub_product_id="'+val.i+'" align="center"></td></tr></table></td>';
+				output += '</td></tr><tr class="trec"><td img_sub_product_id="'+val.i+'" town_id="" align="center"></td></tr></table></td>';
 			}
 		});
-
-		$('#products').html('<table cellpadding="1" cellspacing="1"><tr>' + output + '</tr></table>'); 	// replace all existing content
+		$('#products').html('<table cellpadding="1" cellspacing="1"><tr>' + output + '</tr></table>');
+		addImgSubProdHoverHandlers();
 		if(typeof(callback) === 'function') callback();
 	});
 	return false;
