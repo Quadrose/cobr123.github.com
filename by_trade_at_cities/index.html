@@ -55,14 +55,45 @@
 </select>&nbsp;<select id="id_town" onchange="changeTown();"><option value="" selected="">Все города</option>
 </select>
 <br>
-<u><b><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span> </b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="number" id="wealthIndexFrom" size="5" maxlength="6" value="0"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="number" id="wealthIndexTo" size="8" maxlength="8" value="100000000"><br>
-<u><b><span lang="en" style="display:none">Volume</span><span lang="ru">Объём</span> </b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="number" id="volumeFrom" size="5" maxlength="6" value="1"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="number" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
-<u><b><span lang="en" style="display:none">Local suppliers, %</span><span lang="ru">Местные, %</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="number" id="localPercentFrom" size="5" maxlength="6" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="number" id="localPercentTo" size="5" maxlength="6" value="100.00"><br>
-<u><b><span lang="en" style="display:none">Local suppliers: price</span><span lang="ru">Местные: цена</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="number" id="localPriceFrom" size="12" maxlength="12" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="number" id="localPriceTo" size="12" maxlength="12" value="1000000.00">,
-<u><b><span lang="en" style="display:none">quality</span><span lang="ru">качество</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="number" id="localQualityFrom" size="7" maxlength="7" value="1.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="number" id="localQualityTo" size="7" maxlength="7" value="1000.00"><br>
-<u><b><span lang="en" style="display:none">Stores: price</span><span lang="ru">Магазины, цена</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="number" id="shopPriceFrom" size="12" maxlength="12" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="number" id="shopPriceTo" size="12" maxlength="12" value="1000000.00">,
-<u><b><span lang="en" style="display:none">quality</span><span lang="ru">качество</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="number" id="shopQualityFrom" size="7" maxlength="7" value="1.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="number" id="shopQualityTo" size="7" maxlength="7" value="1000.00"><br>,
-<u><b><span lang="en" style="display:none">brand</span><span lang="ru">бренд</span></b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span> <input type="number" id="shopBrandFrom" size="7" maxlength="7" value="0.00"> <span lang="en" style="display:none">to</span><span lang="ru">до</span> <input type="number" id="shopBrandTo" size="7" maxlength="7" value="100.00"><br>
+<u><b><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span> </b></u> <span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" id="wealthIndexFrom" size="5" maxlength="6" value="0">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" id="wealthIndexTo" size="8" maxlength="8" value="100000000"><br>
+<u><b><span lang="en" style="display:none">Volume</span><span lang="ru">Объём</span> </b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" id="volumeFrom" size="5" maxlength="6" value="1">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
+<u><b><span lang="en" style="display:none">Local suppliers, %</span><span lang="ru">Местные, %</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="localPercentFrom" size="5" maxlength="6" value="0.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="localPercentTo" size="5" maxlength="6" value="100.00"><br>
+<u><b><span lang="en" style="display:none">Local suppliers: price</span><span lang="ru">Местные: цена</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="localPriceFrom" size="12" maxlength="12" value="0.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="localPriceTo" size="12" maxlength="12" value="1000000.00">,
+<u><b><span lang="en" style="display:none">quality</span><span lang="ru">качество</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="localQualityFrom" size="7" maxlength="7" value="1.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="localQualityTo" size="7" maxlength="7" value="1000.00"><br>
+<u><b><span lang="en" style="display:none">Stores: price</span><span lang="ru">Магазины, цена</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="shopPriceFrom" size="12" maxlength="12" value="0.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="shopPriceTo" size="12" maxlength="12" value="1000000.00">,
+<u><b><span lang="en" style="display:none">quality</span><span lang="ru">качество</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="shopQualityFrom" size="7" maxlength="7" value="1.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="shopQualityTo" size="7" maxlength="7" value="1000.00"><br>,
+<u><b><span lang="en" style="display:none">brand</span><span lang="ru">бренд</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="shopBrandFrom" size="7" maxlength="7" value="0.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="shopBrandTo" size="7" maxlength="7" value="100.00"><br>
 <input type="submit" id="btnSubmit" value="Сформировать">
 <span lang="en" style="display:none">
 <select id="show_hide_col_en" multiple="multiple">
