@@ -17,11 +17,15 @@ function view_graph(item,city) {
 	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var domain = getDomain(locale);
-	$("#graph").html('<div style="position: fixed; bottom:250px; right:15px;">'
-	+ '<a href="#" onclick="clear_graph(); return false;">x</a></div>'
-	+ '<img src="http://'+domain+'/'+realm+'/graph/globalreport/marketing/product/'+item+'/'+city+'/" width="900" height="250" style="border: 1px solid #CCCCCC; padding: 5px; margin: 3px;">'
-	);
-	//alert('http://virtonomica.ru/vera/graph/globalreport/marketing/product/'+item+'/'+city+'/');
+	var imgSrc = 'http://'+domain+'/'+realm+'/graph/globalreport/marketing/product/'+item+'/'+city+'/';
+	if($("#graph > img").attr('src') == imgSrc){
+		clear_graph();
+	} else {
+		$("#graph").html('<div style="position: fixed; bottom:250px; right:15px;">'
+			+ '<a href="#" onclick="clear_graph(); return false;">x</a></div>'
+			+ '<img src="' + imgSrc + '" width="900" height="250" style="border: 1px solid #CCCCCC; padding: 5px; margin: 3px;">'
+		);
+	}
 }
 function clear_graph() {
 	$("#graph").html('');
