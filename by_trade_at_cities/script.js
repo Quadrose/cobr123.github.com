@@ -25,10 +25,12 @@ function view_graph(item,city) {
 			+ '<a href="#" onclick="clear_graph(); return false;">x</a></div>'
 			+ '<img src="' + imgSrc + '" width="900" height="250" style="border: 1px solid #CCCCCC; padding: 5px; margin: 3px;">'
 		);
+		$('div[name="graph_color_mark"]').show();
 	}
 }
 function clear_graph() {
 	$("#graph").html('');
+	$('div[name="graph_color_mark"]').hide();
 }
 function updateProdRemainLinks(){
 	var productID = getProductID();
