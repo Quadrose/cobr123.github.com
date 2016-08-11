@@ -127,7 +127,7 @@ function loadSavedFlt(urlParams){
 	var id_service = getVal('id_service');
 	var id_service_spec = getVal('id_service_spec');
 
-	if (Object.keys(urlParams).length > 0 && urlParams['realm'] != '' && urlParams['id_service'] != '') {
+	if (Object.keys(urlParams).length > 1 && urlParams['realm'] != '' && urlParams['id_service'] != '') {
 		realm       = urlParams['realm'];
 		id_country  = urlParams['id_country'];
 		id_region   = urlParams['id_region'];

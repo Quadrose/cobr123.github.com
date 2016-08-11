@@ -87,7 +87,7 @@ function loadSavedFlt(urlParams){
 	var id_category = getVal('id_category');
 	var id_product  = getVal('id_product');
 
-	if (Object.keys(urlParams).length > 0 && urlParams['realm'] != '' && urlParams['id_product'] != '') {
+	if (Object.keys(urlParams).length > 1 && urlParams['realm'] != '' && urlParams['id_product'] != '') {
 		realm       = urlParams['realm'];
 		id_product  = urlParams['id_product'];
 		fillFormFromUrl(urlParams);
