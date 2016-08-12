@@ -152,7 +152,7 @@ function loadSavedFlt(urlParams){
 			if (id_service == null || id_service == '') {
 				id_service = $('#id_service').val();
 				if (id_service == null || id_service == '') {
-					('#services > img').eq(0).click();
+					$('#services > img').eq(0).click();
 				}
 			}
 		};
