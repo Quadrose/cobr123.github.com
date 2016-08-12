@@ -148,6 +148,16 @@ function loadSavedFlt(urlParams){
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
+		var productCategoriesCallback = function() {
+			if (id_service == null || id_service == '') {
+				id_service = $('#id_service').val();
+				if (id_service == null || id_service == '') {
+					id_service = $('#id_service > option').eq(0).val();
+					$('#id_service').val(id_service);
+					loadServices();
+				}
+			}
+		};
 		var changeRegionCallback = function() {
 			$('#id_town').val(id_town).trigger("chosen:updated");
 			changeTown();
@@ -162,7 +172,7 @@ function loadSavedFlt(urlParams){
   		};
 		$('#id_service').val(id_service);
 		setVal('id_service_spec', id_service_spec);
-		changeRealm(null, countryCallback);
+		changeRealm(productCategoriesCallback, countryCallback);
 		
 	} else {
 		loadServices();
