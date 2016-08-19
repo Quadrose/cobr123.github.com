@@ -250,7 +250,7 @@ function loadPredictionUnZipped(predRow) {
 	var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 
 	$.getJSON('./'+realm+'/retail_analytics_'+productID+'.json', function (data) {
-		loadPredictionData(predRow, data)
+		loadPredictionData(predRow, data);
 	})
 	.fail(function() {
 		predRow.html(notEnoughDataMsg);
