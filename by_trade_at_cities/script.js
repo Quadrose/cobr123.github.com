@@ -274,15 +274,9 @@ function loadPrediction(predRow) {
 				entries[0].getData(new zip.TextWriter(), function(text) {
 					// text contains the entry data as a String
 
-					loadPredictionData(predRow, text);
-
 					// close the zip reader
-					reader.close(function() {
-						// onclose callback
-					});
-
-				}, function(current, total) {
-					// onprogress callback
+					reader.close();
+					loadPredictionData(predRow, text);
 				});
 			}
 		});
