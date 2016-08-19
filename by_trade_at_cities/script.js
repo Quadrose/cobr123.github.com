@@ -131,7 +131,118 @@ function getServiceLevel(serviceLevel, locale) {
 		return serviceLevel;
 	}
 }
-function loadPrediction(predRow) {
+function loadPredictionData(predRow, data) {
+	var realm = getRealm();
+	var productID = getProductID();
+	if (productID == null || productID == '') return;
+	var locale = getLocale();
+	var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
+
+	var output = '';
+	var svMarketIdx = predRow.prev().find('>td#td_idx').text();
+	console.log("svMarketIdx = '"+ svMarketIdx+"'" );
+	var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
+	var nvMarketVolumeDelta = nvMarketVolume * 0.25;
+	console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
+	var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
+	console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
+	var tableId = 'table_' + predRow.attr('id');
+	var uniqPred = [];
+	var key = '';
+	var suitable = true;
+	var maxCnt = 50;
+
+	$.each(data, function (key, val) {
+		suitable = true;
+		key = val.sv + '|' + Math.round(val.p) + '|' + Math.round(val.q) + '|' + Math.round(val.b) + '|';
+		key += val.mv + '|' + val.sc + '|' + val.sl + '|' + val.vc + '|' + val.td + '|';
+		key += val.ss + '|' + val.dc + '|' + val.mi;
+
+		if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
+		if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
+		if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
+		if (suitable && val.n >= 100) {suitable = true;} else {suitable = false;}
+		if (suitable && (key in uniqPred)) {suitable = false;}
+
+		if(suitable){
+			maxCnt -= 1;
+			uniqPred[key] = 1;
+			output += '<tr class="trec hoverable">';
+			output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+' ('+Math.round(parseFloat(val.sv.replace(/[\D]+/g,''))/parseFloat(val.mv)*100)+'%)</td>';
+			output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
+			output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
+			output += '<td align="right" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
+			output += '<td align="right" id="td_marketVolume">'+val.mv+'</td>';
+			output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
+			output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
+			output += '<td align="right" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
+			output += '<td align="center" id="td_notoriety">'+parseFloat(val.n).toFixed(2)+'</td>';
+			output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
+			output += '<td align="right" id="td_shopSize">'+commaSeparateNumber(val.ss,' ')+'</td>';
+			output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
+			output += '<td align="right" id="td_wealthIndex">'+parseFloat(val.wi).toFixed(2)+'</td>';
+			output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
+			output += '</tr>';
+
+			if (maxCnt <= 0) {
+				//break each
+				return false;
+			}
+		}
+	});
+	if (output === '') {
+		predRow.html(notEnoughDataMsg);
+	} else {
+		var salesVolumeLabel = (locale === 'en') ? 'Sales volume' : 'Объем продаж';
+		var brandLabel = (locale === 'en') ? 'Brand' : 'Бренд';
+		var priceLabel = (locale === 'en') ? 'Price' : 'Цена';
+		var marketVolumeLabel = (locale === 'en') ? 'Market volume' : 'Объем рынка';
+		var qualityLabel = (locale === 'en') ? 'Quality' : 'Качество';
+		var serviceLevelLabel = (locale === 'en') ? 'Service level' : 'Уровень сервиса';
+		var sellerCntLabel = (locale === 'en') ? 'NoM' : 'К.п.';
+		var sellerCntHint = (locale === 'en') ? 'Number of merchants' : 'Количество продавцов';
+		var notorietyLabel = (locale === 'en') ? 'Popularity' : 'Известность';
+		var visitorsCountLabel = (locale === 'en') ? 'Number of visitors' : 'Кол-во пос.';
+		var visitorsCountHint = (locale === 'en') ? 'Number of visitors' : 'Количество посетителей';
+		var townDistrictLabel = (locale === 'en') ? 'City district' : 'Район города';
+		var shopSizeLabel = (locale === 'en') ? 'Trade area' : 'Торг. пл.';
+		var departmentCountLabel = (locale === 'en') ? 'NoD' : 'К.о.';
+		var departmentCountHint = (locale === 'en') ? 'Number of departments' : 'Количество отделов';
+		var wealthIndexLabel = (locale === 'en') ? 'WL' : 'И.б.';
+		var wealthIndexHint = (locale === 'en') ? 'Wealth level' : 'Индекс богатства';
+		var indexLabel = (locale === 'en') ? 'Index' : 'И.';
+
+		var headers = '<thead><tr class="theader">';
+		headers += '<th id="th_sellVolume">'+salesVolumeLabel+'&nbsp;<b id="sort_by_sellVolume"></b></th>';
+		headers += '<th id="th_price">'+priceLabel+'&nbsp;<b id="sort_by_price"></b></th>';
+		headers += '<th id="th_quality">'+qualityLabel+'&nbsp;<b id="sort_by_quality"></b></th>';
+		headers += '<th id="th_brand">'+brandLabel+'&nbsp;<b id="sort_by_brand"></b></th>';
+		headers += '<th id="th_marketVolume">'+marketVolumeLabel+'&nbsp;<b id="sort_by_marketVolume"></b></th>';
+		headers += '<th id="th_sellerCnt" title="'+sellerCntHint+'">'+sellerCntLabel+'&nbsp;<b id="sort_by_sellerCnt"></b></th>';
+		headers += '<th id="th_serviceLevel">'+serviceLevelLabel+'&nbsp;<b id="sort_by_serviceLevel"></b></th>';
+		headers += '<th id="th_visitorsCount" title="'+visitorsCountHint+'">'+visitorsCountLabel+'&nbsp;<b id="sort_by_visitorsCount"></b></th>';
+		headers += '<th id="th_notoriety">'+notorietyLabel+'&nbsp;<b id="sort_by_notoriety"></b></th>';
+		headers += '<th id="th_townDistrict">'+townDistrictLabel+'&nbsp;<b id="sort_by_townDistrict"></b></th>';
+		headers += '<th id="th_shopSize" title="Торговая площадь">'+shopSizeLabel+'&nbsp;<b id="sort_by_shopSize"></b></th>';
+		headers += '<th id="th_departmentCount" title="'+departmentCountHint+'">'+departmentCountLabel+'&nbsp;<b id="sort_by_departmentCount"></b></th>';
+		headers += '<th id="th_wealthIndex" title="'+wealthIndexHint+'">'+wealthIndexLabel+'&nbsp;<b id="sort_by_wealthIndex"></b></th>';
+		headers += '<th id="th_marketIdx" title="Индекс">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
+		headers += '</tr></thead>';
+		predRow.html('<td colspan=15><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
+
+		var table = document.getElementById(tableId);
+		var tableBody = table.querySelector('tbody');
+		tinysort(
+			tableBody.querySelectorAll('tr')
+			,{
+				selector:'td#td_price'
+				,order: 'desc'
+			}
+		);
+	}
+	return false;
+}
+function loadPredictionUnZipped(predRow) {
 	var realm = getRealm();
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
@@ -139,112 +250,47 @@ function loadPrediction(predRow) {
 	var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 
 	$.getJSON('./'+realm+'/retail_analytics_'+productID+'.json', function (data) {
-		var output = '';
-		var svMarketIdx = predRow.prev().find('>td#td_idx').text();
-		console.log("svMarketIdx = '"+ svMarketIdx+"'" );
-		var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
-		var nvMarketVolumeDelta = nvMarketVolume * 0.25;
-		console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
-		var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
-		console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
-		var tableId = 'table_' + predRow.attr('id');
-		var uniqPred = [];
-		var key = '';
-		var suitable = true;
-		var maxCnt = 50;
-
-		$.each(data, function (key, val) {
-			suitable = true;
-			key = val.sv + '|' + Math.round(val.p) + '|' + Math.round(val.q) + '|' + Math.round(val.b) + '|';
-			key += val.mv + '|' + val.sc + '|' + val.sl + '|' + val.vc + '|' + val.td + '|';
-			key += val.ss + '|' + val.dc + '|' + val.mi;
-
-			if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
-			if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.n >= 100) {suitable = true;} else {suitable = false;}
-			if (suitable && (key in uniqPred)) {suitable = false;}
-
-			if(suitable){
-				maxCnt -= 1;
-				uniqPred[key] = 1;
-				output += '<tr class="trec hoverable">';
-				output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+' ('+Math.round(parseFloat(val.sv.replace(/[\D]+/g,''))/parseFloat(val.mv)*100)+'%)</td>';
-				output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
-				output += '<td align="right" id="td_marketVolume">'+val.mv+'</td>';
-				output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
-				output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
-				output += '<td align="right" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
-				output += '<td align="center" id="td_notoriety">'+parseFloat(val.n).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
-				output += '<td align="right" id="td_shopSize">'+commaSeparateNumber(val.ss,' ')+'</td>';
-				output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
-				output += '<td align="right" id="td_wealthIndex">'+parseFloat(val.wi).toFixed(2)+'</td>';
-				output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
-				output += '</tr>';
-
-				if (maxCnt <= 0) {
-					//break each
-					return false;
-				}
-			}
-		});
-		if (output === '') {
-			predRow.html(notEnoughDataMsg);
-		} else {
-			var salesVolumeLabel = (locale === 'en') ? 'Sales volume' : 'Объем продаж';
-			var brandLabel = (locale === 'en') ? 'Brand' : 'Бренд';
-			var priceLabel = (locale === 'en') ? 'Price' : 'Цена';
-			var marketVolumeLabel = (locale === 'en') ? 'Market volume' : 'Объем рынка';
-			var qualityLabel = (locale === 'en') ? 'Quality' : 'Качество';
-			var serviceLevelLabel = (locale === 'en') ? 'Service level' : 'Уровень сервиса';
-			var sellerCntLabel = (locale === 'en') ? 'NoM' : 'К.п.';
-			var sellerCntHint = (locale === 'en') ? 'Number of merchants' : 'Количество продавцов';
-			var notorietyLabel = (locale === 'en') ? 'Popularity' : 'Известность';
-			var visitorsCountLabel = (locale === 'en') ? 'Number of visitors' : 'Кол-во пос.';
-			var visitorsCountHint = (locale === 'en') ? 'Number of visitors' : 'Количество посетителей';
-			var townDistrictLabel = (locale === 'en') ? 'City district' : 'Район города';
-			var shopSizeLabel = (locale === 'en') ? 'Trade area' : 'Торг. пл.';
-			var departmentCountLabel = (locale === 'en') ? 'NoD' : 'К.о.';
-			var departmentCountHint = (locale === 'en') ? 'Number of departments' : 'Количество отделов';
-			var wealthIndexLabel = (locale === 'en') ? 'WL' : 'И.б.';
-			var wealthIndexHint = (locale === 'en') ? 'Wealth level' : 'Индекс богатства';
-			var indexLabel = (locale === 'en') ? 'Index' : 'И.';
-
-			var headers = '<thead><tr class="theader">';
-			headers += '<th id="th_sellVolume">'+salesVolumeLabel+'&nbsp;<b id="sort_by_sellVolume"></b></th>';
-			headers += '<th id="th_price">'+priceLabel+'&nbsp;<b id="sort_by_price"></b></th>';
-			headers += '<th id="th_quality">'+qualityLabel+'&nbsp;<b id="sort_by_quality"></b></th>';
-			headers += '<th id="th_brand">'+brandLabel+'&nbsp;<b id="sort_by_brand"></b></th>';
-			headers += '<th id="th_marketVolume">'+marketVolumeLabel+'&nbsp;<b id="sort_by_marketVolume"></b></th>';
-			headers += '<th id="th_sellerCnt" title="'+sellerCntHint+'">'+sellerCntLabel+'&nbsp;<b id="sort_by_sellerCnt"></b></th>';
-			headers += '<th id="th_serviceLevel">'+serviceLevelLabel+'&nbsp;<b id="sort_by_serviceLevel"></b></th>';
-			headers += '<th id="th_visitorsCount" title="'+visitorsCountHint+'">'+visitorsCountLabel+'&nbsp;<b id="sort_by_visitorsCount"></b></th>';
-			headers += '<th id="th_notoriety">'+notorietyLabel+'&nbsp;<b id="sort_by_notoriety"></b></th>';
-			headers += '<th id="th_townDistrict">'+townDistrictLabel+'&nbsp;<b id="sort_by_townDistrict"></b></th>';
-			headers += '<th id="th_shopSize" title="Торговая площадь">'+shopSizeLabel+'&nbsp;<b id="sort_by_shopSize"></b></th>';
-			headers += '<th id="th_departmentCount" title="'+departmentCountHint+'">'+departmentCountLabel+'&nbsp;<b id="sort_by_departmentCount"></b></th>';
-			headers += '<th id="th_wealthIndex" title="'+wealthIndexHint+'">'+wealthIndexLabel+'&nbsp;<b id="sort_by_wealthIndex"></b></th>';
-			headers += '<th id="th_marketIdx" title="Индекс">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
-			headers += '</tr></thead>';
-			predRow.html('<td colspan=15><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
-
-			var table = document.getElementById(tableId);
-			var tableBody = table.querySelector('tbody');
-			tinysort(
-				tableBody.querySelectorAll('tr')
-				,{
-					selector:'td#td_price'
-					,order: 'desc'
-				}
-			);
-		}
+		loadPredictionData(predRow, data)
 	})
 		.fail(function() {
 			predRow.html(notEnoughDataMsg);
 		});
+	return false;
+}
+function loadPrediction(predRow) {
+	var realm = getRealm();
+	var productID = getProductID();
+	if (productID == null || productID == '') return;
+	var locale = getLocale();
+	var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
+
+	zip.workerScriptsPath = '/js/';
+	// use a BlobReader to read the zip from a Blob object
+	zip.createReader(new zip.HttpReader('./'+realm+'/retail_analytics_'+productID+'.json.zip'), function(reader) {
+		// get all entries from the zip
+		reader.getEntries(function(entries) {
+			if (entries.length) {
+				// get first entry content as text
+				entries[0].getData(new zip.TextWriter(), function(text) {
+					// text contains the entry data as a String
+
+					loadPredictionData(predRow, text);
+
+					// close the zip reader
+					reader.close(function() {
+						// onclose callback
+					});
+
+				}, function(current, total) {
+					// onprogress callback
+				});
+			}
+		});
+	}, function(error) {
+		// onerror callback
+		console.error(error);
+		loadPredictionUnZipped(predRow);
+	});
 	return false;
 }
 function hideAllPredictions(){
