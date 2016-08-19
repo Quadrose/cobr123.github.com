@@ -278,6 +278,9 @@ function loadPrediction(predRow) {
 					reader.close();
 					loadPredictionData(predRow, text);
 				});
+			} else {
+				console.error('entries.length = ' + entries.length);
+				loadPredictionUnZipped(predRow);
 			}
 		});
 	}, function(error) {
