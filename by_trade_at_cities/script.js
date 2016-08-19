@@ -252,9 +252,9 @@ function loadPredictionUnZipped(predRow) {
 	$.getJSON('./'+realm+'/retail_analytics_'+productID+'.json', function (data) {
 		loadPredictionData(predRow, data)
 	})
-		.fail(function() {
-			predRow.html(notEnoughDataMsg);
-		});
+	.fail(function() {
+		predRow.html(notEnoughDataMsg);
+	});
 	return false;
 }
 function loadPrediction(predRow) {
@@ -265,27 +265,26 @@ function loadPrediction(predRow) {
 	var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 
 	zip.workerScriptsPath = '/js/';
-	// use a BlobReader to read the zip from a Blob object
-	zip.createReader(new zip.HttpReader('./'+realm+'/retail_analytics_'+productID+'.json.zip'), function(reader) {
-		// get all entries from the zip
-		reader.getEntries(function(entries) {
-			if (entries.length) {
-				// get first entry content as text
-				entries[0].getData(new zip.TextWriter(), function(text) {
-					// text contains the entry data as a String
-
-					// close the zip reader
-					reader.close();
-					loadPredictionData(predRow, text);
+	$.getJSON('./'+realm+'/retail_analytics_'+productID+'.json.zip', function (blob) {
+		// use a zip.BlobReader object to read zipped data stored into blob variable
+		zip.createReader(new zip.BlobReader(blob), function(zipReader) {
+			// get entries from the zip file
+			zipReader.getEntries(function(entries) {
+				// get data from the first file
+				entries[0].getData(new zip.BlobWriter("text/plain"), function(data) {
+					// close the reader and calls callback function with uncompressed data as parameter
+					zipReader.close();
+					loadPredictionData(predRow, data);
 				});
-			} else {
-				console.error('entries.length = ' + entries.length);
-				loadPredictionUnZipped(predRow);
-			}
+			});
+		}, function(error) {
+			// onerror callback
+			console.error(error);
+			loadPredictionUnZipped(predRow);
 		});
-	}, function(error) {
-		// onerror callback
-		console.error(error);
+		loadPredictionData(predRow, data)
+	})
+	.fail(function() {
 		loadPredictionUnZipped(predRow);
 	});
 	return false;
