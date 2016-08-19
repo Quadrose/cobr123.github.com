@@ -132,7 +132,6 @@ function getServiceLevel(serviceLevel, locale) {
 	}
 }
 function loadPredictionData(predRow, data) {
-	var realm = getRealm();
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
 	var locale = getLocale();
@@ -148,7 +147,6 @@ function loadPredictionData(predRow, data) {
 	console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
 	var tableId = 'table_' + predRow.attr('id');
 	var uniqPred = [];
-	var key = '';
 	var suitable = true;
 	var maxCnt = 50;
 
@@ -261,8 +259,6 @@ function loadPrediction(predRow) {
 	var realm = getRealm();
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
-	var locale = getLocale();
-	var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 
 	zip.workerScriptsPath = '/js/';
 	$.getJSON('./'+realm+'/retail_analytics_'+productID+'.json.zip', function (blob) {
@@ -407,9 +403,9 @@ function loadSavedFlt(urlParams){
 	 $(this).val(commaSeparateNumber($(this).val(),' '));
 	 });*/
 }
-function parseFloatFromFilter(spSelector, npDefVal){
-	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
-}
+// function parseFloatFromFilter(spSelector, npDefVal){
+// 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
+// }
 var sagTownCaption = null;
 var sagCountryCaption = null;
 var sagRegionCaption = null;
@@ -872,10 +868,10 @@ function transformToAssocArray( prmstr ) {
 	}
 	return params;
 }
-function getSearchParameters() {
-	var prmstr = window.location.search.substr(1);
-	return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
-}
+// function getSearchParameters() {
+// 	var prmstr = window.location.search.substr(1);
+// 	return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+// }
 function fillUpdateDate() {
 	$('#update_date').text(''); 	// replace all existing content
 	var realm = getRealm();
