@@ -282,7 +282,6 @@ function loadPrediction(predRow) {
 			console.error(error);
 			loadPredictionUnZipped(predRow);
 		});
-		loadPredictionData(predRow, data)
 	})
 	.fail(function() {
 		loadPredictionUnZipped(predRow);
