@@ -276,7 +276,6 @@ function loadPrediction(predRow) {
 					loadPredictionData(predRow, text);
 				});
 			} else {
-				console.error('entries.length = ' + entries.length);
 				loadPredictionUnZipped(predRow);
 			}
 		});
