@@ -269,7 +269,7 @@ function loadPrediction(predRow) {
 			console.error('entries.length = ' + entries.length);
 			if (entries.length > 0) {
 				// get first entry content as text
-				entries[0].getData(new zip.TextWriter(), function(text) {
+				entries[0].getData(new zip.BlobWriter("text/plain"), function(text) {
 					// text contains the entry data as a String
 					// close the zip reader
 					reader.close();
