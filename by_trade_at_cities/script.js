@@ -266,7 +266,6 @@ function loadPrediction(predRow) {
 	zip.createReader(new zip.HttpReader('./'+realm+'/retail_analytics_'+productID+'.json.zip'), function(reader) {
 		// get all entries from the zip
 		reader.getEntries(function(entries) {
-			console.error('entries.length = ' + entries.length);
 			if (entries.length > 0) {
 				// get first entry content as text
 				entries[0].getData(new zip.BlobWriter("text/plain"), function(text) {
