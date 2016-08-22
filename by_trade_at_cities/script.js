@@ -265,9 +265,8 @@ function loadPrediction(predRow) {
 	zip.workerScriptsPath = '/js/';
 	zip.createReader(new zip.HttpReader('./'+realm+'/retail_analytics_'+productID+'.json.zip'), function(reader) {
 		// get all entries from the zip
-		console.log('getEntries begin');
 		reader.getEntries(function(entries) {
-			console.log('getEntries in');
+			console.error('entries.length = ' + entries.length);
 			if (entries.length > 0) {
 				// get first entry content as text
 				entries[0].getData(new zip.TextWriter(), function(text) {
@@ -281,7 +280,6 @@ function loadPrediction(predRow) {
 				loadPredictionUnZipped(predRow);
 			}
 		});
-		console.log('getEntries end');
 	}, function(error) {
 		// onerror callback
 		console.error(error);
