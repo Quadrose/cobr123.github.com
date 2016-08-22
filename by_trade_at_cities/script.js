@@ -263,7 +263,9 @@ function loadPrediction(predRow) {
 	if (productID == null || productID == '') return;
 
 	zip.workerScriptsPath = '/js/';
-	$.get('./'+realm+'/retail_analytics_'+productID+'.json.zip', function (blob) {
+	$.get('./'+realm+'/retail_analytics_'+productID+'.json.zip', function (blob,status,xhr) {
+		console.log(status);
+		console.log(xhr);
 		// use a zip.BlobReader object to read zipped data stored into blob variable
 		zip.createReader(new zip.BlobReader(blob), function(zipReader) {
 			// get entries from the zip file
