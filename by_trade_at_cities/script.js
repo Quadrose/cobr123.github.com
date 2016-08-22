@@ -263,7 +263,31 @@ function loadPrediction(predRow) {
 	if (productID == null || productID == '') return;
 
 	zip.workerScriptsPath = '/js/';
-	$.get('./'+realm+'/retail_analytics_'+productID+'.json.zip', function (blob,status,xhr) {
+	zip.createReader(new zip.HttpReader('./'+realm+'/retail_analytics_'+productID+'.json.zip'), function(reader) {
+		// get all entries from the zip
+		console.log('getEntries begin');
+		reader.getEntries(function(entries) {
+			console.log('getEntries in');
+			if (entries.length > 0) {
+				// get first entry content as text
+				entries[0].getData(new zip.TextWriter(), function(text) {
+					// text contains the entry data as a String
+					// close the zip reader
+					reader.close();
+					loadPredictionData(predRow, text);
+				});
+			} else {
+				console.error(entries);
+				loadPredictionUnZipped(predRow);
+			}
+		});
+		console.log('getEntries end');
+	}, function(error) {
+		// onerror callback
+		console.error(error);
+		loadPredictionUnZipped(predRow);
+	});
+	/*$.get('./'+realm+'/retail_analytics_'+productID+'.json.zip', function (blob,status,xhr) {
 		console.log(status);
 		console.log(xhr);
 		// use a zip.BlobReader object to read zipped data stored into blob variable
@@ -287,7 +311,7 @@ function loadPrediction(predRow) {
 		var err = textStatus + ", " + error;
     	console.log( "Request Failed: " + err );
 		loadPredictionUnZipped(predRow);
-	});
+	});*/
 	return false;
 }
 function hideAllPredictions(){
