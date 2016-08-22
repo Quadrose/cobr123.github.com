@@ -274,7 +274,9 @@ function loadPrediction(predRow) {
 					reader.close();
 					console.log(text.length);
 					console.log(text.substr(1, 100) );
-					loadPredictionData(predRow, JSON.parse(text));
+					console.log(text.substr(-100) );
+					var data = JSON.parse(text);
+					loadPredictionData(predRow, data);
 				});
 			} else {
 				loadPredictionUnZipped(predRow);
