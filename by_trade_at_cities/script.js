@@ -280,7 +280,7 @@ function loadPrediction(predRow) {
 					console.log('getEntries: current = ' + current + ', total = ' + total);
 				});
 			} else {
-				console.error(entries);
+				console.error('entries.length = ' + entries.length);
 				loadPredictionUnZipped(predRow);
 			}
 		});
