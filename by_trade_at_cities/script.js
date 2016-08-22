@@ -272,9 +272,9 @@ function loadPrediction(predRow) {
 					// text contains the entry data as a String
 					// close the zip reader
 					reader.close();
-					console.log(text.length);
-					console.log(text.substr(0, 100) );
-					console.log(text.substr(-100) );
+					// console.log(text.length);
+					// console.log(text.substr(0, 100) );
+					// console.log(text.substr(-100) );
 					var data = JSON.parse(text);
 					loadPredictionData(predRow, data);
 				});
