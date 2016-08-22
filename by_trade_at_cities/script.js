@@ -268,12 +268,12 @@ function loadPrediction(predRow) {
 		reader.getEntries(function(entries) {
 			if (entries.length > 0) {
 				// get first entry content as text
-				entries[0].getData(new zip.BlobWriter("text/plain"), function(text) {
+				entries[0].getData(new zip.TextWriter(), function(text) {
 					// text contains the entry data as a String
 					// close the zip reader
 					reader.close();
-					console.log((''+text).length);
-					console.log((''+text).substr(1, 100) );
+					console.log(text.length);
+					console.log(text.substr(1, 100) );
 					loadPredictionData(predRow, text);
 				});
 			} else {
