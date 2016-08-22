@@ -250,7 +250,9 @@ function loadPredictionUnZipped(predRow) {
 	$.getJSON('./'+realm+'/retail_analytics_'+productID+'.json', function (data) {
 		loadPredictionData(predRow, data);
 	})
-	.fail(function() {
+	.fail(function(jqxhr, textStatus, error) {
+		var err = textStatus + ", " + error;
+    		console.log( "Request Failed: " + err );
 		predRow.html(notEnoughDataMsg);
 	});
 	return false;
@@ -279,7 +281,9 @@ function loadPrediction(predRow) {
 			loadPredictionUnZipped(predRow);
 		});
 	})
-	.fail(function() {
+	.fail(function(jqxhr, textStatus, error) {
+		var err = textStatus + ", " + error;
+    		console.log( "Request Failed: " + err );
 		loadPredictionUnZipped(predRow);
 	});
 	return false;
