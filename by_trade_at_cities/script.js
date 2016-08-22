@@ -275,6 +275,9 @@ function loadPrediction(predRow) {
 					// close the zip reader
 					reader.close();
 					loadPredictionData(predRow, text);
+				}, function(current, total) {
+					// onprogress callback
+					console.log('getEntries: current = ' + current + ', total = ' + total);
 				});
 			} else {
 				console.error(entries);
