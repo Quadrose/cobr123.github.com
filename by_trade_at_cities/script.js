@@ -272,6 +272,8 @@ function loadPrediction(predRow) {
 					// text contains the entry data as a String
 					// close the zip reader
 					reader.close();
+					console.log(text.length);
+					console.log(text.substr(1, 100) );
 					loadPredictionData(predRow, text);
 				});
 			} else {
