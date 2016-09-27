@@ -503,7 +503,11 @@ function updateOthers(townID, attr){
 			$.each(data, function (key, val) {
 				if(townID === val.ti){
 					text = val[attr] + '';
-					cell.html(shortenNumber(text.replace(/\.\d+$/,'')));
+					if (text == '') {
+						cell.html('&nbsp;');
+					} else {
+						cell.html(shortenNumber(text.replace(/\.\d+$/,'')));
+					}
 				}
 			});
 		});
