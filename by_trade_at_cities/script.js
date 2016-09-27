@@ -526,6 +526,8 @@ function addHoverHandlers() {
 			timer = setTimeout(function() {
 				//Do your stuff here
 				var townID = getLast($('td#td_city > a', cell.parent()).attr('href'));
+				var townCaption = $('#td_city > a', cell.parent()).text();
+				$('td#img_sub_town_caption').html(townCaption);
 				updateOthers(townID, attrName);
 			}, delay);
 		}
@@ -727,6 +729,8 @@ function loadProducts(callback) {
 				output += '</td></tr><tr class="trec"><td img_sub_product_id="'+val.i+'" town_id="" align="center"></td></tr></table></td>';
 			}
 		});
+		output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td>&nbsp;</td></tr>';
+		output += '<tr class="trec"><td id="img_sub_town_caption" align="left"></td></tr></table></td>';
 		$('#products').html('<table cellpadding="1" cellspacing="1"><tr>' + output + '</tr></table>');
 		addImgSubProdHoverHandlers();
 		if(typeof(callback) === 'function') callback();
