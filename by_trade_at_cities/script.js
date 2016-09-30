@@ -527,7 +527,10 @@ function addHoverHandlers() {
 				//Do your stuff here
 				var townID = getLast($('td#td_city > a', cell.parent()).attr('href'));
 				var townCaption = $('#td_city > a', cell.parent()).text();
-				$('td#img_sub_town_caption').html(townCaption);
+				var locale = getLocale();
+				var colID = 'th' + cell.attr('id').substr(2);
+				var rowName = $('#' + colID + ' > span[lang="' + locale + '"]').text();
+				$('td#img_sub_town_caption').html(townCaption + ', ' + rowName);
 				updateOthers(townID, attrName);
 			}, delay);
 		}
