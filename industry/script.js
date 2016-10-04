@@ -490,12 +490,18 @@ function calcProduction(recipe) {
 		if(allExists){
 //		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
 //		    console.log('typeof material_remains[ingredient.pi] = "' + typeof(material_remains[ingredient.pi]) + '"');
+			var material_remains_ing = null;
+			if (material_remains[ingredient.pi] != null && material_remains[ingredient.pi].length != 0){
+			  material_remains_ing = material_remains[ingredient.pi].filter(function(ing_remain) {
+			      return ing_remain.quality >= ingredient.mq;
+			  });
+			}
 
-			if (material_remains[ingredient.pi] === null || material_remains[ingredient.pi].length === 0) {
+			if (material_remains_ing === null || material_remains_ing.length === 0) {
 				allExists = false;
 	            notAllHasRemains += '<a target="_blank" href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 			} else {
-				remains.push(material_remains[ingredient.pi]);
+				remains.push(material_remains_ing);
 			}
 		}
 	});
@@ -600,14 +606,10 @@ function loadRemains(recipe, productID, npMinQuality) {
 			if(material_remains[productID] == null){
 				material_remains[productID] = [];
 			}
-			console.log('productID = ' + productID);
-			console.log('npMinQuality = ' + npMinQuality);
-			console.log('remain.q = ' + remain.q);
 			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
 			if (suitable && remain.r >= parseFloatFromFilter('#volumeFrom_'+productID,remain.r)) {suitable = true;} else {suitable = false;}
 			if (suitable && (remain.mo === 0 || remain.mo >= parseFloatFromFilter('#volumeFrom_'+productID,remain.mo))) {suitable = true;} else {suitable = false;}
 			
-			console.log('suitable = ' + suitable);
 			if(suitable){
 				material_remains[productID].push({
 					quality: remain.q
