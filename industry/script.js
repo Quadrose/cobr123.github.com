@@ -594,18 +594,19 @@ function loadRemains(recipe, productID, npMinQuality) {
 	notAllHasRemains += '<a target="_blank" href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
-	console.log('npMinQuality = ' + npMinQuality);
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
 		remains.forEach(function(remain) {
 			var suitable = true;
 			if(material_remains[productID] == null){
 				material_remains[productID] = [];
 			}
+			console.log('npMinQuality = ' + npMinQuality);
 			console.log('remain.q = ' + remain.q);
 			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
 			if (suitable && remain.r >= parseFloatFromFilter('#volumeFrom_'+productID,remain.r)) {suitable = true;} else {suitable = false;}
 			if (suitable && (remain.mo === 0 || remain.mo >= parseFloatFromFilter('#volumeFrom_'+productID,remain.mo))) {suitable = true;} else {suitable = false;}
 			
+			console.log('suitable = ' + suitable);
 			if(suitable){
 				material_remains[productID].push({
 					quality: remain.q
