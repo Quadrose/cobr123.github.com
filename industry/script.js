@@ -608,7 +608,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 			if(material_remains[productID] == null){
 				material_remains[productID] = [];
 			}
-			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
+			//if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
 			if (suitable && remain.r >= parseFloatFromFilter('#volumeFrom_'+productID,remain.r)) {suitable = true;} else {suitable = false;}
 			if (suitable && (remain.mo === 0 || remain.mo >= parseFloatFromFilter('#volumeFrom_'+productID,remain.mo))) {suitable = true;} else {suitable = false;}
 			
