@@ -600,6 +600,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 			if(material_remains[productID] == null){
 				material_remains[productID] = [];
 			}
+			console.log('productID = ' + productID);
 			console.log('npMinQuality = ' + npMinQuality);
 			console.log('remain.q = ' + remain.q);
 			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
