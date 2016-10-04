@@ -507,8 +507,10 @@ function calcProduction(recipe) {
 	});
 	if (!allExists){
 		unlockSubmit();
-		$('#messages').append('<p>'+notAllHasRemains+'</p>');
-		console.log('calcProduction not all ingredients has remains');
+		if($('#messages').html().indexOf('<p>'+notAllHasRemains+'</p>') === -1) {
+			$('#messages').append('<p>'+notAllHasRemains+'</p>');
+			console.log('calcProduction not all ingredients has remains');
+		}
 		return;
 	}
 	var tech_from = $("#tech_from").val() || 10;
