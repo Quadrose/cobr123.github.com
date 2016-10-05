@@ -17,7 +17,7 @@ function view_graph(item,city) {
 	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var domain = getDomain(locale);
-	var imgSrc = 'http://'+domain+'/'+realm+'/graph/globalreport/marketing/product/'+item+'/'+city+'/';
+	var imgSrc = 'https://'+domain+'/'+realm+'/graph/globalreport/marketing/product/'+item+'/'+city+'/';
 	if($("#graph > img").attr('src') == imgSrc){
 		clear_graph();
 	} else {
@@ -39,7 +39,7 @@ function updateProdRemainLinks(){
 	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var domain = getDomain(locale);
-	$('#show_remain_link').attr('href','http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/');
+	$('#show_remain_link').attr('href','https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/');
 	$('#calc_prod_link').attr('href','/industry/#id_product=' + productID);
 }
 function nvl(val1, val2){
@@ -372,7 +372,7 @@ function loadSavedFlt(urlParams){
 	if (sort_dir != null || sort_dir != '') {
 		$('#sort_dir').val(sort_dir);
 	}
-	if ((getVal('locale') === null || getVal('locale') === '') && (document.referrer.substring(0, 'http://virtonomics.com/'.length) === 'http://virtonomics.com/' || document.referrer.substring(0, 'http://virtonomics-free.blogspot.'.length) === 'http://virtonomics-free.blogspot.')) {
+	if ((getVal('locale') === null || getVal('locale') === '') && (document.referrer.substring(0, 'https://virtonomics.com/'.length) === 'https://virtonomics.com/' || document.referrer.substring(0, 'https://virtonomics-free.blogspot.'.length) === 'https://virtonomics-free.blogspot.')) {
 		setVal('locale', 'en');
 	}
 
@@ -635,7 +635,7 @@ function loadData() {
 
 			if(suitable){
 				output += '<tr class="trec hoverable">';
-				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td '+getColStyle('graph')+' align="right" id="td_graph"><a href="#" onclick="view_graph('+val.pi+','+val.ti+'); return false;"><img src="/img/graph.png" width="18"></a></td>';
 				output += '<td '+getColStyle('w_idx')+' align="center" id="td_w_idx">'+parseFloat(val.wi).toFixed(2)+'</td>';
 				output += '<td field_name="mi" '+getColStyle('idx')+' align="center" id="td_idx">'+val.mi+'</td>';

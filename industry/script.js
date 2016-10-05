@@ -72,7 +72,7 @@ function updateGeneralReportLink(){
 	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var domain = getDomain(locale);
-	$('#general_report_link').attr('href','http://'+domain+'/'+realm+'/main/globalreport/product_history/'+productID+'/');
+	$('#general_report_link').attr('href','https://'+domain+'/'+realm+'/main/globalreport/product_history/'+productID+'/');
 }
 //резделитель разрядов
 function commaSeparateNumber(val, sep){
@@ -220,11 +220,11 @@ function updateTableFromCache(splicedTableCache){
 
 	splicedTableCache.forEach(function(val){
 		output += '<tr class="trec hoverable">';
-		openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
-		specHref = 'http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
+		openCalcHref = 'https://ovh.belyan.in/factory/'+val.manufactureID+'.html';
+		specHref = 'https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
 		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
-		output += '<td align="center"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ val.equipId +'/">'+val.equipQual+'</a></td>';
-		techHref = 'http://'+domain+'/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
+		output += '<td align="center"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ val.equipId +'/">'+val.equipQual+'</a></td>';
+		techHref = 'https://'+domain+'/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
 		output += '<td align="center" id="td_tech" id="td_quality" data-value="'+val.tech+'"><a target="_blank" href="'+techHref+'">'+val.tech+'</a></td>';
 		svMaterialsImg = '';
 		svMaterialsQty = '';
@@ -233,15 +233,15 @@ function updateTableFromCache(splicedTableCache){
 		//vPricePerQty = '';
 		val.materials.forEach(function(mat){
 			imgSrc = sagMaterialImg[mat.productID].replace('/img/products/','/img/products/16/');
-			unitHref = 'http://'+domain+'/'+realm+'/main/unit/view/'+mat.unitID+'/';
-			href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
+			unitHref = 'https://'+domain+'/'+realm+'/main/unit/view/'+mat.unitID+'/';
+			href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
 			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
 			svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.ingQty)+'&nbsp;</td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'&nbsp;</td>';
 			//svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
 			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a>&nbsp;</td>';
 		});
-		href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
+		href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
 		output += '<td align="center"><table cellspacing="0" cellpadding="0"><tr class="trec">'+svMaterialsImg+'</tr><tr class="trec">'+svMaterialsQty+'</tr><tr class="trec">'+svMaterialsQual+'</tr><tr class="trec">'+svMaterialsPrice+'</tr></table></td>';
 		output += '<td align="center" id="td_quality" data-value="'+val.quality+'"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
 		output += '<td align="center" id="td_quantity" data-value="'+val.quantity+'">'+commaSeparateNumber(val.quantity)+'</td>';
@@ -499,7 +499,7 @@ function calcProduction(recipe) {
 
 			if (material_remains_ing === null || material_remains_ing.length === 0) {
 				allExists = false;
-	            notAllHasRemains += '<a target="_blank" href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
+	            notAllHasRemains += '<a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 			} else {
 				remains.push(material_remains_ing);
 			}
@@ -599,7 +599,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 	var locale = getLocale();
 	var domain = getDomain(locale);
 	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains for producrion ' : 'Недостаточно запасов ингридиентов на складе для производства ';
-	notAllHasRemains += '<a target="_blank" href="http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
+	notAllHasRemains += '<a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
@@ -658,7 +658,7 @@ function addVolumeFromForIngredient(productID) {
 	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
 	var fromLabel = (locale == 'en') ? 'from' : 'от';
 	var field = '&nbsp;'+fromLabel+'&nbsp;<input type="number" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
-	var href = 'http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
+	var href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/';
 	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a>';
 	$('#volumeFromByMaterials').append(svMaterialImg + field); 
 	savVolumeFromByMaterials[productID] = 1;

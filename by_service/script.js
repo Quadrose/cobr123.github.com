@@ -19,8 +19,8 @@ function updateReferenceLink(){
 	if (realm == null || realm == '') return;
 	var locale = getLocale();
 	var domain = getDomain(locale);
-	//http://virtonomica.ru/olga/main/industry/unit_type/info/359926
-	$('#reference_link').attr('href','http://'+domain+'/'+realm+'/main/industry/unit_type/info/'+serviceID);
+	//https://virtonomica.ru/olga/main/industry/unit_type/info/359926
+	$('#reference_link').attr('href','https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+serviceID);
 }
 function nvl(val1, val2){
 	if (val1 == null || val1 == ''){
@@ -309,7 +309,7 @@ function loadData() {
 
 			if(suitable){
 				output += '<tr class="trec hoverable">';
-				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td '+getColStyle('w_idx')+' align="right" id="td_w_idx">'+unknownIfNull(locale, parseFloat(val['wi']).toFixed(2))+'</td>';
 				output += '<td '+getColStyle('mdi')+' align="right" id="td_mdi">'+parseFloat(val.mdi).toFixed(2)+'</td>';
 				output += '<td '+getColStyle('market_volume')+' align="right" id="td_market_volume">'+val.v+'</td>';
@@ -335,10 +335,10 @@ function loadData() {
 					if(retailBySpec != null){
 						$('#equip_raw_mat_body > tr:eq(0) > td:eq(2) > a > img').each(function() {
 							var rbsKey = $(this).attr('productID');
-							output += '<td '+getColStyle('rbs_lpr')+' align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
-							output += '<td '+getColStyle('rbs_lq')+' align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
-							output += '<td '+getColStyle('rbs_spr')+' align="right" id="td_rbs_spr_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].spr).toFixed(2) + '</a></td>';
-							output += '<td '+getColStyle('rbs_sq')+' align="right" id="td_rbs_sq_' + rbsKey + '"><a target="_blank" href="http://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].sq).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_lpr')+' align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_lq')+' align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_spr')+' align="right" id="td_rbs_spr_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].spr).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_sq')+' align="right" id="td_rbs_sq_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].sq).toFixed(2) + '</a></td>';
 						});
 					}
 				}
@@ -449,7 +449,7 @@ function updateEquipRawMat(data){
 						  svImgUrl = val.s[i].e.s;
 						  svProductID = val.s[i].e.i;
 						  svProductCaption = val.s[i].e.c;
-						  equipCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ svProductID +'/" target="_blank">';
+						  equipCell += '<a href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ svProductID +'/" target="_blank">';
 						  equipCell += '<img src="'+ svImgUrl +'" width="16" height="16" id="img'+ svProductID +'" title="'+ svProductCaption +'"">';
 						  equipCell += '</a>';
 						  equipProdCell += '<a href="/industry/#id_product='+ svProductID +'" target="_blank">';
@@ -461,7 +461,7 @@ function updateEquipRawMat(data){
 								svImgUrl = val.s[i].rm[k].s;
 								svProductID = val.s[i].rm[k].i;
 								svProductCaption = val.s[i].rm[k].c;
-                                rawMatCell += '<a href="http://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+svProductID+'/" target="_blank">';
+                                rawMatCell += '<a href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+svProductID+'/" target="_blank">';
                                 rawMatCell += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'" title="'+svProductCaption+'"">';
                                 rawMatCell += '</a>';
                                 rawMatProdCell += '<a href="/industry/#id_product='+svProductID+'" target="_blank">';
