@@ -299,6 +299,8 @@ function loadData() {
 	}
 	updateUrl();
 	var realm = getRealm();
+	$('img[id^="img"').css('opacity', 0.2);
+	$('#img').css('opacity', 1);
   
 	zip.workerScriptsPath = '/js/';
 	zip.createReader(new zip.HttpReader('/industry/'+realm+'/production_above_average.json.zip'), function(reader) {
@@ -395,7 +397,7 @@ function loadProducts(callback) {
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
-				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer; opacity: 0.2;" onclick="changeProduct('+val.i+')">';
+				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer;" onclick="changeProduct('+val.i+')">';
 			}
 		});
 		
