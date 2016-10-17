@@ -207,6 +207,7 @@ function updateTable(unZippedData){
 	var suitable = true;
 	var nvTechTo = parseFloatFromFilter('#tech_to', 20);
 	var productID = getProductID();
+	setVal('tech_to', nvTechTo);
 
 	unZippedData.forEach(function(val){
 		suitable = true;
