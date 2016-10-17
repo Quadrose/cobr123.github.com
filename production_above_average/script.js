@@ -365,11 +365,17 @@ function loadProducts(callback) {
 	var locale = getLocale();
 	var suffix = (locale === 'en') ? '_en' : '';
   productOfSelectedCategory = [];
+	var svAllProductsTitle = (locale === 'en') ? 'All' : 'Все';
 	
 	$.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
+		output += '&nbsp;<span';
+    if(selected == null || selected == '') {
+			output += ' border="1"';
+    }
+		output += ' width="24" height="24" id="img" title="'+svAllProductsTitle+'" style="cursor:pointer" onclick="changeProduct(\'\')">'+svAllProductsTitle+'</span>';
 		sagMaterialImg = [];
 		var cnt = 0;
 		$.each(data, function (key, val) {
@@ -410,7 +416,9 @@ function changeProduct(productId) {
 	var selected = $('#id_product').val();
 	if(selected != null && selected != ''){
 		$('#img'+selected).attr('border','');
-	}
+	} else {
+		$('#img').attr('border','');
+  }
 	$('#volumeFromByMaterials').html(''); 
 	$('#img'+productId).attr('border','1');
 	$('#id_product').val(productId);
