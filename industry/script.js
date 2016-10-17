@@ -93,17 +93,17 @@ function loadSavedFlt(urlParams){
 		fillFormFromUrl(urlParams);
 	}
 
-	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_ind') || 'costperqua';
+	var sort_col_id = urlParams['sort_col_id'] || getVal('sort_col_id_ind') || 'costperqua';
 	if (sort_col_id != null || sort_col_id != '') {
 	    $('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = urlParams['sort_dir'] | getVal('sort_dir_ind') || 'asc';
+	var sort_dir = urlParams['sort_dir'] || getVal('sort_dir_ind') || 'asc';
 	if (sort_dir != null || sort_dir != '') {
 	    $('#sort_dir').val(sort_dir);
 	}
 	
-	$('#tech_from').val(getVal('tech_from') || 10);
-	$('#tech_to').val(getVal('tech_to') || 10);
+	$('#tech_from').val(urlParams['tech_from'] || getVal('tech_from') || 10);
+	$('#tech_to').val(urlParams['tech_to'] || getVal('tech_to') || 10);
 	$('#workQuan').val(getVal('workQuan') || 10000);
 	$('#workSalary').val(getVal('workSalary') || 300);
 	$('#volumeFrom_'+id_product).val(getVal('volumeFrom_'+id_product) || getVal('volumeFrom') || 1);
