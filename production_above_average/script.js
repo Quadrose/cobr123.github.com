@@ -93,11 +93,11 @@ function loadSavedFlt(urlParams){
 		fillFormFromUrl(urlParams);
 	}
 
-	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_ind') || 'costperqua';
+	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_paa') || 'tech';
 	if (sort_col_id != null || sort_col_id != '') {
 	    $('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = urlParams['sort_dir'] | getVal('sort_dir_ind') || 'asc';
+	var sort_dir = urlParams['sort_dir'] | getVal('sort_dir_paa') || 'asc';
 	if (sort_dir != null || sort_dir != '') {
 	    $('#sort_dir').val(sort_dir);
 	}
@@ -506,8 +506,8 @@ $(document).ready(function () {
 			$('#sort_by_'+$('#sort_col_id').val()).html('');
 			$('#sort_col_id').val(tableHeaderId);
 			$('#sort_dir').val(order);
-			setVal('sort_col_id_ind', $('#sort_col_id').val());
-			setVal('sort_dir_ind', $('#sort_dir').val());
+			setVal('sort_col_id_paa', $('#sort_col_id').val());
+			setVal('sort_dir_paa', $('#sort_dir').val());
 			$('#sort_by_'+tableHeaderId).html(orderArrow);
 			loadData();
 		}
