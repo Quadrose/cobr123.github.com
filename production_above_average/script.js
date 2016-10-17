@@ -206,11 +206,13 @@ function updateTable(unZippedData){
 	var specHref = '';
 	var suitable = true;
 	var nvTechTo = parseFloatFromFilter('#tech_to', 20);
+	var productID = getProductID();
 
 	unZippedData.forEach(function(val){
 		suitable = true;
 		if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
 		if (suitable && (val.pi in productOfSelectedCategory)) {suitable = true;} else {suitable = false;}
+		if (suitable && (val.pi == productID || productID == null || productID == '')) {suitable = true;} else {suitable = false;}
     
 		if(suitable){
       output += '<tr class="trec hoverable">';
@@ -374,7 +376,8 @@ function loadProducts(callback) {
 			sagMaterialImg[val.i] = val.s;
 			
 			if(svCategoryId == val.pc){
-        productOfSelectedCategory.push(val.i);
+        productOfSelectedCategory[val.i] = 1;
+        
 				if(cnt > 30){
 					cnt = 0;
 					output += '<br>';
