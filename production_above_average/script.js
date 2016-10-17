@@ -332,7 +332,7 @@ function loadProductCategories(callback) {
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
+	$.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
 		var categories = [];
 		$.each(data, function (key, val) {
@@ -364,7 +364,7 @@ function loadProducts(callback) {
 	var suffix = (locale === 'en') ? '_en' : '';
   productOfSelectedCategory = [];
 	
-	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
+	$.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
@@ -431,7 +431,7 @@ function fillUpdateDate() {
 	if (realm == null || realm == '') return;
 	var prefix = (getLocale() == 'en') ? 'updated' : 'обновлено';
 	
-	$.getJSON('./'+realm+'/updateDate.json', function (data) {
+	$.getJSON('/industry/'+realm+'/updateDate.json', function (data) {
 		$('#update_date').text(prefix+': ' + data.d);
 	});
 }
@@ -442,7 +442,7 @@ function selectCategoryByProduct(productId, callback) {
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
 	
-	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
+	$.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
 			if(productId === val.i){
 				$('select#id_category').val(val.pc);
