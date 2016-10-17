@@ -287,31 +287,6 @@ function loadPrediction(predRow) {
 		console.error(error);
 		loadPredictionUnZipped(predRow);
 	});
-	/*$.get('./'+realm+'/retail_analytics_'+productID+'.json.zip', function (blob,status,xhr) {
-		console.log(status);
-		console.log(xhr);
-		// use a zip.BlobReader object to read zipped data stored into blob variable
-		zip.createReader(new zip.BlobReader(blob), function(zipReader) {
-			// get entries from the zip file
-			zipReader.getEntries(function(entries) {
-				// get data from the first file
-				entries[0].getData(new zip.BlobWriter("text/plain"), function(data) {
-					// close the reader and calls callback function with uncompressed data as parameter
-					zipReader.close();
-					loadPredictionData(predRow, data);
-				});
-			});
-		}, function(error) {
-			// onerror callback
-			console.error(error);
-			loadPredictionUnZipped(predRow);
-		});
-	})
-	.fail(function(jqxhr, textStatus, error) {
-		var err = textStatus + ", " + error;
-    	console.log( "Request Failed: " + err );
-		loadPredictionUnZipped(predRow);
-	});*/
 	return false;
 }
 function hideAllPredictions(){
