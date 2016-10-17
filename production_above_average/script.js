@@ -221,7 +221,7 @@ function updateTable(unZippedData){
       output += '<tr class="trec hoverable">';
       imgSrc = sagMaterialImg[val.pi].replace('/img/products/','/img/products/16/');
       general_report_link = '<a href="https://'+domain+'/'+realm+'/main/globalreport/product_history/'+val.pi+'" target="_blank"><img src="'+imgSrc+'"></a>';
-      openCalcHref = '/industry/#id_product='+val.pi+'&realm='+realm+'&tech_from='+val.tl+'&tech_to='+val.tl;
+      openCalcHref = '/industry/#id_product='+val.pi+'&realm='+realm+'&tech_from='+val.tl+'&tech_to='+val.tl+'&quality_from='+val.q;
       specHref = 'https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.mi;
       output += '<td align="center">'+general_report_link+'&nbsp;<a target="_blank" href="'+specHref+'">'+val.s+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
       techHref = 'https://'+domain+'/'+realm+'/main/globalreport/technology/'+val.mi+'/'+val.tl+'/target_market_summary/'+svDate+'/bid';
