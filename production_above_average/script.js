@@ -364,6 +364,7 @@ function loadProducts(callback) {
 	if (svCategoryId == null || svCategoryId == '') return;
 	var locale = getLocale();
 	var suffix = (locale === 'en') ? '_en' : '';
+	var img_suffix = (locale === 'en') ? '_en' : '_ru';
   productOfSelectedCategory = [];
 	var svAllProductsTitle = (locale === 'en') ? 'All' : 'Все';
 	
@@ -371,7 +372,7 @@ function loadProducts(callback) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
-		output += '&nbsp;<img src="/img/white.png"';
+		output += '&nbsp;<img src="/img/all'+img_suffix+'.png"';
     if(selected == null || selected == '') {
 			output += ' border="1"';
     }
