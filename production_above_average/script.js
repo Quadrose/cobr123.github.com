@@ -371,11 +371,11 @@ function loadProducts(callback) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
-		output += '&nbsp;<span';
+		output += '&nbsp;<img src="/img/white.png"';
     if(selected == null || selected == '') {
 			output += ' border="1"';
     }
-		output += ' width="24" height="24" id="img" title="'+svAllProductsTitle+'" style="cursor:pointer" onclick="changeProduct(\'\')">'+svAllProductsTitle+'</span>';
+		output += ' width="24" height="24" id="img" title="'+svAllProductsTitle+'" style="cursor:pointer" onclick="changeProduct(\'\')">';
 		sagMaterialImg = [];
 		var cnt = 0;
 		$.each(data, function (key, val) {
