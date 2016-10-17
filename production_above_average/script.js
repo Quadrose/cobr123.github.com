@@ -236,7 +236,6 @@ function updateTable(unZippedData){
         unitHref = 'https://'+domain+'/'+realm+'/main/unit/view/'+mat.ui+'/';
         href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+mat.pi+'/';
         svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
-        svMaterialsQty += '<td align="center">&nbsp;</td>';
         //svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.v)+'&nbsp;</td>';
         svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.q)+'&nbsp;</td>';
         //svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
