@@ -212,13 +212,13 @@ function updateTable(unZippedData){
 	setVal('tech_to', nvTechTo);
 
 	unZippedData.forEach(function(val){
+		$('#img'+val.pi).css('opacity', 1);
 		suitable = true;
 		if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
 		if (suitable && (val.pi in productOfSelectedCategory)) {suitable = true;} else {suitable = false;}
 		if (suitable && (val.pi == productID || productID == null || productID == '')) {suitable = true;} else {suitable = false;}
     
 		if(suitable){
-			$('#img'+val.pi).css('opacity', 1);
       output += '<tr class="trec hoverable">';
       imgSrc = sagMaterialImg[val.pi].replace('/img/products/','/img/products/16/');
       general_report_link = '<a href="https://'+domain+'/'+realm+'/main/globalreport/product_history/'+val.pi+'" target="_blank"><img src="'+imgSrc+'"></a>';
