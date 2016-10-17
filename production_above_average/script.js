@@ -216,11 +216,9 @@ function updateTable(unZippedData){
     
 		if(suitable){
       output += '<tr class="trec hoverable">';
-      openCalcHref = 'https://ovh.belyan.in/factory/'+val.mi+'.html';
+      openCalcHref = '/industry/#id_product='+val.pi+'&realm='+realm+'&tech_from='+val.tl+'&tech_to='+val.tl;
       specHref = 'https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.mi;
       output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.s+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
-      output += '<td align="center">&nbsp;</td>';
-      //output += '<td align="center"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ val.equipId +'/">'+val.equipQual+'</a></td>';
       techHref = 'https://'+domain+'/'+realm+'/main/globalreport/technology/'+val.mi+'/'+val.tl+'/target_market_summary/'+svDate+'/bid';
       output += '<td align="center" id="td_tech" id="td_quality" data-value="'+val.tl+'"><a target="_blank" href="'+techHref+'">'+val.tl+'</a></td>';
       svMaterialsImg = '';
@@ -245,8 +243,6 @@ function updateTable(unZippedData){
       output += '<td align="center" id="td_quantity" data-value="'+val.v+'">'+commaSeparateNumber(val.v)+'</td>';
       output += '<td align="center" id="td_cost" data-value="'+val.c+'">$'+commaSeparateNumber(val.c)+'</td>';
       output += '<td align="center" id="td_costperqua" data-value="'+(val.c / val.q).toFixed(2)+'">$'+commaSeparateNumber((val.c / val.q).toFixed(2))+'</td>';
-      output += '<td align="center" id="td_profit" data-value="0">&nbsp;</td>';
-      //output += '<td align="center" id="td_profit" data-value="'+val.profit+'">$'+commaSeparateNumber(val.profit)+'</td>';
       output += '</tr>';
     }
 	});
@@ -399,7 +395,11 @@ function loadProducts(callback) {
 		});
 		
 		$('#materials').html(output);
-		if(typeof(callback) === 'function') callback();
+		if(typeof(callback) === 'function'){
+      callback();
+    } else {
+      loadData();
+    }
 	});
 	return false;
 }
@@ -410,6 +410,7 @@ function changeRealm(productCategoriesCallback) {
 	updateGeneralReportLink();
 }
 function changeCategory(callback) {
+  $('#id_product').val('');
 	loadProducts(callback);
 	setVal('id_category', $('#id_category').val());
 }
