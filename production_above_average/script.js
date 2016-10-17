@@ -212,7 +212,9 @@ function updateTable(unZippedData){
 	setVal('tech_to', nvTechTo);
 
 	unZippedData.forEach(function(val){
-		$('#img'+val.pi).css('opacity', 1);
+		if (val.tl <= nvTechTo) {
+			$('#img'+val.pi).css('opacity', 1);
+		}
 		suitable = true;
 		if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
 		if (suitable && (val.pi in productOfSelectedCategory)) {suitable = true;} else {suitable = false;}
