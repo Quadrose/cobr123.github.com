@@ -218,6 +218,7 @@ function updateTable(unZippedData){
 		if (suitable && (val.pi == productID || productID == null || productID == '')) {suitable = true;} else {suitable = false;}
     
 		if(suitable){
+			$('#img'+val.pi).css('opacity', 1);
       output += '<tr class="trec hoverable">';
       imgSrc = sagMaterialImg[val.pi].replace('/img/products/','/img/products/16/');
       general_report_link = '<a href="https://'+domain+'/'+realm+'/main/globalreport/product_history/'+val.pi+'" target="_blank"><img src="'+imgSrc+'"></a>';
@@ -376,7 +377,7 @@ function loadProducts(callback) {
     if(selected == null || selected == '') {
 			output += ' border="1"';
     }
-		output += ' width="24" height="24" id="img" title="'+svAllProductsTitle+'" style="cursor:pointer" onclick="changeProduct(\'\')">';
+		output += ' width="24" height="24" id="img" title="'+svAllProductsTitle+'" style="cursor:pointer; opacity: 0.2;" onclick="changeProduct(\'\')">';
 		sagMaterialImg = [];
 		var cnt = 0;
 		$.each(data, function (key, val) {
