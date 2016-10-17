@@ -104,6 +104,7 @@ function loadSavedFlt(urlParams){
 	
 	$('#tech_from').val(urlParams['tech_from'] || getVal('tech_from') || 10);
 	$('#tech_to').val(urlParams['tech_to'] || getVal('tech_to') || 10);
+	$('#quality_from').val(urlParams['quality_from'] || getVal('quality_from') || 1);
 	$('#workQuan').val(getVal('workQuan') || 10000);
 	$('#workSalary').val(getVal('workSalary') || 300);
 	$('#volumeFrom_'+id_product).val(getVal('volumeFrom_'+id_product) || getVal('volumeFrom') || 1);
