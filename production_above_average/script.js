@@ -303,9 +303,10 @@ function loadData() {
 	var realm = getRealm();
 	$('img[id^="img"').css('opacity', 0.2);
 	$('#img').css('opacity', 1);
+	var suffix = (getLocale() == 'en') ? '_en' : '';
   
 	zip.workerScriptsPath = '/js/';
-	zip.createReader(new zip.HttpReader('/industry/'+realm+'/production_above_average.json.zip'), function(reader) {
+	zip.createReader(new zip.HttpReader('/industry/'+realm+'/production_above_average'+ suffix +'.json.zip'), function(reader) {
 		// get all entries from the zip
 		reader.getEntries(function(entries) {
 			if (entries.length > 0) {
