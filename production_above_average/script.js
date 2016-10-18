@@ -400,7 +400,7 @@ function loadProducts(callback) {
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
-				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer;" onclick="changeProduct('+val.i+')">';
+				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer; opacity: 0.2;" onclick="changeProduct('+val.i+')">';
 			}
 		});
 		
