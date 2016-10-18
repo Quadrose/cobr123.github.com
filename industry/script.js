@@ -764,7 +764,7 @@ function loadProductCategories(callback) {
 		$('#id_category').html(output); 	// replace all existing content
 		$('#materials').html(''); 
 		
-		if(callback != null) {
+		if(typeof(callback) === 'function'){
 			callback();
 		} else {
 			selectCategoryByProduct($('#id_product').val());
