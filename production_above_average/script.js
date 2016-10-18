@@ -11,26 +11,6 @@ function getVal(spName){
 function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
-function lockSubmit() {
-	$('#btnSubmit').attr('disabled', true);
-	var locale = getLocale();
-	
-	if (locale === 'en') {
-		$('#btnSubmit').val('Please wait...');
-	} else {
-		$('#btnSubmit').val('Пожалуйста, подождите...');
-	}
-}
-function unlockSubmit() {
-	var locale = getLocale();
-	
-	if (locale === 'en') {
-		$('#btnSubmit').val('Generate');
-	} else {
-		$('#btnSubmit').val('Сформировать');
-	}
-	$('#btnSubmit').attr('disabled', false);
-}
 function getLocale() {
 	return getVal('locale') || $('#locale').val() || 'ru';
 }
@@ -185,7 +165,6 @@ var productOfSelectedCategory = [];
 function updateTable(unZippedData){
 	var realm = getRealm();
 	if (realm == null || realm == '') {
-		unlockSubmit();
 		return;
 	}
   
@@ -258,7 +237,6 @@ function updateTable(unZippedData){
 	if(output != ''){
 		sortTable();
 	}
-	unlockSubmit();
 }
 //////////////////////////////////////////////////////
 
@@ -283,22 +261,13 @@ function updateUrl() {
 	window.history.pushState("", ""
 		, '#id_product='  + productID
 		+ '&realm='       + realm
-		+ '&tech_from='    + strToNum(tech_from)
 		+ '&tech_to='      + strToNum(tech_to)
-		+ '&quality_from=' + strToNum(quality_from)
-		+ '&sort_col_id=' + svColId
-		+ '&sort_dir='    + svOrder
 	);
 }
 function loadData() {
-	if (sagMaterialImg === null) return false;
-	if ($('#btnSubmit').attr('disabled') === 'disabled') {
-		return false;
-	} else {
-		lockSubmit();
-		$('#messages').html('');
-	    $('#xtabletbody').html('');
-	}
+	if (sagMaterialImg === null) {return false;}
+  $('#messages').html('');
+  $('#xtabletbody').html('');
 	updateUrl();
 	var realm = getRealm();
 	$('img[id^="img"').css('opacity', 0.2);
@@ -323,13 +292,11 @@ function loadData() {
 				});
 			} else {
         console.error("Файл с данными пустой");
-        unlockSubmit();
 			}
 		});
 	}, function(error) {
 		// onerror callback
 		console.error(error);
-    unlockSubmit();
 	});
 	
 	return false;
