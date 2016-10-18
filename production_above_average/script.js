@@ -38,11 +38,11 @@ function applyLocale() {
 	var locale = getLocale();
 	
 	if (locale === 'en') {
-		document.title = "Production";
+		document.title = "Production (above average quality)";
 		$('#btnSubmit').val('Generate');
 		$('#locale_flag').attr('src','/img/us.gif');
 	} else {
-		document.title = "Производство";
+		document.title = "Производство (выше среднего качества)";
 		$('#btnSubmit').val('Сформировать');
 		$('#locale_flag').attr('src','/img/ru.png');
 	}
