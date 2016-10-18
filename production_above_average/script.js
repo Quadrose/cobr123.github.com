@@ -306,6 +306,7 @@ function loadProductCategories(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	var suffix = (getLocale() == 'en') ? '_en' : '';
+  var oldVal = $('#id_category').val();
 	
 	$.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
 		var output = '';
@@ -323,6 +324,13 @@ function loadProductCategories(callback) {
 		if(typeof(callback) === 'function'){
 			callback();
 		} else {
+      if (oldVal != null && oldVal != '') {
+        $('#id_category').val(oldVal);
+        var newVal = $('#id_category').val();
+        if (newVal == null || newVal == '') {
+          $('#id_category').html(output);
+        }
+      }
 			loadProducts();
 		}
 	});
