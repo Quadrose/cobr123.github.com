@@ -202,8 +202,8 @@ function sortTable(){
 	
 	$('#sort_col_id').val(svColId);
 	$('#sort_dir').val(svOrder);
-	setVal('sort_col_id_paa', $('#sort_col_id').val());
-	setVal('sort_dir_paa', $('#sort_dir').val());
+	setVal('sort_col_id_ind', $('#sort_col_id').val());
+	setVal('sort_dir_ind', $('#sort_dir').val());
 }
 var sagMaterialImg = null;
 function updateTableFromCache(splicedTableCache){
