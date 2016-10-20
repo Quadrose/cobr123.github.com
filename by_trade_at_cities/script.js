@@ -339,11 +339,11 @@ function loadSavedFlt(urlParams){
 		fillFormFromUrl(urlParams);
 	}
 
-	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_btac') || 'local_perc';
+	var sort_col_id = urlParams['sort_col_id'] || getVal('sort_col_id_btac') || 'local_perc';
 	if (sort_col_id != null || sort_col_id != '') {
 		$('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = urlParams['sort_dir'] | getVal('sort_dir_btac') || 'desc';
+	var sort_dir = urlParams['sort_dir'] || getVal('sort_dir_btac') || 'desc';
 	if (sort_dir != null || sort_dir != '') {
 		$('#sort_dir').val(sort_dir);
 	}
@@ -649,6 +649,10 @@ function loadData() {
 				,order: svOrder
 			}
 		);
+		$('#sort_col_id').val(svColId);
+		$('#sort_dir').val(svOrder);
+		setVal('sort_col_id_btac', $('#sort_col_id').val());
+		setVal('sort_dir_btac', $('#sort_dir').val());
 
 		addHoverHandlers();
 	});
