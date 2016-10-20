@@ -252,16 +252,16 @@ function fillFormFromUrl(urlParams){
 function updateUrl() {
 	var productID = getProductID();
 	var realm = getRealm();
+	var tech_to = $('#tech_to').val();
 	var svColId = $('#sort_col_id').val();
 	var svOrder = $('#sort_dir').val();
-	var tech_from = $('#tech_from').val();
-	var tech_to = $('#tech_to').val();
-	var quality_from = $('#quality_from').val();
 
 	window.history.pushState("", ""
 		, '#id_product='  + productID
 		+ '&realm='       + realm
 		+ '&tech_to='      + strToNum(tech_to)
+		+ '&sort_col_id=' + svColId
+		+ '&sort_dir='    + svOrder
 	);
 }
 function loadData() {
