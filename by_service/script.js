@@ -137,11 +137,11 @@ function loadSavedFlt(urlParams){
 		fillFormFromUrl(urlParams);
 	}
 
-	var sort_col_id = urlParams['sort_col_id'] | getVal('sort_col_id_service') || 'perc';
+	var sort_col_id = urlParams['sort_col_id'] || getVal('sort_col_id_service') || 'perc';
 	if (sort_col_id != null || sort_col_id != '') {
 	    $('#sort_col_id').val(sort_col_id);
 	}
-	var sort_dir = urlParams['sort_dir'] | getVal('sort_dir_service') || 'asc';
+	var sort_dir = urlParams['sort_dir'] || getVal('sort_dir_service') || 'asc';
 	if (sort_dir != null || sort_dir != '') {
 	    $('#sort_dir').val(sort_dir);
 	}
