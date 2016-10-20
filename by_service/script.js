@@ -363,6 +363,10 @@ function loadData() {
 						,order: svOrder
 				}
 		);
+		$('#sort_col_id').val(svColId);
+		$('#sort_dir').val(svOrder);
+		setVal('sort_col_id_service', $('#sort_col_id').val());
+		setVal('sort_dir_service', $('#sort_dir').val());
 	});
 	return false;
 }
