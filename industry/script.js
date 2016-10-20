@@ -199,6 +199,11 @@ function sortTable(){
 	var isAscending = svOrder=='asc';
 	var orderArrow = isAscending?'&#9650;':'&#9660;';
 	$('#sort_by_'+svColId).html(orderArrow);
+	
+	$('#sort_col_id').val(svColId);
+	$('#sort_dir').val(svOrder);
+	setVal('sort_col_id_paa', $('#sort_col_id').val());
+	setVal('sort_dir_paa', $('#sort_dir').val());
 }
 var sagMaterialImg = null;
 function updateTableFromCache(splicedTableCache){
