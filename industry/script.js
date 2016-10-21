@@ -761,7 +761,7 @@ function loadProductCategories(callback) {
 		var categories = [];
 		$.each(data, function (key, val) {
 			if(categories[val.pc] == null && val.pc != 'Полезные ископаемые' && val.pc != 'Natural resources'){
-				output += '<option value="'+val.pc+'">'+val.pc+'</option>';
+				output += '<option value="'+val.pci+'">'+val.pc+'</option>';
 				categories[val.pc] = 1;
 			}
 		});
@@ -796,7 +796,7 @@ function loadProducts(callback) {
 		$.each(data, function (key, val) {
 			sagMaterialImg[val.i] = val.s;
 			
-			if(svCategoryId == val.pc){
+			if(svCategoryId == val.pci){
 				if(cnt > 30){
 					cnt = 0;
 					output += '<br>';
@@ -868,7 +868,7 @@ function selectCategoryByProduct(productId, callback) {
 	$.getJSON('./'+realm+'/materials'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
 			if(productId === val.i){
-				$('select#id_category').val(val.pc);
+				$('select#id_category').val(val.pci);
 			}
 		});
 		loadProducts(callback);
