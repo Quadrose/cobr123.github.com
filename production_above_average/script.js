@@ -67,9 +67,10 @@ function loadSavedFlt(urlParams){
 	var id_category = getVal('id_category');
 	var id_product  = getVal('id_product');
 
-	if (Object.keys(urlParams).length > 1 && urlParams['realm'] != '' && urlParams['id_product'] != '') {
+	if (Object.keys(urlParams).length > 1 && urlParams['realm'] != '' && (urlParams['id_product'] != '' || urlParams['id_category'] != '')) {
 		realm       = urlParams['realm'];
 		id_product  = urlParams['id_product'];
+		id_category = urlParams['id_category'];
 		fillFormFromUrl(urlParams);
 	}
 
@@ -84,9 +85,6 @@ function loadSavedFlt(urlParams){
 	
 	$('#tech_from').val(getVal('tech_from') || 10);
 	$('#tech_to').val(getVal('tech_to') || 10);
-	$('#workQuan').val(getVal('workQuan') || 10000);
-	$('#workSalary').val(getVal('workSalary') || 300);
-	$('#volumeFrom_'+id_product).val(getVal('volumeFrom_'+id_product) || getVal('volumeFrom') || 1);
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
@@ -260,11 +258,13 @@ function updateUrl() {
 	var tech_to = $('#tech_to').val();
 	var svColId = $('#sort_col_id').val();
 	var svOrder = $('#sort_dir').val();
+  var id_category = $('#id_category').val();
 
 	window.history.pushState("", ""
 		, '#id_product='  + productID
+		+ '&id_category=' + id_category
 		+ '&realm='       + realm
-		+ '&tech_to='      + strToNum(tech_to)
+		+ '&tech_to='     + strToNum(tech_to)
 		+ '&sort_col_id=' + svColId
 		+ '&sort_dir='    + svOrder
 	);
@@ -318,7 +318,7 @@ function loadProductCategories(callback) {
 		var categories = [];
 		$.each(data, function (key, val) {
 			if(categories[val.pc] == null && val.pc != 'Полезные ископаемые' && val.pc != 'Natural resources'){
-				output += '<option value="'+val.pc+'">'+val.pc+'</option>';
+				output += '<option value="'+val.pci+'">'+val.pc+'</option>';
 				categories[val.pc] = 1;
 			}
 		});
@@ -367,7 +367,7 @@ function loadProducts(callback) {
 		$.each(data, function (key, val) {
 			sagMaterialImg[val.i] = val.s;
 			
-			if(svCategoryId == val.pc){
+			if(svCategoryId == val.pci){
         productOfSelectedCategory[val.i] = 1;
         
 				if(cnt > 30){
@@ -447,7 +447,7 @@ function selectCategoryByProduct(productId, callback) {
 	$.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
 		$.each(data, function (key, val) {
 			if(productId === val.i){
-				$('select#id_category').val(val.pc);
+				$('select#id_category').val(val.pci);
 			}
 		});
 		loadProducts(callback);
