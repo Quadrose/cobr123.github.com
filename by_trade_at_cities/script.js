@@ -783,11 +783,15 @@ function loadTowns(callback) {
 		var output = '<option value="" selected="">'+allTowns+'</option>';
 
 		$.each(data, function (key, val) {
-			if(svRegionId != null && svRegionId != '' && val.ri == svRegionId){
-				output += '<option value="'+val.i+'">'+val.c+'</option>';
-			} else if(svCountryId != null && svCountryId != '' && val.ci == svCountryId){
-				output += '<option value="'+val.i+'">'+val.c+'</option>';
-			} else if((svCountryId == null || svCountryId == '') && (svRegionId == null || svRegionId == '')){
+			if(svRegionId !== null && svRegionId != ''){
+				if(val.ri == svRegionId){
+					output += '<option value="'+val.i+'">'+val.c+'</option>';
+				}
+			} else if(svCountryId !== null && svCountryId != ''){
+				if(val.ci == svCountryId){
+					output += '<option value="'+val.i+'">'+val.c+'</option>';
+				}
+			} else {
 				output += '<option value="'+val.i+'">'+val.c+'</option>';
 			}
 		});
