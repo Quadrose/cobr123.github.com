@@ -278,6 +278,9 @@ function loadData() {
 	  fillTownCaptions(loadData);
 	  return false;
 	}
+	var id_country = $('#id_country').val();
+	var id_region = $('#id_region').val();
+	var id_town = $('#id_town').val();
 //    console.log('loadData /'+realm+'/tradeAtCity_'+serviceID+'.json, caller is '+ arguments.callee.caller.toString());
 
 	updateUrl();
@@ -292,9 +295,15 @@ function loadData() {
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
-			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.ti == nvl($('#id_town').val(),val.ti)) {suitable = true;} else {suitable = false;}
+			if(id_town == null || id_town == ''){
+			  if(id_region == null || id_region == ''){
+			    if (suitable && val.ci == nvl(id_country,val.ci)) {suitable = true;} else {suitable = false;}
+			  } else {
+			    if (suitable && val.ri == id_region) {suitable = true;} else {suitable = false;}
+			  }
+			} else {
+			  if (suitable && val.ti == id_town) {suitable = true;} else {suitable = false;}
+			}
 			
 			if (suitable && val.p >= parseFloatFromFilter('#price_from',val.p)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.p <= parseFloatFromFilter('#price_to',val.p)) {suitable = true;} else {suitable = false;}
