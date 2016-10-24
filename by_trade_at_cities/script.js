@@ -568,6 +568,17 @@ function loadData() {
 		fillTownCaptions(loadData);
 		return false;
 	}
+	var id_country = $('#id_country').val();
+	var id_region = $('#id_region').val();
+	var id_town = $('#id_town').val();
+	var wealthIndexFrom = $('#wealthIndexFrom').val();
+	var wealthIndexTo = $('#wealthIndexTo').val();
+	var volumeFrom = $('#volumeFrom').val();
+	var volumeTo = $('#volumeTo').val();
+	var localPercentFrom = $('#localPercentFrom').val();
+	var localPercentTo = $('#localPercentTo').val();
+	var localPriceFrom = $('#localPriceFrom').val();
+	var localPriceTo = $('#localPriceTo').val();
 //    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
 
 	updateUrl();
@@ -579,22 +590,28 @@ function loadData() {
 		$.each(data, function (key, val) {
 			var suitable = true;
 
-			if (suitable && val.pi == $('#id_product').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.ti == nvl($('#id_town').val(),val.ti)) {suitable = true;} else {suitable = false;}
+			//if (suitable && val.pi == $('#id_product').val()) {suitable = true;} else {suitable = false;}
+			if(id_town == null || id_town == ''){
+			  if(id_region == null || id_region == ''){
+			    if (suitable && val.ci == nvl(id_country,val.ci)) {suitable = true;} else {suitable = false;}
+			  } else {
+			    if (suitable && val.ri == id_region) {suitable = true;} else {suitable = false;}
+			  }
+			} else {
+			  if (suitable && val.ti == id_town) {suitable = true;} else {suitable = false;}
+			}
 
-			if (suitable && val.wi >= $('#wealthIndexFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.wi <= $('#wealthIndexTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.wi >= wealthIndexFrom) {suitable = true;} else {suitable = false;}
+			if (suitable && val.wi <= wealthIndexTo) {suitable = true;} else {suitable = false;}
 
-			if (suitable && val.v >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.v <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.v >= volumeFrom) {suitable = true;} else {suitable = false;}
+			if (suitable && val.v <= volumeTo) {suitable = true;} else {suitable = false;}
 
-			if (suitable && val.lpe >= $('#localPercentFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpe <= $('#localPercentTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpe >= localPercentFrom) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpe <= localPercentTo) {suitable = true;} else {suitable = false;}
 
-			if (suitable && val.lpr >= $('#localPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpr <= $('#localPriceTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpr >= localPriceFrom) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpr <= localPriceTo) {suitable = true;} else {suitable = false;}
 
 			if (suitable && val.lq >= $('#localQualityFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.lq <= $('#localQualityTo').val()) {suitable = true;} else {suitable = false;}
