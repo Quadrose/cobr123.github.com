@@ -226,7 +226,7 @@ function updateTableFromCache(splicedTableCache){
 
 	splicedTableCache.forEach(function(val){
 		output += '<tr class="trec hoverable">';
-		openCalcHref = 'https://ovh.belyan.in/factory/'+val.manufactureID+'.html';
+		openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
 		specHref = 'https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
 		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
 		output += '<td align="center"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ val.equipId +'/">'+val.equipQual+'</a></td>';
