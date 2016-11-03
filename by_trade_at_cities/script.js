@@ -985,7 +985,7 @@ function initShowHideColSelect() {
 
 	sagInvisibibleColumns = getVal('invisibible_columns_btac');
 	if (sagInvisibibleColumns == null) {
-		sagInvisibibleColumns = ['smvs','smvst','lmvs','lmvst'];
+		sagInvisibibleColumns = ['smvs','smvst','lmvs','lmvst','itp','itr'];
   }
     
   $.each(sagInvisibibleColumns, function (key, val) {
