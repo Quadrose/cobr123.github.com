@@ -985,15 +985,15 @@ function initShowHideColSelect() {
 
 	sagInvisibibleColumns = getVal('invisibible_columns_btac');
 	if (sagInvisibibleColumns == null) {
-		sagInvisibibleColumns = [];
-	} else {
-		$.each(sagInvisibibleColumns, function (key, val) {
+		sagInvisibibleColumns = ['smvs','smvst','lmvs','lmvst'];
+  }
+    
+  $.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
-			hideCol(val);
-			$("select#"+ show_hide_col_id +" > option[value="+val+"]").attr('selected',false);
-		});
-		show_hide_col.multiselect('refresh');
-	}
+    hideCol(val);
+    $("select#"+ show_hide_col_id +" > option[value="+val+"]").attr('selected',false);
+  });
+  show_hide_col.multiselect('refresh');
 }
 //////////////////////////////////////////////////////
 $(document).ready(function () {
