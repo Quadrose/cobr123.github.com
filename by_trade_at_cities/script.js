@@ -636,10 +636,12 @@ function loadData() {
 				output += '<td field_name="lpr" '+getColStyle('local_price')+' align="right" id="td_local_price">'+parseFloat(val.lpr).toFixed(2)+'</td>';
 				output += '<td field_name="lq" '+getColStyle('local_quality')+' align="right" id="td_local_quality">'+parseFloat(val.lq).toFixed(2)+'</td>';
 				output += '<td field_name="lmvs" '+getColStyle('lmvs')+' align="right" id="td_lmvs">'+unknownIfNull(locale, val['lmvs'])+'</td>';
+				output += '<td field_name="lmvst" '+getColStyle('lmvst')+' align="right" id="td_lmvst">'+unknownIfNull(locale, val['lmvst'])+'</td>';
 				output += '<td field_name="spr" '+getColStyle('shop_price')+' align="right" id="td_shop_price">'+parseFloat(val.spr).toFixed(2)+'</td>';
 				output += '<td field_name="sq" '+getColStyle('shop_quality')+' align="right" id="td_shop_quality">'+parseFloat(val.sq).toFixed(2)+'</td>';
 				output += '<td field_name="sb" '+getColStyle('shop_brand')+' align="right" id="td_shop_brand">'+parseFloat(val.sb).toFixed(2)+'</td>';
 				output += '<td field_name="smvs" '+getColStyle('smvs')+' align="right" id="td_smvs">'+unknownIfNull(locale, val['smvs'])+'</td>';
+				output += '<td field_name="smvst" '+getColStyle('smvst')+' align="right" id="td_smvst">'+unknownIfNull(locale, val['smvst'])+'</td>';
 				output += '<td field_name="sc" '+getColStyle('sc')+' align="right" id="td_sc">'+val.sc+'</td>';
 				output += '<td field_name="cc" '+getColStyle('cc')+' align="right" id="td_cc">'+val.cc+'</td>';
 				output += '<td '+getColStyle('itr')+' align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
