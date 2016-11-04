@@ -318,7 +318,7 @@ function loadData() {
 
 			if(suitable){
 				output += '<tr class="trec hoverable">';
-				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'" data-value="'+ sagTownCaption[val.ti] +'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'" data-value="'+ sagTownCaption[val.ti] +'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td '+getColStyle('w_idx')+' align="right" id="td_w_idx" data-value="'+ parseFloat(val.wi).toFixed(2) +'">'+ parseFloat(val.wi).toFixed(2) +'</td>';
 				output += '<td '+getColStyle('mdi')+' align="right" id="td_mdi" data-value="'+ parseFloat(val.mdi).toFixed(2) +'">'+parseFloat(val.mdi).toFixed(2)+'</td>';
 				output += '<td '+getColStyle('market_volume')+' align="right" id="td_market_volume" data-value="'+ val.v +'">'+ commaSeparateNumber(val.v) +'</td>';
