@@ -26,7 +26,8 @@ function nvl(val1, val2){
 	if (val1 == null || val1 == ''){
 		return val2;
 	} else {
-		return val1;
+		return val1;function getServiceID(){
+
 	}
 }
 function getVal(spName){
