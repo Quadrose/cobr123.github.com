@@ -167,10 +167,10 @@ function loadPredictionData(predRow, data) {
             uniqPred[key] = 1;
             output += '<tr class="trec hoverable">';
             output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+' ('+Math.round(parseFloat(val.sv.replace(/[\D]+/g,''))/parseFloat(val.mv)*100)+'%)</td>';
-            output += '<td align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
+            output += '<td align="right" id="td_price" data-value="'+ parseFloat(val.p).toFixed(2) +'">'+ commaSeparateNumber(parseFloat(val.p).toFixed(2)) +'</td>';
             output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
             output += '<td align="right" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
-            output += '<td align="right" id="td_marketVolume">'+val.mv+'</td>';
+            output += '<td align="right" id="td_marketVolume">'+ commaSeparateNumber(val.mv) +'</td>';
             output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
             output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
             output += '<td align="right" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
@@ -235,6 +235,7 @@ function loadPredictionData(predRow, data) {
             ,{
                 selector:'td#td_price'
                 ,order: 'desc'
+                ,data: 'value'
             }
         );
     }
