@@ -138,12 +138,12 @@ function loadPredictionData(predRow, data) {
     var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 
     var output = '';
-    var svMarketIdx = predRow.prev().find('>td#td_idx').text();
+    var svMarketIdx = predRow.prev().find('>td#td_idx').attr('data-value');
     console.log("svMarketIdx = '"+ svMarketIdx+"'" );
-    var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').text());
+    var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').attr('data-value'));
     var nvMarketVolumeDelta = nvMarketVolume * 0.25;
     console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
-    var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').text());
+    var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').attr('data-value'));
     console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
     var tableId = 'table_' + predRow.attr('id');
     var uniqPred = [];
