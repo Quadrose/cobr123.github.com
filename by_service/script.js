@@ -26,8 +26,7 @@ function nvl(val1, val2){
 	if (val1 == null || val1 == ''){
 		return val2;
 	} else {
-		return val1;function getServiceID(){
-
+		return val1;
 	}
 }
 function getVal(spName){
@@ -319,24 +318,24 @@ function loadData() {
 
 			if(suitable){
 				output += '<tr class="trec hoverable">';
-				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
-				output += '<td '+getColStyle('w_idx')+' align="right" id="td_w_idx">'+unknownIfNull(locale, parseFloat(val['wi']).toFixed(2))+'</td>';
-				output += '<td '+getColStyle('mdi')+' align="right" id="td_mdi">'+parseFloat(val.mdi).toFixed(2)+'</td>';
-				output += '<td '+getColStyle('market_volume')+' align="right" id="td_market_volume">'+val.v+'</td>';
-				output += '<td '+getColStyle('perc')+' align="right" id="td_perc">'+percent.toFixed(2)+'</td>';
-				output += '<td '+getColStyle('price')+' align="right" id="td_price">'+parseFloat(val.p).toFixed(2)+'</td>';
-				output += '<td '+getColStyle('sc')+' align="right" id="td_sc">'+val.sc+'</td>';
-				output += '<td '+getColStyle('cc')+' align="right" id="td_cc">'+val.cc+'</td>';
-				output += '<td '+getColStyle('itr')+' align="right" id="td_itr">'+unknownIfNull(locale, val['itr'])+'</td>';
+				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'" data-value="'+ sagTownCaption[val.ti] +'">'+sagTownCaption[val.ti]+'</a></td>';
+				output += '<td '+getColStyle('w_idx')+' align="right" id="td_w_idx" data-value="'+ parseFloat(val.wi).toFixed(2) +'">'+ parseFloat(val.wi).toFixed(2) +'</td>';
+				output += '<td '+getColStyle('mdi')+' align="right" id="td_mdi" data-value="'+ parseFloat(val.mdi).toFixed(2) +'">'+parseFloat(val.mdi).toFixed(2)+'</td>';
+				output += '<td '+getColStyle('market_volume')+' align="right" id="td_market_volume" data-value="'+ val.v +'">'+ commaSeparateNumber(val.v) +'</td>';
+				output += '<td '+getColStyle('perc')+' align="right" id="td_perc" data-value="'+ percent.toFixed(2) +'">'+percent.toFixed(2)+'</td>';
+				output += '<td '+getColStyle('price')+' align="right" id="td_price" data-value="'+ parseFloat(val.p).toFixed(2) +'">'+ commaSeparateNumber(parseFloat(val.p).toFixed(2)) +'</td>';
+				output += '<td '+getColStyle('sc')+' align="right" id="td_sc" data-value="'+ val.sc +'">'+val.sc+'</td>';
+				output += '<td '+getColStyle('cc')+' align="right" id="td_cc" data-value="'+ val.cc +'">'+val.cc+'</td>';
+				output += '<td '+getColStyle('itr')+' align="right" id="td_itr" data-value="'+ val.itr +'">'+ val.itr +'</td>';
 
 
 				if(val['cbs'] != null){
 					calcBySpec = val.cbs[serviceSpec];
 					if(calcBySpec != null){
-						output += '<td '+getColStyle('cbs_lpr')+' align="right" id="td_cbs_lpr">' + parseFloat(calcBySpec.lpr).toFixed(2) + '</td>';
-						output += '<td '+getColStyle('cbs_lq')+' align="right" id="td_cbs_lq">' + parseFloat(calcBySpec.lq).toFixed(2) + '</td>';
-						output += '<td '+getColStyle('cbs_spr')+' align="right" id="td_cbs_spr">' + parseFloat(calcBySpec.spr).toFixed(2) + '</td>';
-						output += '<td '+getColStyle('cbs_sq')+' align="right" id="td_cbs_sq">' + parseFloat(calcBySpec.sq).toFixed(2) + '</td>';
+						output += '<td '+getColStyle('cbs_lpr')+' align="right" id="td_cbs_lpr" data-value="'+parseFloat(calcBySpec.lpr).toFixed(2)+'">' + commaSeparateNumber(parseFloat(calcBySpec.lpr).toFixed(2)) + '</td>';
+						output += '<td '+getColStyle('cbs_lq')+' align="right" id="td_cbs_lq" data-value="'+parseFloat(calcBySpec.lq).toFixed(2)+'">' + commaSeparateNumber(parseFloat(calcBySpec.lq).toFixed(2)) + '</td>';
+						output += '<td '+getColStyle('cbs_spr')+' align="right" id="td_cbs_spr" data-value="'+parseFloat(calcBySpec.spr).toFixed(2)+'">' + commaSeparateNumber(parseFloat(calcBySpec.spr).toFixed(2)) + '</td>';
+						output += '<td '+getColStyle('cbs_sq')+' align="right" id="td_cbs_sq" data-value="'+parseFloat(calcBySpec.sq).toFixed(2)+'">' + commaSeparateNumber(parseFloat(calcBySpec.sq).toFixed(2)) + '</td>';
 					}
 				}
 
@@ -345,10 +344,10 @@ function loadData() {
 					if(retailBySpec != null){
 						$('#equip_raw_mat_body > tr:eq(0) > td:eq(2) > a > img').each(function() {
 							var rbsKey = $(this).attr('productID');
-							output += '<td '+getColStyle('rbs_lpr')+' align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lpr).toFixed(2) + '</a></td>';
-							output += '<td '+getColStyle('rbs_lq')+' align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].lq).toFixed(2) + '</a></td>';
-							output += '<td '+getColStyle('rbs_spr')+' align="right" id="td_rbs_spr_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].spr).toFixed(2) + '</a></td>';
-							output += '<td '+getColStyle('rbs_sq')+' align="right" id="td_rbs_sq_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '">' + parseFloat(retailBySpec[rbsKey].sq).toFixed(2) + '</a></td>';
+							output += '<td '+getColStyle('rbs_lpr')+' align="right" id="td_rbs_lpr_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '" data-value="'+parseFloat(retailBySpec[rbsKey].lpr).toFixed(2)+'">' + commaSeparateNumber(parseFloat(retailBySpec[rbsKey].lpr).toFixed(2)) + '</a></td>';
+							output += '<td '+getColStyle('rbs_lq')+' align="right" id="td_rbs_lq_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '" data-value="'+parseFloat(retailBySpec[rbsKey].lq).toFixed(2)+'">' + commaSeparateNumber(parseFloat(retailBySpec[rbsKey].lq).toFixed(2)) + '</a></td>';
+							output += '<td '+getColStyle('rbs_spr')+' align="right" id="td_rbs_spr_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '" data-value="'+parseFloat(retailBySpec[rbsKey].spr).toFixed(2)+'">' + commaSeparateNumber(parseFloat(retailBySpec[rbsKey].spr).toFixed(2)) + '</a></td>';
+							output += '<td '+getColStyle('rbs_sq')+' align="right" id="td_rbs_sq_' + rbsKey + '"><a target="_blank" href="https://' + domain + '/' + realm + '/main/globalreport/marketing/by_trade_at_cities/' + rbsKey + '/' + val.ci + '/' + val.ri + '/' + val.ti + '" data-value="'+parseFloat(retailBySpec[rbsKey].sq).toFixed(2)+'">' + commaSeparateNumber(parseFloat(retailBySpec[rbsKey].sq).toFixed(2)) + '</a></td>';
 						});
 					}
 				}
@@ -371,6 +370,7 @@ function loadData() {
 				,{
 						selector:'td#td_'+svColId
 						,order: svOrder
+						,data: 'value'
 				}
 		);
 		$('#sort_col_id').val(svColId);
@@ -815,6 +815,7 @@ $(document).ready(function () {
 					,{
 							selector:'td#td_'+tableHeaderId
 							,order: order
+							,data: 'value'
 					}
 			);
 		}
