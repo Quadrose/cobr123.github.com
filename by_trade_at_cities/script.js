@@ -663,30 +663,32 @@ function loadData() {
             }
         });
 
-        $('#xtabletbody').html(output); 	// replace all existing content
+        $('#xtabletbody').html(output); 
+        
+        if(output != ''){
+            var svOrder = $('#sort_dir').val();
+            var svColId = $('#sort_col_id').val();
+            var isAscending = svOrder=='asc';
+            var orderArrow = isAscending?'&#9650;':'&#9660;';
+            $('#sort_by_'+svColId).html(orderArrow);
 
-        var svOrder = $('#sort_dir').val();
-        var svColId = $('#sort_col_id').val();
-        var isAscending = svOrder=='asc';
-        var orderArrow = isAscending?'&#9650;':'&#9660;';
-        $('#sort_by_'+svColId).html(orderArrow);
+            var table = document.getElementById('xtable');
+            var tableBody = table.querySelector('tbody');
+            tinysort(
+                tableBody.querySelectorAll('tr')
+                ,{
+                    selector:'td#td_'+svColId
+                    ,order: svOrder
+                    ,data: 'value'
+                }
+            );
+            $('#sort_col_id').val(svColId);
+            $('#sort_dir').val(svOrder);
+            setVal('sort_col_id_btac', $('#sort_col_id').val());
+            setVal('sort_dir_btac', $('#sort_dir').val());
 
-        var table = document.getElementById('xtable');
-        var tableBody = table.querySelector('tbody');
-        tinysort(
-            tableBody.querySelectorAll('tr')
-            ,{
-                selector:'td#td_'+svColId
-                ,order: svOrder
-                ,data: 'value'
-            }
-        );
-        $('#sort_col_id').val(svColId);
-        $('#sort_dir').val(svOrder);
-        setVal('sort_col_id_btac', $('#sort_col_id').val());
-        setVal('sort_dir_btac', $('#sort_dir').val());
-
-        addHoverHandlers();
+            addHoverHandlers();
+        }
     });
     return false;
 }
