@@ -401,9 +401,7 @@ function changeProduct(productId) {
     var selected = $('#id_product').val();
     if(selected != null && selected != ''){
         $('#img'+selected).attr('border','');
-    } else {
-        return;
-    }
+    } 
     $('#volumeFromByMaterials').html('');
     $('#img'+productId).attr('border','1');
     $('#id_product').val(productId);
