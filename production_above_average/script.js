@@ -170,10 +170,6 @@ function updateTable(unZippedData){
     if (realm == null || realm == '') {
         return;
     }
-    var productID = getProductID();
-    if (realm == null || realm == '') {
-        return;
-    }
 
     var output = '';
     var locale = getLocale();
@@ -194,6 +190,7 @@ function updateTable(unZippedData){
     var specHref = '';
     var suitable = true;
     var nvTechTo = parseFloatFromFilter('#tech_to', 20);
+    var productID = getProductID();
     setVal('tech_to', nvTechTo);
 
     unZippedData.forEach(function(val){
@@ -202,7 +199,7 @@ function updateTable(unZippedData){
         }
         suitable = true;
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
-        if (suitable && (val.pi == productID || productID == null || productID == '')) {suitable = true;} else {suitable = false;}
+        if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
 
         if(suitable){
             output += '<tr class="trec hoverable">';
@@ -238,8 +235,8 @@ function updateTable(unZippedData){
         }
     });
     //console.log('output = ' + output);
-    $('#xtabletbody').html(output); 	// replace all existing content
-    if(output != ''){
+    if(output != '' && productID !== null && productID != ''){
+        $('#xtabletbody').html(output); 	// replace all existing content
         sortTable();
     }
 }
