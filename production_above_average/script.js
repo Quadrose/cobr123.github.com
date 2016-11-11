@@ -163,6 +163,22 @@ function sortTable(){
     setVal('sort_col_id_paa', $('#sort_col_id').val());
     setVal('sort_dir_paa', $('#sort_dir').val());
 }
+
+//максимальное кол-во работающих с заданной квалификацией на предприятиии для заданной квалификации игрока (топ-1)
+function calcMaxTop1(playerQuality, workersQuality) {
+  var workshopLoads = 50.0;
+  return Math.floor(workshopLoads * 14.0 * playerQuality * playerQuality / Math.pow(1.4, workersQuality) / 5.0);
+}
+
+//квалификация игрока необходимая для данного уровня технологии
+function calcPlayerQualityForTech(techLvl) {
+  return Math.pow(2.72, Math.log(techLvl) / (1.0 / 3.0)) * 0.0064;
+}
+
+//квалификация рабочих необходимая для данного уровня технологии
+function calcWorkersQualityForTech(techLvl) {
+  return Math.pow(techLvl, 0.8);
+}
 var sagMaterialImg = null;
 var productOfSelectedCategory = [];
 function updateTable(unZippedData){
@@ -192,13 +208,23 @@ function updateTable(unZippedData){
     var nvTechTo = parseFloatFromFilter('#tech_to', 20);
     var productID = getProductID();
     setVal('tech_to', nvTechTo);
-    var isOptimalForTop1 = $('#isOptimalForTop1').is(':checked');
+    var filterOptimalForTop1 = $('#isOptimalForTop1').is(':checked');
+    var isOptimalForTop1 = true;
+    var playerQuality = calcPlayerQualityForTech(nvTechTo);
+    var workersQuality = 0;
+    var optimalTop1 = 0;
 
     unZippedData.forEach(function(val){
+        isOptimalForTop1 = true;
         if (val.tl <= nvTechTo) {
-            if (isOptimalForTop1) {
-              if (val['o4t1']) {
+            if (filterOptimalForTop1) {
+              workersQuality = calcWorkersQualityForTech(val.tl);
+              optimalTop1 = calcMaxTop1(playerQuality, workersQuality) * 0.75;
+              if (val['mwc'] >= optimalTop1) {
                 $('#img'+val.pi).css('opacity', 1);
+                isOptimalForTop1 = true;
+              } else {
+                isOptimalForTop1 = false;
               }
             } else {
               $('#img'+val.pi).css('opacity', 1);
@@ -207,9 +233,7 @@ function updateTable(unZippedData){
         suitable = true;
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
         if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
-        if (suitable && isOptimalForTop1) {
-          if (val['o4t1']) {suitable = true;} else {suitable = false;}
-        }
+        if (suitable && isOptimalForTop1) {suitable = true;} else {suitable = false;}
 
         if(suitable){
             output += '<tr class="trec hoverable">';
