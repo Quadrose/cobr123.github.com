@@ -192,6 +192,7 @@ function updateTable(unZippedData){
     var nvTechTo = parseFloatFromFilter('#tech_to', 20);
     var productID = getProductID();
     setVal('tech_to', nvTechTo);
+    var isOptimalForTop1 = $('#isOptimalForTop1').is(':checked');
 
     unZippedData.forEach(function(val){
         if (val.tl <= nvTechTo) {
@@ -200,6 +201,9 @@ function updateTable(unZippedData){
         suitable = true;
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
         if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
+        if (suitable && isOptimalForTop1) {
+          if (val['o4t1']) {suitable = true;} else {suitable = false;}
+        }
 
         if(suitable){
             output += '<tr class="trec hoverable">';
