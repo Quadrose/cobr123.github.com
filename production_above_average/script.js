@@ -202,6 +202,7 @@ function updateTable(unZippedData){
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
         if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
         if (suitable && isOptimalForTop1) {
+            console.log(val['o4t1']);
           if (val['o4t1']) {suitable = true;} else {suitable = false;}
         }
 
