@@ -196,14 +196,19 @@ function updateTable(unZippedData){
 
     unZippedData.forEach(function(val){
         if (val.tl <= nvTechTo) {
-            $('#img'+val.pi).css('opacity', 1);
+            if (isOptimalForTop1) {
+              if (val['o4t1']) {
+                $('#img'+val.pi).css('opacity', 1);
+              }
+            } else {
+              $('#img'+val.pi).css('opacity', 1);
+            }
         }
         suitable = true;
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
         if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
         if (suitable && isOptimalForTop1) {
           if (val['o4t1']) {suitable = true;} else {suitable = false;}
-            console.log(val['o4t1'] + ': ' +((suitable)?'suitable':'not suitable'));
         }
 
         if(suitable){
