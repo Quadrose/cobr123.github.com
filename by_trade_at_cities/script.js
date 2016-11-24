@@ -651,8 +651,8 @@ function loadData() {
                 output += '<td field_name="sb" '+getColStyle('shop_brand')+' align="right" id="td_shop_brand" data-value="'+ parseFloat(val.sb).toFixed(2) +'">'+parseFloat(val.sb).toFixed(2)+'</td>';
                 output += '<td field_name="smvs" '+getColStyle('smvs')+' align="right" id="td_smvs" data-value="'+ unknownIfNull(locale, val['smvs']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['smvs']))+'</td>';
                 output += '<td '+getColStyle('smvst')+' align="right" id="td_smvst" data-value="'+ unknownIfNull(locale, val['smvst']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['smvst']))+'</td>';
-                output += '<td '+getColStyle('pmvs')+' align="right" id="td_pmvs" data-value="'+ unknownIfNull(locale, (val['smvs']/val['lmvs']*100).toFixed(2)) +'">'+ commaSeparateNumber(unknownIfNull(locale, (val['smvs']/val['lmvs']*100).toFixed(2)))+'</td>';
-                output += '<td '+getColStyle('pmvst')+' align="right" id="td_pmvst" data-value="'+ unknownIfNull(locale, (val['smvst']/val['lmvst']*100).toFixed(2)) +'">'+ commaSeparateNumber(unknownIfNull(locale, (val['smvst']/val['lmvst']*100).toFixed(2)))+'</td>';
+                output += '<td field_name="pmvs" '+getColStyle('pmvs')+' align="right" id="td_pmvs" data-value="'+ unknownIfNull(locale, val['pmvs']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['pmvs']))+'</td>';
+                output += '<td '+getColStyle('pmvst')+' align="right" id="td_pmvst" data-value="'+ unknownIfNull(locale, val['pmvst']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['pmvst']))+'</td>';
                 output += '<td field_name="sc" '+getColStyle('sc')+' align="right" id="td_sc" data-value="'+ val.sc +'">'+val.sc+'</td>';
                 output += '<td field_name="cc" '+getColStyle('cc')+' align="right" id="td_cc" data-value="'+ val.cc +'">'+val.cc+'</td>';
                 output += '<td '+getColStyle('itr')+' align="right" id="td_itr" data-value="'+ unknownIfNull(locale, val['itr']) +'">'+unknownIfNull(locale, val['itr'])+'</td>';
