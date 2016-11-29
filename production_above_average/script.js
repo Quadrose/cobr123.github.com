@@ -250,12 +250,13 @@ function updateTable(unZippedData){
             svMaterialsPrice = '';
             //vPricePerQty = '';
             val.ir.forEach(function(mat){
+                openCalcHref = '/industry/#id_product='+mat.pi+'&realm='+realm+'&tech_from='+nvTechTo+'&tech_to='+nvTechTo+'&quality_from='+mat.q;
                 imgSrc = sagMaterialImg[mat.pi].replace('/img/products/','/img/products/16/');
                 unitHref = 'https://'+domain+'/'+realm+'/main/unit/view/'+mat.ui+'/';
                 href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+mat.pi+'/';
                 svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
                 //svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.v)+'&nbsp;</td>';
-                svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.q)+'&nbsp;</td>';
+                svMaterialsQual += '<td align="center"><a target="_blank" href="'+openCalcHref+'">'+commaSeparateNumber(mat.q)+'</a>&nbsp;</td>';
                 //svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
                 svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.p)+'</a>&nbsp;</td>';
             });
