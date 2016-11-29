@@ -223,6 +223,8 @@ function updateTableFromCache(splicedTableCache){
 	var svDate = new Date().toISOString().slice(0, 10);
 	var openCalcHref = '';
 	var specHref = '';
+	var nvTechFrom = parseFloatFromFilter('#tech_from', 20);
+	var nvTechTo = parseFloatFromFilter('#tech_to', 20);
 
 	splicedTableCache.forEach(function(val){
 		output += '<tr class="trec hoverable">';
@@ -238,12 +240,13 @@ function updateTableFromCache(splicedTableCache){
 		svMaterialsPrice = '';
 		//vPricePerQty = '';
 		val.materials.forEach(function(mat){
+			openCalcHref = '/industry/#id_product='+mat.productID+'&realm='+realm+'&tech_from='+nvTechFrom+'&tech_to='+nvTechTo+'&quality_from='+mat.quality;
 			imgSrc = sagMaterialImg[mat.productID].replace('/img/products/','/img/products/16/');
 			unitHref = 'https://'+domain+'/'+realm+'/main/unit/view/'+mat.unitID+'/';
 			href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
 			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
 			svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.ingQty)+'&nbsp;</td>';
-			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'&nbsp;</td>';
+			svMaterialsQual += '<td align="center"><a target="_blank" href="'+openCalcHref+'">'+commaSeparateNumber(mat.quality)+'</a>&nbsp;</td>';
 			//svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
 			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a>&nbsp;</td>';
 		});
