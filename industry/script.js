@@ -169,10 +169,10 @@ function addToResultCache(val){
 	//console.log('val.cost = ' + val.cost);
 	
 	if (suitable && val.quality >= parseFloatFromFilter("#quality_from", val.quality)) {suitable = true;} else {suitable = false;}
-	if (suitable && val.quality <= parseFloatFromFilter('#qualityTo', val.quality)) {suitable = true;} else {suitable = false;}
+	if (suitable && val.quality <= parseFloatFromFilter('#quality_to', val.quality)) {suitable = true;} else {suitable = false;}
 	
-	if (suitable && val.cost >= parseFloatFromFilter('#costFrom', val.cost)) {suitable = true;} else {suitable = false;}
-	if (suitable && val.cost <= parseFloatFromFilter('#costTo', val.cost)) {suitable = true;} else {suitable = false;}
+	if (suitable && val.cost >= parseFloatFromFilter('#cost_from', val.cost)) {suitable = true;} else {suitable = false;}
+	if (suitable && val.cost <= parseFloatFromFilter('#cost_to', val.cost)) {suitable = true;} else {suitable = false;}
 	
 	if(suitable){
 		var existed = tableCache[val.quality];
