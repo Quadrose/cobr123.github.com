@@ -377,7 +377,7 @@ function cartesianProduct(a, calcResultFunc) { // a = array of array
     if (!a || a.length === 0) {
     	return a;
     }
-
+	
     a1 = a.splice(0,1);
     a = cartesianProduct(a, calcResultFunc);
     for (i = 0, l = a1[0].length; i < l; i++) {
@@ -385,7 +385,7 @@ function cartesianProduct(a, calcResultFunc) { // a = array of array
 					for (j = 0, m = a.length; j < m; j++) {
 						o.push([a1[0][i]].concat(a[j]));
 						calcResultFunc([a1[0][i]].concat(a[j]));
-						if (Object.size(tableCache) > totalMaxLen) {
+						if (o.length > totalMaxLen || Object.size(tableCache) > totalMaxLen/100) {
 							return o;
 						}
 					}
