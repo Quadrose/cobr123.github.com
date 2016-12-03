@@ -371,27 +371,25 @@ function calcResult(recipe, materials, tech) {
 	result.profit = profit.toFixed(2);
 	return result;
 }
-function cartesianProduct(a, calcResultFunc) { // a = array of array
+function cartesianProduct(a) { // a = array of array
 		var totalMaxLen = 20000;
     var i, j, l, m, a1, o = [];
     if (!a || a.length === 0) {
     	return a;
     }
-	
+
     a1 = a.splice(0,1);
-    a = cartesianProduct(a, calcResultFunc);
+    a = cartesianProduct(a);
     for (i = 0, l = a1[0].length; i < l; i++) {
         if (a && a.length){ 
 					for (j = 0, m = a.length; j < m; j++) {
 						o.push([a1[0][i]].concat(a[j]));
-						calcResultFunc([a1[0][i]].concat(a[j]));
-						if (o.length > totalMaxLen || Object.size(tableCache) > totalMaxLen/100) {
+						if (o.length > totalMaxLen) {
 							return o;
 						}
 					}
 				} else {
           o.push([a1[0][i]]);
-	  //calcResultFunc([a1[0][i]]);
 				}
     }
     return o;
@@ -538,23 +536,23 @@ function calcProduction(recipe) {
 		setVal('volumeFrom_'+key, $('#volumeFrom_'+key).val());
 	}
 	
-	remains.sort(sortMaterials);
 	console.log('cartesianProduct for remains.length = ' + remains.length);
+	materials = cartesianProduct(remains);
 	var techDiff = tech_to - tech_from + 1;
-	var calcResultFunc = function(mats) {
-	for (var tech = tech_from; tech <= tech_to; tech++) {
-	  console.log('calcResult for tech = ' + tech);
-			var result = calcResult(recipe, mats, tech);
-			addToResultCache(result);
-	}
-	};
-	cartesianProduct(remains, calcResultFunc);
-	//console.log('cartesianProduct result materials.length = ' + materials.length);
+	console.log('cartesianProduct result materials.length = ' + materials.length);
 	//materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
 	//materials.splice(10000/techDiff);
-	//materials.splice(10000/techDiff);
-	//console.log('cartesianProduct result sorted materials.length = ' + materials.length);
+	materials.sort(sortMaterials);
+	materials.splice(10000/techDiff);
+	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 
+	for (var tech = tech_from; tech <= tech_to; tech++) {
+	  console.log('calcResult for tech = ' + tech);
+		materials.forEach(function(mats) {
+			var result = calcResult(recipe, mats, tech);
+			addToResultCache(result);
+		});
+	}
 	var tmp = [];
 	for (var key in tableCache) {
 		tmp.push(tableCache[key]);
