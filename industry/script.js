@@ -379,7 +379,7 @@ function cartesianProduct(a, calcResultFunc) { // a = array of array
     }
 
     a1 = a.splice(0,1);
-    a = cartesianProduct(a);
+    a = cartesianProduct(a, calcResultFunc);
     for (i = 0, l = a1[0].length; i < l; i++) {
         if (a && a.length){ 
 					for (j = 0, m = a.length; j < m; j++) {
