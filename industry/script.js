@@ -391,7 +391,7 @@ function cartesianProduct(a, calcResultFunc) { // a = array of array
 					}
 				} else {
           o.push([a1[0][i]]);
-	  calcResultFunc([a1[0][i]]);
+	  //calcResultFunc([a1[0][i]]);
 				}
     }
     return o;
