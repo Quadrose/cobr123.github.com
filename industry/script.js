@@ -543,7 +543,7 @@ function calcProduction(recipe) {
 	//materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
 	//materials.splice(10000/techDiff);
 	materials.sort(sortMaterials);
-	materials.splice(20000/techDiff);
+	materials.splice(10000/techDiff);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 
 	for (var tech = tech_from; tech <= tech_to; tech++) {
