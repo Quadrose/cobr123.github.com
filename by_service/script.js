@@ -333,16 +333,16 @@ function loadData() {
 
 			if(suitable){
 				var area_rent_title = (locale === 'en') ? 'Rent 1 m2\n\
-Trendy neighborhood '+ (nvl(parseFloat(val['ar']), 1) * 2.25).toFixed(2) +'\n\
-City centre         '+ (nvl(parseFloat(val['ar']), 1) * 1.5).toFixed(2) +'\n\
-Residential area    '+ (nvl(parseFloat(val['ar']), 1) * 1).toFixed(2) +'\n\
-Outskirts           '+ (nvl(parseFloat(val['ar']), 1) * 0.66).toFixed(2) +'\n\
-Suburb              '+ (nvl(parseFloat(val['ar']), 1) * 0.44).toFixed(2) +'' : 'Стоимость аренды 1 м2\n\
-Фешенебельный район '+ (nvl(parseFloat(val['ar']), 1) * 2.25).toFixed(2) +'\n\
-Центр города        '+ (nvl(parseFloat(val['ar']), 1) * 1.5).toFixed(2) +'\n\
-Спальный район      '+ (nvl(parseFloat(val['ar']), 1) * 1).toFixed(2) +'\n\
-Окраина             '+ (nvl(parseFloat(val['ar']), 1) * 0.66).toFixed(2) +'\n\
-Пригород            '+ (nvl(parseFloat(val['ar']), 1) * 0.44).toFixed(2) +'';
+Trendy neighborhood '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 2.25).toFixed(2) +'\n\
+City centre         '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 1.5).toFixed(2) +'\n\
+Residential area    '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 1).toFixed(2) +'\n\
+Outskirts           '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 0.66).toFixed(2) +'\n\
+Suburb              '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 0.44).toFixed(2) +'' : 'Стоимость аренды 1 м2\n\
+Фешенебельный район '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 2.25).toFixed(2) +'\n\
+Центр города        '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 1.5).toFixed(2) +'\n\
+Спальный район      '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 1).toFixed(2) +'\n\
+Окраина             '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 0.66).toFixed(2) +'\n\
+Пригород            '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 0.44).toFixed(2) +'';
 				
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'" data-value="'+ sagTownCaption[val.ti] +'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
