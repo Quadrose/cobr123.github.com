@@ -284,7 +284,7 @@ function loadData() {
 //    console.log('loadData /'+realm+'/tradeAtCity_'+serviceID+'.json, caller is '+ arguments.callee.caller.toString());
 
 	updateUrl();
-
+	
 	$.getJSON('./'+realm+'/serviceAtCity_'+serviceID + suffix+'.json', function (data) {
 		var output = '';
 		var serviceSpec = $('#id_service_spec > option').eq($('#id_service_spec').val()).text();
@@ -307,14 +307,29 @@ function loadData() {
 			
 			if (suitable && val.p >= parseFloatFromFilter('#price_from',val.p)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.p <= parseFloatFromFilter('#price_to',val.p)) {suitable = true;} else {suitable = false;}
+			
+			if (suitable && val.w_idx >= parseFloatFromFilter('#w_idx_from',val.w_idx)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.w_idx <= parseFloatFromFilter('#w_idx_to',val.w_idx)) {suitable = true;} else {suitable = false;}
 
-            percent = val.pbs[serviceSpec] || 0;
+			if (suitable && val.mdi >= parseFloatFromFilter('#mdi_from',val.mdi)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.mdi <= parseFloatFromFilter('#mdi_to',val.mdi)) {suitable = true;} else {suitable = false;}
+
 			if (suitable){
-                suitable = false;
-                if(percent >= parseFloatFromFilter('#percent_from',percent) && percent <= parseFloatFromFilter('#percent_to',percent)) {
-                    suitable = true;
-                }
-            }
+				if(val['cbs'] != null){
+					calcBySpec = val.cbs[serviceSpec];
+					if(calcBySpec != null){
+						if (suitable && calcBySpec.lpr >= parseFloatFromFilter('#cbs_lpr_from',calcBySpec.lpr)) {suitable = true;} else {suitable = false;}
+						if (suitable && calcBySpec.lpr <= parseFloatFromFilter('#cbs_lpr_to',calcBySpec.lpr)) {suitable = true;} else {suitable = false;}
+					}
+				}
+			}
+            		percent = val.pbs[serviceSpec] || 0;
+			if (suitable){
+				suitable = false;
+				if(percent >= parseFloatFromFilter('#percent_from',percent) && percent <= parseFloatFromFilter('#percent_to',percent)) {
+				    suitable = true;
+				}
+			    }
 
 			if(suitable){
 				output += '<tr class="trec hoverable">';
