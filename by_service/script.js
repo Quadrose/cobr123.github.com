@@ -23,7 +23,7 @@ function updateReferenceLink(){
 	$('#reference_link').attr('href','https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+serviceID);
 }
 function nvl(val1, val2){
-	if (val1 == null || val1 == ''){
+	if (val1 == null || val1 == '' || val1 === 'NaN'){
 		return val2;
 	} else {
 		return val1;
@@ -332,13 +332,25 @@ function loadData() {
 			    }
 
 			if(suitable){
+				var area_rent_title = (locale === 'en') ? 'Rent 1 m2\
+Trendy neighborhood '+ (nvl(parseFloat(val['ar']), 1) * 2.25).toFixed(2) +'\
+City centre         '+ (nvl(parseFloat(val['ar']), 1) * 1.5).toFixed(2) +'\
+Residential area    '+ (nvl(parseFloat(val['ar']), 1) * 1).toFixed(2) +'\
+Outskirts           '+ (nvl(parseFloat(val['ar']), 1) * 0.66).toFixed(2) +'\
+Suburb              '+ (nvl(parseFloat(val['ar']), 1) * 0.44).toFixed(2) +'' : 'Стоимость аренды 1 м2\
+Фешенебельный район '+ (nvl(parseFloat(val['ar']), 1) * 2.25).toFixed(2) +'\
+Центр города        '+ (nvl(parseFloat(val['ar']), 1) * 1.5).toFixed(2) +'\
+Спальный район      '+ (nvl(parseFloat(val['ar']), 1) * 1).toFixed(2) +'\
+Окраина             '+ (nvl(parseFloat(val['ar']), 1) * 0.66).toFixed(2) +'\
+Пригород            '+ (nvl(parseFloat(val['ar']), 1) * 0.44).toFixed(2) +'';
+				
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'" data-value="'+ sagTownCaption[val.ti] +'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td '+getColStyle('w_idx')+' align="right" id="td_w_idx" data-value="'+ parseFloat(val.wi).toFixed(2) +'">'+ parseFloat(val.wi).toFixed(2) +'</td>';
 				output += '<td '+getColStyle('mdi')+' align="right" id="td_mdi" data-value="'+ parseFloat(val.mdi).toFixed(2) +'">'+parseFloat(val.mdi).toFixed(2)+'</td>';
 				output += '<td '+getColStyle('market_volume')+' align="right" id="td_market_volume" data-value="'+ val.v +'">'+ commaSeparateNumber(val.v) +'</td>';
 				output += '<td '+getColStyle('perc')+' align="right" id="td_perc" data-value="'+ percent.toFixed(2) +'">'+percent.toFixed(2)+'</td>';
-				output += '<td '+getColStyle('area_rent')+' align="right" id="td_area_rent" data-value="'+ unknownIfNull(locale, val['ar']) +'">'+unknownIfNull(locale, val['ar'])+'</td>';
+				output += '<td '+getColStyle('area_rent')+' align="right" id="td_area_rent" title="'+ area_rent_title +'" data-value="'+ unknownIfNull(locale, val['ar']) +'">'+unknownIfNull(locale, val['ar'])+'</td>';
 				output += '<td '+getColStyle('price')+' align="right" id="td_price" data-value="'+ parseFloat(val.p).toFixed(2) +'">'+ commaSeparateNumber(parseFloat(val.p).toFixed(2)) +'</td>';
 				output += '<td '+getColStyle('sc')+' align="right" id="td_sc" data-value="'+ val.sc +'">'+val.sc+'</td>';
 				output += '<td '+getColStyle('cc')+' align="right" id="td_cc" data-value="'+ val.cc +'">'+val.cc+'</td>';
