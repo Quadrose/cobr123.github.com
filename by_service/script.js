@@ -305,21 +305,21 @@ function loadData() {
 			  if (suitable && val.ti == id_town) {suitable = true;} else {suitable = false;}
 			}
 			
-			if (suitable && val.p >= parseFloatFromFilter('#price_from',val.p)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.p <= parseFloatFromFilter('#price_to',val.p)) {suitable = true;} else {suitable = false;}
+			if (suitable && parseFloat(val.p) >= parseFloatFromFilter('#price_from',val.p)) {suitable = true;} else {suitable = false;}
+			if (suitable && parseFloat(val.p) <= parseFloatFromFilter('#price_to',val.p)) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.w_idx >= parseFloatFromFilter('#w_idx_from',val.w_idx)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.w_idx <= parseFloatFromFilter('#w_idx_to',val.w_idx)) {suitable = true;} else {suitable = false;}
+			if (suitable && parseFloat(val.w_idx) >= parseFloatFromFilter('#w_idx_from',val.w_idx)) {suitable = true;} else {suitable = false;}
+			if (suitable && parseFloat(val.w_idx) <= parseFloatFromFilter('#w_idx_to',val.w_idx)) {suitable = true;} else {suitable = false;}
 
-			if (suitable && val.mdi >= parseFloatFromFilter('#mdi_from',val.mdi)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.mdi <= parseFloatFromFilter('#mdi_to',val.mdi)) {suitable = true;} else {suitable = false;}
+			if (suitable && parseFloat(val.mdi) >= parseFloatFromFilter('#mdi_from',val.mdi)) {suitable = true;} else {suitable = false;}
+			if (suitable && parseFloat(val.mdi) <= parseFloatFromFilter('#mdi_to',val.mdi)) {suitable = true;} else {suitable = false;}
 
 			if (suitable){
 				if(val['cbs'] != null){
 					calcBySpec = val.cbs[serviceSpec];
 					if(calcBySpec != null){
-						if (suitable && calcBySpec.lpr >= parseFloatFromFilter('#cbs_lpr_from',calcBySpec.lpr)) {suitable = true;} else {suitable = false;}
-						if (suitable && calcBySpec.lpr <= parseFloatFromFilter('#cbs_lpr_to',calcBySpec.lpr)) {suitable = true;} else {suitable = false;}
+						if (suitable && parseFloat(calcBySpec.lpr) >= parseFloatFromFilter('#cbs_lpr_from',calcBySpec.lpr)) {suitable = true;} else {suitable = false;}
+						if (suitable && parseFloat(calcBySpec.lpr) <= parseFloatFromFilter('#cbs_lpr_to',calcBySpec.lpr)) {suitable = true;} else {suitable = false;}
 					}
 				}
 			}
