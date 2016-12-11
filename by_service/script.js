@@ -308,8 +308,8 @@ function loadData() {
 			if (suitable && parseFloat(val.p) >= parseFloatFromFilter('#price_from',val.p)) {suitable = true;} else {suitable = false;}
 			if (suitable && parseFloat(val.p) <= parseFloatFromFilter('#price_to',val.p)) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && parseFloat(val.w_idx) >= parseFloatFromFilter('#w_idx_from',val.w_idx)) {suitable = true;} else {suitable = false;}
-			if (suitable && parseFloat(val.w_idx) <= parseFloatFromFilter('#w_idx_to',val.w_idx)) {suitable = true;} else {suitable = false;}
+			if (suitable && parseFloat(val.wi) >= parseFloatFromFilter('#w_idx_from',val.wi)) {suitable = true;} else {suitable = false;}
+			if (suitable && parseFloat(val.wi) <= parseFloatFromFilter('#w_idx_to',val.wi)) {suitable = true;} else {suitable = false;}
 
 			if (suitable && parseFloat(val.mdi) >= parseFloatFromFilter('#mdi_from',val.mdi)) {suitable = true;} else {suitable = false;}
 			if (suitable && parseFloat(val.mdi) <= parseFloatFromFilter('#mdi_to',val.mdi)) {suitable = true;} else {suitable = false;}
