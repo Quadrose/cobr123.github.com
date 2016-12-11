@@ -56,6 +56,16 @@
 </select>&nbsp;<select id="id_town" onchange="changeTown();"><option value="" selected="">Все города</option>
 </select>
 <br>
+<u><b><span lang="en" style="display:none">Wealth level</span><span lang="ru">Индекс богатства</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="w_idx_from" size="5" maxlength="6" value="0.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="w_idx_to" size="5" maxlength="6" value="10000.00"><br>
+<u><b><span lang="en" style="display:none">Market development index</span><span lang="ru">Индекс развития рынка</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="mdi_from" size="5" maxlength="6" value="0.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="mdi_to" size="5" maxlength="6" value="10000.00"><br>
 <u><b><span lang="en" style="display:none">%</span><span lang="ru">%</span></b></u>
 	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
 	<input type="number" step="0.01" id="percent_from" size="5" maxlength="6" value="0.00">
@@ -66,6 +76,11 @@
 	<input type="number" step="0.01" id="price_from" size="12" maxlength="12" value="0.00">
 	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
 	<input type="number" step="0.01" id="price_to" size="12" maxlength="12" value="1000000.00"><br>
+<u><b><span lang="en" style="display:none">Local suppliers, price (sum)</span><span lang="ru">Местные, цена (sum)</span></b></u>
+	<span lang="en" style="display:none">from</span><span lang="ru">от</span>
+	<input type="number" step="0.01" id="cbs_lpr_from" size="12" maxlength="12" value="0.00">
+	<span lang="en" style="display:none">to</span><span lang="ru">до</span>
+	<input type="number" step="0.01" id="cbs_lpr_to" size="12" maxlength="12" value="1000000.00"><br>
 <input type="submit" id="btnSubmit" value="Сформировать">
 <span lang="en" style="display:none">
 <select id="show_hide_col_en" multiple="multiple">
