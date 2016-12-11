@@ -332,16 +332,16 @@ function loadData() {
 			    }
 
 			if(suitable){
-				var area_rent_title = (locale === 'en') ? 'Rent 1 m2\
-Trendy neighborhood '+ (nvl(parseFloat(val['ar']), 1) * 2.25).toFixed(2) +'\
-City centre         '+ (nvl(parseFloat(val['ar']), 1) * 1.5).toFixed(2) +'\
-Residential area    '+ (nvl(parseFloat(val['ar']), 1) * 1).toFixed(2) +'\
-Outskirts           '+ (nvl(parseFloat(val['ar']), 1) * 0.66).toFixed(2) +'\
-Suburb              '+ (nvl(parseFloat(val['ar']), 1) * 0.44).toFixed(2) +'' : 'Стоимость аренды 1 м2\
-Фешенебельный район '+ (nvl(parseFloat(val['ar']), 1) * 2.25).toFixed(2) +'\
-Центр города        '+ (nvl(parseFloat(val['ar']), 1) * 1.5).toFixed(2) +'\
-Спальный район      '+ (nvl(parseFloat(val['ar']), 1) * 1).toFixed(2) +'\
-Окраина             '+ (nvl(parseFloat(val['ar']), 1) * 0.66).toFixed(2) +'\
+				var area_rent_title = (locale === 'en') ? 'Rent 1 m2\n\
+Trendy neighborhood '+ (nvl(parseFloat(val['ar']), 1) * 2.25).toFixed(2) +'\n\
+City centre         '+ (nvl(parseFloat(val['ar']), 1) * 1.5).toFixed(2) +'\n\
+Residential area    '+ (nvl(parseFloat(val['ar']), 1) * 1).toFixed(2) +'\n\
+Outskirts           '+ (nvl(parseFloat(val['ar']), 1) * 0.66).toFixed(2) +'\n\
+Suburb              '+ (nvl(parseFloat(val['ar']), 1) * 0.44).toFixed(2) +'' : 'Стоимость аренды 1 м2\n\
+Фешенебельный район '+ (nvl(parseFloat(val['ar']), 1) * 2.25).toFixed(2) +'\n\
+Центр города        '+ (nvl(parseFloat(val['ar']), 1) * 1.5).toFixed(2) +'\n\
+Спальный район      '+ (nvl(parseFloat(val['ar']), 1) * 1).toFixed(2) +'\n\
+Окраина             '+ (nvl(parseFloat(val['ar']), 1) * 0.66).toFixed(2) +'\n\
 Пригород            '+ (nvl(parseFloat(val['ar']), 1) * 0.44).toFixed(2) +'';
 				
 				output += '<tr class="trec hoverable">';
