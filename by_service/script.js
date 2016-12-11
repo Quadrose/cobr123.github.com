@@ -350,7 +350,7 @@ Suburb              '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 0.44).toFixed(2) 
 				output += '<td '+getColStyle('mdi')+' align="right" id="td_mdi" data-value="'+ parseFloat(val.mdi).toFixed(2) +'">'+parseFloat(val.mdi).toFixed(2)+'</td>';
 				output += '<td '+getColStyle('market_volume')+' align="right" id="td_market_volume" data-value="'+ val.v +'">'+ commaSeparateNumber(val.v) +'</td>';
 				output += '<td '+getColStyle('perc')+' align="right" id="td_perc" data-value="'+ percent.toFixed(2) +'">'+percent.toFixed(2)+'</td>';
-				output += '<td '+getColStyle('area_rent')+' align="right" id="td_area_rent" title="'+ area_rent_title +'" data-value="'+ unknownIfNull(locale, parseFloat(val['ar']) / 1000) +'">'+unknownIfNull(locale, parseFloat(val['ar']) / 1000)+'</td>';
+				output += '<td '+getColStyle('area_rent')+' align="right" id="td_area_rent" title="'+ area_rent_title +'" data-value="'+ unknownIfNull(locale, (parseFloat(val['ar']) / 1000).toFixed(2)) +'">'+unknownIfNull(locale, (parseFloat(val['ar']) / 1000).toFixed(2))+'</td>';
 				output += '<td '+getColStyle('price')+' align="right" id="td_price" data-value="'+ parseFloat(val.p).toFixed(2) +'">'+ commaSeparateNumber(parseFloat(val.p).toFixed(2)) +'</td>';
 				output += '<td '+getColStyle('sc')+' align="right" id="td_sc" data-value="'+ val.sc +'">'+val.sc+'</td>';
 				output += '<td '+getColStyle('cc')+' align="right" id="td_cc" data-value="'+ val.cc +'">'+val.cc+'</td>';
