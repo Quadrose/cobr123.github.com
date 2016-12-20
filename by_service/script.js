@@ -496,7 +496,7 @@ function updateEquipRawMat(data){
 						  equipCell += '<a href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+ svProductID +'/" target="_blank">';
 						  equipCell += '<img src="'+ svImgUrl +'" width="16" height="16" id="img'+ svProductID +'" title="'+ svProductCaption +'"">';
 						  equipCell += '</a>';
-						  equipProdCell += '<a href="/industry/#id_product='+ svProductID +'" target="_blank">';
+						  equipProdCell += '<a href="/industry/#id_product='+ svProductID +'&realm=' + realm + '" target="_blank">';
 						  equipProdCell += '<img src="'+ svImgUrl +'" width="16" height="16" id="img'+ svProductID +'" title="'+ svProductCaption +'"">';
 						  equipProdCell += '</a>';
                         }
