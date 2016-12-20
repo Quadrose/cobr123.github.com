@@ -508,7 +508,7 @@ function updateEquipRawMat(data){
                                 rawMatCell += '<a href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+svProductID+'/" target="_blank">';
                                 rawMatCell += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'" title="'+svProductCaption+'"">';
                                 rawMatCell += '</a>';
-                                rawMatProdCell += '<a href="/industry/#id_product='+svProductID+'" target="_blank">';
+                                rawMatProdCell += '<a href="/industry/#id_product='+svProductID+'&realm=' + realm + '" target="_blank">';
                                 rawMatProdCell += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'" title="'+svProductCaption+'"">';
                                 rawMatProdCell += '</a>';
 								nvDynColCnt += 4;
