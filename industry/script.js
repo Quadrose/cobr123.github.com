@@ -488,6 +488,18 @@ function sortMaterials(a,b){
 		return a.price/a.quality - b.price/b.quality;
 	}
 }
+function getRecipeIngErrMsg(recipe) {
+  var realm = getRealm();
+  var svText = '';
+  recipe.ip.forEach(function(ingredient) {
+    var svProductID = ingredient.pi;
+    var svImgUrl = sagMaterialImg[svProductID];
+    svText += '<a href="/industry/#id_product='+svProductID+'&realm=' + realm + '" target="_blank">';
+    svText += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'">';
+    svText += '</a>';
+  }
+  return svText;
+}
 function calcProduction(recipe) {
 	var remains = [];
 	var allExists = true;
@@ -495,6 +507,8 @@ function calcProduction(recipe) {
 	var domain = getDomain(locale);
 	var realm = getRealm();
 	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains for producrion ' : 'Недостаточно запасов ингридиентов на складе для производства ';
+	notAllHasRemains += getRecipeIngErrMsg(recipe);
+	notAllHasRemains += '<a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 	recipe.ip.forEach(function(ingredient) {
 		if(allExists){
 //		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
@@ -508,7 +522,6 @@ function calcProduction(recipe) {
 
 			if (material_remains_ing === null || material_remains_ing.length === 0) {
 				allExists = false;
-	            notAllHasRemains += '<a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 			} else {
 				remains.push(material_remains_ing);
 			}
@@ -608,6 +621,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 	var locale = getLocale();
 	var domain = getDomain(locale);
 	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains for producrion ' : 'Недостаточно запасов ингридиентов на складе для производства ';
+	notAllHasRemains += getRecipeIngErrMsg(recipe);
 	notAllHasRemains += '<a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
