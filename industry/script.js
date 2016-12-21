@@ -497,7 +497,7 @@ function getRecipeIngErrMsg(recipe) {
     svText += '<a href="/industry/#id_product='+svProductID+'&realm=' + realm + '" target="_blank">';
     svText += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'">';
     svText += '</a>';
-  }
+  });
   return svText;
 }
 function calcProduction(recipe) {
