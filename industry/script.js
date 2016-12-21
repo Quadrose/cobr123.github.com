@@ -654,7 +654,9 @@ function loadRemains(recipe, productID, npMinQuality) {
 		calcProduction(recipe);
 	})
 	  .fail(function() {
-		$('#messages').append('<p>'+notAllHasRemains+'</p>');
+		if($('#messages').html().indexOf('<p>'+notAllHasRemains+'</p>') === -1) {
+			$('#messages').append('<p>'+notAllHasRemains+'</p>');
+		}
 		unlockSubmit();
 	  });
 }
