@@ -494,11 +494,11 @@ function getRecipeIngErrMsg(recipe) {
   recipe.ip.forEach(function(ingredient) {
     var svProductID = ingredient.pi;
     var svImgUrl = sagMaterialImg[svProductID];
-    svText += ' + <a href="/industry/#id_product='+svProductID+'&realm=' + realm + '" target="_blank">';
+    svText += '+<a href="/industry/#id_product='+svProductID+'&realm=' + realm + '" target="_blank">';
     svText += '<img src="'+ svImgUrl+'" width="16" height="16" id="img'+svProductID+'" productID="'+svProductID+'">';
     svText += '</a>';
   });
-  return svText.substr(3);
+  return svText.substr(1);
 }
 function calcProduction(recipe) {
 	var remains = [];
@@ -508,7 +508,7 @@ function calcProduction(recipe) {
 	var realm = getRealm();
 	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains for producrion ' : 'Недостаточно запасов ингридиентов на складе для производства ';
 	notAllHasRemains += getRecipeIngErrMsg(recipe);
-	notAllHasRemains += ' = <a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
+	notAllHasRemains += '=<a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 	recipe.ip.forEach(function(ingredient) {
 		if(allExists){
 //		    console.log('typeof material_remains = "' + typeof(material_remains) + '"');
@@ -622,7 +622,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 	var domain = getDomain(locale);
 	var notAllHasRemains = (locale == 'en') ? 'Not all ingredients has remains for producrion ' : 'Недостаточно запасов ингридиентов на складе для производства ';
 	notAllHasRemains += getRecipeIngErrMsg(recipe);
-	notAllHasRemains += ' = <a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
+	notAllHasRemains += '=<a target="_blank" href="https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+recipe.i+'">"'+recipe.s+'"</a>';
 
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
