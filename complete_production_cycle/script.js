@@ -193,7 +193,7 @@ function changeRecipeSpec(productID, recipeSpecID){
     $.getJSON('/industry/'+realm+'/recipe_'+productID+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
             if(val.i === recipeSpecID){
-                recipe.ip.forEach(function(ingredient) {
+                val.ip.forEach(function(ingredient) {
                     imgSrc = sagMaterialImg[ingredient.pi].replace('/img/products/','/img/products/16/');
                     svCellHtml += '<tr><td align="center"><img src="'+imgSrc+'"></td></tr>';
                 });
