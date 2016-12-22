@@ -201,8 +201,6 @@ function updateTable(unZippedData){
     //var svPricePerQty = '';
     var svDate = new Date().toISOString().slice(0, 10);
     var openCalcHref = '';
-    var general_report_link = '';
-    var general_report_link_title = (locale == 'en') ? 'Production: general report' : 'Производство: обзорный отчёт';
     var specHref = '';
     var suitable = true;
     var nvTechTo = parseFloatFromFilter('#tech_to', 20);
@@ -232,16 +230,15 @@ function updateTable(unZippedData){
         }
         suitable = true;
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
-        if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
+        if (suitable && (val.pi === productID)) {suitable = true;} else {suitable = false;}
         if (suitable && isOptimalForTop1) {suitable = true;} else {suitable = false;}
 
         if(suitable){
             output += '<tr class="trec hoverable">';
             imgSrc = sagMaterialImg[val.pi].replace('/img/products/','/img/products/16/');
-            general_report_link = '<a href="https://'+domain+'/'+realm+'/main/globalreport/product_history/'+val.pi+'" target="_blank"><img src="'+imgSrc+'"></a>';
             openCalcHref = '/industry/#id_product='+val.pi+'&realm='+realm+'&tech_from='+val.tl+'&tech_to='+val.tl+'&quality_from='+val.q;
             specHref = 'https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.mi;
-            output += '<td align="center">'+general_report_link+'&nbsp;<a target="_blank" href="'+specHref+'">'+val.s+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
+            output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.s+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
             techHref = 'https://'+domain+'/'+realm+'/main/globalreport/technology/'+val.mi+'/'+val.tl+'/target_market_summary/'+svDate+'/bid';
             output += '<td align="center" id="td_tech" id="td_quality" data-value="'+val.tl+'"><a target="_blank" href="'+techHref+'">'+val.tl+'</a></td>';
             svMaterialsImg = '';
