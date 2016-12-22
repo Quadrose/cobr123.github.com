@@ -138,30 +138,6 @@ function parseFloatFromFilter(spSelector, npDefVal){
 }
 //////////////////////////////////////////////////////
 
-function sortTable(){
-    var svOrder = $('#sort_dir').val();
-    var svColId = $('#sort_col_id').val();
-
-    var table = document.getElementById('xtable');
-    var tableBody = table.querySelector('tbody');
-    tinysort(
-        tableBody.querySelectorAll('tr')
-        ,{
-            selector:'td#td_'+svColId
-            ,order: svOrder
-            ,data: 'value'
-        }
-    );
-    var isAscending = svOrder=='asc';
-    var orderArrow = isAscending?'&#9650;':'&#9660;';
-    $('#sort_by_'+svColId).html(orderArrow);
-
-    $('#sort_col_id').val(svColId);
-    $('#sort_dir').val(svOrder);
-    setVal('sort_col_id_paa', $('#sort_col_id').val());
-    setVal('sort_dir_paa', $('#sort_dir').val());
-}
-
 //максимальное кол-во работающих с заданной квалификацией на предприятиии для заданной квалификации игрока (топ-1)
 function calcMaxTop1(playerQuality, workersQuality) {
   var workshopLoads = 50.0;
@@ -179,100 +155,6 @@ function calcWorkersQualityForTech(techLvl) {
 }
 var sagMaterialImg = null;
 var productOfSelectedCategory = [];
-function updateTable(unZippedData){
-    var realm = getRealm();
-    if (realm == null || realm == '') {
-        return;
-    }
-
-    var output = '';
-    var locale = getLocale();
-    var domain = getDomain(locale);
-    var href = '';
-    var unitHref = '';
-    var imgSrc = '';
-    var techHref = '';
-    var svMaterialsImg = '';
-    var svMaterialsQty = '';
-    var svMaterialsQual = '';
-    var svMaterialsPrice = '';
-    //var svPricePerQty = '';
-    var svDate = new Date().toISOString().slice(0, 10);
-    var openCalcHref = '';
-    var general_report_link = '';
-    var general_report_link_title = (locale == 'en') ? 'Production: general report' : 'Производство: обзорный отчёт';
-    var specHref = '';
-    var suitable = true;
-    var nvTechTo = parseFloatFromFilter('#tech_to', 20);
-    var productID = getProductID();
-    setVal('tech_to', nvTechTo);
-    var filterOptimalForTop1 = $('#isOptimalForTop1').is(':checked');
-    var isOptimalForTop1 = true;
-    var playerQuality = calcPlayerQualityForTech(nvTechTo);
-    var workersQuality = 0;
-    var optimalTop1 = 0;
-
-    unZippedData.forEach(function(val){
-        isOptimalForTop1 = true;
-        if (val.tl <= nvTechTo) {
-            if (filterOptimalForTop1) {
-              workersQuality = calcWorkersQualityForTech(val.tl);
-              optimalTop1 = calcMaxTop1(playerQuality, workersQuality) * 0.75;
-              if (val['mwc'] >= optimalTop1) {
-                $('#img'+val.pi).css('opacity', 1);
-                isOptimalForTop1 = true;
-              } else {
-                isOptimalForTop1 = false;
-              }
-            } else {
-              $('#img'+val.pi).css('opacity', 1);
-            }
-        }
-        suitable = true;
-        if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
-        if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
-        if (suitable && isOptimalForTop1) {suitable = true;} else {suitable = false;}
-
-        if(suitable){
-            output += '<tr class="trec hoverable">';
-            imgSrc = sagMaterialImg[val.pi].replace('/img/products/','/img/products/16/');
-            general_report_link = '<a href="https://'+domain+'/'+realm+'/main/globalreport/product_history/'+val.pi+'" target="_blank"><img src="'+imgSrc+'"></a>';
-            openCalcHref = '/industry/#id_product='+val.pi+'&realm='+realm+'&tech_from='+val.tl+'&tech_to='+val.tl+'&quality_from='+val.q;
-            specHref = 'https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.mi;
-            output += '<td align="center">'+general_report_link+'&nbsp;<a target="_blank" href="'+specHref+'">'+val.s+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
-            techHref = 'https://'+domain+'/'+realm+'/main/globalreport/technology/'+val.mi+'/'+val.tl+'/target_market_summary/'+svDate+'/bid';
-            output += '<td align="center" id="td_tech" id="td_quality" data-value="'+val.tl+'"><a target="_blank" href="'+techHref+'">'+val.tl+'</a></td>';
-            svMaterialsImg = '';
-            svMaterialsQty = '';
-            svMaterialsQual = '';
-            svMaterialsPrice = '';
-            //vPricePerQty = '';
-            val.ir.forEach(function(mat){
-                openCalcHref = '/industry/#id_product='+mat.pi+'&realm='+realm+'&tech_from='+nvTechTo+'&tech_to='+nvTechTo+'&quality_from='+mat.q;
-                imgSrc = sagMaterialImg[mat.pi].replace('/img/products/','/img/products/16/');
-                unitHref = 'https://'+domain+'/'+realm+'/main/unit/view/'+mat.ui+'/';
-                href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+mat.pi+'/';
-                svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
-                //svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.v)+'&nbsp;</td>';
-                svMaterialsQual += '<td align="center"><a target="_blank" href="'+openCalcHref+'">'+commaSeparateNumber(mat.q)+'</a>&nbsp;</td>';
-                //svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
-                svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.p)+'</a>&nbsp;</td>';
-            });
-            href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+val.pi+'/';
-            output += '<td align="center"><table cellspacing="0" cellpadding="0"><tr class="trec">'+svMaterialsImg+'</tr><tr class="trec">'+svMaterialsQty+'</tr><tr class="trec">'+svMaterialsQual+'</tr><tr class="trec">'+svMaterialsPrice+'</tr></table></td>';
-            output += '<td align="center" id="td_quality" data-value="'+val.q+'"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.q)+'</a></td>';
-            output += '<td align="center" id="td_quantity" data-value="'+val.v+'">'+commaSeparateNumber(val.v)+'</td>';
-            output += '<td align="center" id="td_cost" data-value="'+val.c+'">$'+commaSeparateNumber(val.c)+'</td>';
-            output += '<td align="center" id="td_costperqua" data-value="'+(val.c / val.q).toFixed(2)+'">$'+commaSeparateNumber((val.c / val.q).toFixed(2))+'</td>';
-            output += '</tr>';
-        }
-    });
-    //console.log('output = ' + output);
-    if(output != '' && productID !== null && productID != ''){
-        $('#xtabletbody').html(output); 	// replace all existing content
-        sortTable();
-    }
-}
 //////////////////////////////////////////////////////
 
 function fillFormFromUrl(urlParams){
@@ -301,40 +183,57 @@ function updateUrl() {
         + '&sort_dir='    + svOrder
     );
 }
+function changeRecipeSpec(productID, recipeSpecID){
+    var realm = getRealm();
+
+    var suffix = (getLocale() === 'en') ? '_en' : '';
+    var svCellHtml = '';
+    var imgSrc = '';
+
+    $.getJSON('/industry/'+realm+'/recipe_'+productID+suffix+'.json', function (data) {
+        $.each(data, function (key, val) {
+            if(val.i === recipeSpecID){
+                recipe.ip.forEach(function(ingredient) {
+                    imgSrc = sagMaterialImg[ingredient.pi].replace('/img/products/','/img/products/16/');
+                    svCellHtml += '<tr><td align="center"><img src="'+imgSrc+'"></td></tr>';
+                });
+            }
+        });
+        $('#td_'+ productID +'_'+ recipeSpecID).html('<table border="0" cellspacing="0" cellpadding="2">' + svCellHtml + '</table>');
+    });
+}
+function addByRecipeSpec(productID, recipeSpecID){
+    var realm = getRealm();
+    if (realm == null || realm == '') return;
+
+    var suffix = (getLocale() == 'en') ? '_en' : '';
+    var svCells = '';
+    var recipeSpecOptions = '';
+
+    $.getJSON('/industry/'+realm+'/recipe_'+productID+suffix+'.json', function (data) {
+        $.each(data, function (key, val) {
+            recipeSpecOptions += '<option productID="'+ productID +'" recipeSpecID="'+ val.i +'">'+ val.s +'</option>';
+            if(recipeSpec === '' || val.i === recipeSpecID){
+                //чтобы взять только одну специализацию
+                recipeSpecID = val.i;
+            }
+        });
+        svCells = '<td><table border="0" cellspacing="0" cellpadding="2">';
+        svCells += '<tr><td><select onchange="changeRecipeSpec(this.productID, this.recipeSpecID);">'+ recipeSpecOptions +'</select></td></tr>';
+        svCells += '<tr><td id="td_'+ productID +'_'+ recipeSpecID +'"></td></tr>';
+        svCells += '</table></td>';
+        $('#xtablerow').append(svCells);
+        changeRecipeSpec(productID, recipeSpecID);
+    });
+}
 function loadData() {
     if (sagMaterialImg === null) {return false;}
     $('#messages').html('');
-    $('#xtabletbody').html('');
+    $('#xtablerow').html('');
     updateUrl();
-    var realm = getRealm();
-    $('img[id^="img"]').css('opacity', 0.2);
-    $('#img').css('opacity', 1);
-    var suffix = (getLocale() == 'en') ? '_en' : '';
-
-    zip.workerScriptsPath = '/js/';
-    zip.createReader(new zip.HttpReader('/industry/'+realm+'/production_above_average'+ suffix +'.json.zip'), function(reader) {
-        // get all entries from the zip
-        reader.getEntries(function(entries) {
-            if (entries.length > 0) {
-                // get first entry content as text
-                entries[0].getData(new zip.TextWriter(), function(text) {
-                    // text contains the entry data as a String
-                    // close the zip reader
-                    reader.close();
-                    // console.log(text.length);
-                    // console.log(text.substr(0, 100) );
-                    // console.log(text.substr(-100) );
-                    var data = JSON.parse(text);
-                    updateTable(data);
-                });
-            } else {
-                console.error("Файл с данными пустой");
-            }
-        });
-    }, function(error) {
-        // onerror callback
-        console.error(error);
-    });
+    var productID = getProductID();
+    if (productID == null || productID == '') return;
+    addByRecipeSpec(productID, '');
 
     return false;
 }
@@ -406,7 +305,7 @@ function loadProducts(callback) {
                 if(selected != null && selected == val.i){
                     output += ' border="1"';
                 }
-                output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer; opacity: 0.2;" onclick="changeProduct('+val.i+')">';
+                output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer;" onclick="changeProduct('+val.i+')">';
             }
         });
 
@@ -493,35 +392,7 @@ $(document).ready(function () {
             urlParams[p[0]] = decodeURIComponent(p[1]);
         }
     }
-    var table = document.getElementById('xtable');
-    var tableHead = table.querySelector('thead');
 
-    tableHead.addEventListener('click',function(e){
-        var tableHeader = e.target;
-        var isAscending;
-        var order;
-        var orderArrow;
-
-        while (tableHeader.nodeName!=='TH') {
-            tableHeader = tableHeader.parentNode;
-        }
-
-        var tableHeaderId = tableHeader.getAttribute('id').substr(3);
-        if (tableHeaderId != null && tableHeaderId != '') {
-            //console.log(tableHeaderId);
-            isAscending = tableHeader.getAttribute('data-order')=='asc';
-            order = isAscending ? 'desc' : 'asc';
-            orderArrow = isAscending ? '&#9660;' : '&#9650;';
-            tableHeader.setAttribute('data-order',order);
-            $('#sort_by_'+$('#sort_col_id').val()).html('');
-            $('#sort_col_id').val(tableHeaderId);
-            $('#sort_dir').val(order);
-            setVal('sort_col_id_paa', $('#sort_col_id').val());
-            setVal('sort_dir_paa', $('#sort_dir').val());
-            $('#sort_by_'+tableHeaderId).html(orderArrow);
-            loadData();
-        }
-    });
     loadSavedFlt(urlParams);
 
     if (getLocale() != 'ru') {
