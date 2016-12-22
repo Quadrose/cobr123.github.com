@@ -529,8 +529,8 @@ function calcProduction(recipe) {
 	});
 	if (!allExists){
 		unlockSubmit();
-		if(!$('#messages').html().includes('<p>'+notAllHasRemains+'</p>')) {
-			$('#messages').append('<p>'+notAllHasRemains+'</p>');
+		if($('#messages > p[name="remain_not_found_'+ recipe.i +'"]').length === 0) {
+			$('#messages').append('<p name="remain_not_found_'+ recipe.i +'">'+notAllHasRemains+'</p>');
 			console.log('calcProduction not all ingredients has remains');
 		}
 		return;
@@ -654,8 +654,8 @@ function loadRemains(recipe, productID, npMinQuality) {
 		calcProduction(recipe);
 	})
 	  .fail(function() {
-		if(!$('#messages').html().includes('<p>'+notAllHasRemains+'</p>')) {
-			$('#messages').append('<p>'+notAllHasRemains+'</p>');
+		if($('#messages > p[name="remain_not_found_'+ recipe.i +'"]').length === 0) {
+			$('#messages').append('<p name="remain_not_found_'+ recipe.i +'">'+notAllHasRemains+'</p>');
 		}
 		unlockSubmit();
 	  });
