@@ -213,7 +213,7 @@ function addByRecipeSpec(productID, recipeSpecID){
     $.getJSON('/industry/'+realm+'/recipe_'+productID+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
             recipeSpecOptions += '<option productID="'+ productID +'" recipeSpecID="'+ val.i +'">'+ val.s +'</option>';
-            if(recipeSpec === '' || val.i === recipeSpecID){
+            if(recipeSpecID === '' || val.i === recipeSpecID){
                 //чтобы взять только одну специализацию
                 recipeSpecID = val.i;
             }
