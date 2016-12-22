@@ -202,10 +202,10 @@ function changeRecipeSpec(productID, recipeSpecID){
         $('#td_'+ productID +'_'+ recipeSpecID).html('<table border="0" cellspacing="0" cellpadding="2">' + svCellHtml + '</table>');
     });
 }
-function changeRecipeSpecByEditor(){
-    var editor = $(this);
-    var productID = $('> option:selected', editor).attr('productID');
-    var recipeSpecID = $('> option:selected', editor).attr('recipeSpecID');
+function changeRecipeSpecByEditor(editor){
+    var select = $(editor);
+    var productID = $('> option:selected', select).attr('productID');
+    var recipeSpecID = $('> option:selected', select).attr('recipeSpecID');
     changeRecipeSpec(productID, recipeSpecID);
 }
 function addByRecipeSpec(productID, recipeSpecID){
@@ -225,7 +225,7 @@ function addByRecipeSpec(productID, recipeSpecID){
             }
         });
         svCells = '<td><table border="0" cellspacing="0" cellpadding="2">';
-        svCells += '<tr><td><select onchange="changeRecipeSpecByEditor();">'+ recipeSpecOptions +'</select></td></tr>';
+        svCells += '<tr><td><select onchange="changeRecipeSpecByEditor(this);">'+ recipeSpecOptions +'</select></td></tr>';
         svCells += '<tr><td id="td_'+ productID +'_'+ recipeSpecID +'"></td></tr>';
         svCells += '</table></td>';
         $('#xtablerow').append(svCells);
