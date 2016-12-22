@@ -183,7 +183,7 @@ function updateUrl() {
         + '&sort_dir='    + svOrder
     );
 }
-function changeRecipeSpec(productID, recipeSpecID){
+function changeRecipeSpec(productID, recipeSpec){
     var realm = getRealm();
 
     var suffix = (getLocale() === 'en') ? '_en' : '';
@@ -192,23 +192,23 @@ function changeRecipeSpec(productID, recipeSpecID){
 
     $.getJSON('/industry/'+realm+'/recipe_'+productID+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
-            if(val.i === recipeSpecID){
+            if(val.s === recipeSpec){
                 val.ip.forEach(function(ingredient) {
                     imgSrc = sagMaterialImg[ingredient.pi].replace('/img/products/','/img/products/16/');
                     svCellHtml += '<tr><td align="center"><img src="'+imgSrc+'"></td></tr>';
                 });
             }
         });
-        $('#td_'+ productID +'_'+ recipeSpecID).html('<table border="0" cellspacing="0" cellpadding="2">' + svCellHtml + '</table>');
+        $('td[productID="'+ productID +'" recipeSpec="'+ recipeSpec +'"]').html('<table border="0" cellspacing="0" cellpadding="2">' + svCellHtml + '</table>');
     });
 }
 function changeRecipeSpecByEditor(editor){
     var select = $(editor);
     var productID = $('> option:selected', select).attr('productID');
-    var recipeSpecID = $('> option:selected', select).attr('recipeSpecID');
-    changeRecipeSpec(productID, recipeSpecID);
+    var recipeSpec = $('> option:selected', select).attr('recipeSpec');
+    changeRecipeSpec(productID, recipeSpec);
 }
-function addByRecipeSpec(productID, recipeSpecID){
+function addByRecipeSpec(productID, recipeSpec){
     var realm = getRealm();
     if (realm == null || realm == '') return;
 
@@ -218,18 +218,18 @@ function addByRecipeSpec(productID, recipeSpecID){
 
     $.getJSON('/industry/'+realm+'/recipe_'+productID+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
-            recipeSpecOptions += '<option productID="'+ productID +'" recipeSpecID="'+ val.i +'">'+ val.s +'</option>';
-            if(recipeSpecID === '' || val.i === recipeSpecID){
+            recipeSpecOptions += '<option productID="'+ productID +'" recipeSpec="'+ val.i +'">'+ val.s +'</option>';
+            if(recipeSpec === '' || val.s === recipeSpec){
                 //чтобы взять только одну специализацию
-                recipeSpecID = val.i;
+                recipeSpec = val.s;
             }
         });
         svCells = '<td><table border="0" cellspacing="0" cellpadding="2">';
         svCells += '<tr><td><select onchange="changeRecipeSpecByEditor(this);">'+ recipeSpecOptions +'</select></td></tr>';
-        svCells += '<tr><td id="td_'+ productID +'_'+ recipeSpecID +'"></td></tr>';
+        svCells += '<tr><td productID="'+ productID +'" recipeSpec="'+ recipeSpec +'"></td></tr>';
         svCells += '</table></td>';
         $('#xtablerow').append(svCells);
-        changeRecipeSpec(productID, recipeSpecID);
+        changeRecipeSpec(productID, recipeSpec);
     });
 }
 function loadData() {
