@@ -208,8 +208,9 @@ function updateTable(unZippedData){
     setVal('tech_to', nvTechTo);
     var filterOptimalForTop1 = $('#isOptimalForTop1').is(':checked');
     var isOptimalForTop1 = true;
-    var playerQuality = parseFloatFromFilter('#player_quality', calcPlayerQualityForTech(nvTechTo));
-    $('#player_quality').attr('placeholder', calcPlayerQualityForTech(nvTechTo));
+    var playerQualityForTech = parseFloat(parseFloat(calcPlayerQualityForTech(nvTechTo)).toFixed(0));
+    var playerQuality = parseFloatFromFilter('#player_quality', playerQualityForTech);
+    $('#player_quality').attr('placeholder', playerQualityForTech);
     var workersQuality = 0;
     var optimalTop1 = 0;
 
