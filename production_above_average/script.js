@@ -209,6 +209,7 @@ function updateTable(unZippedData){
     var filterOptimalForTop1 = $('#isOptimalForTop1').is(':checked');
     var isOptimalForTop1 = true;
     var playerQuality = parseFloatFromFilter('#player_quality', calcPlayerQualityForTech(nvTechTo));
+    $('#player_quality').attr('placeholder', calcPlayerQualityForTech(nvTechTo));
     var workersQuality = 0;
     var optimalTop1 = 0;
 
