@@ -227,6 +227,8 @@ function updateTable(unZippedData){
                 suitable = false;
               }
             } 
+        } else {
+            suitable = false;
         }
         if (filterCheaperThenMarket) {
             if (suitable && val.ctm) {suitable = true;} else {suitable = false;}
