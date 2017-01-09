@@ -217,19 +217,22 @@ function updateTable(unZippedData){
 
     unZippedData.forEach(function(val){
         isOptimalForTop1 = true;
+        suitable = true;
         if (val.tl <= nvTechTo) {
             if (filterOptimalForTop1) {
               workersQuality = calcWorkersQualityForTech(val.tl);
               optimalTop1 = calcMaxTop1(playerQuality, workersQuality) * 0.75;
-              if (val['mwc'] >= optimalTop1) {
-                $('#img'+val.pi).css('opacity', 1);
-                isOptimalForTop1 = true;
-              } else {
+              if (val['mwc'] < optimalTop1) {
                 isOptimalForTop1 = false;
+                suitable = false;
               }
-            } else {
+            } 
+        }
+        if (filterCheaperThenMarket) {
+            if (suitable && val.ctm) {suitable = true;} else {suitable = false;}
+        }
+        if(suitable){
               $('#img'+val.pi).css('opacity', 1);
-            }
         }
         suitable = true;
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
