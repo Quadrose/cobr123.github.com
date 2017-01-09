@@ -264,6 +264,7 @@ function updateUrl() {
 		+ '&sort_dir='        + svOrder
 	);
 }
+var agTownAvgSalary;
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
@@ -347,6 +348,7 @@ Suburb              '+ (nvl(parseFloat(val['ar']), 1) / 1000 * 0.44).toFixed(2) 
 				output += '<tr class="trec hoverable">';
 				output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'" data-value="'+ sagTownCaption[val.ti] +'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_service/'+serviceID+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
 				output += '<td '+getColStyle('w_idx')+' align="right" id="td_w_idx" data-value="'+ parseFloat(val.wi).toFixed(2) +'">'+ parseFloat(val.wi).toFixed(2) +'</td>';
+				output += '<td '+getColStyle('as')+' align="right" id="td_as" data-value="'+ unknownIfNull(locale, agTownAvgSalary[val.i]) +'">'+ unknownIfNull(locale, agTownAvgSalary[val.i]) +'</td>';
 				output += '<td '+getColStyle('mdi')+' align="right" id="td_mdi" data-value="'+ parseFloat(val.mdi).toFixed(2) +'">'+parseFloat(val.mdi).toFixed(2)+'</td>';
 				output += '<td '+getColStyle('market_volume')+' align="right" id="td_market_volume" data-value="'+ val.v +'">'+ commaSeparateNumber(val.v) +'</td>';
 				output += '<td '+getColStyle('perc')+' align="right" id="td_perc" data-value="'+ percent.toFixed(2) +'">'+percent.toFixed(2)+'</td>';
@@ -594,11 +596,13 @@ function loadTowns(callback) {
 	var locale = getLocale();
 	var suffix = (locale == 'en') ? '_en' : '';
 	var allTowns = (locale == 'en') ? 'All cities' : 'Все города';
+	agTownAvgSalary = [];
 
 	$.getJSON('/by_trade_at_cities/'+realm+'/cities'+suffix+'.json', function (data) {
 		var output = '<option value="" selected="">'+allTowns+'</option>';
 
 		$.each(data, function (key, val) {
+			agTownAvgSalary[val.i] = val.as;
 			if(svRegionId !== null && svRegionId != ''){
 				if(val.ri == svRegionId){
 					output += '<option value="'+val.i+'">'+val.c+'</option>';
