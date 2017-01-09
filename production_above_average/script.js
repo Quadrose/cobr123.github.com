@@ -213,6 +213,7 @@ function updateTable(unZippedData){
     $('#player_quality').attr('placeholder', playerQualityForTech);
     var workersQuality = 0;
     var optimalTop1 = 0;
+    var filterCheaperThenMarket = $('#isCheaperThenMarket').is(':checked');
 
     unZippedData.forEach(function(val){
         isOptimalForTop1 = true;
@@ -234,6 +235,7 @@ function updateTable(unZippedData){
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
         if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
         if (suitable && isOptimalForTop1) {suitable = true;} else {suitable = false;}
+        if (suitable && filterCheaperThenMarket && val.ctm) {suitable = true;} else {suitable = false;}
 
         if(suitable){
             output += '<tr class="trec hoverable">';
