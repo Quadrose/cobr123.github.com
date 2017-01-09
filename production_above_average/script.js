@@ -235,7 +235,9 @@ function updateTable(unZippedData){
         if (suitable && (val.tl <= nvTechTo)) {suitable = true;} else {suitable = false;}
         if (suitable && (val.pi == productID)) {suitable = true;} else {suitable = false;}
         if (suitable && isOptimalForTop1) {suitable = true;} else {suitable = false;}
-        if (suitable && filterCheaperThenMarket && val.ctm) {suitable = true;} else {suitable = false;}
+        if (filterCheaperThenMarket) {
+            if (suitable && val.ctm) {suitable = true;} else {suitable = false;}
+        }
 
         if(suitable){
             output += '<tr class="trec hoverable">';
