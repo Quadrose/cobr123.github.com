@@ -66,11 +66,13 @@ function loadSavedFlt(urlParams){
     var realm       = getVal('realm') || 'olga';
     var id_category = getVal('id_category');
     var id_product  = getVal('id_product');
+    var isCheaperThenMarket = getVal('isCheaperThenMarket');
 
     if (Object.keys(urlParams).length > 1 && urlParams['realm'] != '' && (urlParams['id_product'] != '' || urlParams['id_category'] != '')) {
         realm       = urlParams['realm'];
         id_product  = urlParams['id_product'];
         id_category = urlParams['id_category'];
+        isCheaperThenMarket = urlParams['is_cheaper_then_market'];
         fillFormFromUrl(urlParams);
     }
 
@@ -82,6 +84,7 @@ function loadSavedFlt(urlParams){
     if (sort_dir != null || sort_dir != '') {
         $('#sort_dir').val(sort_dir);
     }
+    $('#isCheaperThenMarket').prop('checked', isCheaperThenMarket);
 
     $('#tech_from').val(getVal('tech_from') || 10);
     $('#tech_to').val(getVal('tech_to') || 10);
@@ -214,6 +217,7 @@ function updateTable(unZippedData){
     var workersQuality = 0;
     var optimalTop1 = 0;
     var filterCheaperThenMarket = $('#isCheaperThenMarket').is(':checked');
+    setVal('isCheaperThenMarket', filterCheaperThenMarket);
 
     unZippedData.forEach(function(val){
         isOptimalForTop1 = true;
@@ -301,6 +305,7 @@ function updateUrl() {
     var svColId = $('#sort_col_id').val();
     var svOrder = $('#sort_dir').val();
     var id_category = $('#id_category').val();
+    var isCheaperThenMarket = $('#isCheaperThenMarket').is(':checked');
 
     window.history.pushState("", ""
         , '#id_product='  + productID
@@ -309,6 +314,7 @@ function updateUrl() {
         + '&tech_to='     + strToNum(tech_to)
         + '&sort_col_id=' + svColId
         + '&sort_dir='    + svOrder
+        + '&is_cheaper_then_market=' + isCheaperThenMarket
     );
 }
 function loadData() {
