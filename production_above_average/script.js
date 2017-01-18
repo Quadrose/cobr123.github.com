@@ -86,8 +86,8 @@ function loadSavedFlt(urlParams){
     }
     $('#isCheaperThenMarket').prop('checked', isCheaperThenMarket);
 
-    $('#tech_from').val(getVal('tech_from') || 10);
-    $('#tech_to').val(getVal('tech_to') || 10);
+    $('#tech_from').val(getVal('tech_from') || 20);
+    $('#tech_to').val(getVal('tech_to') || 20);
 
     if (realm != null || realm != '') {
         $('#realm').val(realm);
