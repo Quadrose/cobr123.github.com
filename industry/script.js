@@ -102,8 +102,8 @@ function loadSavedFlt(urlParams){
 	    $('#sort_dir').val(sort_dir);
 	}
 	
-	$('#tech_from').val(urlParams['tech_from'] || getVal('tech_from') || 10);
-	$('#tech_to').val(urlParams['tech_to'] || getVal('tech_to') || 10);
+	$('#tech_from').val(urlParams['tech_from'] || getVal('tech_from') || 20);
+	$('#tech_to').val(urlParams['tech_to'] || getVal('tech_to') || 20);
 	$('#quality_from').val(urlParams['quality_from'] || getVal('quality_from') || 1);
 	$('#workQuan').val(getVal('workQuan') || 10000);
 	$('#workSalary').val(getVal('workSalary') || 300);
