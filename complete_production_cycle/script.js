@@ -199,7 +199,7 @@ function changeRecipeSpec(productID, recipeSpec){
                 });
             }
         });
-        $('td[productID="'+ productID +'" recipeSpec="'+ recipeSpec +'"]').html('<table border="0" cellspacing="0" cellpadding="2">' + svCellHtml + '</table>');
+        $('td[productID="'+ productID +'"][recipeSpec="'+ recipeSpec +'"]').html('<table border="0" cellspacing="0" cellpadding="2">' + svCellHtml + '</table>');
     });
 }
 function changeRecipeSpecByEditor(editor){
