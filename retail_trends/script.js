@@ -558,6 +558,20 @@ function updateUrl() {
 }
 //////////////////////////////////////////////////////
 function showTrendGraph(data) {
+  function strToDate(strDate){
+    var dateParts = strDate.split(".");
+    //new Date(year, month[, date[, hours[, minutes[, seconds[, milliseconds]]]]]);
+    return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
+  }
+  var today = new Date();
+  var monthBeforeToday = new Date();
+  monthBeforeToday.setMonth(today.getMonth() - 1);
+  var dateFrom = strToDate($('#from').val()) || monthBeforeToday;
+  var dateTo = strToDate($('#to').val()) || today;
+  data = data.filter(function(value){
+    var date = strToDate(value['d']);
+    return date >= dateFrom && date <= dateTo;
+  });
     /*{
               "d":"22.07.2016",
               "lpr":954.09,
@@ -575,7 +589,7 @@ function showTrendGraph(data) {
     var avVolume = [];
     for (var i = 0; i < data.length; i++) {
       var nvVolume = parseFloat((data[i]['v']).toFixed(2));
-      avVolume.push([i,nvVolume]);
+      avVolume.push([strToDate(data[i]['d']), nvVolume]);
     }
     function avg(array, current, window){
       var sum = 0;
@@ -592,7 +606,7 @@ function showTrendGraph(data) {
       // calculate average for each subarray and add to result
       for (var i=0; i < array.length; i++){
           mean = avg(array, i, window);
-          result.push([i,mean]);
+          result.push([array[i][0],mean]);
       }
 
       return result;
@@ -940,41 +954,9 @@ $(document).ready(function () {
         ,include_group_label_in_selected: true
         ,width: "250px"
     });
-    var today = new Date();
-    var monthBeforeToday = new Date();
-    monthBeforeToday.setMonth(today.getMonth() - 1)
-    $( "#from" ).val(monthBeforeToday.toLocaleDateString('se'));
-    $( "#to" ).val(today.toLocaleDateString('se'));
     //loadSavedFlt(urlParams);
-    $( function() {
-        var dateFormat = "dd.mm.yy",
-          from = $( "#from" )
-            .datepicker({
-              changeMonth: true,
-              numberOfMonths: 2
-            })
-            .on( "change", function() {
-              to.datepicker( "option", "minDate", getDate( this ) );
-            }),
-          to = $( "#to" ).datepicker({
-            changeMonth: true,
-            numberOfMonths: 2
-          })
-          .on( "change", function() {
-            from.datepicker( "option", "maxDate", getDate( this ) );
-          });
-     
-        function getDate( element ) {
-          var date;
-          try {
-            date = $.datepicker.parseDate( dateFormat, element.value );
-          } catch( error ) {
-            date = null;
-          }
-     
-          return date;
-        }
-      } );
+    $( "#from" ).datepicker( $.datepicker.regional[ $( "#locale" ).val() ] );
+    $( "#to"   ).datepicker( $.datepicker.regional[ $( "#locale" ).val() ] );
       
     if (getLocale() != 'ru') {
         $('#locale').val(getLocale());
