@@ -571,10 +571,13 @@ function showTrendGraph(data) {
   monthBeforeToday.setMonth(today.getMonth() - 1);
   var dateFrom = strToDate($('#from').val()) || monthBeforeToday;
   var dateTo = strToDate($('#to').val()) || today;
+    
+  console.log("data.length = " + data.length);
   data = data.filter(function(value){
     var date = strToDate(value['d']);
     return date >= dateFrom && date <= dateTo;
   });
+  console.log("filtered data.length = " + data.length);
     /*{
               "d":"22.07.2016",
               "lpr":954.09,
