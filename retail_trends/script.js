@@ -559,6 +559,9 @@ function updateUrl() {
 //////////////////////////////////////////////////////
 function showTrendGraph(data) {
   function strToDate(strDate){
+    if (strDate == ''){
+      return null;
+    }
     var dateParts = strDate.split(".");
     //new Date(year, month[, date[, hours[, minutes[, seconds[, milliseconds]]]]]);
     return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
@@ -956,7 +959,9 @@ $(document).ready(function () {
     });
     //loadSavedFlt(urlParams);
     $( "#from" ).datepicker( $.datepicker.regional[ $( "#locale" ).val() ] );
+    $( "#from" ).datepicker( "option", "dateFormat", "mm.dd.yy" );
     $( "#to"   ).datepicker( $.datepicker.regional[ $( "#locale" ).val() ] );
+    $( "#to"   ).datepicker( "option", "dateFormat", "mm.dd.yy" );
       
     if (getLocale() != 'ru') {
         $('#locale').val(getLocale());
