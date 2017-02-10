@@ -595,7 +595,7 @@ function showTrendGraph(data) {
     var avVolume = [];
     for (var i = 0; i < data.length; i++) {
       var nvVolume = parseFloat((data[i]['v']).toFixed(2));
-      avVolume.push([strToDate(data[i]['d']), nvVolume]);
+      avVolume.push([strToDate(data[i]['d']).getTime(), nvVolume]);
     }
     function avg(array, current, window){
       var sum = 0;
