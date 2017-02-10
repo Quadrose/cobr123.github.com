@@ -566,11 +566,11 @@ function showTrendGraph(data) {
     //new Date(year, month[, date[, hours[, minutes[, seconds[, milliseconds]]]]]);
     return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
   }
-  var today = new Date();
-  var dateTo = strToDate($('#to').val()) || today;
-  var weekBefore = new Date();
-  weekBefore.setDate(dateTo.getDate() - 7);
-  var dateFrom = strToDate($('#from').val()) || weekBefore;
+  var defaultDateTo = new Date();
+  var dateTo = strToDate($('#to').val()) || defaultDateTo;
+  var defaultDateFrom = new Date();
+  defaultDateFrom.setDate(dateTo.getDate() - 30);
+  var dateFrom = strToDate($('#from').val()) || defaultDateFrom;
     
   console.log("data.length = " + data.length);
   data = data.filter(function(value){
