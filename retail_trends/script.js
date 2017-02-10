@@ -1085,7 +1085,6 @@ $(document).ready(function () {
             urlParams[p[0]] = decodeURIComponent(p[1]);
         }
     }
-    initShowHideColSelect();
 
     $('#id_country').chosen({
         inherit_select_classes: true
@@ -1106,44 +1105,6 @@ $(document).ready(function () {
         ,width: "250px"
     });
 
-    var table = document.getElementById('xtable');
-    var tableHead = table.querySelector('thead');
-
-    tableHead.addEventListener('click',function(e){
-        var tableBody = table.querySelector('tbody');
-        var tableHeader = e.target;
-        var isAscending;
-        var order;
-
-        while (tableHeader.nodeName!=='TH') {
-            tableHeader = tableHeader.parentNode;
-        }
-        hideAllPredictions();
-
-        var tableHeaderId = tableHeader.getAttribute('id').substr(3);
-        if (tableHeaderId != null && tableHeaderId != '') {
-            //console.log(tableHeaderId);
-            var ascDesc = tableHeader.getAttribute('data-order');
-            isAscending = ascDesc=='asc';
-            order = isAscending?'desc':'asc';
-            tableHeader.setAttribute('data-order',order);
-            $('#sort_by_'+$('#sort_col_id').val()).html('');
-            $('#sort_col_id').val(tableHeaderId);
-            $('#sort_dir').val(order);
-            setVal('sort_col_id_btac', $('#sort_col_id').val());
-            setVal('sort_dir_btac', $('#sort_dir').val());
-            var orderArrow = isAscending?'&#9660;':'&#9650;';
-            $('#sort_by_'+tableHeaderId).html(orderArrow);
-            tinysort(
-                tableBody.querySelectorAll('tr')
-                ,{
-                    selector:'td#td_'+tableHeaderId
-                    ,order: order
-                    ,data: 'value'
-                }
-            );
-        }
-    });
     loadSavedFlt(urlParams);
 
     if (getLocale() != 'ru') {
