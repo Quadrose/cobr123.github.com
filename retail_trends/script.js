@@ -248,7 +248,7 @@ function loadPredictionUnZipped(predRow) {
     var locale = getLocale();
     var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
 
-    $.getJSON('./'+realm+'/retail_analytics_'+productID+'.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/retail_analytics_'+productID+'.json', function (data) {
         loadPredictionData(predRow, data);
     })
         .fail(function(jqxhr, textStatus, error) {
@@ -264,7 +264,7 @@ function loadPrediction(predRow) {
     if (productID == null || productID == '') return;
 
     zip.workerScriptsPath = '/js/';
-    zip.createReader(new zip.HttpReader('./'+realm+'/retail_analytics_'+productID+'.json.zip'), function(reader) {
+    zip.createReader(new zip.HttpReader('/by_trade_at_cities/'+realm+'/retail_analytics_'+productID+'.json.zip'), function(reader) {
         // get all entries from the zip
         reader.getEntries(function(entries) {
             if (entries.length > 0) {
@@ -280,7 +280,7 @@ function loadPrediction(predRow) {
                     loadPredictionData(predRow, data);
                 });
             } else {
-                loadPredictionUnZipped(predRow);
+              console.error('entries.length = ' + entries.length);
             }
         });
     }, function(error) {
@@ -424,7 +424,7 @@ function fillTownCaptions(callback) {
         sagTownCaption = [];
     }
 
-    $.getJSON('./'+realm+'/cities'+suffix+'.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/cities'+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
             sagTownCaption[val.i] = val.c;
         });
@@ -475,7 +475,7 @@ function updateOthers(townID, attr){
         var cell = $(this);
         var productID = cell.attr('img_sub_product_id');
         cell.attr('town_id', townID);
-        $.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
+        $.getJSON('/by_trade_at_cities/'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
             $.each(data, function (key, val) {
                 if(townID === val.ti){
                     text = val[attr] + '';
@@ -557,58 +557,65 @@ function updateUrl() {
     );
 }
 //////////////////////////////////////////////////////
-function loadData() {
-    var N = 100;
-    var someData = [];
-    for (var i = 0; i < N; i++)
-    {
-        var data = parseFloat((Math.random() * 100).toFixed(2));
-        someData.push([i,data]);
+function showTrendGraph(data) {
+    /*{
+              "d":"22.07.2016",
+              "lpr":954.09,
+              "lq":1.0,
+              "spr":954.09,
+              "sq":1.0,
+              "v":8634,
+              "lmvs":0.0,
+              "smvs":0.0,
+              "lmvst":0.0,
+              "smvst":0.0,
+              "pmvs":0.0,
+              "pmvst":0.0
+              }*/
+    var avVolume = [];
+    for (var i = 0; i < data.length; i++) {
+      var nvVolume = parseFloat((data[i]['v']).toFixed(2));
+      avVolume.push([i,nvVolume]);
     }
     function avg(array, current, window){
-          var sum = 0;
-          for( var i = current - parseInt(window/2); i < current + window; i++ ){
-            if(i>=0 && i<array.length){
-                sum += parseFloat(array[i][1]) || 0;
-              }
+      var sum = 0;
+      for( var i = current - parseInt(window/2); i < current + window; i++ ){
+        if(i>=0 && i<array.length){
+            sum += parseFloat(array[i][1]) || 0;
           }
-          return parseFloat( (sum / window).toFixed(2));
+      }
+      return parseFloat( (sum / window).toFixed(2));
     }
     function getMoveMean(array, window){
-        var result = [];
-        var mean = 0;
+      var result = [];
+      var mean = 0;
+      // calculate average for each subarray and add to result
+      for (var i=0; i < array.length; i++){
+          mean = avg(array, i, window);
+          result.push([i,mean]);
+      }
 
-        // pad beginning of result with null values
-       //for (var i=0; i < window-1; i++)
-       //     result.push([i,null]);
-
-        // calculate average for each subarray and add to result
-        for (var i=0; i < array.length; i++){
-            mean = avg(array, i, window);
-            result.push([i,mean]);
-        }
-
-        return result;
+      return result;
     }
 
     $('#trends').highcharts({          
          series: [{
-             name: 'data',
-             data: someData
+             name: 'volume',
+             data: avVolume
          },
          {
-             name: 'moveAvg5',
-             data: getMoveMean(someData, 5),
+             name: 'volumeMoveAvg5',
+             data: getMoveMean(avVolume, 5),
              marker: {enabled: false}             
          },
          {
-             name: 'moveAvg20',
-             data: getMoveMean(someData, 20),
+             name: 'volumeMoveAvg20',
+             data: getMoveMean(avVolume, 20),
              marker: {enabled: false}             
          },
          {
-             name: 'moveAvg50',
-             data: getMoveMean(someData, 50),
+             name: 'volumeMoveAvg50',
+             data: getMoveMean(avVolume, 50),
              marker: {enabled: false}             
          }
          ],
@@ -619,141 +626,40 @@ function loadData() {
                 enabled: false
             }
     });
-        return false;
-    
-
+}
+function loadData() {
     var realm = getRealm();
     if (realm == null || realm == '') return;
     var productID = getProductID();
     if (productID == null || productID == '') return;
     var locale = getLocale();
     var showLabel = (locale === 'en') ? 'Show' : 'Показать';
-    var domain = getDomain(locale);
-    if (sagTownCaption === null) {
-        fillTownCaptions(loadData);
-        return false;
-    }
-    var id_country = $('#id_country').val();
-    var id_region = $('#id_region').val();
-    var id_town = $('#id_town').val();
-    var wealthIndexFrom = $('#wealthIndexFrom').val();
-    var wealthIndexTo = $('#wealthIndexTo').val();
-    var volumeFrom = $('#volumeFrom').val();
-    var volumeTo = $('#volumeTo').val();
-    var localPercentFrom = $('#localPercentFrom').val();
-    var localPercentTo = $('#localPercentTo').val();
-    var localPriceFrom = $('#localPriceFrom').val();
-    var localPriceTo = $('#localPriceTo').val();
-    var localQualityFrom = $('#localQualityFrom').val();
-    var localQualityTo = $('#localQualityTo').val();
-    var shopPriceFrom = $('#shopPriceFrom').val();
-    var shopPriceTo = $('#shopPriceTo').val();
-    var shopQualityFrom = $('#shopQualityFrom').val();
-    var shopQualityTo = $('#shopQualityTo').val();
-    var shopBrandFrom = $('#shopBrandFrom').val();
-    var shopBrandTo = $('#shopBrandTo').val();
-//    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
 
-    updateUrl();
+    //updateUrl();
 
-    $.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
-        var output = '';
-        var nvPredIdx = 1;
-
-        $.each(data, function (key, val) {
-            var suitable = true;
-
-            //if (suitable && val.pi == $('#id_product').val()) {suitable = true;} else {suitable = false;}
-            if(id_town == null || id_town == ''){
-                if(id_region == null || id_region == ''){
-                    if (suitable && val.ci == nvl(id_country,val.ci)) {suitable = true;} else {suitable = false;}
-                } else {
-                    if (suitable && val.ri == id_region) {suitable = true;} else {suitable = false;}
-                }
+    zip.workerScriptsPath = '/js/';
+    zip.createReader(new zip.HttpReader('/by_trade_at_cities/'+realm+'/retail_trends/'+productID+'.json.zip'), function(reader) {
+        // get all entries from the zip
+        reader.getEntries(function(entries) {
+            if (entries.length > 0) {
+                // get first entry content as text
+                entries[0].getData(new zip.TextWriter(), function(text) {
+                    // text contains the entry data as a String
+                    // close the zip reader
+                    reader.close();
+                    // console.log(text.length);
+                    // console.log(text.substr(0, 100) );
+                    // console.log(text.substr(-100) );
+                    var data = JSON.parse(text);
+                    showTrendGraph(data);
+                });
             } else {
-                if (suitable && val.ti == id_town) {suitable = true;} else {suitable = false;}
-            }
-
-            if (suitable && val.wi >= wealthIndexFrom) {suitable = true;} else {suitable = false;}
-            if (suitable && val.wi <= wealthIndexTo) {suitable = true;} else {suitable = false;}
-
-            if (suitable && val.v >= volumeFrom) {suitable = true;} else {suitable = false;}
-            if (suitable && val.v <= volumeTo) {suitable = true;} else {suitable = false;}
-
-            if (suitable && val.lpe >= localPercentFrom) {suitable = true;} else {suitable = false;}
-            if (suitable && val.lpe <= localPercentTo) {suitable = true;} else {suitable = false;}
-
-            if (suitable && val.lpr >= localPriceFrom) {suitable = true;} else {suitable = false;}
-            if (suitable && val.lpr <= localPriceTo) {suitable = true;} else {suitable = false;}
-
-            if (suitable && val.lq >= localQualityFrom) {suitable = true;} else {suitable = false;}
-            if (suitable && val.lq <= localQualityTo) {suitable = true;} else {suitable = false;}
-
-            if (suitable && val.spr >= shopPriceFrom) {suitable = true;} else {suitable = false;}
-            if (suitable && val.spr <= shopPriceTo) {suitable = true;} else {suitable = false;}
-
-            if (suitable && val.sq >= shopQualityFrom) {suitable = true;} else {suitable = false;}
-            if (suitable && val.sq <= shopQualityTo) {suitable = true;} else {suitable = false;}
-
-            if (suitable && val.sb >= shopBrandFrom) {suitable = true;} else {suitable = false;}
-            if (suitable && val.sb <= shopBrandTo) {suitable = true;} else {suitable = false;}
-
-            if(suitable){
-                output += '<tr class="trec hoverable">';
-                output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'" data-value="'+ sagTownCaption[val.ti] +'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
-                output += '<td '+getColStyle('graph')+' align="right" id="td_graph"><a href="#" onclick="view_graph('+val.pi+','+val.ti+'); return false;"><img src="/img/graph.png" width="18"></a></td>';
-                output += '<td '+getColStyle('w_idx')+' align="center" id="td_w_idx" data-value="'+ parseFloat(val.wi).toFixed(2) +'">'+parseFloat(val.wi).toFixed(2)+'</td>';
-                output += '<td field_name="mi" '+getColStyle('idx')+' align="center" id="td_idx" data-value="'+ val.mi +'">'+val.mi+'</td>';
-                output += '<td field_name="v" '+getColStyle('volume')+' align="right" id="td_volume" data-value="'+ val.v +'">'+ commaSeparateNumber(val.v)+'</td>';
-                output += '<td field_name="lpe" '+getColStyle('local_perc')+' align="right" id="td_local_perc" style="color:black" data-value="'+ parseFloat(val.lpe).toFixed(2) +'">'+parseFloat(val.lpe).toFixed(2)+'</td>';
-                output += '<td field_name="lpr" '+getColStyle('local_price')+' align="right" id="td_local_price" data-value="'+ parseFloat(val.lpr).toFixed(2) +'">'+ commaSeparateNumber(parseFloat(val.lpr).toFixed(2))+'</td>';
-                output += '<td field_name="lq" '+getColStyle('local_quality')+' align="right" id="td_local_quality" data-value="'+ parseFloat(val.lq).toFixed(2) +'">'+parseFloat(val.lq).toFixed(2)+'</td>';
-                output += '<td field_name="lmvs" '+getColStyle('lmvs')+' align="right" id="td_lmvs" data-value="'+ unknownIfNull(locale, val['lmvs']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['lmvs']))+'</td>';
-                output += '<td '+getColStyle('lmvst')+' align="right" id="td_lmvst" data-value="'+ unknownIfNull(locale, val['lmvst']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['lmvst']))+'</td>';
-                output += '<td field_name="spr" '+getColStyle('shop_price')+' align="right" id="td_shop_price" data-value="'+ parseFloat(val.spr).toFixed(2) +'">'+ commaSeparateNumber(parseFloat(val.spr).toFixed(2))+'</td>';
-                output += '<td field_name="sq" '+getColStyle('shop_quality')+' align="right" id="td_shop_quality" data-value="'+ parseFloat(val.sq).toFixed(2) +'">'+parseFloat(val.sq).toFixed(2)+'</td>';
-                output += '<td field_name="sb" '+getColStyle('shop_brand')+' align="right" id="td_shop_brand" data-value="'+ parseFloat(val.sb).toFixed(2) +'">'+parseFloat(val.sb).toFixed(2)+'</td>';
-                output += '<td field_name="smvs" '+getColStyle('smvs')+' align="right" id="td_smvs" data-value="'+ unknownIfNull(locale, val['smvs']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['smvs']))+'</td>';
-                output += '<td '+getColStyle('smvst')+' align="right" id="td_smvst" data-value="'+ unknownIfNull(locale, val['smvst']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['smvst']))+'</td>';
-                output += '<td field_name="pmvs" '+getColStyle('pmvs')+' align="right" id="td_pmvs" data-value="'+ unknownIfNull(locale, val['pmvs']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['pmvs']))+'</td>';
-                output += '<td '+getColStyle('pmvst')+' align="right" id="td_pmvst" data-value="'+ unknownIfNull(locale, val['pmvst']) +'">'+ commaSeparateNumber(unknownIfNull(locale, val['pmvst']))+'</td>';
-                output += '<td field_name="sc" '+getColStyle('sc')+' align="right" id="td_sc" data-value="'+ val.sc +'">'+val.sc+'</td>';
-                output += '<td field_name="cc" '+getColStyle('cc')+' align="right" id="td_cc" data-value="'+ val.cc +'">'+val.cc+'</td>';
-                output += '<td '+getColStyle('itr')+' align="right" id="td_itr" data-value="'+ unknownIfNull(locale, val['itr']) +'">'+unknownIfNull(locale, val['itr'])+'</td>';
-                output += '<td field_name="itp" '+getColStyle('itp')+' align="right" id="td_itp" data-value="'+ unknownIfNull(locale, val['itp']) +'">'+unknownIfNull(locale, val['itp'])+'</td>';
-                output += '<td '+getColStyle('pred')+' align="center" id="toggle_prediction_'+nvPredIdx+'"><a href="#" onclick="togglePrediction(\''+nvPredIdx+'\'); return false;">'+showLabel+'</td>';
-                output += '</tr>';
-    
-                nvPredIdx = nvPredIdx + 1;
+              console.error('entries.length = ' + entries.length);
             }
         });
-
-        $('#xtabletbody').html(output); 
-        
-        if(output != ''){
-            var svOrder = $('#sort_dir').val();
-            var svColId = $('#sort_col_id').val();
-            var isAscending = svOrder=='asc';
-            var orderArrow = isAscending?'&#9650;':'&#9660;';
-            $('#sort_by_'+svColId).html(orderArrow);
-
-            var table = document.getElementById('xtable');
-            var tableBody = table.querySelector('tbody');
-            tinysort(
-                tableBody.querySelectorAll('tr')
-                ,{
-                    selector:'td#td_'+svColId
-                    ,order: svOrder
-                    ,data: 'value'
-                }
-            );
-            $('#sort_col_id').val(svColId);
-            $('#sort_dir').val(svOrder);
-            setVal('sort_col_id_btac', $('#sort_col_id').val());
-            setVal('sort_dir_btac', $('#sort_dir').val());
-
-            addHoverHandlers();
-        }
+    }, function(error) {
+        // onerror callback
+        console.error(error);
     });
     return false;
 }
@@ -769,7 +675,7 @@ function loadProductCategories(callback) {
     if (realm == null || realm == '') return;
     var suffix = (getLocale() == 'en') ? '_en' : '';
 
-    $.getJSON('./'+realm+'/product_categories'+suffix+'.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/product_categories'+suffix+'.json', function (data) {
         var output = '';
 
         $.each(data, function (key, val) {
@@ -796,7 +702,7 @@ function loadProducts(callback) {
     var locale = getLocale();
     var suffix = (locale == 'en') ? '_en' : '';
 
-    $.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/products'+suffix+'.json', function (data) {
         var output = '';
         var selected = $('#id_product').attr('value');
 
@@ -829,12 +735,12 @@ function loadCountries(callback) {
         sagRegionCaption = [];
     }
 
-    $.getJSON('./'+realm+'/regions'+suffix+'.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
             sagRegionCaption[val.i] = val.c;
         });
     });
-    $.getJSON('./'+realm+'/countries'+suffix+'.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/countries'+suffix+'.json', function (data) {
         var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
         var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
         var output = '<option value="" selected="">'+allCountries+'</option>';
@@ -971,7 +877,7 @@ function selectCategoryByProduct(productId, callback) {
     if (realm == null || realm == '') return;
     var suffix = (getLocale() == 'en') ? '_en' : '';
 
-    $.getJSON('./'+realm+'/products'+suffix+'.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/products'+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
             if(productId === val.i){
                 $('select#id_category').val(val.pc);
@@ -1001,7 +907,7 @@ function fillUpdateDate() {
     if (realm == null || realm == '') return;
     var prefix = (getLocale() == 'en') ? 'updated' : 'обновлено';
 
-    $.getJSON('./'+realm+'/updateDate.json', function (data) {
+    $.getJSON('/by_trade_at_cities/'+realm+'/updateDate.json', function (data) {
         $('#update_date').text(prefix+': ' + data.d); 	// replace all existing content
     });
 }
@@ -1105,8 +1011,39 @@ $(document).ready(function () {
         ,width: "250px"
     });
 
-    loadSavedFlt(urlParams);
-
+    //loadSavedFlt(urlParams);
+    $( function() {
+        var dateFormat = "dd.mm.yyyy",
+          from = $( "#from" )
+            .datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 3
+            })
+            .on( "change", function() {
+              to.datepicker( "option", "minDate", getDate( this ) );
+            }),
+          to = $( "#to" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3
+          })
+          .on( "change", function() {
+            from.datepicker( "option", "maxDate", getDate( this ) );
+          });
+     
+        function getDate( element ) {
+          var date;
+          try {
+            date = $.datepicker.parseDate( dateFormat, element.value );
+          } catch( error ) {
+            date = null;
+          }
+     
+          return date;
+        }
+      } );
+      
     if (getLocale() != 'ru') {
         $('#locale').val(getLocale());
         applyLocale();
