@@ -567,10 +567,10 @@ function showTrendGraph(data) {
     return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
   }
   var today = new Date();
-  var monthBeforeToday = new Date();
-  monthBeforeToday.setMonth(today.getMonth() - 1);
-  var dateFrom = strToDate($('#from').val()) || monthBeforeToday;
   var dateTo = strToDate($('#to').val()) || today;
+  var weekBefore = new Date();
+  weekBefore.setDate(dateTo.getDate() - 7);
+  var dateFrom = strToDate($('#from').val()) || weekBefore;
     
   console.log("data.length = " + data.length);
   data = data.filter(function(value){
