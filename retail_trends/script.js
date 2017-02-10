@@ -897,10 +897,6 @@ function transformToAssocArray( prmstr ) {
     }
     return params;
 }
-// function getSearchParameters() {
-// 	var prmstr = window.location.search.substr(1);
-// 	return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
-// }
 function fillUpdateDate() {
     $('#update_date').text(''); 	// replace all existing content
     var realm = getRealm();
@@ -910,72 +906,6 @@ function fillUpdateDate() {
     $.getJSON('/by_trade_at_cities/'+realm+'/updateDate.json', function (data) {
         $('#update_date').text(prefix+': ' + data.d); 	// replace all existing content
     });
-}
-function showCol(colID){
-    if (colID === 'pred'){
-        $('th#th_pred, td[id^=toggle_prediction_]', 'tr').show();
-    } else {
-        $('th#th_'+ colID +', td#td_' + colID, 'tr').show();
-    }
-    sagInvisibibleColumns = jQuery.grep(sagInvisibibleColumns, function(value) {
-        return value != colID;
-    });
-}
-function hideCol(colID){
-    if (colID === 'pred'){
-        $('th#th_pred, td[id^=toggle_prediction_]', 'tr').hide();
-    } else {
-        $('th#th_'+ colID +', td#td_' + colID, 'tr').hide();
-    }
-    sagInvisibibleColumns.push(colID);
-}
-function showAllCol(){
-    $('select#show_hide_col_ru > option').each(function() {
-        var value = $(this).attr('value');
-        showCol(value);
-    });
-    sagInvisibibleColumns = [];
-    setVal('invisibible_columns_btac', sagInvisibibleColumns);
-}
-function hideAllCol(){
-    $('select#show_hide_col_ru > option').each(function() {
-        var value = $(this).attr('value');
-        hideCol(value);
-    });
-    setVal('invisibible_columns_btac', sagInvisibibleColumns);
-}
-function initShowHideColSelect() {
-    var show_hide_col_id = (getLocale() === 'en') ? "show_hide_col_en" : "show_hide_col_ru";
-    var show_hide_col = $("select#" + show_hide_col_id).multiselect();
-
-    show_hide_col.multiselect({
-        click: function(event, ui){
-            if (ui.checked) {
-                showCol(ui.value);
-            } else {
-                hideCol(ui.value);
-            }
-            setVal('invisibible_columns_btac', sagInvisibibleColumns);
-        },
-        checkAll: function(){
-            showAllCol();
-        },
-        uncheckAll: function(){
-            hideAllCol();
-        }
-    });
-
-    sagInvisibibleColumns = getVal('invisibible_columns_btac');
-    if (sagInvisibibleColumns == null) {
-        sagInvisibibleColumns = ['smvs','smvst','lmvs','lmvst','itp','itr'];
-    }
-
-    $.each(sagInvisibibleColumns, function (key, val) {
-//            console.log('key = '+key +', val = '+val);
-        hideCol(val);
-        $("select#"+ show_hide_col_id +" > option[value="+val+"]").attr('selected',false);
-    });
-    show_hide_col.multiselect('refresh');
 }
 //////////////////////////////////////////////////////
 $(document).ready(function () {
@@ -1010,23 +940,25 @@ $(document).ready(function () {
         ,include_group_label_in_selected: true
         ,width: "250px"
     });
-
+    var today = new Date();
+    var monthBeforeToday = new Date();
+    monthBeforeToday.setMonth(today.getMonth() - 1)
+    $( "#from" ).val(monthBeforeToday.toLocaleDateString('se'));
+    $( "#to" ).val(today.toLocaleDateString('se'));
     //loadSavedFlt(urlParams);
     $( function() {
-        var dateFormat = "dd.mm.yyyy",
+        var dateFormat = "dd.mm.yy",
           from = $( "#from" )
             .datepicker({
-              defaultDate: "+1w",
               changeMonth: true,
-              numberOfMonths: 3
+              numberOfMonths: 2
             })
             .on( "change", function() {
               to.datepicker( "option", "minDate", getDate( this ) );
             }),
           to = $( "#to" ).datepicker({
-            defaultDate: "+1w",
             changeMonth: true,
-            numberOfMonths: 3
+            numberOfMonths: 2
           })
           .on( "change", function() {
             from.datepicker( "option", "maxDate", getDate( this ) );
