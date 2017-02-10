@@ -618,7 +618,14 @@ function showTrendGraph(data) {
       return result;
     }
 
-    $('#trends').highcharts({     
+    $('#trends').highcharts({   
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },  
         chart: {
             zoomType: 'x'
         },
