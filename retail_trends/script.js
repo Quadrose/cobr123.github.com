@@ -618,7 +618,13 @@ function showTrendGraph(data) {
       return result;
     }
 
-    $('#trends').highcharts({          
+    $('#trends').highcharts({     
+        chart: {
+            zoomType: 'x'
+        },
+        xAxis: {
+            type: 'datetime'
+        },     
          series: [{
              name: 'volume',
              data: avVolume
