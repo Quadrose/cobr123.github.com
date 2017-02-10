@@ -639,7 +639,7 @@ function showTrendGraph(data) {
                     'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
         },  
         chart: {
-            zoomType: 'x'
+            type: 'spline'
         },
         xAxis: {
             type: 'datetime'
