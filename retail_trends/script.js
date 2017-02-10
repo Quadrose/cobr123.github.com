@@ -569,7 +569,7 @@ function showTrendGraph(data) {
   var defaultDateTo = new Date();
   var dateTo = strToDate($('#to').val()) || defaultDateTo;
   var defaultDateFrom = new Date();
-  defaultDateFrom.setDate(dateTo.getDate() - 30);
+  defaultDateFrom.setMonth(dateTo.getMonth() - 12);
   var dateFrom = strToDate($('#from').val()) || defaultDateFrom;
     
   console.log("data.length = " + data.length);
@@ -652,11 +652,6 @@ function showTrendGraph(data) {
          {
              name: 'volumeMoveAvg20',
              data: getMoveMean(avVolume, 20),
-             marker: {enabled: false}             
-         },
-         {
-             name: 'volumeMoveAvg50',
-             data: getMoveMean(avVolume, 50),
              marker: {enabled: false}             
          }
          ],
