@@ -578,6 +578,18 @@ function showTrendGraph(data) {
     return date >= dateFrom && date <= dateTo;
   });
   console.log("filtered data.length = " + data.length);
+
+  data.sort(function(a,b) {
+      var dateA = strToDate(a['d']);
+      var dateB = strToDate(b['d']);
+      if (dateA < dateB) {
+          return -1;
+      } else if (dateA > dateB) {
+          return 1;
+      } else {
+          return 0;
+      }
+  });
     /*{
               "d":"22.07.2016",
               "lpr":954.09,
