@@ -226,6 +226,7 @@ function showTrendGraph(data) {
     return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
   }
   var defaultDateTo = new Date();
+  defaultDateTo.setMonth(defaultDateTo.getMonth() + 1);
   var dateTo = defaultDateTo;
   var defaultDateFrom = new Date();
   var dateFrom = defaultDateFrom;
