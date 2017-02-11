@@ -131,190 +131,6 @@ function getServiceLevel(serviceLevel, locale) {
         return serviceLevel;
     }
 }
-function loadPredictionData(predRow, data) {
-    var productID = getProductID();
-    if (productID == null || productID == '') return;
-    var locale = getLocale();
-    var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
-
-    var output = '';
-    var svMarketIdx = predRow.prev().find('>td#td_idx').attr('data-value');
-    console.log("svMarketIdx = '"+ svMarketIdx+"'" );
-    var nvMarketVolume = parseFloat(predRow.prev().find('>td#td_volume').attr('data-value'));
-    var nvMarketVolumeDelta = nvMarketVolume * 0.25;
-    console.log("nvMarketVolume = '"+ nvMarketVolume+"'" );
-    var nvWealthIndex = parseFloat(predRow.prev().find('>td#td_w_idx').attr('data-value'));
-    console.log("nvWealthIndex = '"+ nvWealthIndex+"'" );
-    var tableId = 'table_' + predRow.attr('id');
-    var uniqPred = [];
-    var suitable = true;
-    var maxCnt = 50;
-
-    $.each(data, function (key, val) {
-        suitable = true;
-        key = val.sv + '|' + Math.round(val.p) + '|' + Math.round(val.q) + '|' + Math.round(val.b) + '|';
-        key += val.mv + '|' + val.sc + '|' + val.sl + '|' + val.vc + '|' + val.td + '|';
-        key += val.ss + '|' + val.dc + '|' + val.mi;
-
-        if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
-        if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
-        if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
-        if (suitable && val.n >= 100) {suitable = true;} else {suitable = false;}
-        if (suitable && (key in uniqPred)) {suitable = false;}
-
-        if(suitable){
-            maxCnt -= 1;
-            uniqPred[key] = 1;
-            output += '<tr class="trec hoverable">';
-            output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+' ('+Math.round(parseFloat(val.sv.replace(/[\D]+/g,''))/parseFloat(val.mv)*100)+'%)</td>';
-            output += '<td align="right" id="td_price" data-value="'+ parseFloat(val.p).toFixed(2) +'">'+ commaSeparateNumber(parseFloat(val.p).toFixed(2)) +'</td>';
-            output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
-            output += '<td align="right" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
-            output += '<td align="right" id="td_marketVolume">'+ commaSeparateNumber(val.mv) +'</td>';
-            output += '<td align="center" id="td_sellerCnt">'+val.sc+'</td>';
-            output += '<td align="center" id="td_serviceLevel">'+getServiceLevel(val.sl, locale) +'</td>';
-            output += '<td align="right" id="td_visitorsCount">'+getVolume(val.vc, locale)+'</td>';
-            output += '<td align="center" id="td_notoriety">'+parseFloat(val.n).toFixed(2)+'</td>';
-            output += '<td align="center" id="td_townDistrict">'+getCityDistrict(val.td, locale) +'</td>';
-            output += '<td align="right" id="td_shopSize">'+commaSeparateNumber(val.ss,' ')+'</td>';
-            output += '<td align="center" id="td_departmentCount">'+val.dc+'</td>';
-            output += '<td align="right" id="td_wealthIndex">'+parseFloat(val.wi).toFixed(2)+'</td>';
-            output += '<td align="center" id="td_marketIdx">'+val.mi+'</td>';
-            output += '</tr>';
-
-            if (maxCnt <= 0) {
-                //break each
-                return false;
-            }
-        }
-    });
-    if (output === '') {
-        predRow.html(notEnoughDataMsg);
-    } else {
-        var salesVolumeLabel = (locale === 'en') ? 'Sales volume' : 'Объем продаж';
-        var brandLabel = (locale === 'en') ? 'Brand' : 'Бренд';
-        var priceLabel = (locale === 'en') ? 'Price' : 'Цена';
-        var marketVolumeLabel = (locale === 'en') ? 'Market volume' : 'Объем рынка';
-        var qualityLabel = (locale === 'en') ? 'Quality' : 'Качество';
-        var serviceLevelLabel = (locale === 'en') ? 'Service level' : 'Уровень сервиса';
-        var sellerCntLabel = (locale === 'en') ? 'NoM' : 'К.п.';
-        var sellerCntHint = (locale === 'en') ? 'Number of merchants' : 'Количество продавцов';
-        var notorietyLabel = (locale === 'en') ? 'Popularity' : 'Известность';
-        var visitorsCountLabel = (locale === 'en') ? 'Number of visitors' : 'Кол-во пос.';
-        var visitorsCountHint = (locale === 'en') ? 'Number of visitors' : 'Количество посетителей';
-        var townDistrictLabel = (locale === 'en') ? 'City district' : 'Район города';
-        var shopSizeLabel = (locale === 'en') ? 'Trade area' : 'Торг. пл.';
-        var departmentCountLabel = (locale === 'en') ? 'NoD' : 'К.о.';
-        var departmentCountHint = (locale === 'en') ? 'Number of departments' : 'Количество отделов';
-        var wealthIndexLabel = (locale === 'en') ? 'WL' : 'И.б.';
-        var wealthIndexHint = (locale === 'en') ? 'Wealth level' : 'Индекс богатства';
-        var indexLabel = (locale === 'en') ? 'Index' : 'И.';
-
-        var headers = '<thead><tr class="theader">';
-        headers += '<th id="th_sellVolume">'+salesVolumeLabel+'&nbsp;<b id="sort_by_sellVolume"></b></th>';
-        headers += '<th id="th_price">'+priceLabel+'&nbsp;<b id="sort_by_price"></b></th>';
-        headers += '<th id="th_quality">'+qualityLabel+'&nbsp;<b id="sort_by_quality"></b></th>';
-        headers += '<th id="th_brand">'+brandLabel+'&nbsp;<b id="sort_by_brand"></b></th>';
-        headers += '<th id="th_marketVolume">'+marketVolumeLabel+'&nbsp;<b id="sort_by_marketVolume"></b></th>';
-        headers += '<th id="th_sellerCnt" title="'+sellerCntHint+'">'+sellerCntLabel+'&nbsp;<b id="sort_by_sellerCnt"></b></th>';
-        headers += '<th id="th_serviceLevel">'+serviceLevelLabel+'&nbsp;<b id="sort_by_serviceLevel"></b></th>';
-        headers += '<th id="th_visitorsCount" title="'+visitorsCountHint+'">'+visitorsCountLabel+'&nbsp;<b id="sort_by_visitorsCount"></b></th>';
-        headers += '<th id="th_notoriety">'+notorietyLabel+'&nbsp;<b id="sort_by_notoriety"></b></th>';
-        headers += '<th id="th_townDistrict">'+townDistrictLabel+'&nbsp;<b id="sort_by_townDistrict"></b></th>';
-        headers += '<th id="th_shopSize" title="Торговая площадь">'+shopSizeLabel+'&nbsp;<b id="sort_by_shopSize"></b></th>';
-        headers += '<th id="th_departmentCount" title="'+departmentCountHint+'">'+departmentCountLabel+'&nbsp;<b id="sort_by_departmentCount"></b></th>';
-        headers += '<th id="th_wealthIndex" title="'+wealthIndexHint+'">'+wealthIndexLabel+'&nbsp;<b id="sort_by_wealthIndex"></b></th>';
-        headers += '<th id="th_marketIdx" title="Индекс">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
-        headers += '</tr></thead>';
-        predRow.html('<td colspan=15><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
-
-        var table = document.getElementById(tableId);
-        var tableBody = table.querySelector('tbody');
-        tinysort(
-            tableBody.querySelectorAll('tr')
-            ,{
-                selector:'td#td_price'
-                ,order: 'desc'
-                ,data: 'value'
-            }
-        );
-    }
-    return false;
-}
-function loadPredictionUnZipped(predRow) {
-    var realm = getRealm();
-    var productID = getProductID();
-    if (productID == null || productID == '') return;
-    var locale = getLocale();
-    var notEnoughDataMsg = (locale === 'en') ? 'Not enough data. Try another day.' : 'Недостаточно данных. Попробуйте в другой день.';
-
-    $.getJSON('/by_trade_at_cities/'+realm+'/retail_analytics_'+productID+'.json', function (data) {
-        loadPredictionData(predRow, data);
-    })
-        .fail(function(jqxhr, textStatus, error) {
-            var err = textStatus + ", " + error;
-            console.log( "Request Failed: " + err );
-            predRow.html(notEnoughDataMsg);
-        });
-    return false;
-}
-function loadPrediction(predRow) {
-    var realm = getRealm();
-    var productID = getProductID();
-    if (productID == null || productID == '') return;
-
-    zip.workerScriptsPath = '/js/';
-    zip.createReader(new zip.HttpReader('/by_trade_at_cities/'+realm+'/retail_analytics_'+productID+'.json.zip'), function(reader) {
-        // get all entries from the zip
-        reader.getEntries(function(entries) {
-            if (entries.length > 0) {
-                // get first entry content as text
-                entries[0].getData(new zip.TextWriter(), function(text) {
-                    // text contains the entry data as a String
-                    // close the zip reader
-                    reader.close();
-                    // console.log(text.length);
-                    // console.log(text.substr(0, 100) );
-                    // console.log(text.substr(-100) );
-                    var data = JSON.parse(text);
-                    loadPredictionData(predRow, data);
-                });
-            } else {
-              console.error('entries.length = ' + entries.length);
-            }
-        });
-    }, function(error) {
-        // onerror callback
-        console.error(error);
-        loadPredictionUnZipped(predRow);
-    });
-    return false;
-}
-function hideAllPredictions(){
-    var locale = getLocale();
-    var showLabel = (locale === 'en') ? 'Show' : 'Показать';
-
-    $('tr[id^=prediction_]').remove();
-    $('td[id^=toggle_prediction_] > a').text(showLabel);
-}
-function togglePrediction(npPredNum){
-    var link = $('#toggle_prediction_' + npPredNum + ' > a');
-    var locale = getLocale();
-    var showLabel = (locale === 'en') ? 'Show' : 'Показать';
-    var hideLabel = (locale === 'en') ? 'Hide' : 'Скрыть';
-    var loadingLabel = (locale === 'en') ? 'Loading...' : 'Загружаю...';
-
-    if(link.text() === hideLabel) {
-        var predRow = $('#prediction_' + npPredNum);
-        predRow.remove();
-        link.text(showLabel);
-    } else {
-        link.closest('tr').after('<tr class="trec" id="prediction_'+npPredNum+'"><td colspan=15>'+loadingLabel+'</td></tr>');
-        var predRow = $('#prediction_' + npPredNum);
-        loadPrediction(predRow);
-        link.text(hideLabel);
-    }
-}
 //резделитель разрядов
 function commaSeparateNumber(val, sep){
     var separator = sep || ',';
@@ -325,29 +141,14 @@ function commaSeparateNumber(val, sep){
 }
 function loadSavedFlt(urlParams){
     var realm       = getVal('realm') || 'olga';
-    var id_country  = getVal('id_country');
-    var id_region   = getVal('id_region');
-    var id_town     = getVal('id_town');
     var id_category = getVal('id_category');
     var id_product  = getVal('id_product');
 
     if (Object.keys(urlParams).length > 1 && urlParams['realm'] != '' && urlParams['id_product'] != '') {
         realm       = urlParams['realm'];
-        id_country  = urlParams['id_country'];
-        id_region   = urlParams['id_region'];
-        id_town     = urlParams['id_town'];
         id_product  = urlParams['id_product'];
-        fillFormFromUrl(urlParams);
     }
 
-    var sort_col_id = urlParams['sort_col_id'] || getVal('sort_col_id_btac') || 'local_perc';
-    if (sort_col_id != null || sort_col_id != '') {
-        $('#sort_col_id').val(sort_col_id);
-    }
-    var sort_dir = urlParams['sort_dir'] || getVal('sort_dir_btac') || 'desc';
-    if (sort_dir != null || sort_dir != '') {
-        $('#sort_dir').val(sort_dir);
-    }
     if ((getVal('locale') === null || getVal('locale') === '') && (document.referrer.substring(0, 'https://virtonomics.com/'.length) === 'https://virtonomics.com/' || document.referrer.substring(0, 'https://virtonomics-free.blogspot.'.length) === 'https://virtonomics-free.blogspot.')) {
         setVal('locale', 'en');
     }
@@ -377,59 +178,11 @@ function loadSavedFlt(urlParams){
                 loadProducts(loadProductsCallback);
             }
         };
-        var changeRegionCallback = function() {
-            $('#id_town').val(id_town).trigger("chosen:updated");
-            changeTown();
-        };
-        var changeCountryCallback = function() {
-            $('#id_region').val(id_region).trigger("chosen:updated");
-            //console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
-            changeRegion(changeRegionCallback);
-        };
-        var countryCallback = function() {
-            $('#id_country').val(id_country).trigger("chosen:updated");
-            //console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
-            changeCountry(changeCountryCallback);
-        };
-        changeRealm(productCategoriesCallback, countryCallback);
+        changeRealm(productCategoriesCallback);
 
     } else {
-        loadProductCategories();
-        loadCountries();
         fillUpdateDate();
     }
-    /*$('input[type="text"]').each(function(){
-     $(this).val(commaSeparateNumber($(this).val(),' '));
-     });
-     $('input[type="text"]')
-     .focus(function(){
-     $(this).val($(this).val().replace(/\s+/g,''));
-     })
-     .focusout(function() {
-     $(this).val(commaSeparateNumber($(this).val(),' '));
-     });*/
-}
-// function parseFloatFromFilter(spSelector, npDefVal){
-// 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
-// }
-var sagTownCaption = null;
-var sagCountryCaption = null;
-var sagRegionCaption = null;
-function fillTownCaptions(callback) {
-    var realm = getRealm();
-    if (realm == null || realm == '') return;
-    var locale = getLocale();
-    var suffix = (locale === 'en') ? '_en' : '';
-    if(sagTownCaption === null) {
-        sagTownCaption = [];
-    }
-
-    $.getJSON('/by_trade_at_cities/'+realm+'/cities'+suffix+'.json', function (data) {
-        $.each(data, function (key, val) {
-            sagTownCaption[val.i] = val.c;
-        });
-        if(typeof(callback) === 'function') callback();
-    });
 }
 
 var sagInvisibibleColumns = [];
@@ -466,94 +219,13 @@ function shortenNumber(text){
     }
 }
 
-function updateOthers(townID, attr){
-    var realm = getRealm();
-    if (realm == null || realm == '') return;
-
-    var text = '';
-    $('td[img_sub_product_id]').each(function() {
-        var cell = $(this);
-        var productID = cell.attr('img_sub_product_id');
-        cell.attr('town_id', townID);
-        $.getJSON('/by_trade_at_cities/'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
-            $.each(data, function (key, val) {
-                if(townID === val.ti){
-                    text = val[attr] + '';
-                    if (text == '') {
-                        cell.html('&nbsp;');
-                    } else {
-                        cell.html(shortenNumber(text.replace(/\.\d+$/,'')));
-                    }
-                }
-            });
-        });
-    });
-}
-
-function addHoverHandlers() {
-    var timer;
-    var delay = 500;
-
-    $('td[field_name]').hover(function() {
-        var cell = $(this);
-        var attrName = cell.attr('field_name');
-        if (attrName != '') {
-            //on mouse hover, start a timeout
-            timer = setTimeout(function() {
-                //Do your stuff here
-                var townID = getLast($('td#td_city > a', cell.parent()).attr('href'));
-                var townCaption = $('#td_city > a', cell.parent()).text();
-                var locale = getLocale();
-                var colID = 'th' + cell.attr('id').substr(2);
-                var rowName = $('#' + colID + ' > span[lang="' + locale + '"]').text();
-                $('td#img_sub_town_caption').html(townCaption + ', ' + rowName);
-                updateOthers(townID, attrName);
-            }, delay);
-        }
-    }, function() {
-        //Do mouse leaving function stuff here
-        clearTimeout(timer);
-    });
-}
-function addImgSubProdHoverHandlers() {
-    var timer;
-    var delay = 500;
-
-    $('td[img_sub_product_id]').hover(function() {
-        var cell = $(this);
-        var town_id = cell.attr('town_id');
-        var product_id = cell.attr('img_sub_product_id');
-        if (town_id != '') {
-            //on mouse hover, start a timeout
-            timer = setTimeout(function() {
-                //Do your stuff here
-                view_graph(product_id,town_id);
-            }, delay);
-        }
-    }, function() {
-        //Do mouse leaving function stuff here
-        clearTimeout(timer);
-        clear_graph();
-    });
-}
-function fillFormFromUrl(urlParams){
-}
 function updateUrl() {
     var productID = getProductID();
     var realm = getRealm();
-    var svColId = $('#sort_col_id').val();
-    var svOrder = $('#sort_dir').val();
-    var id_country = $('#id_country').val();
-    var id_region = $('#id_region').val();
-    var id_town = $('#id_town').val();
+    
     window.history.pushState("", ""
         , '#id_product='  + productID
         + '&realm='       + realm
-        + '&id_country='  + id_country
-        + '&id_region='   + id_region
-        + '&id_town='     + id_town
-        + '&sort_col_id=' + svColId
-        + '&sort_dir='    + svOrder
     );
 }
 //////////////////////////////////////////////////////
@@ -630,7 +302,7 @@ function showTrendGraph(data) {
       return result;
     }
 
-    $('#trends').highcharts({   
+    $('#trends_volume').highcharts({   
         title: {
             text: ''
         }, 
@@ -760,104 +432,9 @@ function loadProducts(callback) {
     });
     return false;
 }
-function loadCountries(callback) {
-    var realm = getRealm();
-    if (realm == null || realm == '') return;
-    var suffix = (getLocale() == 'en') ? '_en' : '';
-    if(sagCountryCaption === null) {
-        sagCountryCaption = [];
-    }
-    if(sagRegionCaption === null) {
-        sagRegionCaption = [];
-    }
 
-    $.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
-        $.each(data, function (key, val) {
-            sagRegionCaption[val.i] = val.c;
-        });
-    });
-    $.getJSON('/by_trade_at_cities/'+realm+'/countries'+suffix+'.json', function (data) {
-        var allCountries = (getLocale() == 'en') ? 'All countries' : 'Все страны';
-        var allRegions = (getLocale() == 'en') ? 'All regions' : 'Все регионы';
-        var output = '<option value="" selected="">'+allCountries+'</option>';
-
-        $.each(data, function (key, val) {
-            output += '<option value="'+val.i+'">'+val.c+'</option>';
-            sagCountryCaption[val.i] = val.c;
-        });
-
-        $('#id_country').html(output).trigger("chosen:updated"); 	// replace all existing content
-        $('#id_region').html('<option value="" selected="">'+allRegions+'</option>').trigger("chosen:updated"); 	// replace all existing content
-        if(typeof(callback) === 'function') callback();
-    });
-    return false;
-}
-
-function loadTowns(callback) {
-    var realm = getRealm();
-    if (realm == null || realm == '') return;
-
-    var svCountryId = $('#id_country').val();
-    var svRegionId = $('#id_region').val();
-    var locale = getLocale();
-    var suffix = (locale == 'en') ? '_en' : '';
-    var allTowns = (locale == 'en') ? 'All cities' : 'Все города';
-
-    $.getJSON('/by_trade_at_cities/'+realm+'/cities'+suffix+'.json', function (data) {
-        var output = '<option value="" selected="">'+allTowns+'</option>';
-
-        $.each(data, function (key, val) {
-            if(svRegionId !== null && svRegionId != ''){
-                if(val.ri == svRegionId){
-                    output += '<option value="'+val.i+'">'+val.c+'</option>';
-                }
-            } else if(svCountryId !== null && svCountryId != ''){
-                if(val.ci == svCountryId){
-                    output += '<option value="'+val.i+'">'+val.c+'</option>';
-                }
-            } else {
-                output += '<option value="'+val.i+'">'+val.c+'</option>';
-            }
-        });
-
-        $('#id_town').html(output).trigger("chosen:updated");
-        if(typeof(callback) === 'function') callback();
-    });
-    return false;
-}
-function loadRegions(callback) {
-    var realm = getRealm();
-    if (realm == null || realm == '') return;
-
-    var svCountryId = $('#id_country').val();
-    var locale = getLocale();
-    var suffix = (locale == 'en') ? '_en' : '';
-    var allRegions = (locale == 'en') ? 'All regions' : 'Все регионы';
-
-    $.getJSON('/by_trade_at_cities/'+realm+'/regions'+suffix+'.json', function (data) {
-        var output = '<option value="" selected="">'+allRegions+'</option>';
-
-        if (svCountryId == null || svCountryId == '') {
-            $.each(data, function (key, val) {
-                output += '<option value="'+val.i+'">'+val.c+'</option>';
-            });
-        } else {
-            $.each(data, function (key, val) {
-                if(val.ci == svCountryId){
-                    output += '<option value="'+val.i+'">'+val.c+'</option>';
-                }
-            });
-        }
-
-        $('#id_region').html(output).trigger("chosen:updated");
-        loadTowns(callback);
-    });
-    return false;
-}
-function changeRealm(productCategoriesCallback, countryCallback) {
-    fillTownCaptions();
+function changeRealm(productCategoriesCallback) {
     loadProductCategories(productCategoriesCallback);
-    loadCountries(countryCallback);
     setVal('realm', getRealm());
     fillUpdateDate();
     updateProdRemainLinks();
@@ -866,31 +443,8 @@ function changeCategory(callback) {
     loadProducts(callback);
     setVal('id_category', $('#id_category').val());
 }
-function changeCountry(callback) {
-//    console.log('changeCountry, caller is '+ arguments.callee.caller.toString());
-    $('#id_region').html(''); 	// replace all existing content
-//	console.log('changeCountry, typeof(callback) =  '+ typeof(callback));
-    if (typeof(callback) !== 'function'){
-        callback = function() {
-            $('#id_region').val(getVal('id_region'));
-            loadTowns(loadData);
-        };
-    }
-    loadRegions(callback);
-    setVal('id_country', $('#id_country').val());
-}
-function changeRegion(callback) {
-    if (typeof(callback) === 'function'){
-        loadTowns(callback);
-    } else {
-        loadTowns(loadData);
-    }
-    var id_region = $('#id_region').val();
-    setVal('id_region', id_region);
-}
-function changeTown() {
+function changePeriod() {
     loadData();
-    setVal('id_town', $('#id_town').val());
 }
 function changeProduct(productId) {
 //    console.log('changeProduct, caller is '+ arguments.callee.caller.toString());
@@ -958,25 +512,7 @@ $(document).ready(function () {
         }
     }
 
-    $('#id_country').chosen({
-        inherit_select_classes: true
-        ,search_contains: true
-        ,include_group_label_in_selected: true
-        ,width: "300px"
-    });
-    $('#id_region').chosen({
-        inherit_select_classes: true
-        ,search_contains: true
-        ,include_group_label_in_selected: true
-        ,width: "350px"
-    });
-    $('#id_town').chosen({
-        inherit_select_classes: true
-        ,search_contains: true
-        ,include_group_label_in_selected: true
-        ,width: "250px"
-    });
-    //loadSavedFlt(urlParams);
+    loadSavedFlt(urlParams);
     $( "#from" ).datepicker( $.datepicker.regional[ $( "#locale" ).val() ] );
     $( "#from" ).datepicker( "option", "dateFormat", "dd.mm.yy" );
     $( "#to"   ).datepicker( $.datepicker.regional[ $( "#locale" ).val() ] );
