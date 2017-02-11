@@ -242,7 +242,6 @@ function showTrendGraph(data) {
   var defaultDateTo = new Date();
   var dateTo = defaultDateTo;
   var defaultDateFrom = new Date();
-  defaultDateFrom.setMonth(dateTo.getMonth() - 12);
   var dateFrom = defaultDateFrom;
   var trends_period = $('#trends_period').val();  
   if(trends_period === 'month1'){
@@ -262,6 +261,9 @@ function showTrendGraph(data) {
   } 
   else if(trends_period === 'alldata'){
     dateFrom.setMonth(dateTo.getMonth() - 12*300);
+  } 
+  else {
+    dateFrom.setMonth(dateTo.getMonth() - 12);
   } 
     
   console.log("data.length = " + data.length);
