@@ -339,6 +339,18 @@ function showTrendGraph(data) {
                 align: 'left'
             }
         },     
+	    plotOptions: {
+		series: {
+		    events: {
+			hide: function () {
+			    setVal(this.name + 'Visible', 0);
+			},
+			show: function () {
+			    setVal(this.name + 'Visible', 1);
+			}
+		    }
+		}
+	    },
          series: [{
              name: 'LocalPrice',
              data: avLocalPrice
@@ -346,7 +358,8 @@ function showTrendGraph(data) {
          {
              name: 'LocalPriceMoveAvg5',
              data: getMoveMean(avLocalPrice, 5),
-             marker: {enabled: false}             
+             marker: {enabled: false},
+             visible: ((getVal('LocalPriceMoveAvg5Visible') === 0) ? false : true)
          },
          {
              name: 'LocalPriceMoveAvg20',
