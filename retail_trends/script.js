@@ -342,7 +342,7 @@ function showTrendGraph(data) {
         xAxis: {
             type: 'datetime',
             labels: {
-                format: '{value:%Y-%b}',
+                format: '{value:%Y-%b-%d}',
                 rotation: 0,
                 align: 'left'
             }
@@ -392,7 +392,7 @@ function showTrendGraph(data) {
         xAxis: {
             type: 'datetime',
             labels: {
-                format: '{value:%Y-%b}',
+                format: '{value:%Y-%b-%d}',
                 rotation: 0,
                 align: 'left'
             }
