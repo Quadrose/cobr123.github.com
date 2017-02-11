@@ -452,7 +452,6 @@ function loadProducts(callback) {
         output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td>&nbsp;</td></tr>';
         output += '<tr class="trec"><td id="img_sub_town_caption" align="left"></td></tr></table></td>';
         $('#products').html('<table cellpadding="1" cellspacing="1"><tr>' + output + '</tr></table>');
-        addImgSubProdHoverHandlers();
         if(typeof(callback) === 'function') callback();
     });
     return false;
