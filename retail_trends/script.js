@@ -239,10 +239,29 @@ function showTrendGraph(data) {
     return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
   }
   var defaultDateTo = new Date();
-  var dateTo = strToDate($('#to').val()) || defaultDateTo;
+  var dateTo = defaultDateTo;
   var defaultDateFrom = new Date();
   defaultDateFrom.setMonth(dateTo.getMonth() - 12);
-  var dateFrom = strToDate($('#from').val()) || defaultDateFrom;
+  var dateFrom = defaultDateFrom;
+  var trends_period = $('#trends_period').val();  
+  if(trends_period === 'month1'){
+    dateFrom.setMonth(dateTo.getMonth() - 1);
+  }
+  else if(trends_period === 'month3'){
+    dateFrom.setMonth(dateTo.getMonth() - 3);
+  } 
+  else if(trends_period === 'month6'){
+    dateFrom.setMonth(dateTo.getMonth() - 6);
+  } 
+  else if(trends_period === 'year1'){
+    dateFrom.setMonth(dateTo.getMonth() - 12);
+  } 
+  else if(trends_period === 'year3'){
+    dateFrom.setMonth(dateTo.getMonth() - 12*3);
+  } 
+  else if(trends_period === 'alldata'){
+    dateFrom.setMonth(dateTo.getMonth() - 12*300);
+  } 
     
   console.log("data.length = " + data.length);
   data = data.filter(function(value){
