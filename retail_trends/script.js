@@ -22,6 +22,7 @@ function updateProdRemainLinks(){
     $('#retail_report_link').attr('href','https://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+productID+'/');
     $('#show_remain_link').attr('href','https://'+domain+'/'+realm+'/main/globalreport/marketing/by_products/'+productID+'/');
     $('#calc_prod_link').attr('href','/industry/#id_product=' + productID);
+	$('#general_report_link').attr('href','https://'+domain+'/'+realm+'/main/globalreport/product_history/'+productID+'/');
 }
 function nvl(val1, val2){
     if (val1 == null || val1 == ''){
