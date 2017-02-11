@@ -268,7 +268,8 @@ function showTrendGraph(data) {
     dateFrom.setMonth(dateTo.getMonth() - 12*300);
   } 
   else {
-    dateFrom.setMonth(dateTo.getMonth() - 12);
+    dateFrom.setMonth(dateTo.getMonth() - 3);
+    $('#trends_period').val('month3'); 
   } 
     
   console.log("data.length = " + data.length);
