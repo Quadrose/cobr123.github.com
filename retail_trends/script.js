@@ -12,26 +12,6 @@ function getDomain(locale) {
         return 'virtonomica.ru';
     }
 }
-function view_graph(item,city) {
-    var realm = getRealm();
-    if (realm == null || realm == '') return;
-    var locale = getLocale();
-    var domain = getDomain(locale);
-    var imgSrc = 'https://'+domain+'/'+realm+'/graph/globalreport/marketing/product/'+item+'/'+city+'/';
-    if($("#graph > img").attr('src') == imgSrc){
-        clear_graph();
-    } else {
-        $("#graph").html('<div style="position: fixed; bottom:250px; right:15px;">'
-            + '<a href="#" onclick="clear_graph(); return false;">x</a></div>'
-            + '<img src="' + imgSrc + '" width="900" height="250" style="border: 1px solid #CCCCCC; padding: 5px; margin: 3px;">'
-        );
-        $('div[name="graph_color_mark"]').show();
-    }
-}
-function clear_graph() {
-    $("#graph").html('');
-    $('div[name="graph_color_mark"]').hide();
-}
 function updateProdRemainLinks(){
     var productID = getProductID();
     if (productID == null || productID == '') return;
@@ -64,11 +44,11 @@ function applyLocale() {
     var locale = getLocale();
 
     if (locale === 'en') {
-        document.title = "Retail sales";
+        document.title = "Retail trends";
         $('#btnSubmit').val('Generate');
         $('#locale_flag').attr('src','/img/us.gif');
     } else {
-        document.title = "Розничная торговля в городах";
+        document.title = "Розничные тренды";
         $('#btnSubmit').val('Сформировать');
         $('#locale_flag').attr('src','/img/ru.png');
     }
