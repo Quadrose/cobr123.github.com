@@ -52,14 +52,6 @@
 <br>
 <select id="id_category" onchange="changeCategory();"></select>&nbsp;<div id="products"></div>
 <input type="hidden" id="id_product" name="id_product" value="">
-<!--<br>
-<select id="id_country" onchange="changeCountry();">
-<option value="" selected="">Все страны</option>	
-</select>&nbsp;<select id="id_region" onchange="changeRegion();">
-<option value="" selected="">Все регионы</option>
-</select>&nbsp;<select id="id_town" onchange="changeTown();"><option value="" selected="">Все города</option>
-</select>
--->
 <br>
 <label for="from">From</label>
 <input type="text" id="from" name="from">
@@ -73,7 +65,9 @@
 </td></tr>
 <tr class="trec" align="right"><td><a id="calc_prod_link" href="/industry/#id_product=370080" target="_blank"><span lang="en" style="display:none">Calculate production</span><span lang="ru">Посчитать производство</span></a>&nbsp;|&nbsp;<a id="show_remain_link" href="https://virtonomica.ru/olga/main/globalreport/marketing/by_products/370080/" target="_blank"><span lang="en" style="display:none">Show remains in warehouses</span><span lang="ru">Показать запасы на складах</span></a></td></tr>
 <tr><td>
-<div id="trends" style="min-width: 400px; height: 600px; margin: 0 auto">
+<div id="trends_price" style="min-width: 400px; height: 300px; margin: 0 auto">
+</div>
+<div id="trends_volume" style="min-width: 400px; height: 300px; margin: 0 auto">
 </div>
 </td></tr>
 </tbody></table>
