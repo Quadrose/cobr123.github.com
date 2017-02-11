@@ -353,31 +353,36 @@ function showTrendGraph(data) {
 	    },
          series: [{
              name: 'LocalPrice',
-             data: avLocalPrice
+             data: avLocalPrice,
+             visible: ((getVal('LocalPrice'+'Visible') === 0) ? false : true)
          },
          {
              name: 'LocalPriceMoveAvg5',
              data: getMoveMean(avLocalPrice, 5),
              marker: {enabled: false},
-             visible: ((getVal('LocalPriceMoveAvg5Visible') === 0) ? false : true)
+             visible: ((getVal('LocalPriceMoveAvg5'+'Visible') === 0) ? false : true)
          },
          {
              name: 'LocalPriceMoveAvg20',
              data: getMoveMean(avLocalPrice, 20),
-             marker: {enabled: false}             
+             marker: {enabled: false},
+             visible: ((getVal('LocalPriceMoveAvg20'+'Visible') === 0) ? false : true)       
          },{
              name: 'ShopPrice',
-             data: avShopPrice
+             data: avShopPrice,
+             visible: ((getVal('ShopPrice'+'Visible') === 0) ? false : true)
          },
          {
              name: 'ShopPriceMoveAvg5',
              data: getMoveMean(avShopPrice, 5),
-             marker: {enabled: false}             
+             marker: {enabled: false},
+             visible: ((getVal('ShopPriceMoveAvg5'+'Visible') === 0) ? false : true)        
          },
          {
              name: 'ShopPriceMoveAvg20',
              data: getMoveMean(avShopPrice, 20),
-             marker: {enabled: false}             
+             marker: {enabled: false},
+             visible: ((getVal('ShopPriceMoveAvg20'+'Visible') === 0) ? false : true)         
          }
          ],
             tooltip: {
@@ -405,19 +410,34 @@ function showTrendGraph(data) {
                 align: 'left'
             }
         },     
+	    plotOptions: {
+		series: {
+		    events: {
+			hide: function () {
+			    setVal(this.name + 'Visible', 0);
+			},
+			show: function () {
+			    setVal(this.name + 'Visible', 1);
+			}
+		    }
+		}
+	    },
          series: [{
              name: 'volume',
-             data: avVolume
+             data: avVolume,
+             visible: ((getVal('volume'+'Visible') === 0) ? false : true)   
          },
          {
              name: 'volumeMoveAvg5',
              data: getMoveMean(avVolume, 5),
-             marker: {enabled: false}             
+             marker: {enabled: false},
+             visible: ((getVal('volumeMoveAvg5'+'Visible') === 0) ? false : true)                
          },
          {
              name: 'volumeMoveAvg20',
              data: getMoveMean(avVolume, 20),
-             marker: {enabled: false}             
+             marker: {enabled: false},
+             visible: ((getVal('volumeMoveAvg20'+'Visible') === 0) ? false : true)                
          }
          ],
             tooltip: {
