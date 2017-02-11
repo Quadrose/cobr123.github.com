@@ -330,7 +330,12 @@ function showTrendGraph(data) {
             type: 'spline'
         },
         xAxis: {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+                format: '{value:%Y-%m-%d}',
+                rotation: 45,
+                align: 'left'
+            }
         },     
          series: [{
              name: 'volume',
