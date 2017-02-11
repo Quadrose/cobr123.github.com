@@ -329,14 +329,6 @@ function showTrendGraph(data) {
         chart: {
             type: 'spline'
         },
-        plotOptions: {
-            series: {
-                dataLabels: {
-                    enabled: true,
-                    format: '{y} mm'
-                }
-            }
-        },
         xAxis: {
             type: 'datetime',
             labels: {
