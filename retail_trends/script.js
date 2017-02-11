@@ -297,9 +297,17 @@ function showTrendGraph(data) {
               "pmvst":0.0
               }*/
     var avVolume = [];
+    var avLocalPrice = [];
+    var avShopPrice = [];
     for (var i = 0; i < data.length; i++) {
       var nvVolume = parseFloat((data[i]['v']).toFixed(2));
       avVolume.push([strToDate(data[i]['d']).getTime(), nvVolume]);
+        
+      var nvLocalPrice = parseFloat((data[i]['lpr']).toFixed(2));
+      avLocalPrice.push([strToDate(data[i]['d']).getTime(), nvLocalPrice]);
+        
+      var nvShopPrice = parseFloat((data[i]['spr']).toFixed(2));
+      avShopPrice.push([strToDate(data[i]['d']).getTime(), nvShopPrice]);
     }
     function avg(array, current, window){
       var sum = 0;
@@ -322,6 +330,56 @@ function showTrendGraph(data) {
       return result;
     }
 
+    $('#trends_price').highcharts({   
+        title: {
+            text: ''
+        }, 
+        chart: {
+            type: 'spline'
+        },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+                format: '{value:%Y-%m-%d}',
+                rotation: 45,
+                align: 'left'
+            }
+        },     
+         series: [{
+             name: 'LocalPrice',
+             data: avLocalPrice
+         },
+         {
+             name: 'LocalPriceMoveAvg5',
+             data: getMoveMean(avLocalPrice, 5),
+             marker: {enabled: false}             
+         },
+         {
+             name: 'LocalPriceMoveAvg20',
+             data: getMoveMean(avLocalPrice, 20),
+             marker: {enabled: false}             
+         },{
+             name: 'ShopPrice',
+             data: avShopPrice
+         },
+         {
+             name: 'ShopPriceMoveAvg5',
+             data: getMoveMean(avShopPrice, 5),
+             marker: {enabled: false}             
+         },
+         {
+             name: 'ShopPriceMoveAvg20',
+             data: getMoveMean(avShopPrice, 20),
+             marker: {enabled: false}             
+         }
+         ],
+            tooltip: {
+                shared: true
+            },
+            credits: {
+                enabled: false
+            }
+    });
     $('#trends_volume').highcharts({   
         title: {
             text: ''
