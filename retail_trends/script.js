@@ -144,10 +144,12 @@ function loadSavedFlt(urlParams){
     var realm       = getVal('realm') || 'olga';
     var id_category = getVal('id_category');
     var id_product  = getVal('id_product');
+    var trends_period  = getVal('trends_period');
 
     if (Object.keys(urlParams).length > 1 && urlParams['realm'] != '' && urlParams['id_product'] != '') {
         realm       = urlParams['realm'];
         id_product  = urlParams['id_product'];
+        trends_period  = urlParams['trends_period'];
     }
 
     if ((getVal('locale') === null || getVal('locale') === '') && (document.referrer.substring(0, 'https://virtonomics.com/'.length) === 'https://virtonomics.com/' || document.referrer.substring(0, 'https://virtonomics-free.blogspot.'.length) === 'https://virtonomics-free.blogspot.')) {
@@ -156,6 +158,7 @@ function loadSavedFlt(urlParams){
 
     if (realm != null || realm != '') {
         $('#realm').val(realm);
+        $('#trends_period').val(trends_period);
         var loadProductsCallback = function() {
             //console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
             changeProduct(id_product);
@@ -223,10 +226,12 @@ function shortenNumber(text){
 function updateUrl() {
     var productID = getProductID();
     var realm = getRealm();
+    var trends_period = $('#trends_period').val();  
     
     window.history.pushState("", ""
-        , '#id_product='  + productID
-        + '&realm='       + realm
+        , '#id_product='    + productID
+        + '&realm='         + realm
+        + '&trends_period=' + trends_period
     );
 }
 //////////////////////////////////////////////////////
@@ -450,7 +455,7 @@ function loadData() {
     var locale = getLocale();
     var showLabel = (locale === 'en') ? 'Show' : 'Показать';
 
-    //updateUrl();
+    updateUrl();
 
     zip.workerScriptsPath = '/js/';
     zip.createReader(new zip.HttpReader('/by_trade_at_cities/'+realm+'/retail_trends/'+productID+'.json.zip'), function(reader) {
@@ -550,6 +555,7 @@ function changeCategory(callback) {
     setVal('id_category', $('#id_category').val());
 }
 function changePeriod() {
+    setVal('trends_period', $('#trends_period').val());
     loadData();
 }
 function changeProduct(productId) {
