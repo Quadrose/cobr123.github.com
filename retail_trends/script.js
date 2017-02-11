@@ -339,6 +339,9 @@ function showTrendGraph(data) {
         chart: {
             type: 'spline'
         },
+        labels: {
+            step: 2
+        },
         xAxis: {
             type: 'datetime',
             labels: {
@@ -388,6 +391,9 @@ function showTrendGraph(data) {
         }, 
         chart: {
             type: 'spline'
+        },
+        labels: {
+            step: 2
         },
         xAxis: {
             type: 'datetime',
