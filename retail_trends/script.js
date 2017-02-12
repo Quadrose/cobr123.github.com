@@ -341,16 +341,7 @@ function showTrendGraph(data) {
                  rotation: 0,
                   align: 'left'
               },
-		type: 'datetime',
-		dateTimeLabelFormats: {
-		    second: '%Y-%m-%d<br/>%H:%M:%S',
-		    minute: '%Y-%m-%d<br/>%H:%M',
-		    hour: '%Y-%m-%d<br/>%H:%M',
-		    day: '%Y<br/>%m-%d',
-		    week: '%Y<br/>%m-%d',
-		    month: '%Y-%m',
-		    year: '%Y'
-		}
+		type: 'datetime'
         },     
 	    plotOptions: {
 		series: {
@@ -421,16 +412,7 @@ function showTrendGraph(data) {
                  rotation: 0,
                   align: 'left'
               },
-		type: 'datetime',
-		dateTimeLabelFormats: {
-		    second: '%Y-%m-%d<br/>%H:%M:%S',
-		    minute: '%Y-%m-%d<br/>%H:%M',
-		    hour: '%Y-%m-%d<br/>%H:%M',
-		    day: '%Y<br/>%m-%d',
-		    week: '%Y<br/>%m-%d',
-		    month: '%Y-%m',
-		    year: '%Y'
-		}
+		type: 'datetime'
         },     
 	    plotOptions: {
 		series: {
