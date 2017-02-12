@@ -814,9 +814,9 @@ $(document).ready(function () {
   $("#togglelinearx").change(function(){
     var checked = $("#togglelinearx:checked").length;
     if(checked){
-	$('#container').highcharts().yAxis[0].update({ type: 'logarithmic'});
+	$('#trends_price').highcharts().yAxis[0].update({ type: 'logarithmic'});
     } else {
-	$('#container').highcharts().yAxis[0].update({ type: 'linear'});
+	$('#trends_price').highcharts().yAxis[0].update({ type: 'linear'});
     }
   });
 });
