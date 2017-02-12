@@ -439,11 +439,11 @@ var chart = Highcharts.stockChart('trends_price', {
 		$('#'+btns[i]).click(function () {
 		    var series = chart.series[i];
 		    if (series.visible) {
-			series.hide();
 			    setVal(btns[i]+'Visible', 0);
+			series.hide();
 		    } else {
-			series.show();
 			    setVal(btns[i]+'Visible', 1);
+			series.show();
 		    }
 		});
 	}
