@@ -330,7 +330,11 @@ function showTrendGraph(data) {
             step: 2
         },
         xAxis: {
-		categories: avCategories
+		categories: avCategories,
+              labels: {
+                 rotation: 0,
+                  align: 'left'
+              }
         },     
 	    plotOptions: {
 		series: {
@@ -396,7 +400,11 @@ function showTrendGraph(data) {
             step: 2
         },
         xAxis: {
-		categories: avCategories
+		categories: avCategories,
+              labels: {
+                 rotation: 0,
+                  align: 'left'
+              }
         },     
 	    plotOptions: {
 		series: {
