@@ -218,9 +218,9 @@ function updateUrl() {
 //////////////////////////////////////////////////////
 
 function showTrendGraph(data) {
-  function strToDate(strDate){
+  function strToDate(strDate, defVal){
     if (strDate === null || strDate === '' || (strDate + '').indexOf('.') <= 0){
-      return null;
+      return defVal;
     }
     var dateParts = strDate.split(".");
     //new Date(year, month[, date[, hours[, minutes[, seconds[, milliseconds]]]]]);
@@ -357,8 +357,8 @@ if(getVal('trend_date_min') == ''){
 	shared: true
     },
     xAxis: [{
-        min: strToDate(getVal('trend_date_min')).getTime(),
-        max: strToDate(getVal('trend_date_max')).getTime(),
+        min: strToDate(getVal('trend_date_min'), dateFrom).getTime(),
+        max: strToDate(getVal('trend_date_max'), dateTo).getTime(),
         crosshair: true,
 	type: 'datetime',
 	labels: {
