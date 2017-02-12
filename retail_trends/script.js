@@ -289,17 +289,18 @@ function showTrendGraph(data) {
     var avLocalPrice = [];
     var avShopPrice = [];
     for (var i = 0; i < data.length; i++) {
-      var svDateStr = $.datepicker.formatDate( "yy-M-d", strToDate(data[i]['d']));
+      var dvDate = strToDate(data[i]['d']);
+      var svDateStr = $.datepicker.formatDate( "yy-M-d", dvDate);
       avCategories[i] = svDateStr;
 	    
       var nvVolume = parseFloat((data[i]['v']).toFixed(2));
-      avVolume.push([i, nvVolume]);
+      avVolume.push([dvDate.getTime(), nvVolume]);
         
       var nvLocalPrice = parseFloat((data[i]['lpr']).toFixed(2));
-      avLocalPrice.push([i, nvLocalPrice]);
+      avLocalPrice.push([dvDate.getTime(), nvLocalPrice]);
         
       var nvShopPrice = parseFloat((data[i]['spr']).toFixed(2));
-      avShopPrice.push([i, nvShopPrice]);
+      avShopPrice.push([dvDate.getTime(), nvShopPrice]);
     }
     function avg(array, current, window){
       var sum = 0;
@@ -332,14 +333,24 @@ function showTrendGraph(data) {
             type: 'spline'
         },
         labels: {
-            step: nvStep
+            step: 2
         },
         xAxis: {
 		categories: avCategories,
               labels: {
                  rotation: 0,
                   align: 'left'
-              }
+              },
+		type: 'datetime',
+		dateTimeLabelFormats: {
+		    second: '%Y-%m-%d<br/>%H:%M:%S',
+		    minute: '%Y-%m-%d<br/>%H:%M',
+		    hour: '%Y-%m-%d<br/>%H:%M',
+		    day: '%Y<br/>%m-%d',
+		    week: '%Y<br/>%m-%d',
+		    month: '%Y-%m',
+		    year: '%Y'
+		}
         },     
 	    plotOptions: {
 		series: {
@@ -402,14 +413,24 @@ function showTrendGraph(data) {
             type: 'spline'
         },
         labels: {
-            step: nvStep
+            step: 2
         },
         xAxis: {
 		categories: avCategories,
               labels: {
                  rotation: 0,
                   align: 'left'
-              }
+              },
+		type: 'datetime',
+		dateTimeLabelFormats: {
+		    second: '%Y-%m-%d<br/>%H:%M:%S',
+		    minute: '%Y-%m-%d<br/>%H:%M',
+		    hour: '%Y-%m-%d<br/>%H:%M',
+		    day: '%Y<br/>%m-%d',
+		    week: '%Y<br/>%m-%d',
+		    month: '%Y-%m',
+		    year: '%Y'
+		}
         },     
 	    plotOptions: {
 		series: {
