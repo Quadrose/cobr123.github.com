@@ -362,6 +362,7 @@ function showTrendGraph(data) {
 	}
     }],
     yAxis: [{ // Primary yAxis
+        type: (($("#togglelinearx:checked").length)?'linear':'logarithmic'),
         labels: {
             style: {
                 color: Highcharts.getOptions().colors[1]
