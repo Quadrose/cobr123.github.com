@@ -325,8 +325,134 @@ function showTrendGraph(data) {
 
       return result;
     }
+    
+var chart = Highcharts.stockChart('container', {
 
-    $('#trends_price').highcharts({   
+    rangeSelector: {
+        selected: 1
+    },
+    tooltip: {
+	//xDateFormat: '%Y-%b-%e',
+	shared: true
+    },
+    xAxis: [{
+        crosshair: true,
+	type: 'datetime',
+	labels: {
+	    format: '{value: %Y-%b-%e}',
+	    align: 'left',
+	    rotation: 0
+	}
+    }],
+    yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value}°C',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: 'Temperature',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    }, { // Secondary yAxis
+        title: {
+            text: 'Rainfall',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        labels: {
+            format: '{value} mm',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        opposite: true
+    }],
+
+    series: [{
+	yAxis: 1,
+	     name: 'LocalPrice',
+	     data: avLocalPrice,
+	     visible: ((getVal('LocalPrice'+'Visible') === 0) ? false : true)
+         },
+         {
+        yAxis: 1,
+             name: 'LocalPriceMoveAvg5',
+             data: getMoveMean(avLocalPrice, 5),
+             marker: {enabled: false},
+             visible: ((getVal('LocalPriceMoveAvg5'+'Visible') === 0) ? false : true)
+         },
+         {
+        yAxis: 1,
+             name: 'LocalPriceMoveAvg20',
+             data: getMoveMean(avLocalPrice, 20),
+             marker: {enabled: false},
+             visible: ((getVal('LocalPriceMoveAvg20'+'Visible') === 0) ? false : true)       
+         },{
+        yAxis: 1,
+             name: 'ShopPrice',
+             data: avShopPrice,
+             visible: ((getVal('ShopPrice'+'Visible') === 0) ? false : true)
+         },
+         {
+        yAxis: 1,
+             name: 'ShopPriceMoveAvg5',
+             data: getMoveMean(avShopPrice, 5),
+             marker: {enabled: false},
+             visible: ((getVal('ShopPriceMoveAvg5'+'Visible') === 0) ? false : true)        
+         },
+         {
+        yAxis: 1,
+             name: 'ShopPriceMoveAvg20',
+             data: getMoveMean(avShopPrice, 20),
+             marker: {enabled: false},
+             visible: ((getVal('ShopPriceMoveAvg20'+'Visible') === 0) ? false : true)         
+         },
+	 {
+             name: 'volume',
+             data: avVolume,
+             visible: ((getVal('volume'+'Visible') === 0) ? false : true)   
+         },
+         {
+             name: 'volumeMoveAvg5',
+             data: getMoveMean(avVolume, 5),
+             marker: {enabled: false},
+             visible: ((getVal('volumeMoveAvg5'+'Visible') === 1) ? true : false)                
+         },
+         {
+             name: 'volumeMoveAvg20',
+             data: getMoveMean(avVolume, 20),
+             marker: {enabled: false},
+             visible: ((getVal('volumeMoveAvg20'+'Visible') === 1) ? true : false)                
+         }],
+    credits: {
+	enabled: false
+    }
+});
+/*
+$('#button1').click(function () {
+    var series = chart.series[0];
+    if (series.visible) {
+        series.hide();
+    } else {
+        series.show();
+    }
+});
+$('#button2').click(function () {
+    var series = chart.series[1];
+    if (series.visible) {
+        series.hide();
+    } else {
+        series.show();
+    }
+});*/
+
+
+    /*$('#trends_price').highcharts({   
         title: {
             text: ''
         }, 
@@ -436,7 +562,7 @@ function showTrendGraph(data) {
              name: 'volume',
              data: avVolume,
              visible: ((getVal('volume'+'Visible') === 0) ? false : true)   
-         }/*,
+         },
          {
              name: 'volumeMoveAvg5',
              data: getMoveMean(avVolume, 5),
@@ -448,28 +574,28 @@ function showTrendGraph(data) {
              data: getMoveMean(avVolume, 20),
              marker: {enabled: false},
              visible: ((getVal('volumeMoveAvg20'+'Visible') === 0) ? false : true)                
-         }*/
+         }
          ],
             credits: {
                 enabled: false
             }
-    });
+    });*/
 
     /**
      * Override the reset function, we don't need to hide the tooltips and crosshairs.
      */
-    Highcharts.Pointer.prototype.reset = function () {
+    /*Highcharts.Pointer.prototype.reset = function () {
         return undefined;
-    };
+    };*/
 
     /**
      * Highlight a point by showing tooltip, setting hover state and draw crosshair
      */
-    Highcharts.Point.prototype.highlight = function (event) {
+    /*Highcharts.Point.prototype.highlight = function (event) {
         this.onMouseOver(); // Show the hover marker
         this.series.chart.tooltip.refresh(this); // Show the tooltip
         this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
-    };
+    };*/
 }
 function loadData() {
     var realm = getRealm();
