@@ -216,7 +216,7 @@ function updateUrl() {
     );
 }
 //////////////////////////////////////////////////////
-var chart = null;
+
 function showTrendGraph(data) {
   function strToDate(strDate){
     if (strDate == ''){
@@ -327,7 +327,7 @@ function showTrendGraph(data) {
       return result;
     }
     
- chart = Highcharts.stockChart('trends_price', {
+ var chart = Highcharts.stockChart('trends_price', {
 
     rangeSelector: {
         selected: 1
@@ -436,6 +436,24 @@ function showTrendGraph(data) {
     }
 });
 	
+	var btns = ['ToggleLocalPrice','ToggleLocalPriceMoveAvg5','ToggleLocalPriceMoveAvg20'
+		    ,'ToggleShopPrice','ToggleShopPriceMoveAvg5','ToggleShopPriceMoveAvg20'
+		    ,'ToggleVolume','ToggleVolumeMoveAvg5','ToggleColumeMoveAvg20'];
+for(var i = 0; i < btns.length; ++i){
+	var ed = $('<button>Toggle '+ btns[i] +'</button>');
+	ed.onClick(function(){
+	    var series = chart.series[i];
+	    if (series.visible) {
+		    setVal(btns[i]+'Visible', 0);
+		series.hide();
+	    } else {
+		    setVal(btns[i]+'Visible', 1);
+		series.show();
+	    }
+	});
+	$('#btnSubmit').after(ed);
+}
+
 
 
     /*$('#trends_price').highcharts({   
@@ -582,19 +600,6 @@ function showTrendGraph(data) {
         this.series.chart.tooltip.refresh(this); // Show the tooltip
         this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
     };*/
-}
-function toggleSeries(i){	
-	var btns = ['ToggleLocalPrice','ToggleLocalPriceMoveAvg5','ToggleLocalPriceMoveAvg20'
-		    ,'ToggleShopPrice','ToggleShopPriceMoveAvg5','ToggleShopPriceMoveAvg20'
-		    ,'ToggleVolume','ToggleVolumeMoveAvg5','ToggleColumeMoveAvg20'];
-    var series = chart.series[i];
-    if (series.visible) {
-	    setVal(btns[i]+'Visible', 0);
-	series.hide();
-    } else {
-	    setVal(btns[i]+'Visible', 1);
-	series.show();
-    }
 }
 function loadData() {
     var realm = getRealm();
