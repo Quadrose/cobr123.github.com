@@ -438,7 +438,7 @@ function showTrendGraph(data) {
 	
 	var btns = ['LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
-		    ,'Volume','VolumeMoveAvg5','ColumeMoveAvg20'];
+		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'];
 for(var i = 0; i < btns.length; ++i){
 	var ed = $('<button name="'+ btns[i] +'" idx="'+i+'">Toggle '+ btns[i] +'</button>');
 	ed.click(function(){
