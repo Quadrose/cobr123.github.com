@@ -803,11 +803,8 @@ $(document).ready(function () {
         }
     }
 
+	
     loadSavedFlt(urlParams);
-    $( "#from" ).datepicker( $.datepicker.regional[ $( "#locale" ).val() ] );
-    $( "#from" ).datepicker( "option", "dateFormat", "dd.mm.yy" );
-    $( "#to"   ).datepicker( $.datepicker.regional[ $( "#locale" ).val() ] );
-    $( "#to"   ).datepicker( "option", "dateFormat", "dd.mm.yy" );
       
     if (getLocale() != 'ru') {
         $('#locale').val(getLocale());
