@@ -216,6 +216,7 @@ function updateUrl() {
     );
 }
 //////////////////////////////////////////////////////
+var chart = null;
 function showTrendGraph(data) {
   function strToDate(strDate){
     if (strDate == ''){
@@ -326,7 +327,7 @@ function showTrendGraph(data) {
       return result;
     }
     
-var chart = Highcharts.stockChart('trends_price', {
+ chart = Highcharts.stockChart('trends_price', {
 
     rangeSelector: {
         selected: 1
