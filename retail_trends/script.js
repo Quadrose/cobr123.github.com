@@ -301,7 +301,7 @@ function showTrendGraph(data) {
     function avg(array, current, window){
       var sum = 0;
       var sumCnt = 0;
-      for( var i = current - window; i < current + window; i++ ){
+      for( var i = current - window; i < current; i++ ){
         if(i>=0 && i<array.length){
             sum += parseFloat(array[i][1]) || 0;
             ++sumCnt;
