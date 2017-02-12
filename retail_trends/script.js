@@ -343,6 +343,10 @@ function showTrendGraph(data) {
 		    rotation: 0
 		}
         },     
+	    tooltip: {
+		xDateFormat: '%Y-%b-%e',
+		shared: true
+	    },
 	    plotOptions: {
 		series: {
 		    events: {
@@ -389,9 +393,6 @@ function showTrendGraph(data) {
              visible: ((getVal('ShopPriceMoveAvg20'+'Visible') === 0) ? false : true)         
          }
          ],
-            tooltip: {
-                shared: true
-            },
             credits: {
                 enabled: false
             }
@@ -413,7 +414,11 @@ function showTrendGraph(data) {
 		    align: 'left',
 		    rotation: 0
 		}
-        },     
+        },    
+	    tooltip: {
+		xDateFormat: '%Y-%b-%e',
+		shared: true
+	    }, 
 	    plotOptions: {
 		series: {
 		    events: {
@@ -444,9 +449,6 @@ function showTrendGraph(data) {
              visible: ((getVal('volumeMoveAvg20'+'Visible') === 0) ? false : true)                
          }
          ],
-            tooltip: {
-                shared: true
-            },
             credits: {
                 enabled: false
             }
