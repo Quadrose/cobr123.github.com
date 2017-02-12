@@ -330,6 +330,20 @@ function showTrendGraph(data) {
     
  var chart = Highcharts.stockChart('trends_price', {
 
+    chart: {
+        zoomType: 'x',
+        events: {
+            redraw: function (event) {
+                if (event.xAxis) {
+		    setVal('trend_date_min', Highcharts.dateFormat('%Y.%m.%d', event.xAxis[0].min));
+		    setVal('trend_date_max', Highcharts.dateFormat('%Y.%m.%d', event.xAxis[0].max));
+                } else {
+		    setVal('trend_date_min', Highcharts.dateFormat('%Y.%m.%d', this.axes[0].min));
+		    setVal('trend_date_max', Highcharts.dateFormat('%Y.%m.%d', this.axes[0].max));
+                }
+            }
+        }
+    },
     rangeSelector: {
         selected: 1
     },
@@ -438,6 +452,9 @@ function showTrendGraph(data) {
 	enabled: false
     }
 });
+	if(getVal('trend_date_min') != ''){
+		chart.xAxis[0].setExtremes(strToDate(getVal('trend_date_min')), strToDate(getVal('trend_date_max')));	
+	}
 
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
