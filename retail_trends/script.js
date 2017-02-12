@@ -453,7 +453,7 @@ function showTrendGraph(data) {
     }
 });
 	if(getVal('trend_date_min') != ''){
-		chart.xAxis[0].setExtremes(strToDate(getVal('trend_date_min')), strToDate(getVal('trend_date_max')));	
+		chart.xAxis[0].setExtremes(strToDate(getVal('trend_date_min')).getTime(), strToDate(getVal('trend_date_max')).getTime());	
 	}
 
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
