@@ -345,9 +345,6 @@ function showTrendGraph(data) {
             }
         }
     },
-    rangeSelector: {
-        selected: 1
-    },
     tooltip: {
 	//xDateFormat: '%Y-%b-%e',
 	shared: true
