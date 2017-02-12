@@ -343,6 +343,7 @@ function showTrendGraph(data) {
 	labels: {
 	    format: '{value: %Y-%b-%e}',
 	    align: 'left',
+        step:2,
 	    rotation: 0
 	}
     }],
