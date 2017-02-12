@@ -277,26 +277,24 @@ function showTrendGraph(data) {
               "lq":1.0,
               "spr":954.09,
               "sq":1.0,
-              "v":8634,
-              "lmvs":0.0,
-              "smvs":0.0,
-              "lmvst":0.0,
-              "smvst":0.0,
-              "pmvs":0.0,
-              "pmvst":0.0
+              "v":8634
               }*/
+    var avCategories = [];
     var avVolume = [];
     var avLocalPrice = [];
     var avShopPrice = [];
     for (var i = 0; i < data.length; i++) {
+      var svDateStr = $.datepicker.formatDate( "yy-M-d", strToDate(data[i]['d']));
+      avCategories.push(svDateStr);
+	    
       var nvVolume = parseFloat((data[i]['v']).toFixed(2));
-      avVolume.push([strToDate(data[i]['d']).getTime(), nvVolume]);
+      avVolume.push([i, nvVolume]);
         
       var nvLocalPrice = parseFloat((data[i]['lpr']).toFixed(2));
-      avLocalPrice.push([strToDate(data[i]['d']).getTime(), nvLocalPrice]);
+      avLocalPrice.push([i, nvLocalPrice]);
         
       var nvShopPrice = parseFloat((data[i]['spr']).toFixed(2));
-      avShopPrice.push([strToDate(data[i]['d']).getTime(), nvShopPrice]);
+      avShopPrice.push([i, nvShopPrice]);
     }
     function avg(array, current, window){
       var sum = 0;
@@ -332,12 +330,7 @@ function showTrendGraph(data) {
             step: 2
         },
         xAxis: {
-            type: 'datetime',
-            labels: {
-                format: '{value:%Y-%b-%d}',
-                rotation: 0,
-                align: 'left'
-            }
+		categories: [avCategories]
         },     
 	    plotOptions: {
 		series: {
@@ -403,12 +396,7 @@ function showTrendGraph(data) {
             step: 2
         },
         xAxis: {
-            type: 'datetime',
-            labels: {
-                format: '{value:%Y-%b-%d}',
-                rotation: 0,
-                align: 'left'
-            }
+		categories: [avCategories]
         },     
 	    plotOptions: {
 		series: {
