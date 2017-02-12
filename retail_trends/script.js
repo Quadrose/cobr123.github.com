@@ -376,25 +376,6 @@ function showTrendGraph(data) {
 
     series: [{
         type: 'spline',
-	     name: 'LocalPrice',
-	     data: avLocalPrice,
-	     visible: ((getVal('LocalPrice'+'Visible') === 0) ? false : true)
-         },
-         {
-        type: 'spline',
-             name: 'LocalPriceMoveAvg5',
-             data: getMoveMean(avLocalPrice, 5),
-             marker: {enabled: false},
-             visible: ((getVal('LocalPriceMoveAvg5'+'Visible') === 1) ? true : false)
-         },
-         {
-        type: 'spline',
-             name: 'LocalPriceMoveAvg20',
-             data: getMoveMean(avLocalPrice, 20),
-             marker: {enabled: false},
-             visible: ((getVal('LocalPriceMoveAvg20'+'Visible') === 1) ? true : false)       
-         },{
-        type: 'spline',
              name: 'ShopPrice',
              data: avShopPrice,
              visible: ((getVal('ShopPrice'+'Visible') === 0) ? false : true)
@@ -412,6 +393,26 @@ function showTrendGraph(data) {
              data: getMoveMean(avShopPrice, 20),
              marker: {enabled: false},
              visible: ((getVal('ShopPriceMoveAvg20'+'Visible') === 1) ? true : false)         
+         },
+	 {
+        type: 'spline',
+	     name: 'LocalPrice',
+	     data: avLocalPrice,
+	     visible: ((getVal('LocalPrice'+'Visible') === 0) ? false : true)
+         },
+         {
+        type: 'spline',
+             name: 'LocalPriceMoveAvg5',
+             data: getMoveMean(avLocalPrice, 5),
+             marker: {enabled: false},
+             visible: ((getVal('LocalPriceMoveAvg5'+'Visible') === 1) ? true : false)
+         },
+         {
+        type: 'spline',
+             name: 'LocalPriceMoveAvg20',
+             data: getMoveMean(avLocalPrice, 20),
+             marker: {enabled: false},
+             visible: ((getVal('LocalPriceMoveAvg20'+'Visible') === 1) ? true : false)       
          },
 	 {
         yAxis: 1,
@@ -438,8 +439,8 @@ function showTrendGraph(data) {
     }
 });
 
-	var btns = ['LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
-		    ,'ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
+	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
+		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
 		    ];
 	$('#trends_btns').html('');
