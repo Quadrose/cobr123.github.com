@@ -223,7 +223,8 @@ function showTrendGraph(data) {
     }
     var dateParts = strDate.split(".");
     //new Date(year, month[, date[, hours[, minutes[, seconds[, milliseconds]]]]]);
-    return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
+    //return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
+    return new Date(Date.UTC(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]) ));
   }
   var defaultDateTo = new Date();
   var dateTo = defaultDateTo;
@@ -261,7 +262,7 @@ function showTrendGraph(data) {
   console.log("data.length = " + data.length);
   data = data.filter(function(value){
     var date = strToDate(value['d']);
-    return date >= dateFrom && date <= dateTo;
+    return date >= dateFrom; // && date <= dateTo;
   });
   console.log("filtered data.length = " + data.length);
 
