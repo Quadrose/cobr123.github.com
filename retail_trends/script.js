@@ -230,20 +230,25 @@ function showTrendGraph(data) {
   var defaultDateFrom = new Date();
   var dateFrom = defaultDateFrom;
   var trends_period = $('#trends_period').val();  
+  var nvStep = 2;
   if(trends_period === 'month1'){
     dateFrom.setMonth(dateTo.getMonth() - 1);
   }
   else if(trends_period === 'month3'){
     dateFrom.setMonth(dateTo.getMonth() - 3);
+    nvStep = 5;
   } 
   else if(trends_period === 'month6'){
     dateFrom.setMonth(dateTo.getMonth() - 6);
+    nvStep = 7;
   } 
   else if(trends_period === 'year1'){
     dateFrom.setMonth(dateTo.getMonth() - 12);
+    nvStep = 15;
   } 
   else if(trends_period === 'year3'){
     dateFrom.setMonth(dateTo.getMonth() - 12*3);
+    nvStep = 25;
   } 
   else if(trends_period === 'alldata'){
     dateFrom.setMonth(dateTo.getMonth() - 12*300);
@@ -327,7 +332,7 @@ function showTrendGraph(data) {
             type: 'spline'
         },
         labels: {
-            step: 2
+            step: nvStep
         },
         xAxis: {
 		categories: avCategories,
@@ -397,7 +402,7 @@ function showTrendGraph(data) {
             type: 'spline'
         },
         labels: {
-            step: 2
+            step: nvStep
         },
         xAxis: {
 		categories: avCategories,
