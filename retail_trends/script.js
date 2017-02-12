@@ -442,8 +442,8 @@ function showTrendGraph(data) {
 		    ,'ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
 		    ];
+	$('#trends_btns').html('');
 for(var i = 0; i < btns.length; ++i){
-	$('#Toggle'+ btns[i]).remove();
 	var ed = $('<button id="Toggle'+ btns[i] +'" name="'+ btns[i] +'" idx="'+i+'">'+ btns[i] +'</button>');
 	ed.click(function(){
 	    var idx = $(this).attr('idx');
@@ -458,9 +458,9 @@ for(var i = 0; i < btns.length; ++i){
 	    }
 		return false;
 	});
-	$('#btnSubmit').before(ed);
+	$('#trends_btns').append(ed);
 	if((i + 1) % 3 === 0){
-	$('#btnSubmit').before('&nbsp;');
+	$('#trends_btns').append('&nbsp;');
 	}
 }
 	$('#btnSubmit').hide();
