@@ -431,22 +431,6 @@ var chart = Highcharts.stockChart('trends_price', {
 	enabled: false
     }
 });
-
-	var btns = ['ToggleLocalPrice','ToggleLocalPriceMoveAvg5','ToggleLocalPriceMoveAvg20'
-		    ,'ToggleShopPrice','ToggleShopPriceMoveAvg5','ToggleShopPriceMoveAvg20'
-		    ,'ToggleVolume','ToggleVolumeMoveAvg5','ToggleColumeMoveAvg20'];
-	for(var i = 0; i < btns.length; ++i){
-		$('#'+btns[i]).click(function () {
-		    var series = chart.series[i];
-		    if (series.visible) {
-			    setVal(btns[i]+'Visible', 0);
-			series.hide();
-		    } else {
-			    setVal(btns[i]+'Visible', 1);
-			series.show();
-		    }
-		});
-	}
 	
 
 
@@ -594,6 +578,19 @@ var chart = Highcharts.stockChart('trends_price', {
         this.series.chart.tooltip.refresh(this); // Show the tooltip
         this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
     };*/
+}
+function toggleSeries(i){	
+	var btns = ['ToggleLocalPrice','ToggleLocalPriceMoveAvg5','ToggleLocalPriceMoveAvg20'
+		    ,'ToggleShopPrice','ToggleShopPriceMoveAvg5','ToggleShopPriceMoveAvg20'
+		    ,'ToggleVolume','ToggleVolumeMoveAvg5','ToggleColumeMoveAvg20'];
+    var series = chart.series[i];
+    if (series.visible) {
+	    setVal(btns[i]+'Visible', 0);
+	series.hide();
+    } else {
+	    setVal(btns[i]+'Visible', 1);
+	series.show();
+    }
 }
 function loadData() {
     var realm = getRealm();
