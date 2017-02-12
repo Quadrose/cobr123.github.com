@@ -438,9 +438,9 @@ function showTrendGraph(data) {
     }
 });
 
-	var btns = ['Volume','VolumeMoveAvg5','VolumeMoveAvg20'
-		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
+	var btns = ['LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
+		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
 		    ];
 for(var i = 0; i < btns.length; ++i){
 	$('#Toggle'+ btns[i]).remove();
@@ -458,9 +458,9 @@ for(var i = 0; i < btns.length; ++i){
 	    }
 		return false;
 	});
-	$('#btnSubmit').after(ed);
+	$('#btnSubmit').before(ed);
 	if((i + 1) % 3 === 0){
-	$('#btnSubmit').after('&nbsp;');
+	$('#btnSubmit').before('&nbsp;');
 	}
 }
 	$('#btnSubmit').hide();
