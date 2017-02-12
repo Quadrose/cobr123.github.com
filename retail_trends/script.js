@@ -336,12 +336,10 @@ function showTrendGraph(data) {
             step: 2
         },
         xAxis: {
-		categories: avCategories,
-              labels: {
-                 rotation: 0,
-                  align: 'left'
-              },
-		type: 'datetime'
+		type: 'datetime',
+		dateTimeLabelFormats: {
+            		day: '%Y-%b-%e'
+		}
         },     
 	    plotOptions: {
 		series: {
@@ -407,12 +405,10 @@ function showTrendGraph(data) {
             step: 2
         },
         xAxis: {
-		categories: avCategories,
-              labels: {
-                 rotation: 0,
-                  align: 'left'
-              },
-		type: 'datetime'
+		type: 'datetime',
+		dateTimeLabelFormats: {
+            		day: '%Y-%b-%e'
+		}
         },     
 	    plotOptions: {
 		series: {
