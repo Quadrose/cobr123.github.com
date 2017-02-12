@@ -285,7 +285,7 @@ function showTrendGraph(data) {
     var avShopPrice = [];
     for (var i = 0; i < data.length; i++) {
       var svDateStr = $.datepicker.formatDate( "yy-M-d", strToDate(data[i]['d']));
-      avCategories.push(svDateStr);
+      avCategories[i] = svDateStr;
 	    
       var nvVolume = parseFloat((data[i]['v']).toFixed(2));
       avVolume.push([i, nvVolume]);
@@ -330,7 +330,7 @@ function showTrendGraph(data) {
             step: 2
         },
         xAxis: {
-		categories: [avCategories]
+		categories: avCategories
         },     
 	    plotOptions: {
 		series: {
@@ -396,7 +396,7 @@ function showTrendGraph(data) {
             step: 2
         },
         xAxis: {
-		categories: [avCategories]
+		categories: avCategories
         },     
 	    plotOptions: {
 		series: {
