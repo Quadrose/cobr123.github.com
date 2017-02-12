@@ -337,8 +337,10 @@ function showTrendGraph(data) {
         },
         xAxis: {
 		type: 'datetime',
-		dateTimeLabelFormats: {
-            		day: '%Y-%b-%e'
+		labels: {
+		    format: '{value: %Y-%b-%e}',
+		    align: 'left',
+		    rotation: 0
 		}
         },     
 	    plotOptions: {
@@ -406,8 +408,10 @@ function showTrendGraph(data) {
         },
         xAxis: {
 		type: 'datetime',
-		dateTimeLabelFormats: {
-            		day: '%Y-%b-%e'
+		labels: {
+		    format: '{value: %Y-%b-%e}',
+		    align: 'left',
+		    rotation: 0
 		}
         },     
 	    plotOptions: {
