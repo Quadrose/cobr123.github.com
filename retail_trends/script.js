@@ -260,10 +260,6 @@ function showTrendGraph(data) {
     $('#trends_period').val('month3'); 
   } 
 	
-if(getVal('trend_date_min') == ''){
-	setVal('trend_date_min', $.datepicker.formatDate( "yy.mm.dd", dateFrom));
-	setVal('trend_date_max', $.datepicker.formatDate( "yy.mm.dd", dateTo));	
-}
     
   console.log("data.length = " + data.length);
 	/*
