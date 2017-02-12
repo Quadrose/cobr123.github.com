@@ -261,12 +261,13 @@ function showTrendGraph(data) {
   } 
     
   console.log("data.length = " + data.length);
+	/*
   data = data.filter(function(value){
     var date = strToDate(value['d']);
     return date >= dateFrom; // && date <= dateTo;
   });
   console.log("filtered data.length = " + data.length);
-
+*/
   data.sort(function(a,b) {
       var dateA = strToDate(a['d']);
       var dateB = strToDate(b['d']);
