@@ -328,14 +328,14 @@ function showTrendGraph(data) {
         chart: {
             type: 'spline'
         },
-        labels: {
+        /*labels: {
             step: 2
-        },
+        },*/
         xAxis: {
             type: 'datetime',
             labels: {
                 format: '{value:%Y-%b-%d}',
-                rotation: 0,
+                rotation: 45,
                 align: 'left'
             }
         },     
@@ -399,14 +399,14 @@ function showTrendGraph(data) {
         chart: {
             type: 'spline'
         },
-        labels: {
+        /*labels: {
             step: 2
-        },
+        },*/
         xAxis: {
             type: 'datetime',
             labels: {
                 format: '{value:%Y-%b-%d}',
-                rotation: 0,
+                rotation: 45,
                 align: 'left'
             }
         },     
