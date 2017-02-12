@@ -413,32 +413,32 @@ function showTrendGraph(data) {
          },
 	 {
         yAxis: 1,
-             name: 'volume',
+             name: 'Volume',
              data: avVolume,
-             visible: ((getVal('volume'+'Visible') === 0) ? false : true)   
+             visible: ((getVal('Volume'+'Visible') === 0) ? false : true)   
          },
          {
         yAxis: 1,
-             name: 'volumeMoveAvg5',
+             name: 'VolumeMoveAvg5',
              data: getMoveMean(avVolume, 5),
              marker: {enabled: false},
-             visible: ((getVal('volumeMoveAvg5'+'Visible') === 1) ? true : false)                
+             visible: ((getVal('VolumeMoveAvg5'+'Visible') === 1) ? true : false)                
          },
          {
         yAxis: 1,
-             name: 'volumeMoveAvg20',
+             name: 'VolumeMoveAvg20',
              data: getMoveMean(avVolume, 20),
              marker: {enabled: false},
-             visible: ((getVal('volumeMoveAvg20'+'Visible') === 1) ? true : false)                
+             visible: ((getVal('VolumeMoveAvg20'+'Visible') === 1) ? true : false)                
          }],
     credits: {
 	enabled: false
     }
 });
 	
-	var btns = ['ToggleLocalPrice','ToggleLocalPriceMoveAvg5','ToggleLocalPriceMoveAvg20'
-		    ,'ToggleShopPrice','ToggleShopPriceMoveAvg5','ToggleShopPriceMoveAvg20'
-		    ,'ToggleVolume','ToggleVolumeMoveAvg5','ToggleColumeMoveAvg20'];
+	var btns = ['LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
+		    ,'ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
+		    ,'Volume','VolumeMoveAvg5','ColumeMoveAvg20'];
 for(var i = 0; i < btns.length; ++i){
 	var ed = $('<button name="'+ btns[i] +'" idx="'+i+'">Toggle '+ btns[i] +'</button>');
 	ed.click(function(){
