@@ -372,56 +372,59 @@ var chart = Highcharts.stockChart('trends_price', {
     }],
 
     series: [{
-	yAxis: 1,
+        type: 'spline',
 	     name: 'LocalPrice',
 	     data: avLocalPrice,
 	     visible: ((getVal('LocalPrice'+'Visible') === 0) ? false : true)
          },
          {
-        yAxis: 1,
+        type: 'spline',
              name: 'LocalPriceMoveAvg5',
              data: getMoveMean(avLocalPrice, 5),
              marker: {enabled: false},
              visible: ((getVal('LocalPriceMoveAvg5'+'Visible') === 0) ? false : true)
          },
          {
-        yAxis: 1,
+        type: 'spline',
              name: 'LocalPriceMoveAvg20',
              data: getMoveMean(avLocalPrice, 20),
              marker: {enabled: false},
              visible: ((getVal('LocalPriceMoveAvg20'+'Visible') === 0) ? false : true)       
          },{
-        yAxis: 1,
+        type: 'spline',
              name: 'ShopPrice',
              data: avShopPrice,
              visible: ((getVal('ShopPrice'+'Visible') === 0) ? false : true)
          },
          {
-        yAxis: 1,
+        type: 'spline',
              name: 'ShopPriceMoveAvg5',
              data: getMoveMean(avShopPrice, 5),
              marker: {enabled: false},
              visible: ((getVal('ShopPriceMoveAvg5'+'Visible') === 0) ? false : true)        
          },
          {
-        yAxis: 1,
+        type: 'spline',
              name: 'ShopPriceMoveAvg20',
              data: getMoveMean(avShopPrice, 20),
              marker: {enabled: false},
              visible: ((getVal('ShopPriceMoveAvg20'+'Visible') === 0) ? false : true)         
          },
 	 {
+        yAxis: 1,
              name: 'volume',
              data: avVolume,
              visible: ((getVal('volume'+'Visible') === 0) ? false : true)   
          },
          {
+        yAxis: 1,
              name: 'volumeMoveAvg5',
              data: getMoveMean(avVolume, 5),
              marker: {enabled: false},
              visible: ((getVal('volumeMoveAvg5'+'Visible') === 1) ? true : false)                
          },
          {
+        yAxis: 1,
              name: 'volumeMoveAvg20',
              data: getMoveMean(avVolume, 20),
              marker: {enabled: false},
