@@ -810,14 +810,13 @@ $(document).ready(function () {
         $('#locale').val(getLocale());
         applyLocale();
     }
-	
+
   $("#togglelinearx").change(function(){
     var checked = $("#togglelinearx:checked").length;
     if(checked){
-        $('#container').highcharts().yAxis[0].update({ type: 'logarithmic'});
-        } else {
-        $('#container').highcharts().yAxis[0].update({ type: 'linear'});
-        }
-    });
+	$('#container').highcharts().yAxis[0].update({ type: 'logarithmic'});
+    } else {
+	$('#container').highcharts().yAxis[0].update({ type: 'linear'});
+    }
   });
 });
