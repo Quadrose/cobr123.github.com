@@ -326,7 +326,7 @@ function showTrendGraph(data) {
       return result;
     }
     
-var chart = Highcharts.stockChart('container', {
+var chart = Highcharts.stockChart('trends_price', {
 
     rangeSelector: {
         selected: 1
