@@ -335,11 +335,11 @@ function showTrendGraph(data) {
         events: {
             redraw: function (event) {
                 if (event.xAxis) {
-		    setVal('trend_date_min', Highcharts.dateFormat('%Y.%m.%d', event.xAxis[0].min));
-		    setVal('trend_date_max', Highcharts.dateFormat('%Y.%m.%d', event.xAxis[0].max));
+		    setVal('trend_date_min', Highcharts.dateFormat('%d.%m.%Y', event.xAxis[0].min));
+		    setVal('trend_date_max', Highcharts.dateFormat('%d.%m.%Y', event.xAxis[0].max));
                 } else {
-		    setVal('trend_date_min', Highcharts.dateFormat('%Y.%m.%d', this.axes[0].min));
-		    setVal('trend_date_max', Highcharts.dateFormat('%Y.%m.%d', this.axes[0].max));
+		    setVal('trend_date_min', Highcharts.dateFormat('%d.%m.%Y', this.axes[0].min));
+		    setVal('trend_date_max', Highcharts.dateFormat('%d.%m.%Y', this.axes[0].max));
                 }
             }
         }
