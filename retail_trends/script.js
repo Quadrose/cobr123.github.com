@@ -219,7 +219,7 @@ function updateUrl() {
 
 function showTrendGraph(data) {
   function strToDate(strDate){
-    if (strDate == ''){
+    if (strDate === null || strDate === ''){
       return null;
     }
     var dateParts = strDate.split(".");
@@ -261,8 +261,8 @@ function showTrendGraph(data) {
   } 
 	
 if(getVal('trend_date_min') == ''){
-	setVal('trend_date_min', $.datepicker.formatDate( "yy.m.dd", dateFrom));
-	setVal('trend_date_max', $.datepicker.formatDate( "yy.m.dd", dateTo));	
+	setVal('trend_date_min', $.datepicker.formatDate( "yy.mm.dd", dateFrom));
+	setVal('trend_date_max', $.datepicker.formatDate( "yy.mm.dd", dateTo));	
 }
     
   console.log("data.length = " + data.length);
