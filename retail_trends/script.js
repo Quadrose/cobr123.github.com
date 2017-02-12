@@ -814,7 +814,7 @@ $(document).ready(function () {
 
   $("#togglelinearx").change(function(){
     var checked = $("#togglelinearx:checked").length;
-    if(checked){
+    if(!checked){
 	$('#trends_price').highcharts().yAxis[0].update({ type: 'logarithmic'});
     } else {
 	$('#trends_price').highcharts().yAxis[0].update({ type: 'linear'});
