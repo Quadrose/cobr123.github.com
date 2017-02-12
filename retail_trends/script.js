@@ -452,6 +452,7 @@ for(var i = 0; i < btns.length; ++i){
 		    setVal(name+'Visible', 1);
 		series.show();
 	    }
+		return false;
 	});
 	$('#btnSubmit').after(ed);
 }
