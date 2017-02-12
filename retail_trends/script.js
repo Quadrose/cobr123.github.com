@@ -456,6 +456,7 @@ for(var i = 0; i < btns.length; ++i){
 	});
 	$('#btnSubmit').after(ed);
 }
+	$('#btnSubmit').hide();
 
 
 
