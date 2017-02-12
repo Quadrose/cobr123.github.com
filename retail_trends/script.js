@@ -440,7 +440,7 @@ function showTrendGraph(data) {
 		    ,'ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'];
 for(var i = 0; i < btns.length; ++i){
-	var ed = $('<button name="'+ btns[i] +'" idx="'+i+'">Toggle '+ btns[i] +'</button>');
+	var ed = $('<button name="'+ btns[i] +'" idx="'+i+'">'+ btns[i] +'</button>');
 	ed.click(function(){
 	    var idx = $(this).attr('idx');
 	    var series = chart.series[idx];
