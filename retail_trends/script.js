@@ -219,7 +219,7 @@ function updateUrl() {
 
 function showTrendGraph(data) {
   function strToDate(strDate){
-    if (strDate === null || strDate === ''){
+    if (strDate === null || strDate === '' || (strDate + '').indexOf('.') <= 0){
       return null;
     }
     var dateParts = strDate.split(".");
