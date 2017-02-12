@@ -441,7 +441,7 @@ function showTrendGraph(data) {
 		    ,'ToggleVolume','ToggleVolumeMoveAvg5','ToggleColumeMoveAvg20'];
 for(var i = 0; i < btns.length; ++i){
 	var ed = $('<button>Toggle '+ btns[i] +'</button>');
-	ed.onClick(function(){
+	ed.click(function(){
 	    var series = chart.series[i];
 	    if (series.visible) {
 		    setVal(btns[i]+'Visible', 0);
