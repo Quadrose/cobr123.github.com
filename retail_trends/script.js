@@ -435,12 +435,13 @@ function showTrendGraph(data) {
 	enabled: false
     }
 });
-	
+
+if($('#ToggleLocalPrice').length === 0){
 	var btns = ['LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'];
 for(var i = 0; i < btns.length; ++i){
-	var ed = $('<button name="'+ btns[i] +'" idx="'+i+'">'+ btns[i] +'</button>');
+	var ed = $('<button id="Toggle'+ btns[i] +'" name="'+ btns[i] +'" idx="'+i+'">'+ btns[i] +'</button>');
 	ed.click(function(){
 	    var idx = $(this).attr('idx');
 	    var series = chart.series[idx];
@@ -457,7 +458,7 @@ for(var i = 0; i < btns.length; ++i){
 	$('#btnSubmit').after(ed);
 }
 	$('#btnSubmit').hide();
-
+}
 
 
     /*$('#trends_price').highcharts({   
