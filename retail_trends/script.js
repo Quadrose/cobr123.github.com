@@ -440,14 +440,16 @@ function showTrendGraph(data) {
 		    ,'ToggleShopPrice','ToggleShopPriceMoveAvg5','ToggleShopPriceMoveAvg20'
 		    ,'ToggleVolume','ToggleVolumeMoveAvg5','ToggleColumeMoveAvg20'];
 for(var i = 0; i < btns.length; ++i){
-	var ed = $('<button>Toggle '+ btns[i] +'</button>');
+	var ed = $('<button name="'+ btns[i] +'" idx="'+i+'">Toggle '+ btns[i] +'</button>');
 	ed.click(function(){
-	    var series = chart.series[i];
+	    var idx = $(this).attr('idx');
+	    var series = chart.series[idx];
+	    var name = $(this).attr('name');
 	    if (series.visible) {
-		    setVal(btns[i]+'Visible', 0);
+		    setVal(name+'Visible', 0);
 		series.hide();
 	    } else {
-		    setVal(btns[i]+'Visible', 1);
+		    setVal(name+'Visible', 1);
 		series.show();
 	    }
 	});
