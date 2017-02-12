@@ -344,7 +344,7 @@ function showTrendGraph(data) {
 		}
         },     
 	    tooltip: {
-		xDateFormat: '%Y-%b-%e',
+		//xDateFormat: '%Y-%b-%e',
 		shared: true
 	    },
 	    plotOptions: {
@@ -416,7 +416,7 @@ function showTrendGraph(data) {
 		}
         },    
 	    tooltip: {
-		xDateFormat: '%Y-%b-%e',
+		//xDateFormat: '%Y-%b-%e',
 		shared: true
 	    }, 
 	    plotOptions: {
