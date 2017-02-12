@@ -431,23 +431,23 @@ var chart = Highcharts.stockChart('trends_price', {
 	enabled: false
     }
 });
-/*
-$('#button1').click(function () {
-    var series = chart.series[0];
-    if (series.visible) {
-        series.hide();
-    } else {
-        series.show();
-    }
-});
-$('#button2').click(function () {
-    var series = chart.series[1];
-    if (series.visible) {
-        series.hide();
-    } else {
-        series.show();
-    }
-});*/
+
+	var btns = ['ToggleLocalPrice','ToggleLocalPriceMoveAvg5','ToggleLocalPriceMoveAvg20'
+		    ,'ToggleShopPrice','ToggleShopPriceMoveAvg5','ToggleShopPriceMoveAvg20'
+		    ,'ToggleVolume','ToggleVolumeMoveAvg5','ToggleColumeMoveAvg20'];
+	for(var i = 0; i < btns.length; ++i){
+		$('#'+btns[i]).click(function () {
+		    var series = chart.series[i];
+		    if (series.visible) {
+			series.hide();
+			    setVal(btns[i]+'Visible', 0);
+		    } else {
+			series.show();
+			    setVal(btns[i]+'Visible', 1);
+		    }
+		});
+	}
+	
 
 
     /*$('#trends_price').highcharts({   
