@@ -259,6 +259,11 @@ function showTrendGraph(data) {
     dateFrom.setMonth(dateTo.getMonth() - 3);
     $('#trends_period').val('month3'); 
   } 
+	
+if(getVal('trend_date_min') == ''){
+	setVal('trend_date_min', $.datepicker.formatDate( "yy.m.dd", dateFrom));
+	setVal('trend_date_max', $.datepicker.formatDate( "yy.m.dd", dateTo));	
+}
     
   console.log("data.length = " + data.length);
 	/*
@@ -352,6 +357,8 @@ function showTrendGraph(data) {
 	shared: true
     },
     xAxis: [{
+        min: strToDate(getVal('trend_date_min')).getTime(),
+        max: strToDate(getVal('trend_date_max')).getTime(),
         crosshair: true,
 	type: 'datetime',
 	labels: {
@@ -452,9 +459,6 @@ function showTrendGraph(data) {
 	enabled: false
     }
 });
-	if(getVal('trend_date_min') != ''){
-		chart.xAxis[0].setExtremes(strToDate(getVal('trend_date_min')).getTime(), strToDate(getVal('trend_date_max')).getTime());	
-	}
 
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
