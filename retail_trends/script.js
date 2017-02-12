@@ -383,14 +383,14 @@ function showTrendGraph(data) {
              name: 'LocalPriceMoveAvg5',
              data: getMoveMean(avLocalPrice, 5),
              marker: {enabled: false},
-             visible: ((getVal('LocalPriceMoveAvg5'+'Visible') === 0) ? false : true)
+             visible: ((getVal('LocalPriceMoveAvg5'+'Visible') === 1) ? true : false)
          },
          {
         type: 'spline',
              name: 'LocalPriceMoveAvg20',
              data: getMoveMean(avLocalPrice, 20),
              marker: {enabled: false},
-             visible: ((getVal('LocalPriceMoveAvg20'+'Visible') === 0) ? false : true)       
+             visible: ((getVal('LocalPriceMoveAvg20'+'Visible') === 1) ? true : false)       
          },{
         type: 'spline',
              name: 'ShopPrice',
@@ -402,14 +402,14 @@ function showTrendGraph(data) {
              name: 'ShopPriceMoveAvg5',
              data: getMoveMean(avShopPrice, 5),
              marker: {enabled: false},
-             visible: ((getVal('ShopPriceMoveAvg5'+'Visible') === 0) ? false : true)        
+             visible: ((getVal('ShopPriceMoveAvg5'+'Visible') === 1) ? true : false)        
          },
          {
         type: 'spline',
              name: 'ShopPriceMoveAvg20',
              data: getMoveMean(avShopPrice, 20),
              marker: {enabled: false},
-             visible: ((getVal('ShopPriceMoveAvg20'+'Visible') === 0) ? false : true)         
+             visible: ((getVal('ShopPriceMoveAvg20'+'Visible') === 1) ? true : false)         
          },
 	 {
         yAxis: 1,
