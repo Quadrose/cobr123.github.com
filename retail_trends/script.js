@@ -436,7 +436,7 @@ function showTrendGraph(data) {
              name: 'volume',
              data: avVolume,
              visible: ((getVal('volume'+'Visible') === 0) ? false : true)   
-         },
+         }/*,
          {
              name: 'volumeMoveAvg5',
              data: getMoveMean(avVolume, 5),
@@ -448,7 +448,7 @@ function showTrendGraph(data) {
              data: getMoveMean(avVolume, 20),
              marker: {enabled: false},
              visible: ((getVal('volumeMoveAvg20'+'Visible') === 0) ? false : true)                
-         }
+         }*/
          ],
             credits: {
                 enabled: false
