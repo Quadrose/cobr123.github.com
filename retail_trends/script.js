@@ -436,11 +436,11 @@ function showTrendGraph(data) {
     }
 });
 
-if($('#ToggleLocalPrice').length === 0){
 	var btns = ['LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'];
 for(var i = 0; i < btns.length; ++i){
+	$('#Toggle'+ btns[i]).remove();
 	var ed = $('<button id="Toggle'+ btns[i] +'" name="'+ btns[i] +'" idx="'+i+'">'+ btns[i] +'</button>');
 	ed.click(function(){
 	    var idx = $(this).attr('idx');
@@ -461,7 +461,6 @@ for(var i = 0; i < btns.length; ++i){
 	}
 }
 	$('#btnSubmit').hide();
-}
 
 
     /*$('#trends_price').highcharts({   
