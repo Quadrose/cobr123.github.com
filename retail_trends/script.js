@@ -456,6 +456,9 @@ for(var i = 0; i < btns.length; ++i){
 		return false;
 	});
 	$('#btnSubmit').after(ed);
+	if((i + 1) % 3 === 0){
+	$('#btnSubmit').after('&nbsp;');
+	}
 }
 	$('#btnSubmit').hide();
 }
