@@ -298,6 +298,8 @@ function showTrendGraph(data) {
     var avVolume = [];
     var avLocalPrice = [];
     var avShopPrice = [];
+    var avShopQual = [];	
+    var avLocalQual = [];	
     for (var i = 0; i < data.length; i++) {
       var dvDate = strToDate(data[i]['d']);
       var svDateStr = $.datepicker.formatDate( "yy-M-d", dvDate);
@@ -305,6 +307,12 @@ function showTrendGraph(data) {
 	    
       var nvVolume = parseFloat((data[i]['v']).toFixed(2));
       avVolume.push([dvDate.getTime(), nvVolume]);
+	    
+      var nvShopQual = parseFloat((data[i]['sq']).toFixed(2));
+      avShopQual.push([dvDate.getTime(), nvShopQual]);
+	    
+      var nvLocalQual = parseFloat((data[i]['lq']).toFixed(2));
+      avLocalQual.push([dvDate.getTime(), nvLocalQual]);
         
       var nvLocalPrice = parseFloat((data[i]['lpr']).toFixed(2));
       avLocalPrice.push([dvDate.getTime(), nvLocalPrice]);
@@ -454,6 +462,20 @@ function showTrendGraph(data) {
              data: getMoveMean(avVolume, 20),
              marker: {enabled: false},
              visible: ((getVal('VolumeMoveAvg20'+'Visible') === 1) ? true : false)                
+         },
+         {
+        yAxis: 2,
+             name: 'ShopQual',
+             data: avShopQual,
+             marker: {enabled: false},
+             visible: ((getVal('ShopQual'+'Visible') === 1) ? true : false)                
+         },
+         {
+        yAxis: 2,
+             name: 'LocalQual',
+             data: avLocalQual,
+             marker: {enabled: false},
+             visible: ((getVal('LocalQual'+'Visible') === 1) ? true : false)                
          }],
     credits: {
 	enabled: false
@@ -463,6 +485,7 @@ function showTrendGraph(data) {
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
+		    ,'ShopQual','LocalQual'
 		    ];
 	$('#trends_btns').html('');
 for(var i = 0; i < btns.length; ++i){
@@ -481,8 +504,12 @@ for(var i = 0; i < btns.length; ++i){
 		return false;
 	});
 	$('#trends_btns').append(ed);
+	
 	if((i + 1) % 3 === 0){
-	$('#trends_btns').append('&nbsp;');
+	  $('#trends_btns').append('&nbsp;');
+	}
+	if((i + 1) % 9 === 0){
+	  $('#trends_btns').append('<br>');
 	}
 }
 	$('#btnSubmit').hide();
