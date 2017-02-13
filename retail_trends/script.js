@@ -818,12 +818,20 @@ $(document).ready(function () {
         applyLocale();
     }
 
-  $("#togglelinearx").change(function(){
-    var checked = $("#togglelinearx:checked").length;
+  $("#togglelinearprice").change(function(){
+    var checked = $("#togglelinearprice:checked").length;
     if(!checked){
 	$('#trends_price').highcharts().yAxis[0].update({ type: 'logarithmic'});
     } else {
 	$('#trends_price').highcharts().yAxis[0].update({ type: 'linear'});
+    }
+  });
+  $("#togglelinearvolume").change(function(){
+    var checked = $("#togglelinearvolume:checked").length;
+    if(!checked){
+	$('#trends_price').highcharts().yAxis[1].update({ type: 'logarithmic'});
+    } else {
+	$('#trends_price').highcharts().yAxis[1].update({ type: 'linear'});
     }
   });
 });
