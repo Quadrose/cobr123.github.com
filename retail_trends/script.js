@@ -125,12 +125,14 @@ function loadSavedFlt(urlParams){
     var realm       = getVal('realm') || 'olga';
     var id_category = getVal('id_category');
     var id_product  = getVal('id_product');
-    var trends_period  = getVal('trends_period');
+    var trend_date_min  = getVal('trend_date_min');
+    var trend_date_max  = getVal('trend_date_max');
 
     if (Object.keys(urlParams).length > 1 && urlParams['realm'] != '' && urlParams['id_product'] != '') {
         realm       = urlParams['realm'];
         id_product  = urlParams['id_product'];
-        trends_period  = urlParams['trends_period'];
+        trend_date_min  = urlParams['trend_date_min'];
+        trend_date_max  = urlParams['trend_date_max'];
     }
 
     if ((getVal('locale') === null || getVal('locale') === '') && (document.referrer.substring(0, 'https://virtonomics.com/'.length) === 'https://virtonomics.com/' || document.referrer.substring(0, 'https://virtonomics-free.blogspot.'.length) === 'https://virtonomics-free.blogspot.')) {
@@ -208,11 +210,14 @@ function updateUrl() {
     var productID = getProductID();
     var realm = getRealm();
     var trends_period = $('#trends_period').val();  
+    var trend_date_min = getVal('trend_date_min');
+    var trend_date_max = getVal('trend_date_max');
     
     window.history.pushState("", ""
         , '#id_product='    + productID
         + '&realm='         + realm
-        + '&trends_period=' + trends_period
+        + '&trend_date_min=' + trend_date_min
+        + '&trend_date_max=' + trend_date_max
     );
 }
 //////////////////////////////////////////////////////
