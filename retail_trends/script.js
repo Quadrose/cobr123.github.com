@@ -376,7 +376,7 @@ function showTrendGraph(data) {
 	}
     }],
     yAxis: [{ // Primary yAxis
-        type: (($("#togglelinearx:checked").length)?'linear':'logarithmic'),
+        type: (($("#togglelinearprice:checked").length)?'linear':'logarithmic'),
         labels: {
             style: {
                 color: Highcharts.getOptions().colors[1]
@@ -389,6 +389,7 @@ function showTrendGraph(data) {
             }
         }
     }, { // Secondary yAxis
+        type: (($("#togglelinearvolume:checked").length)?'linear':'logarithmic'),
         title: {
             text: '',
             style: {
