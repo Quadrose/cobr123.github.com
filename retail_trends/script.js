@@ -477,14 +477,14 @@ function showTrendGraph(data) {
              visible: ((getVal('VolumeMoveAvg20'+'Visible') === 1) ? true : false)                
          },
          {
-        yAxis: 1,
+        yAxis: 2,
              name: 'ShopQual',
              data: avShopQual,
              marker: {enabled: false},
              visible: ((getVal('ShopQual'+'Visible') === 1) ? true : false)                
          },
          {
-        yAxis: 1,
+        yAxis: 2,
              name: 'LocalQual',
              data: avLocalQual,
              marker: {enabled: false},
