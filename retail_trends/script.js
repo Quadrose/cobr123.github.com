@@ -405,12 +405,12 @@ function showTrendGraph(data) {
         title: {
             text: '',
             style: {
-                color: Highcharts.getOptions().colors[0]
+                color: Highcharts.getOptions().colors[2]
             }
         },
         labels: {
             style: {
-                color: Highcharts.getOptions().colors[0]
+                color: Highcharts.getOptions().colors[2]
             }
         },
         opposite: true
