@@ -401,6 +401,19 @@ function showTrendGraph(data) {
             }
         },
         opposite: true
+    }, { // Third yAxis
+        title: {
+            text: '',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        labels: {
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        opposite: true
     }],
 
     series: [{
@@ -464,14 +477,14 @@ function showTrendGraph(data) {
              visible: ((getVal('VolumeMoveAvg20'+'Visible') === 1) ? true : false)                
          },
          {
-        yAxis: 2,
+        yAxis: 1,
              name: 'ShopQual',
              data: avShopQual,
              marker: {enabled: false},
              visible: ((getVal('ShopQual'+'Visible') === 1) ? true : false)                
          },
          {
-        yAxis: 2,
+        yAxis: 1,
              name: 'LocalQual',
              data: avLocalQual,
              marker: {enabled: false},
