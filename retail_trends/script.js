@@ -388,6 +388,7 @@ function showTrendGraph(data, productRemainsData) {
         },
         opposite: true
     }, { // Third yAxis
+        type: (($("#togglelinearqual:checked").length)?'linear':'logarithmic'),
         title: {
             text: '',
             style: {
@@ -914,6 +915,14 @@ $(document).ready(function () {
 	$('#trends_price').highcharts().yAxis[1].update({ type: 'logarithmic'});
     } else {
 	$('#trends_price').highcharts().yAxis[1].update({ type: 'linear'});
+    }
+  });
+  $("#togglelinearqual").change(function(){
+    var checked = $("#togglelinearqual:checked").length;
+    if(!checked){
+	$('#trends_price').highcharts().yAxis[2].update({ type: 'logarithmic'});
+    } else {
+	$('#trends_price').highcharts().yAxis[2].update({ type: 'linear'});
     }
   });
 });
