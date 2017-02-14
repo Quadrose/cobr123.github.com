@@ -244,7 +244,7 @@ function showTrendGraph(data, productRemainsData) {
             res = Math.min(res, array[i]['p']);
           }
       }
-      return res;
+      return parseFloat(res.toFixed(2));
     }
     function max(array, current, window){
       var res = 0;
@@ -253,7 +253,7 @@ function showTrendGraph(data, productRemainsData) {
             res = Math.max(res, array[i]['p']);
           }
       }
-      return res;
+      return parseFloat(res.toFixed(2));
     }
   var dateTo = new Date();
   var dateFrom = new Date();  
