@@ -233,48 +233,13 @@ function showTrendGraph(data, productRemainsData) {
     //return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
     return new Date(Date.UTC(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]) ));
   }
-  var defaultDateTo = new Date();
-  var dateTo = defaultDateTo;
-  var defaultDateFrom = new Date();
-  var dateFrom = defaultDateFrom;
-  var trends_period = $('#trends_period').val();  
+  var dateTo = new Date();
+  var dateFrom = new Date();  
+  dateFrom.setMonth(dateTo.getMonth() - 3);
   var nvStep = 2;
-  if(trends_period === 'month1'){
-    dateFrom.setMonth(dateTo.getMonth() - 1);
-  }
-  else if(trends_period === 'month3'){
-    dateFrom.setMonth(dateTo.getMonth() - 3);
-    nvStep = 5;
-  } 
-  else if(trends_period === 'month6'){
-    dateFrom.setMonth(dateTo.getMonth() - 6);
-    nvStep = 7;
-  } 
-  else if(trends_period === 'year1'){
-    dateFrom.setMonth(dateTo.getMonth() - 12);
-    nvStep = 15;
-  } 
-  else if(trends_period === 'year3'){
-    dateFrom.setMonth(dateTo.getMonth() - 12*3);
-    nvStep = 25;
-  } 
-  else if(trends_period === 'alldata'){
-    dateFrom.setMonth(dateTo.getMonth() - 12*300);
-  } 
-  else {
-    dateFrom.setMonth(dateTo.getMonth() - 3);
-    $('#trends_period').val('month3'); 
-  } 
-	
     
   console.log("data.length = " + data.length);
-	/*
-  data = data.filter(function(value){
-    var date = strToDate(value['d']);
-    return date >= dateFrom; // && date <= dateTo;
-  });
-  console.log("filtered data.length = " + data.length);
-*/
+	
   data.sort(function(a,b) {
       var dateA = strToDate(a['d']);
       var dateB = strToDate(b['d']);
@@ -286,20 +251,30 @@ function showTrendGraph(data, productRemainsData) {
           return 0;
       }
   });
-    /*{
-              "d":"22.07.2016",
-              "lpr":954.09,
-              "lq":1.0,
-              "spr":954.09,
-              "sq":1.0,
-              "v":8634
-              }*/
+    if (productRemainsData !== null){
+  	console.log("productRemainsData.length = " + productRemainsData.length);
+	  productRemainsData.sort(function(a,b) {
+	      var dateA = strToDate(a['d']);
+	      var dateB = strToDate(b['d']);
+	      if (dateA < dateB) {
+		  return -1;
+	      } else if (dateA > dateB) {
+		  return 1;
+	      } else {
+		  return 0;
+	      }
+	  });
+    }
+	
     var avCategories = [];
     var avVolume = [];
     var avLocalPrice = [];
     var avShopPrice = [];
     var avShopQual = [];	
-    var avLocalQual = [];	
+    var avLocalQual = [];
+    var avRemainsVolume = [];
+    var avRemainsPrice = [];
+    var avRemainsQual = [];
     for (var i = 0; i < data.length; i++) {
       var dvDate = strToDate(data[i]['d']);
       var svDateStr = $.datepicker.formatDate( "yy-M-d", dvDate);
@@ -319,6 +294,17 @@ function showTrendGraph(data, productRemainsData) {
         
       var nvShopPrice = parseFloat((data[i]['spr']).toFixed(2));
       avShopPrice.push([dvDate.getTime(), nvShopPrice]);
+	    
+      if (productRemainsData !== null){
+        var nvRemainsVolume = parseFloat((productRemainsData[i]['r']).toFixed(2));
+        avRemainsVolume.push([dvDate.getTime(), nvRemainsVolume]);
+	      
+        var nvRemainsQual = parseFloat((productRemainsData[i]['q']).toFixed(2));
+        avRemainsQual.push([dvDate.getTime(), nvRemainsQual]);
+	      
+        var nvRemainsPrice = parseFloat((productRemainsData[i]['p']).toFixed(2));
+        avRemainsPrice.push([dvDate.getTime(), nvRemainsPrice]);
+      }
     }
     function avg(array, current, window){
       var sum = 0;
@@ -490,7 +476,29 @@ function showTrendGraph(data, productRemainsData) {
              data: avLocalQual,
              marker: {enabled: false},
              visible: ((getVal('LocalQual'+'Visible') === 1) ? true : false)                
-         }],
+         },
+         {
+        type: 'spline',
+             name: 'RemainsPrice',
+             data: avRemainsPrice,
+             marker: {enabled: false},
+             visible: ((getVal('RemainsPrice'+'Visible') === 1) ? true : false)        
+         },
+         {
+        yAxis: 1,
+             name: 'RemainsVolume',
+             data: avRemainsVolume,
+             marker: {enabled: false},
+             visible: ((getVal('RemainsVolume'+'Visible') === 1) ? true : false)                
+         },
+         {
+        yAxis: 2,
+             name: 'RemainsQual',
+             data: avRemainsQual,
+             marker: {enabled: false},
+             visible: ((getVal('RemainsQual'+'Visible') === 1) ? true : false)                
+         }
+	    ],
     credits: {
 	enabled: false
     }
@@ -500,6 +508,7 @@ function showTrendGraph(data, productRemainsData) {
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
 		    ,'ShopQual','LocalQual'
+		    ,'RemainsPrice','RemainsVolume','RemainsQual'
 		    ];
 	$('#trends_btns').html('');
 for(var i = 0; i < btns.length; ++i){
@@ -726,7 +735,7 @@ function loadData() {
                     // console.log(text.substr(0, 100) );
                     // console.log(text.substr(-100) );
                     var data = JSON.parse(text);
-                    showTrendGraph(data);
+                    loadProductRemainsData(data);
                 });
             } else {
               console.error('entries.length = ' + entries.length);
