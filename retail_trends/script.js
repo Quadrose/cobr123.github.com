@@ -237,6 +237,24 @@ function showTrendGraph(data, productRemainsData) {
     //return new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
     return new Date(Date.UTC(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]) ));
   }
+    function min(array, current, window){
+      var res = 0;
+      for( var i = current - window; i <= current; i++ ){
+        if(i>=0 && i<array.length){
+            res = Math.min(res, array[i][1]);
+          }
+      }
+      return res;
+    }
+    function max(array, current, window){
+      var res = 0;
+      for( var i = current - window; i <= current; i++ ){
+        if(i>=0 && i<array.length){
+            res = Math.max(res, array[i][1]);
+          }
+      }
+      return res;
+    }
   var dateTo = new Date();
   var dateFrom = new Date();  
   dateFrom.setMonth(dateTo.getMonth() - 3);
@@ -279,6 +297,7 @@ function showTrendGraph(data, productRemainsData) {
     var avRemainsVolume = [];
     var avRemainsPrice = [];
     var avRemainsQual = [];
+    var avDonchianChannelRemPrc = [];	
     for (var i = 0; i < data.length; i++) {
       var dvDate = strToDate(data[i]['d']);
       var svDateStr = $.datepicker.formatDate( "yy-M-d", dvDate);
@@ -308,12 +327,14 @@ function showTrendGraph(data, productRemainsData) {
 	      
         var nvRemainsPrice = parseFloat((productRemainsData[i]['p']).toFixed(2));
         avRemainsPrice.push([dvDate.getTime(), nvRemainsPrice]);
+	      
+        avDonchianChannelRemPrc.push([dvDate.getTime(), min(productRemainsData, i, 20), max(productRemainsData, i, 20)]);
       }
     }
     function avg(array, current, window){
       var sum = 0;
       var sumCnt = 0;
-      for( var i = current - window; i < current; i++ ){
+      for( var i = current - window; i <= current; i++ ){
         if(i>=0 && i<array.length){
             sum += parseFloat(array[i][1]) || 0;
             ++sumCnt;
@@ -482,6 +503,13 @@ function showTrendGraph(data, productRemainsData) {
              marker: {enabled: false},
              visible: ((getVal('LocalQual'+'Visible') === 1) ? true : false)                
          },
+ 	 {
+         type: 'areasplinerange',
+         color: '#ffe0e7',
+              name: 'DonchianChannelRemPrc',
+              data: avDonchianChannelRemPrc,
+              visible: ((getVal('DonchianChannelRemPrc'+'Visible') === 1) ? true : false)
+          },
          {
         type: 'spline',
              name: 'RemainsPrice',
@@ -512,7 +540,7 @@ function showTrendGraph(data, productRemainsData) {
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
-		    ,'ShopQual','LocalQual'
+		    ,'ShopQual','LocalQual','DonchianChannelRemPrc'
 		    ,'RemainsPrice','RemainsVolume','RemainsQual'
 		    ];
 	$('#trends_btns').html('');
@@ -536,7 +564,7 @@ for(var i = 0; i < btns.length; ++i){
 	if((i + 1) % 3 === 0){
 	  $('#trends_btns').append('&nbsp;');
 	}
-	if((i + 1) % 11 === 0){
+	if((i + 1) % 12 === 0){
 	  $('#trends_btns').append('<br>');
 	}
 }
