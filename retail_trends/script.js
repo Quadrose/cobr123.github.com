@@ -328,7 +328,7 @@ function showTrendGraph(data, productRemainsData) {
         var nvRemainsPrice = parseFloat((productRemainsData[i]['p']).toFixed(2));
         avRemainsPrice.push([dvDate.getTime(), nvRemainsPrice]);
 	      
-        avDonchianChannelRemPrc.push([dvDate.getTime(), min(productRemainsData, i, 20), max(productRemainsData, i, 20)]);
+        avDonchianChannelRemPrc.push([dvDate.getTime(), min(productRemainsData, i, 10), max(productRemainsData, i, 10)]);
       }
     }
     function avg(array, current, window){
