@@ -684,6 +684,11 @@ for(var i = 0; i < btns.length; ++i){
     };*/
 }
 function loadProductRemainsData(retailData){
+    var realm = getRealm();
+    if (realm == null || realm == '') return;
+    var productID = getProductID();
+    if (productID == null || productID == '') return;
+	
     zip.workerScriptsPath = '/js/';
     zip.createReader(new zip.HttpReader('/industry/'+realm+'/product_remains_trends/'+productID+'.json.zip'), function(reader) {
         // get all entries from the zip
