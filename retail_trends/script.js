@@ -299,7 +299,7 @@ function showTrendGraph(data, productRemainsData) {
       var nvShopPrice = parseFloat((data[i]['spr']).toFixed(2));
       avShopPrice.push([dvDate.getTime(), nvShopPrice]);
 	    
-      if (productRemainsData !== null){
+      if (productRemainsData !== null && productRemainsData[i] != null){
         var nvRemainsVolume = parseFloat((productRemainsData[i]['r']).toFixed(2));
         avRemainsVolume.push([dvDate.getTime(), nvRemainsVolume]);
 	      
