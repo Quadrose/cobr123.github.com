@@ -32,7 +32,12 @@ function nvl(val1, val2){
     }
 }
 function getVal(spName){
-    return JSON.parse(window.localStorage.getItem(spName));
+	try {
+    		return JSON.parse(window.localStorage.getItem(spName));
+	} catch (err) {
+		console.error(err);
+		return '';
+	}
 }
 function setVal(spName, pValue){
     window.localStorage.setItem(spName,JSON.stringify(pValue));
