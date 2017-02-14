@@ -564,7 +564,7 @@ for(var i = 0; i < btns.length; ++i){
 	if((i + 1) % 3 === 0){
 	  $('#trends_btns').append('&nbsp;');
 	}
-	if((i + 1) % 12 === 0){
+	if((i + 1) % 11 === 0){
 	  $('#trends_btns').append('<br>');
 	}
 }
