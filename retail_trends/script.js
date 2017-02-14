@@ -238,7 +238,7 @@ function showTrendGraph(data, productRemainsData) {
     return new Date(Date.UTC(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]) ));
   }
     function min(array, current, window){
-      var res = 0;
+      var res = 1000*1000*1000*1000*1000;
       for( var i = current - window; i <= current; i++ ){
         if(i>=0 && i<array.length){
             res = Math.min(res, array[i]['p']);
