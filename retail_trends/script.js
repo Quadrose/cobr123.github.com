@@ -210,9 +210,8 @@ function shortenNumber(text){
 function updateUrl() {
     var productID = getProductID();
     var realm = getRealm();
-    var trends_period = $('#trends_period').val();  
-    var trend_date_min = getVal('trend_date_min');
-    var trend_date_max = getVal('trend_date_max');
+    var trend_date_min = getVal('trend_date_min')||'';
+    var trend_date_max = getVal('trend_date_max')||'';
     
     window.history.pushState("", ""
         , '#id_product='    + productID
