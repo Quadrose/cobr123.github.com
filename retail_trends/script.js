@@ -279,7 +279,6 @@ function showTrendGraph(data, productRemainsData) {
     var avRemainsVolume = [];
     var avRemainsPrice = [];
     var avRemainsQual = [];
-    var avShopPriceMinMax = [];
     for (var i = 0; i < data.length; i++) {
       var dvDate = strToDate(data[i]['d']);
       var svDateStr = $.datepicker.formatDate( "yy-M-d", dvDate);
@@ -299,11 +298,7 @@ function showTrendGraph(data, productRemainsData) {
         
       var nvShopPrice = parseFloat((data[i]['spr']).toFixed(2));
       avShopPrice.push([dvDate.getTime(), nvShopPrice]);
-	    
-      var nvShopPriceMin = parseFloat((data[i]['sprmin']).toFixed(2));
-      var nvShopPriceMax = parseFloat((data[i]['sprmax']).toFixed(2));
-      avShopPriceMinMax.push([dvDate.getTime(), nvShopPriceMin, nvShopPriceMax]);
-	    
+	    	    
       if (productRemainsData !== null && productRemainsData[i] != null){
         var nvRemainsVolume = parseFloat((productRemainsData[i]['r']).toFixed(2));
         avRemainsVolume.push([dvDate.getTime(), nvRemainsVolume]);
@@ -487,12 +482,6 @@ function showTrendGraph(data, productRemainsData) {
              marker: {enabled: false},
              visible: ((getVal('LocalQual'+'Visible') === 1) ? true : false)                
          },
-	 {
-        type: 'areasplinerange',
-             name: 'ShopPriceMinMax',
-             data: avShopPriceMinMax,
-             visible: ((getVal('ShopPriceMinMax'+'Visible') === 1) ? true : false)
-         },
          {
         type: 'spline',
              name: 'RemainsPrice',
@@ -523,7 +512,7 @@ function showTrendGraph(data, productRemainsData) {
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
-		    ,'ShopQual','LocalQual', 'ShopPriceMinMax'
+		    ,'ShopQual','LocalQual'
 		    ,'RemainsPrice','RemainsVolume','RemainsQual'
 		    ];
 	$('#trends_btns').html('');
@@ -547,7 +536,7 @@ for(var i = 0; i < btns.length; ++i){
 	if((i + 1) % 3 === 0){
 	  $('#trends_btns').append('&nbsp;');
 	}
-	if((i + 1) % 12 === 0){
+	if((i + 1) % 11 === 0){
 	  $('#trends_btns').append('<br>');
 	}
 }
