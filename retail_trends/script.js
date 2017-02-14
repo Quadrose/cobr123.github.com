@@ -241,7 +241,7 @@ function showTrendGraph(data, productRemainsData) {
       var res = 0;
       for( var i = current - window; i <= current; i++ ){
         if(i>=0 && i<array.length){
-            res = Math.min(res, array[i][1]);
+            res = Math.min(res, array[i]['p']);
           }
       }
       return res;
@@ -250,7 +250,7 @@ function showTrendGraph(data, productRemainsData) {
       var res = 0;
       for( var i = current - window; i <= current; i++ ){
         if(i>=0 && i<array.length){
-            res = Math.max(res, array[i][1]);
+            res = Math.max(res, array[i]['p']);
           }
       }
       return res;
