@@ -223,7 +223,7 @@ function updateUrl() {
 }
 //////////////////////////////////////////////////////
 
-function showTrendGraph(data) {
+function showTrendGraph(data, productRemainsData) {
   function strToDate(strDate, defVal){
     if (strDate === null || strDate === '' || (strDate + '').indexOf('.') <= 0){
       return defVal;
@@ -673,6 +673,34 @@ for(var i = 0; i < btns.length; ++i){
         this.series.chart.tooltip.refresh(this); // Show the tooltip
         this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
     };*/
+}
+function loadProductRemainsData(retailData){
+    zip.workerScriptsPath = '/js/';
+    zip.createReader(new zip.HttpReader('/industry/'+realm+'/product_remains_trends/'+productID+'.json.zip'), function(reader) {
+        // get all entries from the zip
+        reader.getEntries(function(entries) {
+            if (entries.length > 0) {
+                // get first entry content as text
+                entries[0].getData(new zip.TextWriter(), function(text) {
+                    // text contains the entry data as a String
+                    // close the zip reader
+                    reader.close();
+                    // console.log(text.length);
+                    // console.log(text.substr(0, 100) );
+                    // console.log(text.substr(-100) );
+                    var data = JSON.parse(text);
+                    showTrendGraph(retailData, data);
+                });
+            } else {
+              console.error('entries.length = ' + entries.length);
+	      showTrendGraph(retailData, null);
+            }
+        });
+    }, function(error) {
+        // onerror callback
+        console.error(error);
+	showTrendGraph(retailData, null);
+    });
 }
 function loadData() {
     var realm = getRealm();
