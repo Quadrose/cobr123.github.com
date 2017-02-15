@@ -298,8 +298,18 @@ function showTrendGraph(data, productRemainsData) {
     var avRemainsPrice = [];
     var avRemainsQual = [];
     var avDonchianChannelRemPrc = [];	
+	
+    var productRemainsDataByDateStr = [];
+    if (productRemainsData !== null){    
+      for (var i = 0; i < productRemainsData.length; i++) {
+        var svDate = productRemainsData[i]['d'];
+	productRemainsDataByDateStr[svDate] = productRemainsData[i];
+      }
+    }
+	
     for (var i = 0; i < data.length; i++) {
-      var dvDate = strToDate(data[i]['d']);
+      var svDate = data[i]['d'];
+      var dvDate = strToDate(svDate);
       var svDateStr = $.datepicker.formatDate( "yy-M-d", dvDate);
       avCategories[i] = svDateStr;
 	    
@@ -318,17 +328,17 @@ function showTrendGraph(data, productRemainsData) {
       var nvShopPrice = parseFloat((data[i]['spr']).toFixed(2));
       avShopPrice.push([dvDate.getTime(), nvShopPrice]);
 	    
-      if (productRemainsData !== null && productRemainsData[i] != null){    
-        var nvRemainsVolume = parseFloat((productRemainsData[i]['r']).toFixed(2));
+      if (productRemainsDataByDateStr[svDate] != null){    
+        var nvRemainsVolume = parseFloat(productRemainsDataByDateStr[svDate]['r']);
         avRemainsVolume.push([dvDate.getTime(), nvRemainsVolume]);
 	      
-        var nvRemainsQual = parseFloat((productRemainsData[i]['q']).toFixed(2));
+        var nvRemainsQual = parseFloat(productRemainsDataByDateStr[svDate]['q']);
         avRemainsQual.push([dvDate.getTime(), nvRemainsQual]);
 	      
-        var nvRemainsPrice = parseFloat((productRemainsData[i]['p']).toFixed(2));
+        var nvRemainsPrice = parseFloat(productRemainsDataByDateStr[svDate]['p']);
         avRemainsPrice.push([dvDate.getTime(), nvRemainsPrice]);
 	      
-        avDonchianChannelRemPrc.push([dvDate.getTime(), min(productRemainsData, i, 10), max(productRemainsData, i, 10)]);
+        //avDonchianChannelRemPrc.push([dvDate.getTime(), min(productRemainsData, i, 10), max(productRemainsData, i, 10)]);
       }
     }
     function avg(array, current, window){
@@ -503,13 +513,13 @@ function showTrendGraph(data, productRemainsData) {
              marker: {enabled: false},
              visible: ((getVal('LocalQual'+'Visible') === 1) ? true : false)                
          },
- 	 {
+ 	 /*{
          type: 'areasplinerange',
          color: '#ffe0e7',
               name: 'DonchianChannelRemPrc',
               data: avDonchianChannelRemPrc,
               visible: ((getVal('DonchianChannelRemPrc'+'Visible') === 1) ? true : false)
-          },
+          },*/
          {
         type: 'spline',
              name: 'RemainsPrice',
@@ -540,7 +550,7 @@ function showTrendGraph(data, productRemainsData) {
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
-		    ,'ShopQual','LocalQual','DonchianChannelRemPrc'
+		    ,'ShopQual','LocalQual'/*,'DonchianChannelRemPrc'*/
 		    ,'RemainsPrice','RemainsVolume','RemainsQual'
 		    ];
 	$('#trends_btns').html('');
