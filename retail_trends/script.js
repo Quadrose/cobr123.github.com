@@ -377,6 +377,7 @@ function showTrendGraph(data, productRemainsData) {
 		    setVal('trend_date_min', Highcharts.dateFormat('%d.%m.%Y', this.axes[0].min));
 		    setVal('trend_date_max', Highcharts.dateFormat('%d.%m.%Y', this.axes[0].max));
                 }
+    		updateUrl();
             }
         }
     },
