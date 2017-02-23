@@ -776,6 +776,8 @@ function initShowHideColSelect() {
 	sagInvisibibleColumns = getVal('invisibible_columns_service');
 	if (sagInvisibibleColumns == null) {
 		sagInvisibibleColumns = ['dem', 'rbs_lpr', 'rbs_lq', 'rbs_spr', 'rbs_sq', 'cbs_lq', 'cbs_spr', 'cbs_sq'];
+	} else {
+		sagInvisibibleColumns = toUnique(sagInvisibibleColumns);
 	}
 	$.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
