@@ -747,6 +747,11 @@ function hideAllCol(){
 	});
 	setVal('invisibible_columns_service', sagInvisibibleColumns);
 }
+function toUnique(a,b,c){//array,placeholder,placeholder
+ b=a.length;
+ while(c=--b)while(c--)a[b]!==a[c]||a.splice(c,1);
+ return a // not needed ;)
+}
 function initShowHideColSelect() {
 	var show_hide_col_id = (getLocale() === 'en') ? "show_hide_col_en" : "show_hide_col_ru";
 	var show_hide_col = $("select#" + show_hide_col_id).multiselect();
@@ -758,7 +763,7 @@ function initShowHideColSelect() {
 			} else {
 				hideCol(ui.value);
 			}
-			setVal('invisibible_columns_service', sagInvisibibleColumns);
+			setVal('invisibible_columns_service', toUnique(sagInvisibibleColumns) );
 		},
 		checkAll: function(){
 			showAllCol();
