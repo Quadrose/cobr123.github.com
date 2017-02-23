@@ -412,6 +412,7 @@ function loadSavedFlt(urlParams){
 // function parseFloatFromFilter(spSelector, npDefVal){
 // 	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10) || npDefVal;
 // }
+var oagTowns = null;
 var sagTownCaption = null;
 var sagCountryCaption = null;
 var sagRegionCaption = null;
@@ -423,10 +424,14 @@ function fillTownCaptions(callback) {
     if(sagTownCaption === null) {
         sagTownCaption = [];
     }
+    if(oagTowns === null) {
+        oagTowns = [];
+    }
 
     $.getJSON('./'+realm+'/cities'+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
             sagTownCaption[val.i] = val.c;
+            oagTowns[val.i] = val;
         });
         if(typeof(callback) === 'function') callback();
     });
