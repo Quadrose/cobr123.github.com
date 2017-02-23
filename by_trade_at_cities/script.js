@@ -980,6 +980,9 @@ function hideAllCol(){
     });
     setVal('invisibible_columns_btac', sagInvisibibleColumns);
 }
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
 function initShowHideColSelect() {
     var show_hide_col_id = (getLocale() === 'en') ? "show_hide_col_en" : "show_hide_col_ru";
     var show_hide_col = $("select#" + show_hide_col_id).multiselect();
@@ -991,7 +994,7 @@ function initShowHideColSelect() {
             } else {
                 hideCol(ui.value);
             }
-            setVal('invisibible_columns_btac', sagInvisibibleColumns);
+            setVal('invisibible_columns_btac', sagInvisibibleColumns.filter(onlyUnique));
         },
         checkAll: function(){
             showAllCol();
@@ -1004,6 +1007,8 @@ function initShowHideColSelect() {
     sagInvisibibleColumns = getVal('invisibible_columns_btac');
     if (sagInvisibibleColumns == null) {
         sagInvisibibleColumns = ['smvs','smvst','lmvs','lmvst','itp','itr','dem'];
+    } else {
+        sagInvisibibleColumns = sagInvisibibleColumns.filter(onlyUnique);
     }
 
     $.each(sagInvisibibleColumns, function (key, val) {
