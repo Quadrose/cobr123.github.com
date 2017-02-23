@@ -747,10 +747,8 @@ function hideAllCol(){
 	});
 	setVal('invisibible_columns_service', sagInvisibibleColumns);
 }
-function toUnique(a,b,c){//array,placeholder,placeholder
- b=a.length;
- while(c=--b)while(c--)a[b]!==a[c]||a.splice(c,1);
- return a // not needed ;)
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
 }
 function initShowHideColSelect() {
 	var show_hide_col_id = (getLocale() === 'en') ? "show_hide_col_en" : "show_hide_col_ru";
@@ -763,7 +761,7 @@ function initShowHideColSelect() {
 			} else {
 				hideCol(ui.value);
 			}
-			setVal('invisibible_columns_service', toUnique(sagInvisibibleColumns) );
+			setVal('invisibible_columns_service', sagInvisibibleColumns.filter(onlyUnique) );
 		},
 		checkAll: function(){
 			showAllCol();
@@ -777,7 +775,7 @@ function initShowHideColSelect() {
 	if (sagInvisibibleColumns == null) {
 		sagInvisibibleColumns = ['dem', 'rbs_lpr', 'rbs_lq', 'rbs_spr', 'rbs_sq', 'cbs_lq', 'cbs_spr', 'cbs_sq'];
 	} else {
-		sagInvisibibleColumns = toUnique(sagInvisibibleColumns);
+		sagInvisibibleColumns = sagInvisibibleColumns.filter(onlyUnique);
 	}
 	$.each(sagInvisibibleColumns, function (key, val) {
 //            console.log('key = '+key +', val = '+val);
