@@ -160,27 +160,30 @@ function loadPredictionData(predRow, data) {
             suitable = true;
         } else if (suitable) {
             suitable = false;
-            console.log("marketIdx = '"+ val.mi +"'" );
+            //console.log("marketIdx = '"+ val.mi +"'" );
         }
         if (suitable && parseFloat(val.wi) >= (nvWealthIndex - 2) && parseFloat(val.wi) <= (nvWealthIndex + 2)) {
             suitable = true;
         } else if (suitable) {
             suitable = false;
-            console.log("wealthIndex = '"+ val.wi +"'" );
+            //console.log("wealthIndex = '"+ val.wi +"'" );
         }
         if (suitable && parseFloat(val.mv) >= (nvMarketVolume - nvMarketVolumeDelta) && parseFloat(val.mv) <= (nvMarketVolume + nvMarketVolumeDelta)) {
             suitable = true;
         } else if (suitable) {
             suitable = false;
-            console.log("marketVolume = '"+ val.mv +"'" );
+            //console.log("marketVolume = '"+ val.mv +"'" );
         }
         if (suitable && parseFloat(val.n) >= 100) {
             suitable = true;
         } else if (suitable) {
             suitable = false;
-            console.log("notoriety = '"+ val.n +"'" );
+            //console.log("notoriety = '"+ val.n +"'" );
         }
-        //if (suitable && (key in uniqPred)) {suitable = false;}
+        if (suitable && (key in uniqPred)) {
+            suitable = false;
+            console.log("cached");
+        }
 
         if(suitable){
             maxCnt -= 1;
