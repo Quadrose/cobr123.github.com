@@ -160,7 +160,7 @@ function loadPredictionData(predRow, data) {
         if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
         if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
         if (suitable && val.n >= 100) {suitable = true;} else {suitable = false;}
-        if (suitable && (key in uniqPred)) {suitable = false;}
+        //if (suitable && (key in uniqPred)) {suitable = false;}
 
         if(suitable){
             maxCnt -= 1;
