@@ -157,10 +157,11 @@ function loadPredictionData(predRow, data) {
         key += val.ss + '|' + val.dc + '|' + val.mi;
 
         if (suitable && (val.mi === svMarketIdx || svMarketIdx === '')) {suitable = true;} else {suitable = false;}
-        if (suitable && val.wi >= (nvWealthIndex - 2) && val.wi <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
-        if (suitable && val.mv >= (nvMarketVolume - nvMarketVolumeDelta) && val.mv <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
-        if (suitable && val.n >= 100) {suitable = true;} else {suitable = false;}
+        if (suitable && parseFloat(val.wi) >= (nvWealthIndex - 2) && parseFloat(val.wi) <= (nvWealthIndex + 2)) {suitable = true;} else {suitable = false;}
+        if (suitable && parseFloat(val.mv) >= (nvMarketVolume - nvMarketVolumeDelta) && parseFloat(val.mv) <= (nvMarketVolume + nvMarketVolumeDelta)) {suitable = true;} else {suitable = false;}
+        if (suitable && parseFloat(val.n) >= 100) {suitable = true;} else {suitable = false;}
         //if (suitable && (key in uniqPred)) {suitable = false;}
+        console.log("key = '"+ key +"'" );
 
         if(suitable){
             maxCnt -= 1;
