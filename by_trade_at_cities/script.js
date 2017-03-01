@@ -193,7 +193,7 @@ function loadPredictionData(predRow, data) {
             var sellVolumeStr = '';
             if(marketShare > 0){
                 sellVolume = parseFloat(val.mv) * marketShare / 100;
-                sellVolumeStr = '~' + sellVolume.toFixed(2);
+                sellVolumeStr = '~' + commaSeparateNumber(sellVolume.toFixed(2));
             } else {
                 sellVolume = parseFloat(val.sv.replace(/[\D]+/g,''));
                 sellVolumeStr = getVolume(val.sv, locale);
