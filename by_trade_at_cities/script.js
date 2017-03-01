@@ -188,8 +188,19 @@ function loadPredictionData(predRow, data) {
         if(suitable){
             maxCnt -= 1;
             uniqPred[key] = 1;
+            var marketShare = parseFloat(val['ms']);
+            var sellVolume = 0;
+            var sellVolumeStr = '';
+            if(marketShare > 0){
+                sellVolume = parseFloat(val.mv) * marketShare / 100;
+                sellVolumeStr = '~' + sellVolume;
+            } else {
+                sellVolume = parseFloat(val.sv.replace(/[\D]+/g,''));
+                sellVolumeStr = getVolume(val.sv, locale);
+            }
+            
             output += '<tr class="trec hoverable">';
-            output += '<td align="right" id="td_sellVolume">'+getVolume(val.sv, locale)+' ('+Math.round(parseFloat(val.sv.replace(/[\D]+/g,''))/parseFloat(val.mv)*100)+'%)</td>';
+            output += '<td align="right" id="td_sellVolume">'+ sellVolumeStr + ' (' + Math.round(sellVolume/parseFloat(val.mv)*100) + '%)</td>';
             output += '<td align="right" id="td_price" data-value="'+ parseFloat(val.p).toFixed(2) +'">'+ commaSeparateNumber(parseFloat(val.p).toFixed(2)) +'</td>';
             output += '<td align="right" id="td_quality">'+parseFloat(val.q).toFixed(2)+'</td>';
             output += '<td align="right" id="td_brand">'+parseFloat(val.b).toFixed(2)+'</td>';
