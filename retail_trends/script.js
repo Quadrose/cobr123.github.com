@@ -227,6 +227,9 @@ function updateUrl() {
 }
 //////////////////////////////////////////////////////
 
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
 function showTrendGraph(data, productRemainsData) {
   function strToDate(strDate, defVal){
     if (strDate === null || strDate === '' || (strDate + '').indexOf('.') <= 0){
@@ -300,12 +303,24 @@ function showTrendGraph(data, productRemainsData) {
     var avDonchianChannelRemPrc = [];	
 	
     var productRemainsDataByDateStr = [];
+    var productRemainsUnitIDs = [];
+    var productRemainsUnitDataByDateStr = [];
     if (productRemainsData !== null){    
       for (var i = 0; i < productRemainsData.length; i++) {
         var svDate = productRemainsData[i]['d'];
 	productRemainsDataByDateStr[svDate] = productRemainsData[i];
+	      
+	productRemainsUnitDataByDateStr[svDate] = [];
+	if(productRemainsData[i]['s'] != null){
+          for (var k = 0; k < productRemainsData[i]['s'].length; k++) {
+            var svUnitID = productRemainsData[i]['s'][k]['ui'];
+	    productRemainsUnitIDs.push(svUnitID);
+  	    productRemainsUnitDataByDateStr[svDate][svUnitID] = productRemainsData[i]['s'][k];
+          }
+	}
       }
     }
+    productRemainsUnitIDs = productRemainsUnitIDs.filter(onlyUnique);
 	
     for (var i = 0; i < data.length; i++) {
       var svDate = data[i]['d'];
@@ -379,6 +394,11 @@ function showTrendGraph(data, productRemainsData) {
                 }
     		updateUrl();
             }
+        }
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal'
         }
     },
     tooltip: {
@@ -548,11 +568,29 @@ function showTrendGraph(data, productRemainsData) {
     }
 });
 
+    for (var k = 0; k < productRemainsUnitIDs.length; k++) {
+      var productRemainsUnitData = [];
+      for (var i = 0; i < data.length; i++) {
+        var svDate = data[i]['d'];
+	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][svUnitID] != null){
+          var dvDate = strToDate(svDate);
+          var nvMaxOrder = parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]][i]['mo']).toFixed(2));
+          productRemainsUnitData.push([dvDate.getTime(), nvMaxOrder]);
+	}
+      }
+      chart.addSeries({
+        yAxis: 1,
+        type: 'column',
+        name: 'UnitID:' + productRemainsUnitIDs[k],
+        data: productRemainsUnitData,
+        visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
+      });
+    }
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
 		    ,'ShopQual','LocalQual'/*,'DonchianChannelRemPrc'*/
-		    ,'RemainsPrice','RemainsVolume','RemainsQual'
+		    ,'RemainsPrice','RemainsVolume','RemainsQual','ProductRemainByUnits'
 		    ];
 	$('#trends_btns').html('');
 for(var i = 0; i < btns.length; ++i){
