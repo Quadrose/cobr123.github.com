@@ -603,25 +603,23 @@ for(var i = 0; i < btns.length; ++i){
 
 var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
 ed.click(function(){
-  var bvVisible = 0;
   for (var k = 0; k < productRemainsUnitIDs.length; k++) {
     var idx = btns.length + k;
     var series = chart.series[idx];
 	  
     if (series.visible) {
       series.hide();
-      bvVisible = 0;
     } else {
       series.show();
-      bvVisible = 1;
     }
   }
+  var bvVisible = ((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1)
   setVal('ProductRemainByUnitsVisible', bvVisible);
 	
   return false;
 });
 $('#trends_btns').append(ed);
-	
+    console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length);	
     for (var k = 0; k < productRemainsUnitIDs.length; k++) {
       var productRemainsUnitData = [];
       for (var i = 0; i < data.length; i++) {
@@ -632,6 +630,7 @@ $('#trends_btns').append(ed);
           productRemainsUnitData.push([dvDate.getTime(), nvMaxOrder]);
 	}
       }
+      console.log('productRemainsUnitData.length = ' + productRemainsUnitData.length);
       chart.addSeries({
         yAxis: 1,
         type: 'column',
