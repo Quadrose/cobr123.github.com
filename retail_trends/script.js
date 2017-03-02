@@ -568,29 +568,11 @@ function showTrendGraph(data, productRemainsData) {
     }
 });
 
-    for (var k = 0; k < productRemainsUnitIDs.length; k++) {
-      var productRemainsUnitData = [];
-      for (var i = 0; i < data.length; i++) {
-        var svDate = data[i]['d'];
-	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][svUnitID] != null){
-          var dvDate = strToDate(svDate);
-          var nvMaxOrder = parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]][i]['mo']).toFixed(2));
-          productRemainsUnitData.push([dvDate.getTime(), nvMaxOrder]);
-	}
-      }
-      chart.addSeries({
-        yAxis: 1,
-        type: 'column',
-        name: 'UnitID:' + productRemainsUnitIDs[k],
-        data: productRemainsUnitData,
-        visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
-      });
-    }
 	var btns = ['ShopPrice','ShopPriceMoveAvg5','ShopPriceMoveAvg20'
 		    ,'LocalPrice','LocalPriceMoveAvg5','LocalPriceMoveAvg20'
 		    ,'Volume','VolumeMoveAvg5','VolumeMoveAvg20'
 		    ,'ShopQual','LocalQual'/*,'DonchianChannelRemPrc'*/
-		    ,'RemainsPrice','RemainsVolume','RemainsQual','ProductRemainByUnits'
+		    ,'RemainsPrice','RemainsVolume','RemainsQual'
 		    ];
 	$('#trends_btns').html('');
 for(var i = 0; i < btns.length; ++i){
@@ -619,6 +601,45 @@ for(var i = 0; i < btns.length; ++i){
 }
 	$('#btnSubmit').hide();
 
+var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
+ed.click(function(){
+  var bvVisible = 0;
+  for (var k = 0; k < productRemainsUnitIDs.length; k++) {
+    var idx = btns.length + k;
+    var series = chart.series[idx];
+	  
+    if (series.visible) {
+      series.hide();
+      bvVisible = 0;
+    } else {
+      series.show();
+      bvVisible = 1;
+    }
+  }
+  setVal('ProductRemainByUnitsVisible', bvVisible);
+	
+  return false;
+});
+$('#trends_btns').append(ed);
+	
+    for (var k = 0; k < productRemainsUnitIDs.length; k++) {
+      var productRemainsUnitData = [];
+      for (var i = 0; i < data.length; i++) {
+        var svDate = data[i]['d'];
+	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][svUnitID] != null){
+          var dvDate = strToDate(svDate);
+          var nvMaxOrder = parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]][i]['mo']).toFixed(2));
+          productRemainsUnitData.push([dvDate.getTime(), nvMaxOrder]);
+	}
+      }
+      chart.addSeries({
+        yAxis: 1,
+        type: 'column',
+        name: 'UnitID: ' + productRemainsUnitIDs[k],
+        data: productRemainsUnitData,
+        visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
+      });
+    }
 
     /*$('#trends_price').highcharts({   
         title: {
