@@ -401,6 +401,9 @@ function showTrendGraph(data, productRemainsData) {
             stacking: 'normal'
         }
     },
+    legend: {
+        enabled: true
+    },
     tooltip: {
 	//xDateFormat: '%Y-%b-%e',
 	shared: true
@@ -461,12 +464,14 @@ function showTrendGraph(data, productRemainsData) {
     }],
 
     series: [{
-        type: 'spline',
+	     showInLegend : false,
+             type: 'spline',
              name: 'ShopPrice',
              data: avShopPrice,
              visible: ((getVal('ShopPrice'+'Visible') === 0) ? false : true)
          },
          {
+	     showInLegend : false,
         type: 'spline',
              name: 'ShopPriceMoveAvg5',
              data: getMoveMean(avShopPrice, 5),
@@ -474,6 +479,7 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('ShopPriceMoveAvg5'+'Visible') === 1) ? true : false)        
          },
          {
+	     showInLegend : false,
         type: 'spline',
              name: 'ShopPriceMoveAvg20',
              data: getMoveMean(avShopPrice, 20),
@@ -481,12 +487,14 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('ShopPriceMoveAvg20'+'Visible') === 1) ? true : false)         
          },
 	 {
+	     showInLegend : false,
         type: 'spline',
 	     name: 'LocalPrice',
 	     data: avLocalPrice,
 	     visible: ((getVal('LocalPrice'+'Visible') === 0) ? false : true)
          },
          {
+	     showInLegend : false,
         type: 'spline',
              name: 'LocalPriceMoveAvg5',
              data: getMoveMean(avLocalPrice, 5),
@@ -494,6 +502,7 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('LocalPriceMoveAvg5'+'Visible') === 1) ? true : false)
          },
          {
+	     showInLegend : false,
         type: 'spline',
              name: 'LocalPriceMoveAvg20',
              data: getMoveMean(avLocalPrice, 20),
@@ -501,12 +510,14 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('LocalPriceMoveAvg20'+'Visible') === 1) ? true : false)       
          },
 	 {
+	     showInLegend : false,
         yAxis: 1,
              name: 'Volume',
              data: avVolume,
              visible: ((getVal('Volume'+'Visible') === 0) ? false : true)   
          },
          {
+	     showInLegend : false,
         yAxis: 1,
              name: 'VolumeMoveAvg5',
              data: getMoveMean(avVolume, 5),
@@ -514,6 +525,7 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('VolumeMoveAvg5'+'Visible') === 1) ? true : false)                
          },
          {
+	     showInLegend : false,
         yAxis: 1,
              name: 'VolumeMoveAvg20',
              data: getMoveMean(avVolume, 20),
@@ -521,6 +533,7 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('VolumeMoveAvg20'+'Visible') === 1) ? true : false)                
          },
          {
+	     showInLegend : false,
         yAxis: 2,
              name: 'ShopQual',
              data: avShopQual,
@@ -528,6 +541,7 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('ShopQual'+'Visible') === 1) ? true : false)                
          },
          {
+	     showInLegend : false,
         yAxis: 2,
              name: 'LocalQual',
              data: avLocalQual,
@@ -535,6 +549,7 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('LocalQual'+'Visible') === 1) ? true : false)                
          },
  	 /*{
+	     showInLegend : false,
          type: 'areasplinerange',
          color: '#ffe0e7',
               name: 'DonchianChannelRemPrc',
@@ -542,6 +557,7 @@ function showTrendGraph(data, productRemainsData) {
               visible: ((getVal('DonchianChannelRemPrc'+'Visible') === 1) ? true : false)
           },*/
          {
+	     showInLegend : false,
         type: 'spline',
              name: 'RemainsPrice',
              data: avRemainsPrice,
@@ -549,6 +565,7 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('RemainsPrice'+'Visible') === 1) ? true : false)        
          },
          {
+	     showInLegend : false,
         yAxis: 1,
              name: 'RemainsVolume',
              data: avRemainsVolume,
@@ -556,6 +573,7 @@ function showTrendGraph(data, productRemainsData) {
              visible: ((getVal('RemainsVolume'+'Visible') === 1) ? true : false)                
          },
          {
+	     showInLegend : false,
         yAxis: 2,
              name: 'RemainsQual',
              data: avRemainsQual,
