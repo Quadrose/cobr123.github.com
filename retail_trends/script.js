@@ -664,6 +664,7 @@ $('#trends_btns').append(ed);
         visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
       });
     }
+    console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length + ' done');	
 
     /*$('#trends_price').highcharts({   
         title: {
