@@ -621,17 +621,17 @@ for(var i = 0; i < btns.length; ++i){
 
 var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
 ed.click(function(){
+  var bvVisible = ((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
   for (var k = 0; k < productRemainsUnitIDs.length; k++) {
     var idx = btns.length + k;
     var series = chart.series[idx];
 	  
-    if (series.visible) {
+    if (bvVisible === 0) {
       series.hide();
     } else {
       series.show();
     }
   }
-  var bvVisible = ((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1)
   setVal('ProductRemainByUnitsVisible', bvVisible);
 	
   return false;
