@@ -399,6 +399,9 @@ function showTrendGraph(data, productRemainsData) {
     plotOptions: {
         column: {
             stacking: 'normal'
+        },
+        series: {
+            animation: false
         }
     },
     legend: {
