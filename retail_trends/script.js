@@ -640,20 +640,21 @@ $('#trends_btns').append(ed);
     console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length);	
     for (var k = 0; k < productRemainsUnitIDs.length; k++) {
       var productRemainsUnitData = [];
+      var svUnitID = productRemainsUnitIDs[k];
       for (var i = 0; i < data.length; i++) {
         var svDate = data[i]['d'];
-	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]] != null && parseFloat(productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']) > 0){
+	var avByDate = productRemainsUnitDataByDateStr[svDate];
+	if (avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
           var dvDate = strToDate(svDate);
-          productRemainsUnitData.push([dvDate.getTime(), parseFloat(productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo'])
+          productRemainsUnitData.push([dvDate.getTime(), parseFloat(avByDate[svUnitID]['mo'])]);
+	}
+      }
 	/*{
             y: parseFloat(productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']),
             total: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['t'],
             price: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['p'],
             quality: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['q']
         }*/
-	]);
-	}
-      }
       //console.log('productRemainsUnitData.length = ' + productRemainsUnitData.length);
       chart.addSeries({
         yAxis: 1,
