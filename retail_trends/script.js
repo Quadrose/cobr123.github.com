@@ -630,7 +630,7 @@ $('#trends_btns').append(ed);
           productRemainsUnitData.push([dvDate.getTime(), nvMaxOrder]);
 	}
       }
-      console.log('productRemainsUnitData.length = ' + productRemainsUnitData.length);
+      //console.log('productRemainsUnitData.length = ' + productRemainsUnitData.length);
       chart.addSeries({
         yAxis: 1,
         type: 'column',
