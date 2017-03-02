@@ -642,10 +642,10 @@ $('#trends_btns').append(ed);
       var productRemainsUnitData = [];
       for (var i = 0; i < data.length; i++) {
         var svDate = data[i]['d'];
-	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]] != null){
+	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]] != null && parseFloat(productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']) > 0){
           var dvDate = strToDate(svDate);
           productRemainsUnitData.push([dvDate.getTime(), {
-            y: parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']).toFixed(2)),
+            y: parseFloat(productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']),
             total: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['t'],
             price: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['p'],
             quality: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['q']
