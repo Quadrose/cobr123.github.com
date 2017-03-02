@@ -624,7 +624,7 @@ $('#trends_btns').append(ed);
       var productRemainsUnitData = [];
       for (var i = 0; i < data.length; i++) {
         var svDate = data[i]['d'];
-	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][svUnitID] != null){
+	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]] != null){
           var dvDate = strToDate(svDate);
           var nvMaxOrder = parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']).toFixed(2));
           productRemainsUnitData.push([dvDate.getTime(), nvMaxOrder]);
