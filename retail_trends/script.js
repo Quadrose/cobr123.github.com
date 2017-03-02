@@ -405,7 +405,7 @@ function showTrendGraph(data, productRemainsData) {
         enabled: true
     },
     tooltip: {
-	//xDateFormat: '%Y-%b-%e',
+        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name} total/available: {point.total} / <b>{point.y}</b> price: {point.price} quality: {point.quality}<br>',
 	shared: true
     },
     xAxis: [{
@@ -644,8 +644,12 @@ $('#trends_btns').append(ed);
         var svDate = data[i]['d'];
 	if (productRemainsUnitDataByDateStr[svDate] != null && productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]] != null){
           var dvDate = strToDate(svDate);
-          var nvMaxOrder = parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']).toFixed(2));
-          productRemainsUnitData.push([dvDate.getTime(), nvMaxOrder]);
+          productRemainsUnitData.push([dvDate.getTime(), {
+            y: parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']).toFixed(2)),
+            total: parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['t']).toFixed(2)),
+            price: parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['p']).toFixed(2)),
+            quality: parseFloat((productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['q']).toFixed(2))
+        }]);
 	}
       }
       //console.log('productRemainsUnitData.length = ' + productRemainsUnitData.length);
