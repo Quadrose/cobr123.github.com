@@ -385,6 +385,9 @@ function showTrendGraph(data, productRemainsData) {
 
     chart: {
         zoomType: 'x',
+        animation: {
+            duration: 0
+        },
         events: {
             redraw: function (event) {
                 if (event.xAxis) {
