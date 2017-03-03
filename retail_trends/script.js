@@ -661,8 +661,9 @@ addProductRemainsUnitSeries();
 	
 var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
 ed.click(function(){
-  addProductRemainsUnitSeries();
   var bvSetVisible = ((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
+  setVal('ProductRemainByUnitsVisible', bvSetVisible);
+  addProductRemainsUnitSeries();
   for (var k = 0; k < productRemainsUnitIDs.length; k++) {
     var idx = btns.length + k;
     var series = chart.series[idx];
@@ -673,7 +674,6 @@ ed.click(function(){
       series.hide();
     }
   }
-  setVal('ProductRemainByUnitsVisible', bvSetVisible);
 	
   return false;
 });
