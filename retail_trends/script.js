@@ -632,7 +632,9 @@ function addProductRemainsUnitSeries(){
   var bvVisible = getVal('ProductRemainByUnits'+'Visible');
   if (seriesAdded === 0 && bvVisible === 1){
     chart.showLoading();
-    console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length);	
+    console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length);
+    console.log('trend_date_min = ' + (getVal('trend_date_min') || dateFrom));
+    console.log('trend_date_max = ' + (getVal('trend_date_max') || dateTo));	
     var minDate = strToDate(getVal('trend_date_min'), dateFrom).getTime();
     var maxDate = strToDate(getVal('trend_date_max'), dateTo).getTime();
 	  
