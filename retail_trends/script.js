@@ -652,7 +652,7 @@ function addProductRemainsUnitSeries(){
       chart.addSeries({
         yAxis: 1,
         type: 'column',
-        name: productRemainsUnitByID[svUnitID]['cn'],
+        name: productRemainsUnitByID[svUnitID]['cn'] || svUnitID,
         data: productRemainsUnitData,
         visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
       });
