@@ -628,8 +628,6 @@ var seriesAdded = 0;
 function addProductRemainsUnitSeries(){
   var bvVisible = getVal('ProductRemainByUnits'+'Visible');
   if (seriesAdded === 0 && bvVisible === 1){
-    var minDate = strToDate(getVal('trend_date_min'), dateFrom).getTime();
-    var maxDate = strToDate(getVal('trend_date_max'), dateTo).getTime();
     console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length);	
     for (var k = 0; k < productRemainsUnitIDs.length; k++) {
       var productRemainsUnitData = [];
@@ -638,7 +636,7 @@ function addProductRemainsUnitSeries(){
         var svDate = data[i]['d'];
 	var avByDate = productRemainsUnitDataByDateStr[svDate];
         var dvDate = strToDate(svDate).getTime();
-	if (minDate >= dvDate && dvDate <= maxDate && avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
+	if (avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
           productRemainsUnitData.push([dvDate, parseFloat(avByDate[svUnitID]['mo'])]);
 	} /*else {
 	  productRemainsUnitData.push([dvDate.getTime(), null]);
