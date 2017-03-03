@@ -674,9 +674,8 @@ ed.click(function(){
   var bvSetVisible = 1;//((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
   setVal('ProductRemainByUnitsVisible', bvSetVisible);
   addProductRemainsUnitSeries();
-  for (var k = 0; k < productRemainsUnitIDs.length; k++) {
-    var idx = btns.length + k;
-    var series = chart.series[idx];
+  for (var k = btns.length; k < Math.min(chart.series.length, productRemainsUnitIDs.length + btns.length); k++) {
+    var series = chart.series[k];
 	  
     if (bvSetVisible === 1) {
       series.show();
