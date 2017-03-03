@@ -631,7 +631,7 @@ var seriesAdded = 0;
 function addProductRemainsUnitSeries(){
   var bvVisible = getVal('ProductRemainByUnits'+'Visible');
   if (seriesAdded === 0 && bvVisible === 1){
-    chart.showLoading();
+    var startTime = new Date();
     console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length);
     console.log('trend_date_min = ' + (getVal('trend_date_min') || dateFrom));
     console.log('trend_date_max = ' + (getVal('trend_date_max') || dateTo));	
@@ -670,9 +670,12 @@ function addProductRemainsUnitSeries(){
 	      ,false);
       }
     }
-    chart.hideLoading();
+	  
     chart.redraw();
-    console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length + ' done');
+	  
+    var endTime = new Date();
+    var timeDiff = endTime - startTime;
+    console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length + ' done in ' + timeDiff + 'ms ('+Math.round(timeDiff/1000 % 60)+'s)');
     seriesAdded = 1;
   }
 }
