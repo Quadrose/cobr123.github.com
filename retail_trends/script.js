@@ -622,24 +622,10 @@ for(var i = 0; i < btns.length; ++i){
 }
 	$('#btnSubmit').hide();
 
-var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
-ed.click(function(){
-  var bvVisible = ((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
-  for (var k = 0; k < productRemainsUnitIDs.length; k++) {
-    var idx = btns.length + k;
-    var series = chart.series[idx];
-	  
-    if (bvVisible === 0) {
-      series.hide();
-    } else {
-      series.show();
-    }
-  }
-  setVal('ProductRemainByUnitsVisible', bvVisible);
-	
-  return false;
-});
-$('#trends_btns').append(ed);
+var seriesAdded = 0;
+function addProductRemainsUnitSeries(){
+  var bvVisible = getVal('ProductRemainByUnits'+'Visible');
+  if (seriesAdded === 0 && bvVisible === 1){
     console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length);	
     for (var k = 0; k < productRemainsUnitIDs.length; k++) {
       var productRemainsUnitData = [];
@@ -667,7 +653,31 @@ $('#trends_btns').append(ed);
         visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
       });
     }
-    console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length + ' done');	
+    console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length + ' done');
+    seriesAdded = 1;
+  }
+}
+addProductRemainsUnitSeries();
+	
+var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
+ed.click(function(){
+  addProductRemainsUnitSeries();
+  var bvSetVisible = ((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
+  for (var k = 0; k < productRemainsUnitIDs.length; k++) {
+    var idx = btns.length + k;
+    var series = chart.series[idx];
+	  
+    if (bvSetVisible === 1) {
+      series.show();
+    } else {
+      series.hide();
+    }
+  }
+  setVal('ProductRemainByUnitsVisible', bvSetVisible);
+	
+  return false;
+});
+$('#trends_btns').append(ed);
 
     /*$('#trends_price').highcharts({   
         title: {
