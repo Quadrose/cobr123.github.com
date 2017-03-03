@@ -304,6 +304,7 @@ function showTrendGraph(data, productRemainsData) {
 	
     var productRemainsDataByDateStr = [];
     var productRemainsUnitIDs = [];
+    var productRemainsUnitByID = [];
     var productRemainsUnitDataByDateStr = [];
     if (productRemainsData !== null){    
       for (var i = 0; i < productRemainsData.length; i++) {
@@ -314,6 +315,7 @@ function showTrendGraph(data, productRemainsData) {
 	if(productRemainsData[i]['s'] != null){
           for (var k = 0; k < productRemainsData[i]['s'].length; k++) {
             var svUnitID = productRemainsData[i]['s'][k]['ui'];
+	    productRemainsUnitByID[svUnitID] = productRemainsData[i]['s'][k];
 	    productRemainsUnitIDs.push(svUnitID);
   	    productRemainsUnitDataByDateStr[svDate][svUnitID] = productRemainsData[i]['s'][k];
           }
@@ -630,7 +632,7 @@ function addProductRemainsUnitSeries(){
     for (var k = 0; k < productRemainsUnitIDs.length; k++) {
       var productRemainsUnitData = [];
       var svUnitID = productRemainsUnitIDs[k];
-      for (var i = 0; i < data.length; i++) {
+      for (var i = Math.max(0, data.length - 10); i < data.length; i++) {
         var svDate = data[i]['d'];
 	var avByDate = productRemainsUnitDataByDateStr[svDate];
         var dvDate = strToDate(svDate);
@@ -650,7 +652,7 @@ function addProductRemainsUnitSeries(){
       chart.addSeries({
         yAxis: 1,
         type: 'column',
-        name: 'UnitID: ' + productRemainsUnitIDs[k],
+        name: productRemainsUnitByID[svUnitID]['cn'],
         data: productRemainsUnitData,
         visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
       });
