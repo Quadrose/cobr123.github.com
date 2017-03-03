@@ -632,7 +632,7 @@ function addProductRemainsUnitSeries(){
     for (var k = 0; k < productRemainsUnitIDs.length; k++) {
       var productRemainsUnitData = [];
       var svUnitID = productRemainsUnitIDs[k];
-      for (var i = Math.max(0, data.length - 10); i < data.length; i++) {
+      for (var i = 0; i < data.length; i++) {
         var svDate = data[i]['d'];
 	var avByDate = productRemainsUnitDataByDateStr[svDate];
         var dvDate = strToDate(svDate);
@@ -655,8 +655,10 @@ function addProductRemainsUnitSeries(){
         name: productRemainsUnitByID[svUnitID]['cn'] || svUnitID,
         data: productRemainsUnitData,
         visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
-      });
+      }
+      ,false);
     }
+    chart.redraw();
     console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length + ' done');
     seriesAdded = 1;
   }
