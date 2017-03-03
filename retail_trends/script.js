@@ -645,7 +645,8 @@ function addProductRemainsUnitSeries(){
         var svDate = data[i]['d'];
 	var avByDate = productRemainsUnitDataByDateStr[svDate];
         var dvDate = strToDate(svDate).getTime();
-	if (minDate >= dvDate && dvDate <= maxDate && avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
+	//minDate >= dvDate && dvDate <= maxDate && 
+	if (avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
           productRemainsUnitData.push([dvDate, parseFloat(avByDate[svUnitID]['mo'])]);
 	} /*else {
 	  productRemainsUnitData.push([dvDate.getTime(), null]);
