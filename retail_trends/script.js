@@ -314,7 +314,7 @@ function showTrendGraph(data, productRemainsData) {
 	productRemainsUnitDataByDateStr[svDate] = [];
 	if(productRemainsData[i]['s'] != null){
           for (var k = 0; k < productRemainsData[i]['s'].length; k++) {
-            var svUnitID = productRemainsData[i]['s'][k]['ui'];
+            var svUnitID = productRemainsData[i]['s'][k]['ui'] || 'RemainOthers';
 	    productRemainsUnitByID[svUnitID] = productRemainsData[i]['s'][k];
 	    productRemainsUnitIDs.push(svUnitID);
   	    productRemainsUnitDataByDateStr[svDate][svUnitID] = productRemainsData[i]['s'][k];
