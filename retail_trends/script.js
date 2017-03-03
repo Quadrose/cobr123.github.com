@@ -633,9 +633,11 @@ function addProductRemainsUnitSeries(){
       for (var i = 0; i < data.length; i++) {
         var svDate = data[i]['d'];
 	var avByDate = productRemainsUnitDataByDateStr[svDate];
+        var dvDate = strToDate(svDate);
 	if (avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
-          var dvDate = strToDate(svDate);
           productRemainsUnitData.push([dvDate.getTime(), parseFloat(avByDate[svUnitID]['mo'])]);
+	} else {
+	  productRemainsUnitData.push([dvDate.getTime(), null]);
 	}
       }
 	/*{
@@ -644,7 +646,7 @@ function addProductRemainsUnitSeries(){
             price: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['p'],
             quality: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['q']
         }*/
-      //console.log('productRemainsUnitData.length = ' + productRemainsUnitData.length);
+      console.log(k + '/' + productRemainsUnitIDs.length + ': productRemainsUnitData.length = ' + productRemainsUnitData.length);
       chart.addSeries({
         yAxis: 1,
         type: 'column',
