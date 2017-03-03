@@ -628,6 +628,7 @@ var seriesAdded = 0;
 function addProductRemainsUnitSeries(){
   var bvVisible = getVal('ProductRemainByUnits'+'Visible');
   if (seriesAdded === 0 && bvVisible === 1){
+    chart.showLoading();
     console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length);	
     for (var k = 0; k < productRemainsUnitIDs.length; k++) {
       var productRemainsUnitData = [];
@@ -660,6 +661,7 @@ function addProductRemainsUnitSeries(){
 	      ,false);
       }
     }
+    chart.hideLoading();
     chart.redraw();
     console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length + ' done');
     seriesAdded = 1;
