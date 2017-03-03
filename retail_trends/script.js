@@ -651,14 +651,16 @@ function addProductRemainsUnitSeries(){
             quality: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['q']
         }*/
       console.log(k + '/' + productRemainsUnitIDs.length + ': productRemainsUnitData.length = ' + productRemainsUnitData.length);
-      chart.addSeries({
-        yAxis: 1,
-        type: 'column',
-        name: productRemainsUnitByID[svUnitID]['cn'] || svUnitID,
-        data: productRemainsUnitData,
-        visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
+      if (productRemainsUnitData.length > 0){
+	      chart.addSeries({
+		yAxis: 1,
+		type: 'column',
+		name: productRemainsUnitByID[svUnitID]['cn'] || svUnitID,
+		data: productRemainsUnitData,
+		visible: ((getVal('ProductRemainByUnits'+'Visible') === 1) ? true : false)
+	      }
+	      ,false);
       }
-      ,false);
     }
     chart.redraw();
     console.log('productRemainsUnitIDs.length = ' + productRemainsUnitIDs.length + ' done');
