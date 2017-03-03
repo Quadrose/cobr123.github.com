@@ -648,7 +648,7 @@ function addProductRemainsUnitSeries(){
             price: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['p'],
             quality: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['q']
         }*/
-      console.log(k + '/' + productRemainsUnitIDs.length + ': productRemainsUnitData.length = ' + productRemainsUnitData.length);
+      console.log((k+1) + '/' + productRemainsUnitIDs.length + ': productRemainsUnitData.length = ' + productRemainsUnitData.length);
       if (productRemainsUnitData.length > 0){
 	      chart.addSeries({
 		yAxis: 1,
