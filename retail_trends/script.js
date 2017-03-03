@@ -657,11 +657,11 @@ function addProductRemainsUnitSeries(){
     seriesAdded = 1;
   }
 }
-addProductRemainsUnitSeries();
+//addProductRemainsUnitSeries();
 	
 var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
 ed.click(function(){
-  var bvSetVisible = ((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
+  var bvSetVisible = 1;//((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
   setVal('ProductRemainByUnitsVisible', bvSetVisible);
   addProductRemainsUnitSeries();
   for (var k = 0; k < productRemainsUnitIDs.length; k++) {
