@@ -407,7 +407,7 @@ function showTrendGraph(data, productRemainsData) {
         }
     },
     legend: {
-        enabled: true
+        enabled: false
     },
     tooltip: {
         //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name} total/available: {point.total} / <b>{point.y}</b> price: {point.price} quality: {point.quality}<br>',
