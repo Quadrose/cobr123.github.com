@@ -654,7 +654,7 @@ function loadProducts(callback) {
         var selected = $('#id_product').attr('value');
 
         $.each(data, function (key, val) {
-            if(svCategoryId == val.pc){
+            if(svCategoryId == val.pci){
                 output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td><img src="'+ val.s+'"';
                 if(selected != null && selected == val.i){
                     output += ' border="1"';
