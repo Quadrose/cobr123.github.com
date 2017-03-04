@@ -406,7 +406,7 @@ function showTrendGraph(data) {
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
 		    s += '<tr class="trec"> <td><span style="color:'+this.color+'">\u25CF</span>&nbsp;' + this.series.name.replace(/\s+/g,'&nbsp;') + '</td>';
-		    s += '<td><b>' + commaSeparateNumber(this.y, '&nbsp;') + '</b></td>';
+		    s += '<td align="right"><b>' + commaSeparateNumber(this.y, '&nbsp;') + '</b></td>';
 		    //console.log(this);
 		    var pointData = [];
 		    var pointDataIdx = this.point.index;   
@@ -424,22 +424,22 @@ function showTrendGraph(data) {
 		    }
 		try {    		
 		    if(pointData['pr_total'] > 0){
-		        s += '<td>' + commaSeparateNumber(pointData['pr_total'], '&nbsp;') + '</td>';
+		        s += '<td align="right">' + commaSeparateNumber(pointData['pr_total'], '&nbsp;') + '</td>';
 		    } else {
 		        s += '<td>&nbsp;</td>';
 		    }
 		    if(pointData['pr_price'] > 0){
-		        s += '<td>' + commaSeparateNumber(pointData['pr_price'], '&nbsp;') + '</td>';
+		        s += '<td align="right">' + commaSeparateNumber(pointData['pr_price'], '&nbsp;') + '</td>';
 		    }  else {
 		        s += '<td>&nbsp;</td>';
 		    }
 		    if(pointData['pr_quality'] > 0){
-		        s += '<td>' + commaSeparateNumber(pointData['pr_quality'], '&nbsp;') + '</td>';
+		        s += '<td align="right">' + commaSeparateNumber(pointData['pr_quality'], '&nbsp;') + '</td>';
 		    }  else {
 		        s += '<td>&nbsp;</td>';
 		    }
 		    if(pointData['pr_price'] > 0 && pointData['pr_quality'] > 0){
-		        s += '<td>' + commaSeparateNumber((pointData['pr_price'] / pointData['pr_quality']).toFixed(2), '&nbsp;') + '</td>';
+		        s += '<td align="right">' + commaSeparateNumber((pointData['pr_price'] / pointData['pr_quality']).toFixed(2), '&nbsp;') + '</td>';
 		    }  else {
 		        s += '<td>&nbsp;</td>';
 		    }
