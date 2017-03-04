@@ -312,13 +312,34 @@ function showTrendGraph(data) {
       avCategories[i] = svDateStr;
 	     
       var nvRemainsVolume = parseFloat(productRemainsDataByDateStr[svDate]['r']);
-      avRemainsVolume.push([dvDate.getTime(), nvRemainsVolume]);
+      avRemainsVolume.push({
+	    x: dvDate.getTime(), 
+            y: nvRemainsVolume,
+            total: '',
+            available: '',
+            price: '',
+            quality: ''
+	  });
       
       var nvRemainsQual = parseFloat(productRemainsDataByDateStr[svDate]['q']);
-      avRemainsMeanQual.push([dvDate.getTime(), nvRemainsQual]);
+      avRemainsMeanQual.push({
+	    x: dvDate.getTime(), 
+            y: nvRemainsQual,
+            total: '',
+            available: '',
+            price: '',
+            quality: ''
+	  });
       
       var nvRemainsPrice = parseFloat(productRemainsDataByDateStr[svDate]['p']);
-      avRemainsMeanPrice.push([dvDate.getTime(), nvRemainsPrice]);
+      avRemainsMeanPrice.push({
+	    x: dvDate.getTime(), 
+            y: nvRemainsPrice,
+            total: '',
+            available: '',
+            price: '',
+            quality: ''
+	  });
       
       //avDonchianChannelRemPrc.push([dvDate.getTime(), min(data, i, 10), max(data, i, 10)]);
     }
