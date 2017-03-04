@@ -692,9 +692,9 @@ if (seriesAddedTmp === 1){
     var series = chart.series[k];
 	  
     if (series.visible) {
-      series.show();
-    } else {
       series.hide();
+    } else {
+      series.show();
     }
   }
 }
