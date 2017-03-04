@@ -396,13 +396,13 @@ function showTrendGraph(data) {
         type: (($("#togglelinearprice:checked").length)?'linear':'logarithmic'),
         labels: {
             style: {
-                color: Highcharts.getOptions().colors[1]
+                color: Highcharts.getOptions().colors[0]
             }
         },
         title: {
             text: '',
             style: {
-                color: Highcharts.getOptions().colors[1]
+                color: Highcharts.getOptions().colors[0]
             }
         }
     }, { // Secondary yAxis
@@ -410,12 +410,12 @@ function showTrendGraph(data) {
         title: {
             text: '',
             style: {
-                color: Highcharts.getOptions().colors[0]
+                color: Highcharts.getOptions().colors[1]
             }
         },
         labels: {
             style: {
-                color: Highcharts.getOptions().colors[0]
+                color: Highcharts.getOptions().colors[1]
             }
         },
         opposite: true
