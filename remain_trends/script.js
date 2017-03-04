@@ -407,26 +407,29 @@ function showTrendGraph(data) {
 		    var pointData = [];
 		    var pointDataIdx = this.point.index;   
 		    var seriesIdx = this.series.index; 
-		    if(this.series.data.length > 0){   
+		    if(this.series.data.length > pointDataIdx){   
 		    	pointData = this.series.data[pointDataIdx];
 			    //console.log(pointData);
 		    }
-		    else if(this.series.xAxis.series[seriesIdx].options.data.length > 0){  
+		    else if(this.series.xAxis.series.length > seriesIdx && this.series.xAxis.series[seriesIdx].options.data.length > pointDataIdx){  
 		    	pointData = this.series.xAxis.series[seriesIdx].options.data[pointDataIdx];
 			    //console.log(pointData);
 		    }
+		    else {
+			console.log(this);
+		    }
 		    		
 		    if(pointData['pr_total'] > 0){
-			s +=  ', total: ' + commaSeparateNumber(pointData.pr_total);
+			s +=  ', total: ' + commaSeparateNumber(pointData['pr_total']);
 		    } 
 		    if(pointData['pr_available'] > 0){
-			s +=  ', available: ' + commaSeparateNumber(pointData.pr_available);
+			s +=  ', available: ' + commaSeparateNumber(pointData['pr_available']);
 		    } 
 		    if(pointData['pr_price'] > 0){
-			s +=  ', price: ' + commaSeparateNumber(pointData.pr_price);
+			s +=  ', price: ' + commaSeparateNumber(pointData['pr_price']);
 		    } 
 		    if(pointData['pr_quality'] > 0){
-			s +=  ', quality: ' + commaSeparateNumber(pointData.pr_quality);
+			s +=  ', quality: ' + commaSeparateNumber(pointData['pr_quality']);
 		    } 
             });
 
