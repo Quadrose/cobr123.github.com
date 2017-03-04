@@ -398,33 +398,28 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
-        useHTML: true,
-        headerFormat: '<small>{point.key}</small><table>',
-        pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
-            '<td style="text-align: right"><b>{point.y}</b></td></tr>',
-        footerFormat: '</table>',
         //xDateFormat: '%A, %b %d, %Y',
-       /* formatter: function () {
+        formatter: function () {
             var s = '<b>' + this.x + '</b>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
 		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
-		    if(this.pr_total > 0){
-			s +=  ', total: ' + commaSeparateNumber(this.pr_total);
+		    if(this.point.pr_total > 0){
+			s +=  ', total: ' + commaSeparateNumber(this.point.pr_total);
 		    } 
-		    if(this.pr_available > 0){
-			s +=  ', available: ' + commaSeparateNumber(this.pr_available);
+		    if(this.point.pr_available > 0){
+			s +=  ', available: ' + commaSeparateNumber(this.point.pr_available);
 		    } 
-		    if(this.pr_price > 0){
-			s +=  ', price: ' + commaSeparateNumber(this.pr_price);
+		    if(this.point.pr_price > 0){
+			s +=  ', price: ' + commaSeparateNumber(this.point.pr_price);
 		    } 
-		    if(this.pr_quality > 0){
-			s +=  ', quality: ' + commaSeparateNumber(this.pr_quality);
+		    if(this.point.pr_quality > 0){
+			s +=  ', quality: ' + commaSeparateNumber(this.point.pr_quality);
 		    } 
             });
 
             return s;
-        },*/
+        },
         //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
 	shared: true
     },
