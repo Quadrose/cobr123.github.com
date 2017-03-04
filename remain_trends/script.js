@@ -398,7 +398,7 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
-        //xDateFormat: '%A, %b %d, %Y',
+        xDateFormat: '%A, %b %d, %Y',
         formatter: function () {
             var s = '<b>' + this.x + '</b>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
