@@ -404,23 +404,27 @@ function showTrendGraph(data) {
             $.each(this.points, function () {
 		    s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
 		    console.log(this);
-		    
-		    if(this.series.data.length > 0){
-			    var pointDataIdx = this.point.index;
-			    var pointData = this.series.data[pointDataIdx];			
-			    if(pointData.pr_total > 0){
-				s +=  ', total: ' + commaSeparateNumber(pointData.pr_total);
-			    } 
-			    if(pointData.pr_available > 0){
-				s +=  ', available: ' + commaSeparateNumber(pointData.pr_available);
-			    } 
-			    if(pointData.pr_price > 0){
-				s +=  ', price: ' + commaSeparateNumber(pointData.pr_price);
-			    } 
-			    if(pointData.pr_quality > 0){
-				s +=  ', quality: ' + commaSeparateNumber(pointData.pr_quality);
-			    } 
+	   	    var pointDataIdx = this.point.index;
+		    var pointData = [];
+		    if(this.series.data.length > 0){    
+		    	pointData = this.series.data[pointDataIdx];
 		    }
+		    else if(this.series.xAxis.series.data.length > 0){    
+		    	pointData = this.series.xAxis.series.data[pointDataIdx];
+		    }
+		    		
+		    if(pointData['pr_total'] > 0){
+			s +=  ', total: ' + commaSeparateNumber(pointData.pr_total);
+		    } 
+		    if(pointData['pr_available'] > 0){
+			s +=  ', available: ' + commaSeparateNumber(pointData.pr_available);
+		    } 
+		    if(pointData['pr_price'] > 0){
+			s +=  ', price: ' + commaSeparateNumber(pointData.pr_price);
+		    } 
+		    if(pointData['pr_quality'] > 0){
+			s +=  ', quality: ' + commaSeparateNumber(pointData.pr_quality);
+		    } 
             });
 
             return s;
