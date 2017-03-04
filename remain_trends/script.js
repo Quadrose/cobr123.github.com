@@ -521,7 +521,7 @@ function addProductRemainsUnitSeries(){
             total: avByDate[svUnitID]['t'],
             price: avByDate[svUnitID]['p'],
             quality: avByDate[svUnitID]['q']
-	  }]);
+	  });
 	}
       }
       console.log((k+1) + '/' + productRemainsUnitIDs.length + ': productRemainsUnitData.length = ' + productRemainsUnitData.length);
