@@ -683,18 +683,21 @@ function addProductRemainsUnitSeries(){
 	
 var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
 ed.click(function(){
-  var bvSetVisible = 1;//((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
+  var bvSetVisible = ((getVal('ProductRemainByUnits'+'Visible') === 1) ? 0 : 1);
   setVal('ProductRemainByUnitsVisible', bvSetVisible);
+  var seriesAddedTmp = seriesAdded;
   addProductRemainsUnitSeries();
+if (seriesAddedTmp === 1){
   for (var k = btns.length; k < Math.min(chart.series.length, productRemainsUnitIDs.length + btns.length); k++) {
     var series = chart.series[k];
 	  
-    if (bvSetVisible === 1) {
+    if (series.visible) {
       series.show();
     } else {
       series.hide();
     }
   }
+}
 	
   return false;
 });
