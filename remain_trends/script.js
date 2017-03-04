@@ -622,9 +622,9 @@ function loadProductCategories(callback) {
 		var output = '';
 		var categories = [];
 		$.each(data, function (key, val) {
-			if(categories[val.pc] == null){
+			if(categories[val.pci] == null){
 				output += '<option value="'+val.pci+'">'+val.pc+'</option>';
-				categories[val.pc] = 1;
+				categories[val.pci] = 1;
 			}
 		});
 		
@@ -709,7 +709,7 @@ function selectCategoryByProduct(productId, callback) {
     $.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
         $.each(data, function (key, val) {
             if(productId === val.i){
-                $('select#id_category').val(val.pc);
+                $('select#id_category').val(val.pci);
             }
         });
         loadProducts(callback);
