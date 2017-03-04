@@ -429,12 +429,12 @@ function showTrendGraph(data) {
 		        s += '<td>&nbsp;</td>';
 		    }
 		    if(pointData['pr_price'] > 0){
-		        s += '<td align="right">' + commaSeparateNumber(pointData['pr_price'], '&nbsp;') + '</td>';
+		        s += '<td align="right">' + commaSeparateNumber((pointData['pr_price']).toFixed(2), '&nbsp;') + '</td>';
 		    }  else {
 		        s += '<td>&nbsp;</td>';
 		    }
 		    if(pointData['pr_quality'] > 0){
-		        s += '<td align="right">' + commaSeparateNumber(pointData['pr_quality'], '&nbsp;') + '</td>';
+		        s += '<td align="right">' + commaSeparateNumber((pointData['pr_quality']).toFixed(2), '&nbsp;') + '</td>';
 		    }  else {
 		        s += '<td>&nbsp;</td>';
 		    }
