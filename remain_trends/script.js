@@ -404,16 +404,16 @@ function showTrendGraph(data) {
             $.each(this.points, function () {
                 s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + this.y;
             if(this.total > 0){
-                s +=  ', total: ' + this.total;
+                s +=  ', total: ' + commaSeparateNumber(this.total);
             } 
             if(this.available > 0){
-                s +=  ', available: ' + this.available;
+                s +=  ', available: ' + commaSeparateNumber(this.available);
             } 
             if(this.price > 0){
-                s +=  ', price: ' + this.price;
+                s +=  ', price: ' + commaSeparateNumber(this.price);
             } 
             if(this.quality > 0){
-                s +=  ', quality: ' + this.quality;
+                s +=  ', quality: ' + commaSeparateNumber(this.quality);
             } 
             });
 
@@ -560,10 +560,10 @@ function addProductRemainsUnitSeries(){
           productRemainsUnitData.push({
 	    x: dvDate, 
             y: parseFloat(avByDate[svUnitID]['mo']),
-            total: commaSeparateNumber(avByDate[svUnitID]['t']),
-            available: commaSeparateNumber(avByDate[svUnitID]['mo']),
-            price: commaSeparateNumber(avByDate[svUnitID]['p']),
-            quality: avByDate[svUnitID]['q']
+            total: parseFloat(avByDate[svUnitID]['t']),
+            available: parseFloat(avByDate[svUnitID]['mo']),
+            price: parseFloat(avByDate[svUnitID]['p']),
+            quality: parseFloat(avByDate[svUnitID]['q'])
 	  });
 	}
       }
