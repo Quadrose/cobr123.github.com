@@ -402,19 +402,19 @@ function showTrendGraph(data) {
             var s = '<b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
-                    console.log(this);
+                    var pointData = this.series.data[this.point.index];
 		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
-		    if(this.point.options.pr_total > 0){
-			s +=  ', total: ' + commaSeparateNumber(this.point.options.pr_total);
+		    if(pointData.pr_total > 0){
+			s +=  ', total: ' + commaSeparateNumber(pointData.pr_total);
 		    } 
-		    if(this.point.options.pr_available > 0){
-			s +=  ', available: ' + commaSeparateNumber(this.point.options.pr_available);
+		    if(pointData.pr_available > 0){
+			s +=  ', available: ' + commaSeparateNumber(pointData.pr_available);
 		    } 
-		    if(this.point.options.pr_price > 0){
-			s +=  ', price: ' + commaSeparateNumber(this.point.options.pr_price);
+		    if(pointData.pr_price > 0){
+			s +=  ', price: ' + commaSeparateNumber(pointData.pr_price);
 		    } 
-		    if(this.point.options.pr_quality > 0){
-			s +=  ', quality: ' + commaSeparateNumber(this.point.options.pr_quality);
+		    if(pointData.pr_quality > 0){
+			s +=  ', quality: ' + commaSeparateNumber(pointData.pr_quality);
 		    } 
             });
 
