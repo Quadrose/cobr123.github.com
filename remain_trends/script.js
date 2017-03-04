@@ -629,7 +629,7 @@ function loadProductCategories(callback) {
 		});
 		
 		$('#id_category').html(output); 	// replace all existing content
-		$('#materials').html(''); 
+		$('#products').html(''); 
 		
 		if(typeof(callback) === 'function'){
 			callback();
