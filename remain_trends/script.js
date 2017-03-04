@@ -317,7 +317,7 @@ function showTrendGraph(data) {
             y: nvRemainsVolume,
             pr_total: 0,
             pr_available:0,
-            pr_pr_price: 0,
+            pr_price: 0,
             pr_quality: 0
 	  });
       
@@ -327,7 +327,7 @@ function showTrendGraph(data) {
             y: nvRemainsQual,
             pr_total: 0,
             pr_available:0,
-            pr_pr_price: 0,
+            pr_price: 0,
             pr_quality: 0
 	  });
       
@@ -337,7 +337,7 @@ function showTrendGraph(data) {
             y: nvRemainsPrice,
             pr_total: 0,
             pr_available:0,
-            pr_pr_price: 0,
+            pr_price: 0,
             pr_quality: 0
 	  });
       
