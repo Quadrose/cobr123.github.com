@@ -377,7 +377,7 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
-        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name} total/available: {point.total} / <b>{point.y}</b> price: {point.price} quality: {point.quality}<br>',
+        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
 	shared: true
     },
     xAxis: [{
@@ -518,8 +518,9 @@ function addProductRemainsUnitSeries(){
           productRemainsUnitData.push({
 	    x: dvDate, 
             y: parseFloat(avByDate[svUnitID]['mo']),
-            total: avByDate[svUnitID]['t'],
-            price: avByDate[svUnitID]['p'],
+            total: commaSeparateNumber(avByDate[svUnitID]['t']),
+            available: commaSeparateNumber(avByDate[svUnitID]['mo']),
+            price: commaSeparateNumber(avByDate[svUnitID]['p']),
             quality: avByDate[svUnitID]['q']
 	  });
 	}
