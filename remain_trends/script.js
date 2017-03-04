@@ -377,7 +377,7 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
-        //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name} total/available: {point.total} / <b>{point.y}</b> price: {point.price} quality: {point.quality}<br>',
+        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name} total/available: {point.total} / <b>{point.y}</b> price: {point.price} quality: {point.quality}<br>',
 	shared: true
     },
     xAxis: [{
@@ -515,17 +515,14 @@ function addProductRemainsUnitSeries(){
         var dvDate = strToDate(svDate).getTime();
 	//minDate >= dvDate && dvDate <= maxDate && 
 	if (avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
-          productRemainsUnitData.push([dvDate, parseFloat(avByDate[svUnitID]['mo'])]);
-	} /*else {
-	  productRemainsUnitData.push([dvDate.getTime(), null]);
-	}*/
+          productRemainsUnitData.push([dvDate, {
+            y: parseFloat(svUnitID[svUnitID]['mo']),
+            total: svUnitID[svUnitID]['t'],
+            price: svUnitID[svUnitID]['p'],
+            quality: svUnitID[svUnitID]['q']
+	  }]);
+	}
       }
-	/*{
-            y: parseFloat(productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['mo']),
-            total: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['t'],
-            price: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['p'],
-            quality: productRemainsUnitDataByDateStr[svDate][productRemainsUnitIDs[k]]['q']
-        }*/
       console.log((k+1) + '/' + productRemainsUnitIDs.length + ': productRemainsUnitData.length = ' + productRemainsUnitData.length);
       if (productRemainsUnitData.length > 0){
 	      chart.addSeries({
