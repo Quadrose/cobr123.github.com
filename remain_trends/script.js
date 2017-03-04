@@ -402,7 +402,10 @@ function showTrendGraph(data) {
             var s = '<b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
-                    var pointData = this.series.data[this.point.index];
+		    console.log(this);
+		    console.log(this.point.index);
+		    console.log(this.series.data);
+                    var pointData = this.series.data[this.point.index].options;
 		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
 		    if(pointData.pr_total > 0){
 			s +=  ', total: ' + commaSeparateNumber(pointData.pr_total);
