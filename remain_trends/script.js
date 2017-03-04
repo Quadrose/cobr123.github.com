@@ -403,8 +403,6 @@ function showTrendGraph(data) {
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
 		    console.log(this);
-		    console.log(this.point.index);
-		    console.log(this.series.data);
                     var pointDataIdx = this.point.index;
                     var pointData = this.series.data[pointDataIdx];
 		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
