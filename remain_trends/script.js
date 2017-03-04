@@ -409,9 +409,11 @@ function showTrendGraph(data) {
 		    var seriesIdx = this.series.index; 
 		    if(this.series.data.length > 0){   
 		    	pointData = this.series.data[pointDataIdx];
+			    console.log(pointData);
 		    }
 		    else if(this.series.xAxis.series[seriesIdx].options.data.length > 0){  
 		    	pointData = this.series.xAxis.series[seriesIdx].options.data[pointDataIdx];
+			    console.log(pointData);
 		    }
 		    		
 		    if(pointData['pr_total'] > 0){
