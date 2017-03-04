@@ -515,7 +515,8 @@ function addProductRemainsUnitSeries(){
         var dvDate = strToDate(svDate).getTime();
 	//minDate >= dvDate && dvDate <= maxDate && 
 	if (avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
-          productRemainsUnitData.push([dvDate, {
+          productRemainsUnitData.push({
+	    x: dvDate, 
             y: parseFloat(avByDate[svUnitID]['mo']),
             total: avByDate[svUnitID]['t'],
             price: avByDate[svUnitID]['p'],
