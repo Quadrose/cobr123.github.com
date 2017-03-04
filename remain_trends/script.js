@@ -398,8 +398,13 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
-        xDateFormat: '%A, %b %d, %Y',
-        formatter: function () {
+        useHTML: true,
+        headerFormat: '<small>{point.key}</small><table>',
+        pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
+            '<td style="text-align: right"><b>{point.y}</b></td></tr>',
+        footerFormat: '</table>',
+        //xDateFormat: '%A, %b %d, %Y',
+       /* formatter: function () {
             var s = '<b>' + this.x + '</b>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
@@ -419,7 +424,7 @@ function showTrendGraph(data) {
             });
 
             return s;
-        },
+        },*/
         //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
 	shared: false
     },
