@@ -402,19 +402,19 @@ function showTrendGraph(data) {
             var s = '<b>' + this.x + '</b>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
-                s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + this.y;
-            if(this.total > 0){
-                s +=  ', total: ' + commaSeparateNumber(this.total);
-            } 
-            if(this.available > 0){
-                s +=  ', available: ' + commaSeparateNumber(this.available);
-            } 
-            if(this.price > 0){
-                s +=  ', price: ' + commaSeparateNumber(this.price);
-            } 
-            if(this.quality > 0){
-                s +=  ', quality: ' + commaSeparateNumber(this.quality);
-            } 
+		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
+		    if(this.total > 0){
+			s +=  ', total: ' + commaSeparateNumber(this.total);
+		    } 
+		    if(this.available > 0){
+			s +=  ', available: ' + commaSeparateNumber(this.available);
+		    } 
+		    if(this.price > 0){
+			s +=  ', price: ' + commaSeparateNumber(this.price);
+		    } 
+		    if(this.quality > 0){
+			s +=  ', quality: ' + commaSeparateNumber(this.quality);
+		    } 
             });
 
             return s;
