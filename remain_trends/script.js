@@ -398,6 +398,7 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
+	useHTML: true,
         formatter: function () {
             var s = '<table>';
 	    s += '<tr><th><b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b></th>';
