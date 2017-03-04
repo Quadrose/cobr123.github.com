@@ -431,6 +431,9 @@ function showTrendGraph(data) {
 		    if(pointData['pr_quality'] > 0){
 			s +=  ', quality: ' + commaSeparateNumber(pointData['pr_quality']);
 		    } 
+		    if(pointData['pr_price'] > 0 && pointData['pr_quality'] > 0){
+			s +=  ', pqr: ' + commaSeparateNumber((pointData['pr_price'] / pointData['pr_quality']).toFixed(2));
+		    } 
 		} catch (err) {
 			console.error(err);
 			console.log('pointDataIdx = ' + pointDataIdx);
