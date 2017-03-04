@@ -398,23 +398,23 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
-        xDateFormat: '%A, %b %d, %Y',
+        //xDateFormat: '%A, %b %d, %Y',
         formatter: function () {
             var s = '<b>' + this.x + '</b>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
 		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
-		    if(this.point.pr_total > 0){
-			s +=  ', total: ' + commaSeparateNumber(this.point.pr_total);
+		    if(this.point.options.pr_total > 0){
+			s +=  ', total: ' + commaSeparateNumber(this.point.options.pr_total);
 		    } 
-		    if(this.point.pr_available > 0){
-			s +=  ', available: ' + commaSeparateNumber(this.point.pr_available);
+		    if(this.point.options.pr_available > 0){
+			s +=  ', available: ' + commaSeparateNumber(this.point.options.pr_available);
 		    } 
-		    if(this.point.pr_price > 0){
-			s +=  ', price: ' + commaSeparateNumber(this.point.pr_price);
+		    if(this.point.options.pr_price > 0){
+			s +=  ', price: ' + commaSeparateNumber(this.point.options.pr_price);
 		    } 
-		    if(this.point.pr_quality > 0){
-			s +=  ', quality: ' + commaSeparateNumber(this.point.pr_quality);
+		    if(this.point.options.pr_quality > 0){
+			s +=  ', quality: ' + commaSeparateNumber(this.point.options.pr_quality);
 		    } 
             });
 
