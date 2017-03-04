@@ -400,12 +400,12 @@ function showTrendGraph(data) {
     tooltip: {
 	useHTML: true,
         formatter: function () {
-            var s = '<table>';
-	    s += '<tr><th><b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b></th>';
+            var s = '<table border="0" cellspacing="0" cellpadding="2">';
+	    s += '<tr class="theader"><th><b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b></th>';
 	    s += '<th>value</th><th>total</th><th>price</th><th>quality</th><th>pqr</th></tr>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
-		    s += '<tr> <td><span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + '</td>';
+		    s += '<tr class="trec"> <td><span style="color:'+this.color+'">\u25CF</span>&nbsp;' + this.series.name.replace(/\s+/,'&nbsp;') + '</td>';
 		    s += '<td><b>' + commaSeparateNumber(this.y, '&nbsp;') + '</b></td>';
 		    //console.log(this);
 		    var pointData = [];
