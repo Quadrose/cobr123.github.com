@@ -566,7 +566,7 @@ function addProductRemainsUnitSeries(){
             pr_price: parseFloat(avByDate[svUnitID]['p']),
             pr_quality: parseFloat(avByDate[svUnitID]['q'])
 	  };
-	  console.log(ovVal);
+	  //console.log(ovVal);
           productRemainsUnitData.push(ovVal);
 	}
       }
