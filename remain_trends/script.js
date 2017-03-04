@@ -418,7 +418,7 @@ function showTrendGraph(data) {
 		    else {
 			console.log(this);
 		    }
-		    		
+		try {    		
 		    if(pointData['pr_total'] > 0){
 			s +=  ', total: ' + commaSeparateNumber(pointData['pr_total']);
 		    } 
@@ -431,6 +431,12 @@ function showTrendGraph(data) {
 		    if(pointData['pr_quality'] > 0){
 			s +=  ', quality: ' + commaSeparateNumber(pointData['pr_quality']);
 		    } 
+		} catch (err) {
+			console.error(err);
+			console.log('pointDataIdx = ' + pointDataIdx);
+			console.log('seriesIdx = ' + seriesIdx);
+			console.log(this);
+		}
             });
 
             return s;
