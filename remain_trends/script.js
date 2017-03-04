@@ -622,7 +622,7 @@ ed.click(function(){
   for (var k = btns.length; k < Math.min(chart.series.length, productRemainsUnitIDs.length + btns.length); k++) {
     var series = chart.series[k];
 	  
-    if (seriesAdded === 1) {
+    if (series.visible) {
       series.hide();
     } else {
       series.show();
