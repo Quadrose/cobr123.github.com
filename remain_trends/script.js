@@ -315,30 +315,30 @@ function showTrendGraph(data) {
       avRemainsVolume.push({
 	    x: dvDate.getTime(), 
             y: nvRemainsVolume,
-            total: '',
-            available: '',
-            price: '',
-            quality: ''
+            total: 0,
+            available:0,
+            price: 0,
+            quality: 0
 	  });
       
       var nvRemainsQual = parseFloat(productRemainsDataByDateStr[svDate]['q']);
       avRemainsMeanQual.push({
 	    x: dvDate.getTime(), 
             y: nvRemainsQual,
-            total: '',
-            available: '',
-            price: '',
-            quality: ''
+            total: 0,
+            available:0,
+            price: 0,
+            quality: 0
 	  });
       
       var nvRemainsPrice = parseFloat(productRemainsDataByDateStr[svDate]['p']);
       avRemainsMeanPrice.push({
 	    x: dvDate.getTime(), 
             y: nvRemainsPrice,
-            total: '',
-            available: '',
-            price: '',
-            quality: ''
+            total: 0,
+            available:0,
+            price: 0,
+            quality: 0
 	  });
       
       //avDonchianChannelRemPrc.push([dvDate.getTime(), min(data, i, 10), max(data, i, 10)]);
@@ -398,7 +398,28 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
-        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
+        formatter: function () {
+            var s = '<b>' + this.x + '</b>';
+//' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
+            $.each(this.points, function () {
+                s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + this.y;
+            if(this.total > 0){
+                s +=  ', total: ' + this.total;
+            } 
+            if(this.available > 0){
+                s +=  ', available: ' + this.available;
+            } 
+            if(this.price > 0){
+                s +=  ', price: ' + this.price;
+            } 
+            if(this.quality > 0){
+                s +=  ', quality: ' + this.quality;
+            } 
+            });
+
+            return s;
+        },
+        //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
 	shared: true
     },
     xAxis: [{
