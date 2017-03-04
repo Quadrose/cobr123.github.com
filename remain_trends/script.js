@@ -399,10 +399,13 @@ function showTrendGraph(data) {
     },
     tooltip: {
         formatter: function () {
-            var s = '<b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b>';
+            var s = '<table>';
+	    s += '<tr><th><b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b></th>';
+	    s += '<th>value</th><th>total</th><th>price</th><th>quality</th><th>pqr</th></tr>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
-		    s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y, ' ') + '</b>';
+		    s += '<tr> <td><span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + '</td>';
+		    s += '<td><b>' + commaSeparateNumber(this.y, '&nbsp;') + '</b></td>';
 		    //console.log(this);
 		    var pointData = [];
 		    var pointDataIdx = this.point.index;   
@@ -420,28 +423,35 @@ function showTrendGraph(data) {
 		    }
 		try {    		
 		    if(pointData['pr_total'] > 0){
-			s +=  ', total: ' + commaSeparateNumber(pointData['pr_total'], ' ');
-		    } 
-		    //if(pointData['pr_available'] > 0){
-		//	s +=  ', available: ' + commaSeparateNumber(pointData['pr_available'], ' ');
-		    //} 
+		        s += '<td>' + commaSeparateNumber(pointData['pr_total'], '&nbsp;') + '</td>';
+		    } else {
+		        s += '<td>&nbsp;</td>';
+		    }
 		    if(pointData['pr_price'] > 0){
-			s +=  ', price: ' + commaSeparateNumber(pointData['pr_price'], ' ');
-		    } 
+		        s += '<td>' + commaSeparateNumber(pointData['pr_price'], '&nbsp;') + '</td>';
+		    }  else {
+		        s += '<td>&nbsp;</td>';
+		    }
 		    if(pointData['pr_quality'] > 0){
-			s +=  ', quality: ' + commaSeparateNumber(pointData['pr_quality'], ' ');
-		    } 
+		        s += '<td>' + commaSeparateNumber(pointData['pr_quality'], '&nbsp;') + '</td>';
+		    }  else {
+		        s += '<td>&nbsp;</td>';
+		    }
 		    if(pointData['pr_price'] > 0 && pointData['pr_quality'] > 0){
-			s +=  ', pqr: ' + commaSeparateNumber((pointData['pr_price'] / pointData['pr_quality']).toFixed(2), ' ');
-		    } 
+		        s += '<td>' + commaSeparateNumber((pointData['pr_price'] / pointData['pr_quality']).toFixed(2), '&nbsp;') + '</td>';
+		    }  else {
+		        s += '<td>&nbsp;</td>';
+		    }
 		} catch (err) {
 			console.error(err);
 			console.log('pointDataIdx = ' + pointDataIdx);
 			console.log('seriesIdx = ' + seriesIdx);
 			console.log(this);
+		        s += '<td colspan="4">&nbsp;</td>';
 		}
+	      s += '</tr>';
             });
-
+	    s += '</table>';
             return s;
         },
         //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
