@@ -516,10 +516,10 @@ function addProductRemainsUnitSeries(){
 	//minDate >= dvDate && dvDate <= maxDate && 
 	if (avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
           productRemainsUnitData.push([dvDate, {
-            y: parseFloat(svUnitID[svUnitID]['mo']),
-            total: svUnitID[svUnitID]['t'],
-            price: svUnitID[svUnitID]['p'],
-            quality: svUnitID[svUnitID]['q']
+            y: parseFloat(avByDate[svUnitID]['mo']),
+            total: avByDate[svUnitID]['t'],
+            price: avByDate[svUnitID]['p'],
+            quality: avByDate[svUnitID]['q']
 	  }]);
 	}
       }
