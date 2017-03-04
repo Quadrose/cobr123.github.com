@@ -622,8 +622,10 @@ function loadProductCategories(callback) {
 		var output = '';
 		var categories = [];
 		$.each(data, function (key, val) {
+			if(categories[val.pc] == null){
 				output += '<option value="'+val.pci+'">'+val.pc+'</option>';
 				categories[val.pc] = 1;
+			}
 		});
 		
 		$('#id_category').html(output); 	// replace all existing content
