@@ -679,7 +679,7 @@ function addProductRemainsUnitSeries(){
     seriesAdded = 1;
   }
 }
-//addProductRemainsUnitSeries();
+addProductRemainsUnitSeries();
 	
 var ed = $('<button id="ToggleProductRemainByUnits">ProductRemainByUnits</button>');
 ed.click(function(){
