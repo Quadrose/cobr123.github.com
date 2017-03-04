@@ -400,7 +400,7 @@ function showTrendGraph(data) {
     tooltip: {
 	useHTML: true,
         formatter: function () {
-            var s = '<table border="0" cellspacing="0" cellpadding="2">';
+            var s = '<table border="0" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">';
 	    s += '<tr class="theader"><th><b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b></th>';
 	    s += '<th>value</th><th>total</th><th>price</th><th>quality</th><th>pqr</th></tr>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
