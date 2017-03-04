@@ -405,7 +405,8 @@ function showTrendGraph(data) {
 		    console.log(this);
 		    console.log(this.point.index);
 		    console.log(this.series.data);
-                    var pointData = this.series.data[this.point.index].options;
+                    var pointDataIdx = this.point.index;
+                    var pointData = this.series.data[pointDataIdx];
 		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
 		    if(pointData.pr_total > 0){
 			s +=  ', total: ' + commaSeparateNumber(pointData.pr_total);
