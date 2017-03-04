@@ -315,30 +315,30 @@ function showTrendGraph(data) {
       avRemainsVolume.push({
 	    x: dvDate.getTime(), 
             y: nvRemainsVolume,
-            total: 0,
-            available:0,
-            price: 0,
-            quality: 0
+            pr_total: 0,
+            pr_available:0,
+            pr_pr_price: 0,
+            pr_quality: 0
 	  });
       
       var nvRemainsQual = parseFloat(productRemainsDataByDateStr[svDate]['q']);
       avRemainsMeanQual.push({
 	    x: dvDate.getTime(), 
             y: nvRemainsQual,
-            total: 0,
-            available:0,
-            price: 0,
-            quality: 0
+            pr_total: 0,
+            pr_available:0,
+            pr_pr_price: 0,
+            pr_quality: 0
 	  });
       
       var nvRemainsPrice = parseFloat(productRemainsDataByDateStr[svDate]['p']);
       avRemainsMeanPrice.push({
 	    x: dvDate.getTime(), 
             y: nvRemainsPrice,
-            total: 0,
-            available:0,
-            price: 0,
-            quality: 0
+            pr_total: 0,
+            pr_available:0,
+            pr_pr_price: 0,
+            pr_quality: 0
 	  });
       
       //avDonchianChannelRemPrc.push([dvDate.getTime(), min(data, i, 10), max(data, i, 10)]);
@@ -403,17 +403,17 @@ function showTrendGraph(data) {
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
 		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
-		    if(this.total > 0){
-			s +=  ', total: ' + commaSeparateNumber(this.total);
+		    if(this.pr_total > 0){
+			s +=  ', total: ' + commaSeparateNumber(this.pr_total);
 		    } 
-		    if(this.available > 0){
-			s +=  ', available: ' + commaSeparateNumber(this.available);
+		    if(this.pr_available > 0){
+			s +=  ', available: ' + commaSeparateNumber(this.pr_available);
 		    } 
-		    if(this.price > 0){
-			s +=  ', price: ' + commaSeparateNumber(this.price);
+		    if(this.pr_price > 0){
+			s +=  ', price: ' + commaSeparateNumber(this.pr_price);
 		    } 
-		    if(this.quality > 0){
-			s +=  ', quality: ' + commaSeparateNumber(this.quality);
+		    if(this.pr_quality > 0){
+			s +=  ', quality: ' + commaSeparateNumber(this.pr_quality);
 		    } 
             });
 
@@ -560,10 +560,10 @@ function addProductRemainsUnitSeries(){
           productRemainsUnitData.push({
 	    x: dvDate, 
             y: parseFloat(avByDate[svUnitID]['mo']),
-            total: parseFloat(avByDate[svUnitID]['t']),
-            available: parseFloat(avByDate[svUnitID]['mo']),
-            price: parseFloat(avByDate[svUnitID]['p']),
-            quality: parseFloat(avByDate[svUnitID]['q'])
+            pr_total: parseFloat(avByDate[svUnitID]['t']),
+            pr_available: parseFloat(avByDate[svUnitID]['mo']),
+            pr_price: parseFloat(avByDate[svUnitID]['p']),
+            pr_quality: parseFloat(avByDate[svUnitID]['q'])
 	  });
 	}
       }
