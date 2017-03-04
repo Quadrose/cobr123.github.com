@@ -421,7 +421,7 @@ function showTrendGraph(data) {
             return s;
         },
         //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
-	shared: true
+	shared: false
     },
     xAxis: [{
         min: strToDate(getVal('trend_date_min'), dateFrom).getTime(),
