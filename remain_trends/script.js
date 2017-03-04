@@ -557,14 +557,16 @@ function addProductRemainsUnitSeries(){
         var dvDate = strToDate(svDate).getTime();
 	//minDate >= dvDate && dvDate <= maxDate && 
 	if (avByDate != null && avByDate[svUnitID] != null && parseFloat(avByDate[svUnitID]['mo']) > 0){
-          productRemainsUnitData.push({
+	  var ovVal = {
 	    x: dvDate, 
             y: parseFloat(avByDate[svUnitID]['mo']),
             pr_total: parseFloat(avByDate[svUnitID]['t']),
             pr_available: parseFloat(avByDate[svUnitID]['mo']),
             pr_price: parseFloat(avByDate[svUnitID]['p']),
             pr_quality: parseFloat(avByDate[svUnitID]['q'])
-	  });
+	  };
+	  console.log(ovVal);
+          productRemainsUnitData.push(ovVal);
 	}
       }
       console.log((k+1) + '/' + productRemainsUnitIDs.length + ': productRemainsUnitData.length = ' + productRemainsUnitData.length);
