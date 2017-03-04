@@ -404,13 +404,14 @@ function showTrendGraph(data) {
             $.each(this.points, function () {
 		    s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
 		    console.log(this);
-	   	    var pointDataIdx = this.point.index;
 		    var pointData = [];
-		    if(this.series.data.length > 0){    
+		    var pointDataIdx = this.point.index; 
+		    if(this.series.data.length > 0){   
 		    	pointData = this.series.data[pointDataIdx];
 		    }
 		    else if(this.series.xAxis.series.data.length > 0){    
-		    	pointData = this.series.xAxis.series.data[pointDataIdx];
+		    	var seriesIdx = this.series.index; 
+		    	pointData = this.series.xAxis.series[seriesIdx].data[pointDataIdx];
 		    }
 		    		
 		    if(pointData['pr_total'] > 0){
