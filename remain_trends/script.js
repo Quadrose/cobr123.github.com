@@ -726,8 +726,14 @@ function loadProducts(callback) {
         var output = '';
         var selected = $('#id_product').attr('value');
 
+	var cnt = 0;
         $.each(data, function (key, val) {
             if(svCategoryId == val.pci){
+		if(cnt > 30){
+			cnt = 0;
+			output += '<br>';
+		}
+		cnt++;
                 output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td><img src="'+ val.s+'"';
                 if(selected != null && selected == val.i){
                     output += ' border="1"';
