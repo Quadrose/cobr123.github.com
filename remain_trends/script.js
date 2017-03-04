@@ -398,9 +398,8 @@ function showTrendGraph(data) {
         enabled: false
     },
     tooltip: {
-        //xDateFormat: '%A, %b %d, %Y',
         formatter: function () {
-            var s = '<b>' + this.x + '</b>';
+            var s = '<b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x) + '</b>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
 		s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
