@@ -405,7 +405,7 @@ function showTrendGraph(data) {
 	    s += '<th>value</th><th>total</th><th>price</th><th>quality</th><th>pqr</th></tr>';
 //' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
             $.each(this.points, function () {
-		    s += '<tr class="trec"> <td><span style="color:'+this.color+'">\u25CF</span>&nbsp;' + this.series.name.replace(/\s+/,'&nbsp;') + '</td>';
+		    s += '<tr class="trec"> <td><span style="color:'+this.color+'">\u25CF</span>&nbsp;' + this.series.name.replace(/\s+/g,'&nbsp;') + '</td>';
 		    s += '<td><b>' + commaSeparateNumber(this.y, '&nbsp;') + '</b></td>';
 		    //console.log(this);
 		    var pointData = [];
