@@ -405,12 +405,12 @@ function showTrendGraph(data) {
 		    s += '<br/> <span style="color:'+this.color+'">\u25CF</span> ' + this.series.name + ': ' + '<b>' + commaSeparateNumber(this.y) + '</b>';
 		    console.log(this);
 		    var pointData = [];
-		    var pointDataIdx = this.point.index; 
+		    var pointDataIdx = this.point.index;   
+		    var seriesIdx = this.series.index; 
 		    if(this.series.data.length > 0){   
 		    	pointData = this.series.data[pointDataIdx];
 		    }
-		    else if(this.series.xAxis.series.data.length > 0){    
-		    	var seriesIdx = this.series.index; 
+		    else if(this.series.xAxis.series[seriesIdx].data.length > 0){  
 		    	pointData = this.series.xAxis.series[seriesIdx].data[pointDataIdx];
 		    }
 		    		
