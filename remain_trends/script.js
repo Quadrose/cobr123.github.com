@@ -714,42 +714,42 @@ function loadProductCategories(callback) {
 	return false;
 }
 function loadProducts(callback) {
-    var realm = getRealm();
-    if (realm == null || realm == '') return;
-
-    var svCategoryId = $('#id_category').val();
-    if (svCategoryId == null || svCategoryId == '') return;
-    var locale = getLocale();
-    var suffix = (locale == 'en') ? '_en' : '';
-
-    $.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
-        var output = '';
-        var selected = $('#id_product').attr('value');
-
-	var cnt = 0;
-        $.each(data, function (key, val) {
-            if(svCategoryId == val.pci){
-		if(cnt > 30){
-			cnt = 0;
-			output += '<br>';
-		}
-		cnt++;
-                output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td><img src="'+ val.s+'"';
-                if(selected != null && selected == val.i){
-                    output += ' border="1"';
-                }
-                output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeProduct('+val.i+')">';
-                output += '</td></tr><tr class="trec"><td img_sub_product_id="'+val.i+'" town_id="" align="center"></td></tr></table></td>';
-            }
-        });
-        output += '<td valign="top"><table cellpadding="0" cellspacing="0"><tr><td>&nbsp;</td></tr>';
-        output += '<tr class="trec"><td id="img_sub_town_caption" align="left"></td></tr></table></td>';
-        $('#products').html('<table cellpadding="1" cellspacing="1"><tr>' + output + '</tr></table>');
-        if(typeof(callback) === 'function') callback();
-    });
-    return false;
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	
+	var svCategoryId = $('#id_category').val();
+	if (svCategoryId == null || svCategoryId == '') return;
+	var locale = getLocale();
+	var suffix = (locale === 'en') ? '_en' : '';
+	
+	$.getJSON('/industry/'+realm+'/materials'+suffix+'.json', function (data) {
+		var output = '';
+		var selected = $('#id_product').attr('value');
+		
+		sagMaterialImg = [];
+		var cnt = 0;
+		$.each(data, function (key, val) {
+			sagMaterialImg[val.i] = val.s;
+			
+			if(svCategoryId == val.pci){
+				if(cnt > 30){
+					cnt = 0;
+					output += '<br>';
+				}
+				cnt++;
+				output += '&nbsp;<img src="'+ val.s +'"';
+				if(selected != null && selected == val.i){
+					output += ' border="1"';
+				}
+				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeProduct('+val.i+')">';
+			}
+		});
+		
+		$('#products').html(output);
+		if(typeof(callback) === 'function') callback();
+	});
+	return false;
 }
-
 function changeRealm(productCategoriesCallback) {
     loadProductCategories(productCategoriesCallback);
     setVal('realm', getRealm());
