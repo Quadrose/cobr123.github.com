@@ -251,7 +251,7 @@ function loadData() {
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
 				output += '<td align="right" id="td_volume_set">'+price+'</td>';
 				output += '<td align="right" id="td_volume_cv">'+val.spr+'</td>';
-				output += '<td align="right" id="td_volume_perc_set">'+val.lpr'+'</td>';
+				output += '<td align="right" id="td_volume_perc_set">'+val.lpr+'</td>';
 				output += '<td align="right" id="td_volume_perc_cv">'+''+'</td>';
 				output += '</tr>';
 			}
