@@ -1,7 +1,0 @@
-
-Correlation coefficient                  0.8874
-Mean absolute error                    664.0759
-Root mean squared error                893.9982
-Relative absolute error                 43.1935 %
-Root relative squared error             46.1092 %
-Total Number of Instances             4571     
