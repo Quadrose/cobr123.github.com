@@ -172,6 +172,50 @@ function tableSortFunc(spColId, a,b){
 }
 var coefficients = null;
 //////////////////////////////////////////////////////
+function getPriceCoef(attr, val){
+	function find(attrValue){
+		if(attr.values.length === 0){
+			return 1;
+		}
+		for(var v = 0; v < attr.values.length; ++v){
+			if(attrValue == attr.values[v]){
+				return 1;
+			}
+		}
+		return 0;
+	}
+	var value = 0;
+	switch(attr.name){
+	    case 'SELL_VOLUME_NUMBER': value = parseFloat(val.v) * parseFloat($('#market_volume_percent').val()) / 100; 
+	    break;
+	    case 'AVERAGE_SALARY': value = val.as;
+	    break;
+	    case 'LOCAL_PRICE': value = val.lpr;
+	    break;
+	    case 'LOCAL_QUALITY': value = val.lq;
+	    break;
+	    case 'SHOP_SIZE': value = find($('#shopSize').val());
+	    break;
+	    case 'TOWN_DISTRICT': value = find($('#townDistrict').val());
+	    break;
+	    case 'DEPARTMENT_COUNT': value = find($('#departmentCount').val());
+	    break;
+	    case 'BRAND': value = parseFloat($('#brandFrom').val());
+	    break;
+	    case 'QUALITY': value = parseFloat($('#qualityFrom').val());
+	    break;
+	    case 'NOTORIETY': value = parseFloat($('#notoriety').val());
+	    break;
+	    case 'VISITORS_COUNT': value = find($('#visitorsСount').val());
+	    break;
+	    case 'SELLER_COUNT': value = find(val.sc);
+	    break;
+	    case 'SERVICE_LEVEL':  value = find($('#serviceLevel').val());
+	    break;
+	}
+	return attr.coef * value;
+}
+//////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
@@ -208,44 +252,7 @@ function loadData() {
 				
 				var price = coefficients.coef;
 				for(var a = 0; a < coefficients.attrs.length; ++a){
-				  if(coefficients.attrs[a].values.length === 0){
-				    price += coefficients.attrs[a].coef;
-				  } else {
-				    var value = 0;
-				    switch(coefficients.attrs[a].name){
-					    case 'AVERAGE_SALARY': value = val.as;
-					    break;
-					    case 'LOCAL_PRICE': value = val.lpr;
-					    break;
-					    case 'LOCAL_QUALITY': value = val.lq;
-					    break;
-					    case 'SHOP_SIZE': value = $('#shopSize').val();
-					    break;
-					    case 'TOWN_DISTRICT': value = $('#townDistrict').val();
-					    break;
-					    case 'DEPARTMENT_COUNT': value = parseFloat($('#departmentCount').val());
-					    break;
-					    case 'BRAND': value = parseFloat($('#brandFrom').val());
-					    break;
-					    case 'QUALITY': value = parseFloat($('#qualityFrom').val());
-					    break;
-					    case 'NOTORIETY': value = parseFloat($('#notoriety').val());
-					    break;
-					    case 'VISITORS_COUNT': value = $('#visitorsСount').val();
-					    break;
-					    case 'SERVICE_LEVEL': value = $('#serviceLevel').val();
-					    break;
-					    case 'SELLER_COUNT': value = val.sc;
-					    break;
-					    case 'SELL_VOLUME_NUMBER': value = parseFloat(val.v) * parseFloat($('#market_volume_percent').val()) / 100; 
-					    break;
-				    }
-				    for(var v = 0; v < coefficients.attrs[a].values.length; ++v){
-				      if(value == coefficients.attrs[a].values[v]){
-					price += coefficients.attrs[a].coef;
-				      }
-				    }
-				  }
+				  price += getPriceCoef(coefficients.attrs[a], val);
 				}
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
