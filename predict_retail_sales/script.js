@@ -213,6 +213,9 @@ function getPriceCoef(attr, val){
 	    case 'SERVICE_LEVEL':  value = find($('#serviceLevel').val());
 	    break;
 	}
+	console.log('attr.name = ' + attr.name);
+	console.log('attr.coef = ' + attr.coef);
+	console.log('value = ' + value);
 	return attr.coef * value;
 }
 //////////////////////////////////////////////////////
