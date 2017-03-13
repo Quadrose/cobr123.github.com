@@ -69,6 +69,15 @@ function nvl(val1, val2){
 		return val1;
 	}
 }
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+const flatten = arr => arr.reduce(
+  (acc, val) => acc.concat(
+    Array.isArray(val) ? flatten(val) : val
+  ),
+  []
+);
 function getVal(spName){
 	return JSON.parse(window.localStorage.getItem(spName));
 }
@@ -392,6 +401,10 @@ function changeRegion() {
 function changeProduct(productId) {
 	$.getJSON('/predict_retail_sales/coefficients/'+productId+'.json', function (data) {
 		coefficients = data;
+		var arr = coefficients.attrs.filter(function(val){return val.name == 'VISITORS_COUNT'}).map(function(val) {return val.values;});
+		arr = flatten(arr).filter(onlyUnique).sort(function(a,b){ return parseFloat(a.replace(/\D+/g,'')) - parseFloat(b.replace(/\D+/g,''));});
+		$('#visitorsСount').html(arr.map(function(val){ return '<option value="'+val+'">'+val+'</option>';}));
+		
 	var selected = $('#id_product').val();
 	if(selected != null && selected != ''){
 		$('#img'+selected).attr('border','');
