@@ -237,7 +237,7 @@ function loadData() {
 					    break;
 					    case 'SELLER_COUNT': value = val.sc;
 					    break;
-					    case 'SELL_VOLUME_NUMBER': value = parseFloat(val.v) * 0.1; //10%
+					    case 'SELL_VOLUME_NUMBER': value = parseFloat(val.v) * parseFloat($('#market_volume_percent').val()) / 100; 
 					    break;
 				    }
 				    for(var v = 0; v < coefficients.attrs[a].values.length; ++v){
@@ -252,7 +252,6 @@ function loadData() {
 				output += '<td align="right" id="td_volume_set">'+price.toFixed(2)+'</td>';
 				output += '<td align="right" id="td_volume_cv">'+val.spr+'</td>';
 				output += '<td align="right" id="td_volume_perc_set">'+val.lpr+'</td>';
-				output += '<td align="right" id="td_volume_perc_cv">'+''+'</td>';
 				output += '</tr>';
 			}
 		});
