@@ -86,9 +86,8 @@ function loadSavedFlt(){
 	$('#shopSize').val(getVal('shopSize'));
 	$('#townDistrict').val(getVal('townDistrict'));
 	$('#departmentCount').val(getVal('departmentCount'));
-	$('#brandFrom').val(getVal('brandFrom'));
-	$('#priceFrom').val(getVal('priceFrom'));
-	$('#qualityFrom').val(getVal('qualityFrom'));
+	$('#brand').val(getVal('brand'));
+	$('#quality').val(getVal('quality'));
 	$('#notoriety').val(getVal('notoriety'));
 	$('#visitorsСount').val(getVal('visitorsСount'));
 	$('#serviceLevel').val(getVal('serviceLevel'));
