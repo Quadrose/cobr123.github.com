@@ -200,9 +200,9 @@ function getPriceCoef(attr, val){
 	    break;
 	    case 'DEPARTMENT_COUNT': value = find($('#departmentCount').val());
 	    break;
-	    case 'BRAND': value = parseFloat($('#brandFrom').val());
+	    case 'BRAND': value = parseFloat($('#brand').val());
 	    break;
-	    case 'QUALITY': value = parseFloat($('#qualityFrom').val());
+	    case 'QUALITY': value = parseFloat($('#quality').val());
 	    break;
 	    case 'NOTORIETY': value = parseFloat($('#notoriety').val());
 	    break;
@@ -213,9 +213,9 @@ function getPriceCoef(attr, val){
 	    case 'SERVICE_LEVEL':  value = find($('#serviceLevel').val());
 	    break;
 	}
-	console.log('attr.name = ' + attr.name);
-	console.log('attr.coef = ' + attr.coef);
-	console.log('value = ' + value);
+	//console.log('attr.name = ' + attr.name);
+	//console.log('attr.coef = ' + attr.coef);
+	//console.log('value = ' + value);
 	return attr.coef * value;
 }
 //////////////////////////////////////////////////////
