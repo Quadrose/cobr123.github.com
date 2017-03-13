@@ -404,6 +404,7 @@ function changeProduct(productId) {
 		var arr = coefficients.attrs.filter(function(val){return val.name == 'VISITORS_COUNT'}).map(function(val) {return val.values;});
 		arr = flatten(arr).filter(onlyUnique).sort(function(a,b){ return parseFloat(a.replace(/\D+/g,'')) - parseFloat(b.replace(/\D+/g,''));});
 		$('#visitorsСount').html(arr.map(function(val){ return '<option value="'+val+'">'+val+'</option>';}));
+	$('#visitorsСount').val(getVal('visitorsСount'));
 		
 	var selected = $('#id_product').val();
 	if(selected != null && selected != ''){
