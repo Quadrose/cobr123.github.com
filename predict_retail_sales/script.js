@@ -227,9 +227,8 @@ function loadData() {
 	setVal('shopSize', $('#shopSize').val());
 	setVal('townDistrict', $('#townDistrict').val());
 	setVal('departmentCount', $('#departmentCount').val());
-	setVal('brandFrom', $('#brandFrom').val());
-	setVal('priceFrom', $('#priceFrom').val());
-	setVal('qualityFrom', $('#qualityFrom').val());
+	setVal('brand', $('#brand').val());
+	setVal('quality', $('#quality').val());
 	setVal('notoriety', $('#notoriety').val());
 	setVal('visitorsСount', $('#visitorsСount').val());
 	setVal('serviceLevel', $('#serviceLevel').val());
