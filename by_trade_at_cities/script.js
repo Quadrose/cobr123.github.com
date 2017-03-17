@@ -243,6 +243,7 @@ function loadPredictionData(predRow, data) {
         var wealthIndexLabel = (locale === 'en') ? 'WL' : 'И.б.';
         var wealthIndexHint = (locale === 'en') ? 'Wealth level' : 'Индекс богатства';
         var indexLabel = (locale === 'en') ? 'Index' : 'И.';
+        var indexHint = (locale === 'en') ? 'Index' : 'Индекс';
 
         var headers = '<thead><tr class="theader">';
         headers += '<th id="th_sellVolume">'+salesVolumeLabel+'&nbsp;<b id="sort_by_sellVolume"></b></th>';
@@ -258,7 +259,7 @@ function loadPredictionData(predRow, data) {
         headers += '<th id="th_shopSize" title="Торговая площадь">'+shopSizeLabel+'&nbsp;<b id="sort_by_shopSize"></b></th>';
         headers += '<th id="th_departmentCount" title="'+departmentCountHint+'">'+departmentCountLabel+'&nbsp;<b id="sort_by_departmentCount"></b></th>';
         headers += '<th id="th_wealthIndex" title="'+wealthIndexHint+'">'+wealthIndexLabel+'&nbsp;<b id="sort_by_wealthIndex"></b></th>';
-        headers += '<th id="th_marketIdx" title="Индекс">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
+        headers += '<th id="th_marketIdx" title="'+indexHint+'">'+indexLabel+'&nbsp;<b id="sort_by_marketIdx"></b></th>';
         headers += '</tr></thead>';
         predRow.html('<td colspan=15><table id="'+tableId+'" border="0" width="100%" cellspacing="0" cellpadding="0">' + headers + '<tbody>' + output + '</tbody></table></td>'); 	// replace all existing content
 
