@@ -413,7 +413,22 @@ function showTrendGraph(data, productRemainsData) {
         enabled: false
     },
     tooltip: {
-        //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name} total/available: {point.total} / <b>{point.y}</b> price: {point.price} quality: {point.quality}<br>',
+	useHTML: true,
+        formatter: function () {
+            var s = '<table border="1" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">';
+	    s += '<tr class="theader"><th><b>' + Highcharts.dateFormat('%A, %b %d, %Y', this.x).replace(/\s+/g,'&nbsp;') + '</b></th>';
+	    s += '<th>value</th></tr>';
+//' <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
+            $.each(this.points, function () {
+		    s += '<tr class="trec"> <td><span style="color:'+this.color+'">\u25CF</span>&nbsp;' + this.series.name.replace(/\s+/g,'&nbsp;') + '</td>';
+		    s += '<td align="right"><b>' + commaSeparateNumber(this.y, '&nbsp;') + '</b></td>';
+		    //console.log(this);
+	      s += '</tr>';
+            });
+	    s += '</table>';
+            return s;
+        },
+        //pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b>, total/available: {point.total} / {point.available} price: {point.price} quality: {point.quality}<br>',
 	shared: true
     },
     xAxis: [{
