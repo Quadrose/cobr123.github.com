@@ -178,6 +178,30 @@ function tableSortFunc(spColId, a,b){
 			return cellValA === cellValB ? 0 : (cellValA > cellValB ? 1 : -1);
 		}
 }
+var oagTowns = null;
+var sagTownCaption = null;
+var sagCountryCaption = null;
+var sagRegionCaption = null;
+function fillTownCaptions(callback) {
+    var realm = getRealm();
+    if (realm == null || realm == '') return;
+    var locale = getLocale();
+    var suffix = (locale === 'en') ? '_en' : '';
+    if(sagTownCaption === null) {
+        sagTownCaption = [];
+    }
+    if(oagTowns === null) {
+        oagTowns = [];
+    }
+
+    $.getJSON('/by_trade_at_cities/'+realm+'/cities'+suffix+'.json', function (data) {
+        $.each(data, function (key, val) {
+            sagTownCaption[val.i] = val.c;
+            oagTowns[val.i] = val;
+        });
+        if(typeof(callback) === 'function') callback();
+    });
+}
 var coefficients = null;
 //////////////////////////////////////////////////////
 function getPriceCoef(attr, val){
@@ -214,6 +238,8 @@ function getPriceCoef(attr, val){
 	    break;
 	    case 'NOTORIETY': value = parseFloat($('#notoriety').val());
 	    break;
+	    case 'DEMOGRAPHY': value = parseFloat(oagTowns[val.ti].d);
+	    break;
 	    case 'VISITORS_COUNT': value = find($('#visitorsСount').val());
 	    break;
 	    case 'SELLER_COUNT': value = find(val.sc);
@@ -233,6 +259,10 @@ function loadData() {
 	var productID = getProductId();
 	if (productID == null || productID == '') return;
 	
+	if (oagTowns === null) {
+	  fillTownCaptions(loadData);
+	  return false;
+        }
 	setVal('shopSize', $('#shopSize').val());
 	setVal('townDistrict', $('#townDistrict').val());
 	setVal('departmentCount', $('#departmentCount').val());
@@ -379,6 +409,7 @@ function loadRegions(callback) {
 	return false;
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
+	oagTowns = null;
 	loadProductCategories(productCategoriesCallback);
 	loadCountries(countryCallback);
 	setVal('realm', getRealm());
