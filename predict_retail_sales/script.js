@@ -69,6 +69,10 @@ function nvl(val1, val2){
 		return val1;
 	}
 }
+
+function getLocale() {
+    return getVal('locale') || $('#locale').val() || 'ru';
+}
 function onlyUnique(value, index, self) { 
     return self.indexOf(value) === index;
 }
