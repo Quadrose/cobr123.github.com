@@ -208,7 +208,7 @@ function fillTownCaptions(callback) {
 }
 var coefficients = null;
 //////////////////////////////////////////////////////
-function getPriceCoef(attr, val){
+function getPriceCoef(attr, val, quality, brand){
 	function find(attrValue){
 		if(attr.values.length === 0){
 			return 1;
@@ -240,9 +240,9 @@ function getPriceCoef(attr, val){
 	    break;
 	    case 'DEPARTMENT_COUNT': value = find($('#departmentCount').val());
 	    break;
-	    case 'BRAND': value = parseFloat($('#brand').val());
+	    case 'BRAND': value = brand || parseFloat($('#brand').val());
 	    break;
-	    case 'QUALITY': value = parseFloat($('#quality').val());
+	    case 'QUALITY': value = quality || parseFloat($('#quality').val());
 	    break;
 	    case 'NOTORIETY': value = parseFloat($('#notoriety').val());
 	    break;
@@ -304,11 +304,24 @@ function loadData() {
 				for(var a = 0; a < coefficients.attrs.length; ++a){
 				  price += getPriceCoef(coefficients.attrs[a], val);
 				}
+				var price1 = coefficients.coef;
+				for(var a = 0; a < coefficients.attrs.length; ++a){
+				  price1 += getPriceCoef(coefficients.attrs[a], val, val.sq, val.sb);
+				}
+				var price2 = coefficients.coef;
+				for(var a = 0; a < coefficients.attrs.length; ++a){
+				  price2 += getPriceCoef(coefficients.attrs[a], val, val.lq);
+				}
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
 				output += '<td align="right" id="td_volume_set">'+price.toFixed(2)+'</td>';
+				output += '<td align="right" id="td_volume_set1">'+price1.toFixed(2)+'</td>';
+				output += '<td align="right" id="td_volume_set2">'+price2.toFixed(2)+'</td>';
 				output += '<td align="right" id="td_volume_cv">'+val.spr+'</td>';
+				output += '<td align="right" id="td_volume_cv1">'+val.sq+'</td>';
+				output += '<td align="right" id="td_volume_cv2">'+val.sb+'</td>';
 				output += '<td align="right" id="td_volume_perc_set">'+val.lpr+'</td>';
+				output += '<td align="right" id="td_volume_perc_set1">'+val.lq+'</td>';
 				output += '</tr>';
 			}
 		});
