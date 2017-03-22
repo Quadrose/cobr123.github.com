@@ -458,7 +458,7 @@ function changeProduct(productId) {
 	    });
 	
 	$.get('/predict_retail_sales/coefficients/'+productId+'.summary.txt', function (data) {
-		$('#prediction_summary').val(data);
+		$('#prediction_summary').html(data.replace(/\n/g,'<br>'));
 	    });
 }
 
