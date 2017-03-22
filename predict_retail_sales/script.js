@@ -262,6 +262,14 @@ function getPriceCoef(attr, val, quality, brand){
 	//console.log('value = ' + value);
 	return attr.coef * value;
 }
+//резделитель разрядов
+function commaSeparateNumber(val, sep){
+    var separator = sep || ',';
+    while (/(\d+)(\d{3})/.test(val.toString())){
+        val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1"+separator);
+    }
+    return val;
+}
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
@@ -314,6 +322,7 @@ function loadData() {
 				}
 				output += '<tr class="trec">';
 				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
+				output += '<td align="right" id="td_dem">'+ commaSeparateNumber(oagTowns[val.ti].d)+'</td>';
 				output += '<td align="right" id="td_volume_set">'+price.toFixed(2)+'</td>';
 				output += '<td align="right" id="td_volume_set1">'+price1.toFixed(2)+'</td>';
 				output += '<td align="right" id="td_volume_set2">'+price2.toFixed(2)+'</td>';
