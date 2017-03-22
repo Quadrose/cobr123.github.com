@@ -226,9 +226,13 @@ function getPriceCoef(attr, val){
 	    break;
 	    case 'AVERAGE_SALARY': value = val.as;
 	    break;
+	    case 'EDUCATION_INDEX': value = val.ei;
+	    break;
 	    case 'LOCAL_PRICE': value = val.lpr;
 	    break;
 	    case 'LOCAL_QUALITY': value = val.lq;
+	    break;
+	    case 'LOCAL_PERCENT': value = val.lpe;
 	    break;
 	    case 'SHOP_SIZE': value = find($('#shopSize').val());
 	    break;
@@ -249,6 +253,8 @@ function getPriceCoef(attr, val){
 	    case 'SELLER_COUNT': value = find(val.sc);
 	    break;
 	    case 'SERVICE_LEVEL':  value = find($('#serviceLevel').val());
+	    break;
+	    case 'MARKET_INDEX': value = find(val.mi);
 	    break;
 	}
 	//console.log('attr.name = ' + attr.name);
