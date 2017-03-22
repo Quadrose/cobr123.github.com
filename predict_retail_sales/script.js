@@ -456,6 +456,10 @@ function changeProduct(productId) {
 	loadData();
 	setVal('id_product', $('#id_product').val());
 	    });
+	
+	$.get('/predict_retail_sales/coefficients/'+productId+'.summary.txt', function (data) {
+		$('#prediction_summary').val(data);
+	    });
 }
 
 function transformToAssocArray( prmstr ) {
