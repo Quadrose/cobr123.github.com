@@ -479,9 +479,11 @@ function changeProduct(productId) {
 	setVal('id_product', $('#id_product').val());
 	    });
 	
-	$.get('/predict_retail_sales/coefficients/'+productId+'.summary.txt', function (data) {
-		$('#prediction_summary').html(data.replace(/\n/g,'<br>'));
-	    });
+	$.get('/predict_retail_sales/coefficients/'+productId+'.summary.txt', function (data1) {
+	  $.get('/predict_retail_sales/coefficients/'+productId+'.formula.txt', function (data2) {
+	    $('#prediction_summary').html(data1.replace(/\n/g,'<br>') + '<br>' + data2.replace(/\n/g,'<br>'));
+	  });
+	});
 }
 
 function transformToAssocArray( prmstr ) {
