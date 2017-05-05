@@ -773,7 +773,7 @@ function initShowHideColSelect() {
 
 	sagInvisibibleColumns = getVal('invisibible_columns_service');
 	if (sagInvisibibleColumns == null) {
-		sagInvisibibleColumns = ['dem', 'rbs_lpr', 'rbs_lq', 'rbs_spr', 'rbs_sq', 'cbs_lq', 'cbs_spr', 'cbs_sq'];
+		sagInvisibibleColumns = ['dem', 'pop', 'rbs_lpr', 'rbs_lq', 'rbs_spr', 'rbs_sq', 'cbs_lq', 'cbs_spr', 'cbs_sq'];
 	} else {
 		sagInvisibibleColumns = sagInvisibibleColumns.filter(onlyUnique);
 	}
