@@ -606,6 +606,7 @@ function loadData() {
     if (productID == null || productID == '') return;
     var locale = getLocale();
     var showLabel = (locale === 'en') ? 'Show' : 'Показать';
+    var mayoralBonusesLabel = (locale === 'en') ? '	Mayoral bonuses' : 'Бонусы мэрии';
     var domain = getDomain(locale);
     if (sagTownCaption === null) {
         fillTownCaptions(loadData);
@@ -630,6 +631,7 @@ function loadData() {
     var shopQualityTo = $('#shopQualityTo').val();
     var shopBrandFrom = $('#shopBrandFrom').val();
     var shopBrandTo = $('#shopBrandTo').val();
+    var category_name = $('#id_category').val();
 //    console.log('loadData /'+realm+'/tradeAtCity_'+productID+'.json, caller is '+ arguments.callee.caller.toString());
 
     updateUrl();
@@ -678,7 +680,12 @@ function loadData() {
 
             if(suitable){
                 output += '<tr class="trec hoverable">';
-                output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'" data-value="'+ sagTownCaption[val.ti] +'"><a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a></td>';
+                output += '<td id="td_city" title="'+sagCountryCaption[val.ci]+' - '+sagRegionCaption[val.ri]+'" data-value="'+ sagTownCaption[val.ti] +'">';
+                output += '<a target="_blank" href="https://'+domain+'/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+sagTownCaption[val.ti]+'</a>';
+                if(oagTowns[val.ti]['mb'] != null && oagTowns[val.ti]['mb'].indexOf(category_name) >= 0){
+                    output += '<a target="_blank" href="https://'+domain+'/'+realm+'/main/geo/city/'+val.ti+'" title="'+ mayoralBonusesLabel +'"><img src="/img/small_logo.gif" width="18"></a>';
+                }
+                output += '</td>';
                 output += '<td '+getColStyle('graph')+' align="right" id="td_graph"><a href="#" onclick="view_graph('+val.pi+','+val.ti+'); return false;"><img src="/img/graph.png" width="18"></a></td>';
                 output += '<td '+getColStyle('w_idx')+' align="center" id="td_w_idx" data-value="'+ parseFloat(val.wi).toFixed(2) +'">'+parseFloat(val.wi).toFixed(2)+'</td>';
                 output += '<td field_name="mi" '+getColStyle('idx')+' align="center" id="td_idx" data-value="'+ val.mi +'">'+val.mi+'</td>';
