@@ -606,7 +606,7 @@ function loadData() {
     if (productID == null || productID == '') return;
     var locale = getLocale();
     var showLabel = (locale === 'en') ? 'Show' : 'Показать';
-    var mayoralBonusesLabel = (locale === 'en') ? '	Mayoral bonuses' : 'Бонусы мэрии';
+    var mayoralBonusesLabel = (locale === 'en') ? 'Mayoral bonuses' : 'Бонусы мэрии';
     var domain = getDomain(locale);
     if (sagTownCaption === null) {
         fillTownCaptions(loadData);
